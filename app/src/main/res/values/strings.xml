@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Medical</string>
+    <string name="my_name">Medical</string>
+    <string name="phone_number">18612235095</string>
+    <string name="mine">我的</string>
+    <string name="collect">收藏</string>
+    <string name="clear">清理缓存</string>
+    <string name="version_update">版本更新</string>
+    <string name="feedback">意见反馈</string>
+    <string name="last_version">最新版本</string>
+</resources>
