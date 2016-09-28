@@ -15,7 +15,17 @@ public class UpdateTestActivity extends BaseActivity {
     }
 
     @Override
+    public int getLayoutId() {
+        return 0;
+    }
+
+    @Override
     public void initParms(Bundle parms) {
+
+    }
+
+    @Override
+    public void initView() {
 
     }
 

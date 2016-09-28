@@ -28,20 +28,35 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_base);
+//        setContentView(R.layout.activity_base);
+        int layoutId = getLayoutId();
+        if (layoutId != 0) {
+            setContentView(layoutId);
+   }
+//        setContentView(R.layout.activity_base);
         Log.d(TAG, "BaseActivity-->onCreate()");
         Bundle bundle = getIntent().getExtras();
         initParms(bundle);
 //        PgyCrashManager.register(this);
 //        PgyUpdateManager.register(this);
+        initView();
     }
-
+    /**
+     * 布局文件ID
+     * @return
+     */
+    public abstract int getLayoutId();
     /**
      * [初始化参数]
      *
      * @param parms
      */
     public abstract void initParms(Bundle parms);
+    /**
+     * [初始化控件]
+     *
+     */
+    public abstract void initView();
 
     /**
      * View点击

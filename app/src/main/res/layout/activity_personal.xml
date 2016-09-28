@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_personal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/pageBackground"
+    tools:context="com.jy.medical.activities.PersonalActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include layout="@layout/page_head" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/minor_margin"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:background="@color/white">
+
+                <TextView
+                    android:id="@+id/text_collect"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/minor_margin"
+                    android:layout_toRightOf="@+id/collectImage"
+                    android:text="头像"
+                    android:textSize="@dimen/primary_text_size" />
+
+                <ImageView
+                    android:id="@+id/mineHeadImage"
+                    android:layout_width="34dp"
+                    android:layout_height="34dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/minor_margin"
+                    android:layout_toLeftOf="@+id/personHead"
+                    android:background="@mipmap/head"
+                    android:scaleType="fitXY" />
+
+                <ImageView
+                    android:id="@+id/personHead"
+                    android:layout_width="10dp"
+                    android:layout_height="16dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/primary_margin"
+                    android:background="@mipmap/more"
+                    android:scaleType="fitXY" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="@dimen/primary_margin"
+                android:layout_marginRight="@dimen/primary_margin"
+                android:background="@color/lineColor" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:background="@color/white">
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/minor_margin"
+                    android:layout_toRightOf="@+id/collectImage"
+                    android:text="姓名"
+                    android:textSize="@dimen/primary_text_size" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/minor_margin"
+                    android:layout_toLeftOf="@+id/personNameMore"
+                    android:text="SR"
+                    android:textColor="@color/lineColor"
+                    android:textSize="@dimen/minor_text_size" />
+
+                <ImageView
+                    android:id="@+id/personNameMore"
+                    android:layout_width="10dp"
+                    android:layout_height="16dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/primary_margin"
+                    android:background="@mipmap/more"
+                    android:scaleType="fitXY" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="@dimen/primary_margin"
+                android:layout_marginRight="@dimen/primary_margin"
+                android:background="@color/lineColor" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:background="@color/white">
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/minor_margin"
+                    android:layout_toRightOf="@+id/collectImage"
+                    android:text="出生日期"
+                    android:textSize="@dimen/primary_text_size" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/minor_margin"
+                    android:layout_toLeftOf="@+id/personBornDateMore"
+                    android:text="1991-08-23"
+                    android:textColor="@color/lineColor"
+                    android:textSize="@dimen/minor_text_size" />
+
+                <ImageView
+                    android:id="@+id/personBornDateMore"
+                    android:layout_width="10dp"
+                    android:layout_height="16dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/primary_margin"
+                    android:background="@mipmap/more"
+                    android:scaleType="fitXY" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="@dimen/primary_margin"
+                android:layout_marginRight="@dimen/primary_margin"
+                android:background="@color/lineColor" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:background="@color/white">
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/minor_margin"
+                    android:layout_toRightOf="@+id/collectImage"
+                    android:text="手机号"
+                    android:textSize="@dimen/primary_text_size" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/minor_margin"
+                    android:layout_toLeftOf="@+id/personPhoneMore"
+                    android:text="18612235095"
+                    android:textColor="@color/lineColor"
+                    android:textSize="@dimen/minor_text_size" />
+
+                <ImageView
+                    android:id="@+id/personPhoneMore"
+                    android:layout_width="10dp"
+                    android:layout_height="16dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/primary_margin"
+                    android:background="@mipmap/more"
+                    android:scaleType="fitXY" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="@dimen/primary_margin"
+                android:layout_marginRight="@dimen/primary_margin"
+                android:background="@color/lineColor" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:background="@color/white">
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/minor_margin"
+                    android:layout_toRightOf="@+id/collectImage"
+                    android:text="密码"
+                    android:textSize="@dimen/primary_text_size" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/minor_margin"
+                    android:layout_toLeftOf="@+id/personPewMore"
+                    android:text="SR"
+                    android:textColor="@color/lineColor"
+                    android:textSize="@dimen/minor_text_size" />
+
+                <ImageView
+                    android:id="@+id/personPewMore"
+                    android:layout_width="10dp"
+                    android:layout_height="16dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/primary_margin"
+                    android:background="@mipmap/more"
+                    android:scaleType="fitXY" />
+
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/minor_margin"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:background="@color/white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/minor_margin"
+                    android:layout_toRightOf="@+id/collectImage"
+                    android:text="工号"
+                    android:textSize="@dimen/primary_text_size" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/primary_margin"
+                    android:text="D007"
+                    android:textColor="@color/lineColor"
+                    android:textSize="@dimen/minor_text_size" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="@dimen/primary_margin"
+                android:layout_marginRight="@dimen/primary_margin"
+                android:background="@color/lineColor" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:background="@color/white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/minor_margin"
+                    android:layout_toRightOf="@+id/collectImage"
+                    android:text="机构"
+                    android:textSize="@dimen/primary_text_size" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/primary_margin"
+                    android:text="总公司"
+                    android:textColor="@color/lineColor"
+                    android:textSize="@dimen/minor_text_size" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="@dimen/primary_margin"
+                android:layout_marginRight="@dimen/primary_margin"
+                android:background="@color/lineColor" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:background="@color/white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/minor_margin"
+                    android:layout_toRightOf="@+id/collectImage"
+                    android:text="岗位"
+                    android:textSize="@dimen/primary_text_size" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/primary_margin"
+                    android:text="人伤跟踪员"
+                    android:textColor="@color/lineColor"
+                    android:textSize="@dimen/minor_text_size" />
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="@dimen/primary_margin"
+                android:layout_marginRight="@dimen/primary_margin"
+                android:background="@color/lineColor" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:background="@color/white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/minor_margin"
+                    android:layout_toRightOf="@+id/collectImage"
+                    android:text="等级"
+                    android:textSize="@dimen/primary_text_size" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/primary_margin"
+                    android:text="人伤跟踪员二级"
+                    android:textColor="@color/lineColor"
+                    android:textSize="@dimen/minor_text_size" />
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

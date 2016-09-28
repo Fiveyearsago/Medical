@@ -10,7 +10,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
     <include
-        android:id="@+id/mine_head"
         layout="@layout/page_head" />
 
     <RelativeLayout

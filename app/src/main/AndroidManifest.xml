@@ -48,14 +48,16 @@
             android:name="PGYER_APPID"
             android:value="f021e16e4eae2a551c07507c0280ed9c" />
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".activities.UpdateTestActivity" />
+        <activity android:name=".activities.BaseActivity" />
+        <activity android:name=".activities.LoginActivity" />
+        <activity
+            android:name=".activities.MineActivity"
+            android:theme="@style/AppTheme">
 
         </activity>
-        <activity android:name=".activities.UpdateTestActivity" />
-        <activity android:name=".activities.BaseActivity"  />
-        <activity android:name=".activities.LoginActivity" />
-        <activity android:name=".activities.MineActivity"
-            android:theme="@style/AppTheme">
+        <activity android:name=".activities.PersonalActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
