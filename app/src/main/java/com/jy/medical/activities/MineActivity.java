@@ -11,6 +11,10 @@ import com.jy.medical.R;
 public class MineActivity extends BaseActivity {
 
     @Override
+    public void initData() {
+    }
+
+    @Override
     public int getLayoutId() {
         return R.layout.activity_mine;
     }
@@ -22,14 +26,25 @@ public class MineActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        View navView = findViewById(R.id.title_head);
-        setTitleState(navView, false, "我", false, "");
+        setStatusBarTint();
+        setTitleState(findViewById(R.id.title_head), false, "我的", false, "");
+        findViewById(R.id.layout_mine_suggest).setOnClickListener(this);
+        findViewById(R.id.layout_mine_head).setOnClickListener(this);
     }
 
 
     @Override
     public void widgetClick(View v) {
-
+        switch (v.getId()){
+            case R.id.layout_mine_suggest:
+                startActivity(FeedBackActivity.class);
+                break;
+            case R.id.layout_mine_head:
+                startActivity(PersonalActivity.class);
+                break;
+            default:
+                break;
+        }
     }
 
 

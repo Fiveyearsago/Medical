@@ -7,15 +7,14 @@ import com.jy.medical.R;
 
 public class LoginActivity extends BaseActivity {
 
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+    public void initData() {
     }
 
     @Override
     public int getLayoutId() {
-        return 0;
+        return R.layout.activity_login;
     }
 
     @Override
@@ -25,7 +24,7 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void initView() {
-
+        setStatusBarTint();
     }
 
 

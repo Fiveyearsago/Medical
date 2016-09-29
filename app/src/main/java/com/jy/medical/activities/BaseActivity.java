@@ -1,16 +1,20 @@
 package com.jy.medical.activities;
 
+import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -21,6 +25,8 @@ import com.pgyersdk.update.PgyUpdateManager;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import java.util.zip.Inflater;
+
+import cn.smssdk.SMSSDK;
 
 public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener {
     protected final String TAG = this.getClass().getSimpleName();
@@ -39,8 +45,15 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         initParms(bundle);
 //        PgyCrashManager.register(this);
 //        PgyUpdateManager.register(this);
+        SMSSDK.initSDK(this, "1792404991e59", "95ce745b999dc842803436b2d50161b2");
         initView();
+        initData();
     }
+    /**
+     * 布局文件ID
+     * @return
+     */
+    public abstract void initData();
     /**
      * 布局文件ID
      * @return
@@ -67,6 +80,30 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     public void onClick(View v) {
         widgetClick(v);
     }
+    /**
+     * [页面跳转]
+     *
+     * @param clz
+     */
+    public void startActivity(Class<?> clz) {
+        startActivity(clz, null);
+    }
+
+    /**
+     * [携带数据的页面跳转]
+     *
+     * @param clz
+     * @param bundle
+     */
+    public void startActivity(Class<?> clz, Bundle bundle) {
+        Intent intent = new Intent();
+        intent.setClass(this, clz);
+        if (bundle != null) {
+            intent.putExtras(bundle);
+        }
+        startActivity(intent);
+    }
+
 
     /**
      * Description 设置Title状态
@@ -92,6 +129,8 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
             navButton.setVisibility(View.GONE);
         }
         navButton.setText(buttonText);
+        navImage.setOnClickListener(this);
+        navButton.setOnClickListener(this);
     }
 
 
@@ -116,5 +155,35 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
             rootView.setFitsSystemWindows(true);
             rootView.setClipToPadding(true);
         }
+    }
+
+    public void setEditTextSelection(EditText editText){
+        if (editText!=null)
+        {
+            editText.setSelection(editText.getText().length());
+        }
+    }
+    public void clearEditTextValue(final EditText editText){
+        editText.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                // et.getCompoundDrawables()得到一个长度为4的数组，分别表示左右上下四张图片
+                Drawable drawable = editText.getCompoundDrawables()[2];
+                //如果右边没有图片，不再处理
+                if (drawable == null)
+                    return false;
+                //如果不是按下事件，不再处理
+                if (event.getAction() != MotionEvent.ACTION_UP)
+                    return false;
+                if (event.getX() > editText.getWidth()
+                        - editText.getPaddingRight()
+                        - drawable.getIntrinsicWidth()){
+                    editText.setText("");
+                }
+                return false;
+            }
+        });
+
     }
 }

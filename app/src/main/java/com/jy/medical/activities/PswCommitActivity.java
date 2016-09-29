@@ -6,21 +6,17 @@ import android.view.View;
 
 import com.jy.medical.R;
 
-public class UpdateTestActivity extends BaseActivity {
+public class PswCommitActivity extends BaseActivity {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_update_test);
-    }
 
     @Override
     public void initData() {
+
     }
 
     @Override
     public int getLayoutId() {
-        return 0;
+        return R.layout.activity_psw_commit;
     }
 
     @Override
@@ -30,14 +26,19 @@ public class UpdateTestActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        setStatusBarTint();
+        setTitleState(findViewById(R.id.title_head), true, "修改密码", true, "确定");
 
     }
-
 
     @Override
     public void widgetClick(View v) {
-
+        switch (v.getId()) {
+            case R.id.page_head_image:
+                finish();
+                break;
+            default:
+                break;
+        }
     }
-
-
 }

@@ -23,8 +23,10 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <!-- 写入扩展存储，向扩展卡写入数据，用于写入离线定位数据 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
 
-    <!-- 获取logcat日志 -->
     <application
         android:name=".MedicalApplication"
         android:allowBackup="true"
@@ -47,23 +49,32 @@
         <meta-data
             android:name="PGYER_APPID"
             android:value="f021e16e4eae2a551c07507c0280ed9c" />
-
-        <activity android:name=".MainActivity"></activity>
+        Java
+        <activity
+            android:name="com.mob.tools.MobUIShell"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity android:name=".activities.UpdateTestActivity" />
         <activity android:name=".activities.BaseActivity" />
         <activity android:name=".activities.LoginActivity" />
         <activity
             android:name=".activities.MineActivity"
             android:theme="@style/AppTheme">
-
-        </activity>
-        <activity android:name=".activities.PersonalActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activities.PersonalActivity" />
+        <activity android:name=".activities.PersonNameActivity" />
+        <activity android:name=".activities.ChangePhoneActivity" />
+        <activity android:name=".activities.EditPswActivity" />
+        <activity android:name=".activities.PswCommitActivity" />
+        <activity android:name=".activities.FeedBackActivity" />
+        <activity android:name=".activities.PlatformActivity" />
+        <activity android:name=".activities.ToolActivity"></activity>
     </application>
 
 </manifest>

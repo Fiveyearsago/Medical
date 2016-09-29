@@ -20,7 +20,11 @@ android {
         }
     }
 }
-
+repositories{
+    flatDir{
+        dirs 'libs'
+    }
+}
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
@@ -30,4 +34,8 @@ dependencies {
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
     compile files('libs/BaiduLBS_Android.jar')
     compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
+    compile name: 'SMSSDK-2.1.2',ext:'aar'
+    compile name: 'SMSSDKGUI-2.1.2',ext:'aar'
+    compile files('libs/MobCommons.jar')
+    compile files('libs/MobTools.jar')
 }

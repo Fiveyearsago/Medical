@@ -6,21 +6,16 @@ import android.view.View;
 
 import com.jy.medical.R;
 
-public class UpdateTestActivity extends BaseActivity {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_update_test);
-    }
+public class FeedBackActivity extends BaseActivity {
 
     @Override
     public void initData() {
+
     }
 
     @Override
     public int getLayoutId() {
-        return 0;
+        return R.layout.activity_feed_back;
     }
 
     @Override
@@ -30,14 +25,18 @@ public class UpdateTestActivity extends BaseActivity {
 
     @Override
     public void initView() {
-
+        setStatusBarTint();
+        setTitleState(findViewById(R.id.title_head), true, "意见反馈", true, "提交");
     }
-
 
     @Override
     public void widgetClick(View v) {
-
+        switch (v.getId()){
+            case R.id.page_head_image:
+                finish();
+                break;
+            default:
+                break;
+        }
     }
-
-
 }

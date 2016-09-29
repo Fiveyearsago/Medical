@@ -6,21 +6,15 @@ import android.view.View;
 
 import com.jy.medical.R;
 
-public class UpdateTestActivity extends BaseActivity {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_update_test);
-    }
-
+public class PlatformActivity extends BaseActivity {
     @Override
     public void initData() {
+
     }
 
     @Override
     public int getLayoutId() {
-        return 0;
+        return R.layout.activity_platform;
     }
 
     @Override
@@ -30,14 +24,13 @@ public class UpdateTestActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        setStatusBarTint();
+        setTitleState(findViewById(R.id.title_head), false, "跟踪平台", false, "");
 
     }
-
 
     @Override
     public void widgetClick(View v) {
 
     }
-
-
 }
