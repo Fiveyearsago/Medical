@@ -39,6 +39,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         if (layoutId != 0) {
             setContentView(layoutId);
    }
+
 //        setContentView(R.layout.activity_base);
         Log.d(TAG, "BaseActivity-->onCreate()");
         Bundle bundle = getIntent().getExtras();
@@ -49,6 +50,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         initView();
         initData();
     }
+
     /**
      * 布局文件ID
      * @return
@@ -61,7 +63,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     public abstract int getLayoutId();
     /**
      * [初始化参数]
-     *
+
      * @param parms
      */
     public abstract void initParms(Bundle parms);
@@ -146,7 +148,6 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
                     WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             mWindow.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION,
                     WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-
             SystemBarTintManager mSystemBarTintManager = new SystemBarTintManager(this);
             mSystemBarTintManager.setStatusBarTintEnabled(true);
 //            mSystemBarTintManager.setNavigationBarTintEnabled(true);//虚拟键
