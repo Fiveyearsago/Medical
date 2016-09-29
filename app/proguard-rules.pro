@@ -36,5 +36,9 @@
 }
 #百度地图
  -keep class com.baidu.** { *; }
-
+#mob
+-keep class cn.sharesdk.**{*;}
+-keep class cn.smssdk.**{*;}
+-keep class com.mob.**{*;}
+-keep class **.R$* {*;}
  -keepattributes EnclosingMethod
