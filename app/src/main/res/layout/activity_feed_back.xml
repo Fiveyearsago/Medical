@@ -16,11 +16,12 @@
             android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="160dp"
+            android:textColor="@color/black"
             android:hint="请输入你的意见或建议"
             android:gravity="top"
             android:paddingTop="@dimen/minor_margin"
             android:paddingLeft="@dimen/minor_margin"
             android:textSize="@dimen/minor_text_size"
-            android:textColorHint="@color/lineColor"/>
+            android:textColorHint="@color/hintColor"/>
     </LinearLayout>
 </RelativeLayout>

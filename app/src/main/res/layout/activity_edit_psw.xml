@@ -23,7 +23,7 @@
             android:paddingLeft="@dimen/primary_margin"
             android:paddingRight="@dimen/primary_margin"
             android:hint="请输入原密码"
-            android:textColorHint="@color/lineColor"
+            android:textColorHint="@color/hintColor"
             android:textColor="@color/black"
             android:textSize="@dimen/large_text_size" />
     </LinearLayout>

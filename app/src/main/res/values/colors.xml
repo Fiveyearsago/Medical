@@ -8,6 +8,7 @@
     <color name="pageBackground">#EEEEEE</color>
     <color name="pageHeadBackground">#3282F0</color>
     <color name="lineColor">#DDDDDD</color>
+    <color name="hintColor">#BBBBBB</color>
     <color name="navigateColor">#666666</color>
     <color name="minorColor">#999999</color>
 </resources>

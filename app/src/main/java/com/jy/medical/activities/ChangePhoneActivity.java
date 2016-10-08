@@ -33,7 +33,7 @@ public class ChangePhoneActivity extends BaseActivity {
     Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             if (msg.what == 1) {
-                btnShow.setText(Integer.toString(60 - (++i)) + "S");
+                btnShow.setText(Integer.toString(60 - (++i)) + "s");
                 if (i == 60) {
                     btnShow.setEnabled(true);
                     if (timer != null)

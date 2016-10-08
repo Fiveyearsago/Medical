@@ -48,7 +48,7 @@
             android:paddingLeft="@dimen/primary_margin"
             android:paddingRight="@dimen/primary_margin"
             android:textColor="@color/black"
-            android:textColorHint="@color/lineColor"
+            android:textColorHint="@color/hintColor"
             android:textSize="@dimen/large_text_size" />
     </LinearLayout>
 
@@ -69,7 +69,7 @@
             android:paddingLeft="@dimen/primary_margin"
             android:paddingRight="@dimen/primary_margin"
             android:textColor="@color/black"
-            android:textColorHint="@color/lineColor"
+            android:textColorHint="@color/hintColor"
             android:textSize="@dimen/large_text_size" />
 
         <Button
