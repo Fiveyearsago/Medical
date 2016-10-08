@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:paddingLeft="@dimen/primary_margin"
+    android:paddingRight="@dimen/primary_margin"
+    android:orientation="vertical">
+<RelativeLayout
+    android:layout_marginTop="12dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:padding="2dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/minor_text_size"
+        android:background="@drawable/bg_tool_item_text"
+        android:text="北京"/>
+    <TextView
+        android:layout_marginLeft="6dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="2"
+        android:textSize="@dimen/primary_text_size"
+        android:text="        最近微信朋友圈流传着这样一则消息：据美国《侨报》日前报道，纽约市卫生局的工作人员近日来到华埠，向社区居民宣传健康常识，首先特别提到华裔民众爱吃的螃蟹。工作人员基南说，华人吃蟹认为最精华的蟹黄、蟹膏，实际上是化学物质集中之处。包括消化腺、排泄腺和肝胰腺在内，都可能包含大量化学物质，例如多氯联苯、二噁英和镉。"
+        android:ellipsize="end"/>
+</RelativeLayout>
+</LinearLayout>

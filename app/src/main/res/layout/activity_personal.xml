@@ -89,7 +89,7 @@
                     android:layout_marginRight="@dimen/minor_margin"
                     android:layout_toLeftOf="@+id/personNameMore"
                     android:text="SR"
-                    android:textColor="@color/lineColor"
+                    android:textColor="@color/minorColor"
                     android:textSize="@dimen/minor_text_size" />
 
                 <ImageView
@@ -134,7 +134,7 @@
                     android:layout_marginRight="@dimen/minor_margin"
                     android:layout_toLeftOf="@+id/personBornDateMore"
                     android:text="1991-08-23"
-                    android:textColor="@color/lineColor"
+                    android:textColor="@color/minorColor"
                     android:textSize="@dimen/minor_text_size" />
 
                 <ImageView
@@ -179,7 +179,7 @@
                     android:layout_marginRight="@dimen/minor_margin"
                     android:layout_toLeftOf="@+id/personPhoneMore"
                     android:text="18612235095"
-                    android:textColor="@color/lineColor"
+                    android:textColor="@color/minorColor"
                     android:textSize="@dimen/minor_text_size" />
 
                 <ImageView
@@ -224,7 +224,7 @@
                     android:layout_marginRight="@dimen/minor_margin"
                     android:layout_toLeftOf="@+id/personPewMore"
                     android:text="SR"
-                    android:textColor="@color/lineColor"
+                    android:textColor="@color/minorColor"
                     android:textSize="@dimen/minor_text_size" />
 
                 <ImageView
@@ -267,7 +267,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/primary_margin"
                     android:text="D007"
-                    android:textColor="@color/lineColor"
+                    android:textColor="@color/minorColor"
                     android:textSize="@dimen/minor_text_size" />
 
             </RelativeLayout>
@@ -300,7 +300,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/primary_margin"
                     android:text="总公司"
-                    android:textColor="@color/lineColor"
+                    android:textColor="@color/minorColor"
                     android:textSize="@dimen/minor_text_size" />
 
             </RelativeLayout>
@@ -333,7 +333,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/primary_margin"
                     android:text="人伤跟踪员"
-                    android:textColor="@color/lineColor"
+                    android:textColor="@color/minorColor"
                     android:textSize="@dimen/minor_text_size" />
 
             </RelativeLayout>
@@ -366,7 +366,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/primary_margin"
                     android:text="人伤跟踪员二级"
-                    android:textColor="@color/lineColor"
+                    android:textColor="@color/minorColor"
                     android:textSize="@dimen/minor_text_size" />
 
             </RelativeLayout>

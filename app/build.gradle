@@ -20,22 +20,24 @@ android {
         }
     }
 }
-repositories{
-    flatDir{
+repositories {
+    flatDir {
         dirs 'libs'
     }
 }
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.4.0'
     compile files('libs/pgyer_sdk_2.4.2.jar')
-    compile 'com.jakewharton:butterknife:8.4.0'
-    apt 'com.jakewharton:butterknife-compiler:8.4.0'
     compile files('libs/BaiduLBS_Android.jar')
-    compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
-    compile name: 'SMSSDK-2.1.2',ext:'aar'
-    compile name: 'SMSSDKGUI-2.1.2',ext:'aar'
+    compile name: 'SMSSDK-2.1.2', ext: 'aar'
+    compile name: 'SMSSDKGUI-2.1.2', ext: 'aar'
     compile files('libs/MobCommons.jar')
     compile files('libs/MobTools.jar')
+    compile 'com.android.support:appcompat-v7:23.4.0'
+    compile 'com.jakewharton:butterknife:8.4.0'
+    compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
+    compile 'com.android.support:design:24.0.0'
+    compile 'com.android.support:support-v4:23.4.0'
+    testCompile 'junit:junit:4.12'
+    apt 'com.jakewharton:butterknife-compiler:8.4.0'
 }

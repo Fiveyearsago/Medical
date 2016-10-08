@@ -5,10 +5,21 @@
     android:layout_height="match_parent"
     android:background="@color/pageBackground"
     tools:context="com.jy.medical.activities.MineActivity">
+
+    <include layout="@layout/navigation_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
     <include
         layout="@layout/page_head" />
 
@@ -16,7 +27,7 @@
         android:id="@+id/layout_mine_head"
         android:layout_width="match_parent"
         android:layout_height="65dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/minor_margin"
         android:background="@color/white">
 
         <ImageView
@@ -136,7 +147,7 @@
             android:layout_marginRight="@dimen/minor_margin"
             android:layout_toLeftOf="@+id/clearMore"
             android:text="13.7M"
-            android:textColor="@color/lineColor"
+            android:textColor="@color/minorColor"
             android:textSize="@dimen/minor_text_size" />
 
         <ImageView
@@ -189,7 +200,7 @@
             android:layout_marginRight="@dimen/minor_margin"
             android:layout_toLeftOf="@+id/updateMore"
             android:text="@string/last_version"
-            android:textColor="@color/lineColor"
+            android:textColor="@color/minorColor"
             android:textSize="@dimen/minor_text_size" />
 
         <ImageView
@@ -249,8 +260,4 @@
     </RelativeLayout>
 </LinearLayout>
     </LinearLayout>
-    <include layout="@layout/navigation_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"/>
 </RelativeLayout>

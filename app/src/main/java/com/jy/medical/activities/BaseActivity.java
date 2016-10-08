@@ -38,9 +38,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         int layoutId = getLayoutId();
         if (layoutId != 0) {
             setContentView(layoutId);
-   }
-
-//        setContentView(R.layout.activity_base);
+        }
         Log.d(TAG, "BaseActivity-->onCreate()");
         Bundle bundle = getIntent().getExtras();
         initParms(bundle);
@@ -53,23 +51,27 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
     /**
      * 布局文件ID
+     *
      * @return
      */
     public abstract void initData();
+
     /**
      * 布局文件ID
+     *
      * @return
      */
     public abstract int getLayoutId();
+
     /**
      * [初始化参数]
-
+     *
      * @param parms
      */
     public abstract void initParms(Bundle parms);
+
     /**
      * [初始化控件]
-     *
      */
     public abstract void initView();
 
@@ -82,6 +84,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     public void onClick(View v) {
         widgetClick(v);
     }
+
     /**
      * [页面跳转]
      *
@@ -106,6 +109,15 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         startActivity(intent);
     }
 
+
+    public void setNavState(View navView, String titleText) {
+        ImageView navImage = (ImageView) navView.findViewById(R.id.page_head_second_image);
+        TextView navText = (TextView) navView.findViewById(R.id.page_head_second_text);
+        navText.setText(titleText);
+        View view = navView.findViewById(R.id.nav_layout);
+        navImage.setOnClickListener(this);
+        view.setOnClickListener(this);
+    }
 
     /**
      * Description 设置Title状态
@@ -158,13 +170,13 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         }
     }
 
-    public void setEditTextSelection(EditText editText){
-        if (editText!=null)
-        {
+    public void setEditTextSelection(EditText editText) {
+        if (editText != null) {
             editText.setSelection(editText.getText().length());
         }
     }
-    public void clearEditTextValue(final EditText editText){
+
+    public void clearEditTextValue(final EditText editText) {
         editText.setOnTouchListener(new View.OnTouchListener() {
 
             @Override
@@ -179,7 +191,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
                     return false;
                 if (event.getX() > editText.getWidth()
                         - editText.getPaddingRight()
-                        - drawable.getIntrinsicWidth()){
+                        - drawable.getIntrinsicWidth()) {
                     editText.setText("");
                 }
                 return false;

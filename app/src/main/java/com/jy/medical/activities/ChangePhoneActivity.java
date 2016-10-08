@@ -124,7 +124,7 @@ public class ChangePhoneActivity extends BaseActivity {
             case R.id.btn_get_code:
 
                 if (true) {
-                    SMSSDK.getVerificationCode("86", "15239475273");
+                    SMSSDK.getVerificationCode("86", "18612235095");
 //                    registerUser("86", "18612235095");
                     btnShow.setEnabled(false);
                     btnShow.setTextColor(Color.parseColor("#BBBBBB"));
@@ -144,7 +144,7 @@ public class ChangePhoneActivity extends BaseActivity {
                 break;
             case R.id.person_phone_sure:
                 EditText editText=(EditText)findViewById(R.id.peron_edit_code);
-                SMSSDK.submitVerificationCode("86", "15239475273", editText.getText().toString().trim());//对验证码进行验证->回调函数
+                SMSSDK.submitVerificationCode("86", "18612235095", editText.getText().toString().trim());//对验证码进行验证->回调函数
                 break;
             default:
                 break;
@@ -162,7 +162,7 @@ public class ChangePhoneActivity extends BaseActivity {
 //        SMSSDK.submitUserInfo(uid, nickName, null, country, phone);
 //    }
     private void initSDK() {
-//        SMSSDK.initSDK(this, "App Key", "App Secret");
+        SMSSDK.initSDK(this, "1792404991e59", "95ce745b999dc842803436b2d50161b2");
         eventHandler = new EventHandler() {
             @Override
             public void afterEvent(int event, int result, Object data) {

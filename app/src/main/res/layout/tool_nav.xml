@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:id="@+id/tool_nav"
+    android:orientation="vertical">
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:paddingTop="@dimen/primary_margin"
+        android:paddingBottom="@dimen/primary_margin"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radio_btn_law"
+            style="@style/ToolRadioButtonNav"
+            android:drawableTop="@drawable/law_selector"
+            android:text="法律法规"
+            />
+
+        <RadioButton
+            android:id="@+id/radio_btn_compensation"
+            style="@style/ToolRadioButtonNav"
+            android:drawableTop="@drawable/compensation_selector"
+            android:text="赔偿标准"
+            />
+
+        <RadioButton
+            android:id="@+id/radio_btn_budget"
+            style="@style/ToolRadioButtonNav"
+            android:drawableTop="@drawable/budget_selector"
+            android:text="人伤赔偿预算"
+            />
+
+    </RadioGroup>
+
+</LinearLayout>

@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:id="@+id/navView"
     android:background="@color/white">
 
     <RadioGroup
@@ -11,18 +12,21 @@
         android:orientation="horizontal">
 
         <RadioButton
+            android:id="@+id/radio_btn_platform"
             style="@style/RadioButtonNav"
             android:drawableTop="@drawable/platform_selector"
             android:text="跟踪平台"
             />
 
         <RadioButton
+            android:id="@+id/radio_btn_tool"
             style="@style/RadioButtonNav"
             android:drawableTop="@drawable/tool_selector"
             android:text="工具"
             />
 
         <RadioButton
+            android:id="@+id/radio_btn_mine"
             style="@style/RadioButtonNav"
             android:drawableTop="@drawable/mine_selector"
             android:text="我的"
