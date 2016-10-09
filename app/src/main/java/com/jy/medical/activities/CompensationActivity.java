@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.flyco.tablayout.SegmentTabLayout;
 import com.jy.medical.R;
 import com.jy.medical.adapter.LawFragmentPagerAdapter;
 
@@ -16,12 +17,14 @@ public class CompensationActivity extends BaseActivity {
    private ViewPager viewPager;
    private LawFragmentPagerAdapter adapter;
    private TabLayout tabLayout;
+    private SegmentTabLayout segmentTabLayout;
 
 
     @Override
     public void initData() {
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
+        segmentTabLayout.setTabData(new String[]{"2016年","2015年","2014年"});
     }
 
     @Override
@@ -44,6 +47,7 @@ public class CompensationActivity extends BaseActivity {
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
+        segmentTabLayout=(SegmentTabLayout)findViewById(R.id.segmentTabLayout);
     }
 
     @Override

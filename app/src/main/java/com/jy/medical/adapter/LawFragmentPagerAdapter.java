@@ -12,8 +12,7 @@ import com.jy.medical.fragment.PageFragment;
  */
 
 public class LawFragmentPagerAdapter extends FragmentPagerAdapter {
-    public final int COUNT = 4;
-    private String[] titles = new String[]{"临床鉴定", "精神损害", "道路交通", "民事诉讼"};
+    private String[] titles = new String[]{"2016年", "2015年", "2014年"};
     private Context context;
     public LawFragmentPagerAdapter(FragmentManager fm,Context context) {
         super(fm);

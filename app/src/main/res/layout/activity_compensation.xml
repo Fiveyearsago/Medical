@@ -11,13 +11,31 @@
 
     <include layout="@layout/page_head_second" />
 
+    <com.flyco.tablayout.SegmentTabLayout
+        android:id="@+id/segmentTabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="34dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="10dp"
+        app:tl_indicator_color="@color/colorPrimary"
+
+        app:tl_indicator_corner_radius="5dp"
+        app:tl_tab_space_equal="true"
+        app:tl_textSelectColor="@color/white"
+        app:tl_textUnselectColor="@color/colorPrimary"
+        app:tl_textsize="14dp">
+
+    </com.flyco.tablayout.SegmentTabLayout>
+
     <android.support.design.widget.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
         app:tabIndicatorHeight="3dp"
-        app:tabMode="scrollable"
+        app:tabMode="fixed"
         app:tabSelectedTextColor="@color/colorPrimary"
         app:tabTextColor="@color/black" />
 
