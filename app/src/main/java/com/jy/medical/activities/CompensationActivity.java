@@ -11,6 +11,7 @@ import com.jy.medical.R;
 import com.jy.medical.adapter.LawFragmentPagerAdapter;
 
 /**
+ * 参考代码:http://blog.csdn.net/analyzesystem/article/details/51426473
  * 赔偿标准
  */
 public class CompensationActivity extends BaseActivity {
