@@ -37,6 +37,8 @@ public class PlatformActivity extends BaseActivity {
         radioMine.setOnClickListener(this);
         radioTool.setOnClickListener(this);
         radioPlatform.setChecked(true);
+        radioMine.setChecked(false);
+        radioTool.setChecked(false);
     }
 
     @Override

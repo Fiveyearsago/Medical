@@ -47,6 +47,8 @@ public class ToolActivity extends BaseActivity {
         radioMine.setOnClickListener(this);
         radioPlatform.setOnClickListener(this);
         radioTool.setChecked(true);
+        radioMine.setChecked(false);
+        radioPlatform.setChecked(false);
         View headView= LayoutInflater.from(this).inflate(R.layout.tool_head_layout,null);
         LinearLayout.LayoutParams layoutParams=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         headView.setLayoutParams(layoutParams);

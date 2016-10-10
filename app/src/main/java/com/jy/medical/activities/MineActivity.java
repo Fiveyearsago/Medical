@@ -39,6 +39,8 @@ public class MineActivity extends BaseActivity {
         radioTool.setOnClickListener(this);
         radioPlatform.setOnClickListener(this);
         radioMine.setChecked(true);
+        radioTool.setChecked(false);
+        radioPlatform.setChecked(false);
     }
 
 
