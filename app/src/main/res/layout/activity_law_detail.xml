@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_law_detail"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/pageBackground"
+    tools:context="com.jy.medical.activities.LawDetailActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <include
+                layout="@layout/page_hade_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/primary_margin"
+                android:paddingRight="@dimen/primary_margin">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp">
+
+                    <TextView
+                        android:id="@+id/law_detail_tab"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        android:background="@drawable/bg_tool_item_text"
+                        android:paddingBottom="1dp"
+                        android:paddingLeft="2dp"
+                        android:paddingRight="2dp"
+                        android:paddingTop="1dp"
+                        android:text="北京"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="12dp" />
+
+                    <TextView
+                        android:id="@+id/law_detail_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:lineSpacingExtra="4dp"
+                        android:text="         最近微信朋友圈流传着这样一则消息：据美国侨报日前报道，纽约市卫生局的工作人员近日来到华埠，向社区居民宣传健康常识，首先特别提到华裔民众爱吃的螃蟹"
+                        android:textSize="@dimen/primary_text_size"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp">
+
+
+                    <TextView
+                        android:id="@+id/law_detail_kind_text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginRight="30dp"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:maxLines="1"
+                        android:text="北京市高级人民法院北京市高级人民法院北京市高级人民法院"
+                        android:textColor="@color/minorColor"
+                        android:textSize="12dp" />\
+
+                    <TextView
+                        android:id="@+id/law_detail_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2016-10-9"
+                        android:textColor="@color/minorColor"
+                        android:textSize="12dp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/lineColor" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="京高发[2004]64号文件"
+                    android:textColor="@color/minorColor"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:lineSpacingExtra="7dp"
+                    android:text="秦朝是中国历史上第一个统一的多民族的专制主义中央集权的封建国家。秦始皇为巩固专制主义中央集权所采取的一系列措施，对后世产生了重大影响。秦统一后，为了防御匈奴南侵，在连接原来秦、赵、燕三国北方长城的基础上，又向东、西两段延伸，筑成一道西起临洮、东到辽东的城防。这就是有名的万里长城。秦统治者的暴政导致了农民战争的爆发和秦王朝的灭亡。秦朝是中国历史上第一个统一的多民族的专制主义中央集权的封建国家。秦始皇为巩固专制主义中央集权所采取的一系列措施，对后世产生了重大影响。秦统一后，为了防御匈奴南侵，在连接原来秦、赵、燕三国北方长城的基础上，又向东、西两段延伸，筑成一道西起临洮、东到辽东的城防。这就是有名的万里长城。秦统治者的暴政导致了农民战争的爆发和秦王朝的灭亡。秦朝是中国历史上第一个统一的多民族的专制主义中央集权的封建国家。秦始皇为巩固专制主义中央集权所采取的一系列措施，对后世产生了重大影响。秦统一后，为了防御匈奴南侵，在连接原来秦、赵、燕三国北方长城的基础上，又向东、西两段延伸，筑成一道西起临洮、东到辽东的城防。这就是有名的万里长城。秦统治者的暴政导致了农民战争的爆发和秦王朝的灭亡。秦朝是中国历史上第一个统一的多民族的专制主义中央集权的封建国家。秦始皇为巩固专制主义中央集权所采取的一系列措施，对后世产生了重大影响。秦统一后，为了防御匈奴南侵，在连接原来秦、赵、燕三国北方长城的基础上，又向东、西两段延伸，筑成一道西起临洮、东到辽东的城防。这就是有名的万里长城。秦统治者的暴政导致了农民战争的爆发和秦王朝的灭亡。秦朝是中国历史上第一个统一的多民族的专制主义中央集权的封建国家。秦始皇为巩固专制主义中央集权所采取的一系列措施，对后世产生了重大影响。秦统一后，为了防御匈奴南侵，在连接原来秦、赵、燕三国北方长城的基础上，又向东、西两段延伸，筑成一道西起临洮、东到辽东的城防。这就是有名的万里长城。秦统治者的暴政导致了农民战争的爆发和秦王朝的灭亡。秦朝是中国历史上第一个统一的多民族的专制主义中央集权的封建国家。秦始皇为巩固专制主义中央集权所采取的一系列措施，对后世产生了重大影响。秦统一后，为了防御匈奴南侵，在连接原来秦、赵、燕三国北方长城的基础上，又向东、西两段延伸，筑成一道西起临洮、东到辽东的城防。这就是有名的万里长城。秦统治者的暴政导致了农民战争的爆发和秦王朝的灭亡。秦朝是中国历史上第一个统一的多民族的专制主义中央集权的封建国家。秦始皇为巩固专制主义中央集权所采取的一系列措施，对后世产生了重大影响。秦统一后，为了防御匈奴南侵，在连接原来秦、赵、燕三国北方长城的基础上，又向东、西两段延伸，筑成一道西起临洮、东到辽东的城防。这就是有名的万里长城。秦统治者的暴政导致了农民战争的爆发和秦王朝的灭亡。秦朝是中国历史上第一个统一的多民族的专制主义中央集权的封建国家。"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/primary_text_size" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

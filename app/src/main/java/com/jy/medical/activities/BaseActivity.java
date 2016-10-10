@@ -109,7 +109,12 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         startActivity(intent);
     }
 
-
+    public void setDetailNavState(View navView) {
+        ImageView navImage = (ImageView) navView.findViewById(R.id.page_detail_head_image);
+        ImageView collectImage = (ImageView) navView.findViewById(R.id.page_detail_head_collect);
+        navImage.setOnClickListener(this);
+        collectImage.setOnClickListener(this);
+    }
     public void setNavState(View navView, String titleText) {
         ImageView navImage = (ImageView) navView.findViewById(R.id.page_head_second_image);
         TextView navText = (TextView) navView.findViewById(R.id.page_head_second_text);

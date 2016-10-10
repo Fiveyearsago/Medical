@@ -1,6 +1,7 @@
 package com.jy.medical.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.jy.medical.R;
+import com.jy.medical.activities.LawDetailActivity;
 import com.jy.medical.entities.ToolData;
 
 import java.util.List;
@@ -33,7 +35,7 @@ public class ToolAdapter extends BaseHeadFootAdapter {
         headerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context,"head was clicked",Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context,"head was clicked",Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -65,8 +67,9 @@ public class ToolAdapter extends BaseHeadFootAdapter {
             public void onClick(View view) {
 //                view.setBackgroundColor(Color.parseColor("#F5F5F5"));
                 viewHolder.toolText.setTextColor(Color.parseColor("#999999"));
-                Toast.makeText(context,"big text "+position+"was clicked",Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context,"big text "+position+"was clicked",Toast.LENGTH_SHORT).show();
 //                view.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                context.startActivity(new Intent(context, LawDetailActivity.class));
             }
         });
 

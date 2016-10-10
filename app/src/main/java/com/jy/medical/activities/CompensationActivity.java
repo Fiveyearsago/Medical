@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.flyco.tablayout.SegmentTabLayout;
+import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.jy.medical.R;
+import com.jy.medical.adapter.CompensationFragmentPagerAdapter;
 import com.jy.medical.adapter.LawFragmentPagerAdapter;
 
 /**
@@ -16,16 +18,13 @@ import com.jy.medical.adapter.LawFragmentPagerAdapter;
  */
 public class CompensationActivity extends BaseActivity {
    private ViewPager viewPager;
-   private LawFragmentPagerAdapter adapter;
-   private TabLayout tabLayout;
+   private CompensationFragmentPagerAdapter adapter;
     private SegmentTabLayout segmentTabLayout;
 
 
     @Override
     public void initData() {
-        viewPager.setAdapter(adapter);
-        tabLayout.setupWithViewPager(viewPager);
-        segmentTabLayout.setTabData(new String[]{"2016年","2015年","2014年"});
+
     }
 
     @Override
@@ -43,12 +42,39 @@ public class CompensationActivity extends BaseActivity {
         setStatusBarTint();
         setNavState(findViewById(R.id.title_head_second),"赔偿标准");
         viewPager = (ViewPager) findViewById(R.id.viewPager);
-        adapter = new LawFragmentPagerAdapter(getSupportFragmentManager(),
+        adapter = new CompensationFragmentPagerAdapter(getSupportFragmentManager(),
                 this);
-        tabLayout = (TabLayout) findViewById(R.id.tabLayout);
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        tabLayout.setTabMode(TabLayout.MODE_FIXED);
         segmentTabLayout=(SegmentTabLayout)findViewById(R.id.segmentTabLayout);
+        viewPager.setAdapter(adapter);
+        segmentTabLayout.setTabData(new String[]{"2016年","2015年","2014年"});
+        segmentTabLayout.setOnTabSelectListener(new OnTabSelectListener() {
+            @Override
+            public void onTabSelect(int position) {
+                viewPager.setCurrentItem(position);
+            }
+
+            @Override
+            public void onTabReselect(int position) {
+
+            }
+        });
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                segmentTabLayout.setCurrentTab(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+        viewPager.setCurrentItem(0);
     }
 
     @Override

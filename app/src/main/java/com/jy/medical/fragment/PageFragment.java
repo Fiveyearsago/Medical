@@ -42,8 +42,8 @@ public class PageFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_page,container,false);
-        TextView textView = (TextView) view.findViewById(R.id.text_page);
-        textView.setText("第"+mPage+"页");
+//        TextView textView = (TextView) view.findViewById(R.id.text_page);
+//        textView.setText("第"+mPage+"页");
         return view;
     }
 

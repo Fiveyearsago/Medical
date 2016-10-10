@@ -60,9 +60,8 @@
         <activity android:name=".activities.LoginActivity" />
         <activity
             android:name=".activities.MineActivity"
-            android:theme="@style/noAnimationTheme">
-
-        </activity>
+            android:theme="@style/noAnimationTheme"
+            android:launchMode="singleTask"></activity>
         <activity android:name=".activities.PersonalActivity" />
         <activity android:name=".activities.PersonNameActivity" />
         <activity android:name=".activities.ChangePhoneActivity" />
@@ -71,7 +70,8 @@
         <activity android:name=".activities.FeedBackActivity" />
         <activity
             android:name=".activities.PlatformActivity"
-            android:theme="@style/noAnimationTheme">
+            android:theme="@style/noAnimationTheme"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -80,15 +80,13 @@
         </activity>
         <activity
             android:name=".activities.ToolActivity"
-            android:theme="@style/noAnimationTheme" />
+            android:theme="@style/noAnimationTheme"
+            android:launchMode="singleTask"/>
         <activity android:name=".activities.ToolDetailActivity" />
         <activity android:name=".activities.LawActivity" />
-        <activity android:name=".activities.SelectCityActivity">
-
-        </activity>
-        <activity android:name=".activities.CompensationActivity">
-
-        </activity>
+        <activity android:name=".activities.SelectCityActivity"></activity>
+        <activity android:name=".activities.CompensationActivity"></activity>
+        <activity android:name=".activities.LawDetailActivity"></activity>
     </application>
 
 </manifest>

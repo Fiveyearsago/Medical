@@ -8,6 +8,7 @@
     <string name="version_update">版本更新</string>
     <string name="feedback">意见反馈</string>
     <string name="last_version">最新版本</string>
+    <string name="detail">详情</string>
     <string-array name="provinces">
         <item>广东</item>
         <item>北京</item>
