@@ -57,11 +57,12 @@
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity android:name=".activities.UpdateTestActivity" />
         <activity android:name=".activities.BaseActivity" />
-        <activity android:name=".activities.LoginActivity" />
+        <activity android:name=".activities.LoginActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".activities.MineActivity"
-            android:theme="@style/noAnimationTheme"
-            android:launchMode="singleTask"></activity>
+            android:theme="@style/noAnimationTheme" />
         <activity android:name=".activities.PersonalActivity" />
         <activity android:name=".activities.PersonNameActivity" />
         <activity android:name=".activities.ChangePhoneActivity" />
@@ -70,23 +71,26 @@
         <activity android:name=".activities.FeedBackActivity" />
         <activity
             android:name=".activities.PlatformActivity"
-            android:theme="@style/noAnimationTheme"
-            android:launchMode="singleTask">
+            android:theme="@style/noAnimationTheme">
+
+        </activity>
+        <activity
+            android:name=".activities.ToolActivity"
+            android:theme="@style/noAnimationTheme" />
+        <activity android:name=".activities.ToolDetailActivity" />
+        <activity android:name=".activities.LawActivity" />
+        <activity android:name=".activities.SelectCityActivity" />
+        <activity android:name=".activities.CompensationActivity" />
+        <activity android:name=".activities.LawDetailActivity" />
+        <activity android:name=".activities.StartupActivity"
+            android:theme="@style/FullScreen"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".activities.ToolActivity"
-            android:theme="@style/noAnimationTheme"
-            android:launchMode="singleTask"/>
-        <activity android:name=".activities.ToolDetailActivity" />
-        <activity android:name=".activities.LawActivity" />
-        <activity android:name=".activities.SelectCityActivity"></activity>
-        <activity android:name=".activities.CompensationActivity"></activity>
-        <activity android:name=".activities.LawDetailActivity"></activity>
     </application>
 
 </manifest>
