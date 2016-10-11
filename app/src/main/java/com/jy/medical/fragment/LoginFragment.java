@@ -4,14 +4,17 @@ package com.jy.medical.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.jy.medical.R;
+import com.jy.medical.activities.LoginActivity;
 import com.jy.medical.adapter.LawAdapter;
 import com.jy.medical.entities.ToolData;
 
@@ -54,7 +57,17 @@ public class LoginFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.login_account,container,false);
-
+        TextInputEditText textInputEditText= (TextInputEditText) view.findViewById(R.id.editText_account);
+        textInputEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (b){
+                    Toast.makeText(getActivity(), "获取焦点", Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(getActivity(), "失去焦点", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
         return view;
     }
 
