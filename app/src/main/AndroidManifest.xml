@@ -60,19 +60,57 @@
         <activity
             android:name=".activities.LoginActivity"
             android:screenOrientation="portrait"
+
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".activities.MineActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/noAnimationTheme" />
-        <activity android:name=".activities.PersonalActivity" />
-        <activity android:name=".activities.PersonNameActivity" />
-        <activity android:name=".activities.ChangePhoneActivity" />
-        <activity android:name=".activities.EditPswActivity" />
-        <activity android:name=".activities.PswCommitActivity" />
-        <activity android:name=".activities.FeedBackActivity" />
+        <activity
+            android:name=".activities.PersonalActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.PersonNameActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.ChangePhoneActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.EditPswActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.PswCommitActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.FeedBackActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.PlatformActivity"
-            android:theme="@style/noAnimationTheme">
+            android:screenOrientation="portrait"
+            android:theme="@style/noAnimationTheme"></activity>
+        <activity
+            android:name=".activities.ToolActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/noAnimationTheme" />
+        <activity
+            android:name=".activities.ToolDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.LawActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.SelectCityActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.CompensationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.LawDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.StartupActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/FullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -80,20 +118,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.ToolActivity"
-            android:theme="@style/noAnimationTheme" />
-        <activity android:name=".activities.ToolDetailActivity" />
-        <activity android:name=".activities.LawActivity" />
-        <activity android:name=".activities.SelectCityActivity" />
-        <activity android:name=".activities.CompensationActivity" />
-        <activity android:name=".activities.LawDetailActivity" />
+            android:name=".activities.FindPswActivity"
+            android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.StartupActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/FullScreen">
-
-        </activity>
-        <activity android:name=".activities.FindPswActivity"></activity>
+            android:name=".activities.NewPswActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

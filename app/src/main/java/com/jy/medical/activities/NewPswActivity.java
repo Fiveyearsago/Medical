@@ -6,7 +6,7 @@ import android.view.View;
 
 import com.jy.medical.R;
 
-public class FindPswActivity extends BaseActivity {
+public class NewPswActivity extends BaseActivity {
 
     @Override
     public void initData() {
@@ -15,7 +15,7 @@ public class FindPswActivity extends BaseActivity {
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_find_psw;
+        return R.layout.activity_new_psw;
     }
 
     @Override
@@ -26,7 +26,7 @@ public class FindPswActivity extends BaseActivity {
     @Override
     public void initView() {
         setStatusBarTint();
-        setTitleState(findViewById(R.id.title_head), true, "忘记密码", true, "下一步");
+        setTitleState(findViewById(R.id.title_head), true, "新密码", true, "确定");
     }
 
     @Override

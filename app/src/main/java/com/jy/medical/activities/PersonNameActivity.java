@@ -5,10 +5,11 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.jy.medical.R;
+import com.jy.medical.widget.CleanableEditText;
 
 public class PersonNameActivity extends BaseActivity {
 
-    private  EditText editTextName;
+    private CleanableEditText editTextName;
 
     @Override
     public void initData() {
@@ -28,8 +29,8 @@ public class PersonNameActivity extends BaseActivity {
     public void initView() {
         setStatusBarTint();
         setTitleState(findViewById(R.id.title_head), true, "姓名", true, "确定");
-        setEditTextSelection((EditText) findViewById(R.id.peron_edit_name));
-        editTextName= (EditText) findViewById(R.id.peron_edit_name);
+        setCleanableEditTextSelection((CleanableEditText) findViewById(R.id.peron_edit_name));
+        editTextName= (CleanableEditText) findViewById(R.id.peron_edit_name);
         editTextName.setOnClickListener(this);
     }
 
@@ -45,7 +46,7 @@ public class PersonNameActivity extends BaseActivity {
                 break;
             case R.id.peron_edit_name:
                 //Clear text of EditText
-                clearEditTextValue(editTextName);
+//                clearEditTextValue(editTextName);
                 break;
         }
     }

@@ -2,6 +2,7 @@ package com.jy.medical.fragment;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
@@ -13,12 +14,15 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.jy.medical.R;
 import com.jy.medical.activities.LoginActivity;
+import com.jy.medical.activities.PlatformActivity;
 import com.jy.medical.adapter.LawAdapter;
 import com.jy.medical.entities.ToolData;
+import com.jy.medical.widget.CleanableEditText;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +34,8 @@ public class LoginFragment extends Fragment {
     public static final String ARGS_PAGE = "args_page";
     private static Context mContext;
     private int mPage;
-    private TextInputEditText editTextAccount,editTextPsw;
+    private CleanableEditText editTextAccount,editTextPsw;
+    private Button loginBtn;
     public static LoginFragment newInstance(int page, Context context) {
         mContext=context;
         Bundle args = new Bundle();
@@ -56,23 +61,13 @@ public class LoginFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View accountLayout = inflater.inflate(R.layout.login_account,container,false);
-        editTextAccount= (TextInputEditText) accountLayout.findViewById(R.id.editText_account);
-        editTextPsw= (TextInputEditText) accountLayout.findViewById(R.id.editText_psw);
-        editTextAccount.addTextChangedListener(new TextWatcher() {
+        editTextAccount= (CleanableEditText) accountLayout.findViewById(R.id.editText_account);
+//        editTextPsw= (CleanableEditText) accountLayout.findViewById(R.id.editText_psw);
+        loginBtn= (Button) accountLayout.findViewById(R.id.login_btn);
+        loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (charSequence.length()==0){
-
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
+            public void onClick(View view) {
+                startActivity(new Intent(mContext, PlatformActivity.class));
             }
         });
         return accountLayout;

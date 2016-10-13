@@ -1,32 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_find_psw"
+    android:id="@+id/activity_new_psw"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/white"
     android:gravity="center_horizontal"
-    tools:context="com.jy.medical.activities.FindPswActivity">
+    android:orientation="vertical"
+    tools:context="com.jy.medical.activities.NewPswActivity">
+
     <include layout="@layout/page_head" />
+
     <LinearLayout
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="40dp">
+        android:layout_marginTop="40dp"
+        android:orientation="vertical">
 
         <com.jy.medical.widget.CleanableEditText
             android:id="@+id/editText_account"
             android:layout_width="match_parent"
             android:layout_height="44dp"
             android:background="@drawable/edittext_bg_selector"
-            android:drawableLeft="@drawable/login_phone_drawable_selector"
-            android:drawableRight="@mipmap/clear"
-            android:paddingRight="10dp"
+            android:drawableLeft="@drawable/login_psw_drawable_selector"
             android:drawablePadding="7dp"
-            android:hint="手机号"
+            android:drawableRight="@mipmap/clear"
+            android:hint="请输入新密码"
             android:inputType="number"
             android:paddingLeft="7dp"
+            android:paddingRight="10dp"
             android:textColor="@color/black"
             android:textColorHint="@color/hintColor"
             android:textSize="15dp" />
@@ -36,6 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:orientation="horizontal">
+
             <com.jy.medical.widget.CleanableEditText
                 android:id="@+id/editText_psw"
                 android:layout_width="0dp"
@@ -43,15 +46,16 @@
                 android:layout_weight="1"
                 android:background="@drawable/edittext_bg_selector"
                 android:drawableLeft="@drawable/login_code_drawable_selector"
-                android:drawableRight="@mipmap/clear"
-                android:paddingRight="10dp"
                 android:drawablePadding="7dp"
+                android:drawableRight="@mipmap/clear"
                 android:hint="请输入验证码"
                 android:inputType="number"
                 android:paddingLeft="7dp"
+                android:paddingRight="10dp"
                 android:textColor="@color/black"
                 android:textColorHint="@color/hintColor"
-                android:textSize="15dp" />
+                android:textSize="15dp"
+                android:visibility="invisible" />
 
             <Button
                 android:layout_width="0dp"
@@ -60,7 +64,8 @@
                 android:layout_weight="1"
                 android:background="@drawable/bg_button_none"
                 android:text="获取验证码"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:visibility="invisible" />
         </LinearLayout>
 
         <Button
@@ -68,8 +73,7 @@
             android:layout_height="49dp"
             android:layout_marginTop="44dp"
             android:background="@drawable/bg_button_none"
-            android:text="下一步"
+            android:text="确定"
             android:textColor="@color/white" />
     </LinearLayout>
-
 </LinearLayout>

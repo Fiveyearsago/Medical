@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jy.medical.R;
+import com.jy.medical.widget.CleanableEditText;
 import com.pgyersdk.crash.PgyCrashManager;
 import com.pgyersdk.update.PgyUpdateManager;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
@@ -180,7 +181,11 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
             editText.setSelection(editText.getText().length());
         }
     }
-
+    public void setCleanableEditTextSelection(CleanableEditText editText) {
+        if (editText != null) {
+            editText.setSelection(editText.getText().length());
+        }
+    }
     public void clearEditTextValue(final EditText editText) {
         editText.setOnTouchListener(new View.OnTouchListener() {
 
