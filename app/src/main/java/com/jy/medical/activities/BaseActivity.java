@@ -198,6 +198,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
                         - editText.getPaddingRight()
                         - drawable.getIntrinsicWidth()) {
                     editText.setText("");
+                    editText.setCompoundDrawables(null,null,null,null);
                 }
                 return false;
             }

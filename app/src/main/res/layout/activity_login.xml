@@ -1,63 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/login_XLinearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/login_background"
-    android:orientation="vertical"
-    android:id="@+id/login_XLinearLayout"
+    android:background="@color/white"
+    android:fitsSystemWindows="true"
     tools:context="com.jy.medical.activities.LoginActivity">
 
-
-    <LinearLayout
+    <ImageView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/login_layout"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/login_bg" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@color/white"
         android:orientation="vertical">
-        <ScrollView
-            android:id="@+id/login_scroll"
+
+        <View
+            android:id="@+id/blank_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        <LinearLayout
+            android:layout_height="0dp" />
 
-            android:paddingTop="250dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:orientation="vertical">
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewPager_login"
+            android:layout_width="300dp"
+            android:layout_height="216dp"
+            android:layout_below="@+id/tabLayout_login"
+            android:layout_centerHorizontal="true" />
 
-                <android.support.v4.view.ViewPager
-                    android:id="@+id/viewPager_login"
-                    android:layout_width="300dp"
-                    android:layout_height="200dp"
-                    android:layout_below="@+id/tabLayout_login"
-                    android:layout_centerHorizontal="true" />
+        <com.flyco.tablayout.SlidingTabLayout
+            android:id="@+id/tabLayout_login"
+            android:layout_width="300dp"
+            android:layout_height="38dp"
+            android:layout_below="@id/blank_view"
+            android:layout_centerHorizontal="true"
+            android:background="@color/white"
+            app:tl_indicator_color="@color/colorPrimary"
+            app:tl_indicator_height="3dp"
+            app:tl_tab_space_equal="true"
+            app:tl_textSelectColor="@color/colorPrimary"
+            app:tl_textUnselectColor="@color/minorColor"
+            app:tl_textsize="@dimen/primary_text_size"
+            app:tl_underline_color="@color/minorColor"
+            app:tl_underline_height="1dp" />
 
-                <com.flyco.tablayout.SlidingTabLayout
-                    android:background="@color/white"
-                    android:layout_centerHorizontal="true"
-                    android:id="@+id/tabLayout_login"
-                    android:layout_width="300dp"
-                    android:layout_height="38dp"
-                    android:layout_alignParentTop="true"
-                    app:tl_indicator_color="@color/colorPrimary"
-                    app:tl_indicator_height="3dp"
-                    app:tl_tab_space_equal="true"
-                    app:tl_textSelectColor="@color/colorPrimary"
-                    app:tl_textUnselectColor="@color/minorColor"
-                    app:tl_textsize="@dimen/minor_text_size"
-                    app:tl_underline_color="@color/minorColor"
-                    app:tl_underline_height="1dp" />
-
-            </RelativeLayout>
-
-        </LinearLayout>
-        </ScrollView>
-    </LinearLayout>
-
-</LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>

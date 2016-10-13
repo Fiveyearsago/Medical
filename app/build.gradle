@@ -7,7 +7,7 @@ android {
 
     defaultConfig {
         applicationId "com.jy.medical"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 22
         versionCode 2
         versionName "1.0"
