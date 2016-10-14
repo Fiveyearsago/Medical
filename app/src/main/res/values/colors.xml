@@ -13,7 +13,9 @@
     <color name="minorColor">#999999</color>
     <color name="itemClickColor">#F5F5F5</color>
     <color name="btnPressed">#6CA6F2</color>
-
+    <color name="colorYellow">#FFC106</color>
+    <color name="colorFinished">#00C632</color>
+    <color name="colorTimeout">#FF0000</color>
     <color name="timetimepicker_default_text_color">#999999</color>
     <color name="timepicker_toolbar_bg">#F6F6F6</color>
     <color name="timepicker_dialog_bg">#F6F6F6</color>

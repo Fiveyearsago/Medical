@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:background="@color/white"
+    android:paddingLeft="@dimen/primary_margin"
+    android:paddingRight="@dimen/primary_margin">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/lineColor" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/item_platform_people_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mr.Song"
+                android:textColor="@color/black"
+                android:textSize="@dimen/primary_text_size" />
+
+            <TextView
+                android:id="@+id/item_platform_tag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/platform_finished"
+                android:text="完成"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:paddingBottom="1dp"
+                android:paddingTop="1dp"
+                android:textColor="@color/black"
+                android:textSize="12dp" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp">
+
+            <ImageView
+                android:id="@+id/item_platform_time_image"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_centerVertical="true"
+                android:background="@mipmap/platform_time"
+                android:scaleType="fitXY" />
+
+            <TextView
+                android:id="@+id/item_platform_time_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@+id/item_platform_time_image"
+                android:text="2016-10-14 11:10"
+                android:textColor="@color/minorColor"
+                android:textSize="@dimen/primary_text_size" />
+
+            <TextView
+                android:id="@+id/item_platform_report_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="报案号:C201610141120"
+                android:textColor="@color/minorColor"
+                android:textSize="@dimen/primary_text_size" />
+        </RelativeLayout>
+    </LinearLayout>
+</RelativeLayout>
+</LinearLayout>
