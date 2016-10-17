@@ -1,13 +1,11 @@
 package com.jy.medical.activities;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
 import com.jy.medical.R;
 
 public class AllPlatformActivity extends BaseActivity {
-
 
     @Override
     public void initData() {

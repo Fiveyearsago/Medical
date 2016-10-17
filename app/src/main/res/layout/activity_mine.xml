@@ -77,7 +77,8 @@
         android:layout_width="match_parent"
         android:layout_height="44dp"
         android:layout_marginTop="10dp"
-        android:background="@color/white">
+        android:clickable="true"
+        android:background="@drawable/item_click_bg_selector">
 
         <ImageView
             android:id="@+id/collectImage"
