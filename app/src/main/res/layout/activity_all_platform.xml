@@ -1,13 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_all_platform"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/pageBackground"
     tools:context="com.jy.medical.activities.AllPlatformActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include layout="@layout/page_hade_third" />
+
+        <com.flyco.tablayout.SlidingTabLayout
+            android:id="@+id/tabLayout_allPlatform"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:background="@color/white"
+            app:tl_indicator_color="@color/colorPrimary"
+            app:tl_tab_space_equal="true"
+            app:tl_indicator_height="3dp"
+            app:tl_tab_padding="@dimen/primary_margin"
+            app:tl_textSelectColor="@color/colorPrimary"
+            app:tl_textUnselectColor="@color/black"
+            app:tl_textsize="@dimen/minor_text_size" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewPager_allPlatform"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
 
 </RelativeLayout>

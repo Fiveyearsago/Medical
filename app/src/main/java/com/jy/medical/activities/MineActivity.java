@@ -63,6 +63,4 @@ public class MineActivity extends BaseActivity {
                 break;
         }
     }
-
-
 }

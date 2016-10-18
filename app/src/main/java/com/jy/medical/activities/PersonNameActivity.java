@@ -42,11 +42,6 @@ public class PersonNameActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.page_head_button:
-                editTextName.setText("");
-                break;
-            case R.id.peron_edit_name:
-                //Clear text of EditText
-//                clearEditTextValue(editTextName);
                 break;
         }
     }

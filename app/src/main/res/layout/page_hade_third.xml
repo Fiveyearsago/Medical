@@ -2,13 +2,13 @@
 <merge xmlns:android="http://schemas.android.com/apk/res/android">
 
     <RelativeLayout
-        android:id="@+id/detail_title_head"
+        android:id="@+id/title_head_third"
         android:layout_width="match_parent"
         android:layout_height="44dp"
         android:background="@color/pageHeadBackground">
 
         <ImageView
-            android:id="@+id/page_detail_head_image"
+            android:id="@+id/page_third_head_image"
             android:layout_width="22dp"
             android:layout_height="22dp"
             android:layout_centerVertical="true"
@@ -18,7 +18,7 @@
             android:scaleType="fitXY" />
 
         <TextView
-            android:id="@+id/page_detail_head_text"
+            android:id="@+id/page_third_head_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -27,7 +27,7 @@
             android:textSize="@dimen/large_text_size" />
 
         <ImageButton
-            android:id="@+id/page_detail_head_collect"
+            android:id="@+id/page_third_head_collect"
             android:layout_width="18dp"
             android:layout_height="18dp"
             android:scaleType="fitXY"

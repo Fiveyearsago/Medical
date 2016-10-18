@@ -56,7 +56,9 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity android:name=".activities.UpdateTestActivity" />
-        <activity android:name=".activities.BaseActivity" />
+        <activity
+            android:name=".activities.BaseActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.LoginActivity"
             android:screenOrientation="portrait"
@@ -122,7 +124,10 @@
         <activity
             android:name=".activities.NewPswActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activities.AllPlatformActivity"></activity>
+        <activity
+            android:name=".activities.AllPlatformActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".activities.FollowDetailActivity"></activity>
     </application>
 
 </manifest>

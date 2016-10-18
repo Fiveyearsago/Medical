@@ -84,20 +84,6 @@ public class LoginActivity extends BaseActivity {
             }
         });
         viewPager.setCurrentItem(0);
-        rootLinearLayout=findViewById(R.id.login_XLinearLayout);
-        rootLinearLayout.getViewTreeObserver().addOnGlobalLayoutListener(
-                new ViewTreeObserver.OnGlobalLayoutListener() {
-                    @Override
-                    public void onGlobalLayout() {
-
-                        mHeaderViewHeight = rootLinearLayout.getHeight();
-                        Log.i("mHeaderViewHeight",mHeaderViewHeight+"");
-//                        rootLinearLayout.getViewTreeObserver()
-//                                .removeGlobalOnLayoutListener(this);
-                        rootLinearLayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                    }
-                });
-
     }
 
 

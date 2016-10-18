@@ -1,5 +1,6 @@
 package com.jy.medical.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -110,9 +111,14 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         startActivity(intent);
     }
 
-    public void setDetailNavState(View navView) {
-        ImageView navImage = (ImageView) navView.findViewById(R.id.page_detail_head_image);
-        ImageView collectImage = (ImageView) navView.findViewById(R.id.page_detail_head_collect);
+
+    public void setThirdNavState(View navView,String textTitle,int leftDrawable,int rightDrawable) {
+        ImageView navImage = (ImageView) navView.findViewById(R.id.page_third_head_image);
+        ImageView collectImage = (ImageView) navView.findViewById(R.id.page_third_head_collect);
+        TextView textViewTitle= (TextView) navView.findViewById(R.id.page_third_head_text);
+        navImage.setBackground(getResources().getDrawable(leftDrawable));
+        collectImage.setBackground(getResources().getDrawable(rightDrawable));
+        textViewTitle.setText(textTitle);
         navImage.setOnClickListener(this);
         collectImage.setOnClickListener(this);
     }

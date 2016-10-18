@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.jy.medical.R;
+import com.jy.medical.activities.FollowDetailActivity;
 import com.jy.medical.activities.LawDetailActivity;
 import com.jy.medical.entities.PlatformData;
 import com.jy.medical.entities.ToolData;
@@ -70,6 +71,7 @@ public class PlatformAdapter extends BaseHeadFootAdapter {
 //                Toast.makeText(context,"big text "+position+"was clicked",Toast.LENGTH_SHORT).show();
 //                view.setBackgroundColor(Color.parseColor("#FFFFFF"));
 //                context.startActivity(new Intent(context, LawDetailActivity.class));
+                context.startActivity(new Intent(context, FollowDetailActivity.class));
             }
         });
 

@@ -104,4 +104,12 @@
         <item name="android:button">@null</item>
         <item name="android:layout_centerInParent">true</item>
     </style>
+    <style name="textTimeoutTab">
+        <item name="android:textSize">24dp</item>
+        <item name="android:textColor">@color/colorTimeout</item>
+    </style>
+    <style name="textNormalTab">
+        <item name="android:textSize">24dp</item>
+        <item name="android:textColor">@color/colorYellow</item>
+    </style>
 </resources>

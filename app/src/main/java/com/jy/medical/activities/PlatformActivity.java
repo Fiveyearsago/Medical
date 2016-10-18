@@ -96,7 +96,7 @@ public class PlatformActivity extends BaseActivity  {
             case R.id.platform_page_head_image:
                 break;
             case R.id.platform_page_head_button:
-                
+                startActivity(AllPlatformActivity.class);
                 break;
 
             default:

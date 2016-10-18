@@ -30,13 +30,13 @@ public class LawDetailActivity extends BaseActivity {
     @Override
     public void initView() {
         setStatusBarTint();
-        setDetailNavState(findViewById(R.id.detail_title_head));
+        setThirdNavState(findViewById(R.id.title_head_third),"详情",R.drawable.nav_image_selector,R.drawable.collect_image_selector);
     }
 
     @Override
     public void widgetClick(View v) {
         switch (v.getId()) {
-            case R.id.page_detail_head_image:
+            case R.id.page_third_head_image:
                 finish();
                 break;
         }
