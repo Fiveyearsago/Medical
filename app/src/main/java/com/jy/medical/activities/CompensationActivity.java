@@ -17,8 +17,8 @@ import com.jy.medical.adapter.LawFragmentPagerAdapter;
  * 赔偿标准
  */
 public class CompensationActivity extends BaseActivity {
-   private ViewPager viewPager;
-   private CompensationFragmentPagerAdapter adapter;
+    private ViewPager viewPager;
+    private CompensationFragmentPagerAdapter adapter;
     private SegmentTabLayout segmentTabLayout;
 
 
@@ -40,13 +40,13 @@ public class CompensationActivity extends BaseActivity {
     @Override
     public void initView() {
         setStatusBarTint();
-        setNavState(findViewById(R.id.title_head_second),"赔偿标准");
+        setNavState(findViewById(R.id.title_head_second), "赔偿标准");
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         adapter = new CompensationFragmentPagerAdapter(getSupportFragmentManager(),
                 this);
-        segmentTabLayout=(SegmentTabLayout)findViewById(R.id.segmentTabLayout);
+        segmentTabLayout = (SegmentTabLayout) findViewById(R.id.segmentTabLayout);
         viewPager.setAdapter(adapter);
-        segmentTabLayout.setTabData(new String[]{"2016年","2015年","2014年"});
+        segmentTabLayout.setTabData(new String[]{"2016年", "2015年", "2014年"});
         segmentTabLayout.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelect(int position) {
