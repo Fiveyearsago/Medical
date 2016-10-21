@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/pageBackground"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/primary_margin"
+        android:paddingRight="@dimen/primary_margin">
+
+        <View
+            android:id="@+id/item_contact_tab"
+            android:layout_width="3dp"
+            android:layout_height="18dp"
+            android:layout_centerVertical="true"
+            android:background="@color/colorPrimary" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/item_contact_tab"
+            android:text="联系人1"
+            android:textColor="@color/black"
+            android:textSize="@dimen/primary_text_size" />
+
+        <ImageButton
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="end"
+            android:background="@drawable/delete_selector"
+            android:scaleType="fitXY" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="89dp"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/primary_margin">
+
+        <LinearLayout
+            android:id="@+id/item_name_layout"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginRight="88dp"
+            android:paddingLeft="@dimen/primary_margin">
+
+            <TextView
+                android:id="@+id/item_contact_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="姓名"
+                android:textColor="@color/minorColor"
+                android:textSize="@dimen/primary_text_size" />
+
+            <com.jy.medical.widget.CleanableEditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/item_contact_name"
+                android:layout_weight="1"
+                android:textColor="@color/black"
+                android:textSize="@dimen/primary_text_size" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_below="@+id/item_name_layout"
+            android:id="@+id/item_phone_layout"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginRight="88dp"
+            android:paddingLeft="@dimen/primary_margin">
+
+            <TextView
+                android:id="@+id/item_contact_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="电话"
+                android:textColor="@color/minorColor"
+                android:textSize="@dimen/primary_text_size" />
+
+            <com.jy.medical.widget.CleanableEditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/item_contact_name"
+                android:layout_weight="1"
+                android:textColor="@color/black"
+                android:textSize="@dimen/primary_text_size" />
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/item_name_layout"
+            android:layout_toLeftOf="@+id/item_contact_layout"
+            android:background="@color/lineColor" />
+
+        <RelativeLayout
+            android:id="@+id/item_contact_layout"
+            android:layout_width="88dp"
+            android:layout_height="88dp"
+            android:layout_alignParentRight="true">
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/lineColor" />
+
+            <ImageButton
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/contact_selector"
+                android:scaleType="fitXY" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/lineColor" />
+    </RelativeLayout>
+
+</LinearLayout>

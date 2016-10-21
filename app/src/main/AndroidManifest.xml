@@ -127,7 +127,9 @@
         <activity
             android:name=".activities.AllPlatformActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activities.FollowDetailActivity"></activity>
+        <activity android:name=".activities.FollowDetailActivity" />
+        <activity android:name=".activities.FollowEditActivity" />
+        <activity android:name=".activities.AddContactsActivity"></activity>
     </application>
 
 </manifest>

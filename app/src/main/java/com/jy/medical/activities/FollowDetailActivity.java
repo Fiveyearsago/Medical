@@ -1,10 +1,8 @@
 package com.jy.medical.activities;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.ListFragment;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.TextAppearanceSpan;
@@ -17,10 +15,9 @@ import com.flyco.tablayout.SegmentTabLayout;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.jy.medical.R;
 import com.jy.medical.adapter.BaseFragmentPagerAdapter;
-import com.jy.medical.adapter.CompensationFragmentPagerAdapter;
 import com.jy.medical.fragment.FollowDetailFragment;
 import com.jy.medical.fragment.FollowRecordFragment;
-import com.jy.medical.fragment.PageFragment;
+import com.jy.medical.widget.CustomViewpager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +28,7 @@ import java.util.List;
 public class FollowDetailActivity extends BaseActivity {
     private TextView taskTimeTab;
     private int dayNum=3;
-    private ViewPager viewPager;
+    private CustomViewpager viewPager;
     private SegmentTabLayout segmentTabLayout;
     private BaseFragmentPagerAdapter adapter;
 
@@ -55,7 +52,7 @@ public class FollowDetailActivity extends BaseActivity {
         setStatusBarTint();
         setTitleState(findViewById(R.id.title_head), true, "跟踪详情", false, "");
         taskTimeTab= (TextView) findViewById(R.id.task_time_tag);
-        viewPager = (ViewPager) findViewById(R.id.viewPager);
+        viewPager = (CustomViewpager) findViewById(R.id.xViewPager);
         List<Fragment> fragmentList=new ArrayList<>();
         fragmentList.add(FollowRecordFragment.newInstance());
         fragmentList.add(FollowDetailFragment.newInstance());
@@ -67,7 +64,9 @@ public class FollowDetailActivity extends BaseActivity {
         segmentTabLayout.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelect(int position) {
+
                 viewPager.setCurrentItem(position);
+
             }
 
             @Override
@@ -83,6 +82,7 @@ public class FollowDetailActivity extends BaseActivity {
 
             @Override
             public void onPageSelected(int position) {
+                viewPager.resetHeight(position);
                 segmentTabLayout.setCurrentTab(position);
             }
 
@@ -96,8 +96,7 @@ public class FollowDetailActivity extends BaseActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 Log.i("OnTouch","viewPagerOnTouch");
-                v.getParent().requestDisallowInterceptTouchEvent(false);
-                return true;
+                return false;
             }
         });
         findViewById(R.id.scrollView).setOnTouchListener(new View.OnTouchListener() {

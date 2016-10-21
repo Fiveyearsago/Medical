@@ -21,7 +21,7 @@
             android:gravity="top"
             android:paddingTop="@dimen/minor_margin"
             android:paddingLeft="@dimen/minor_margin"
-            android:textSize="@dimen/minor_text_size"
+            android:textSize="@dimen/primary_text_size"
             android:textColorHint="@color/hintColor"/>
     </LinearLayout>
 </RelativeLayout>

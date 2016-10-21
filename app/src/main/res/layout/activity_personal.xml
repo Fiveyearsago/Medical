@@ -90,7 +90,7 @@
                     android:layout_toLeftOf="@+id/personNameMore"
                     android:text="SR"
                     android:textColor="@color/minorColor"
-                    android:textSize="@dimen/minor_text_size" />
+                    android:textSize="@dimen/primary_text_size" />
 
                 <ImageView
                     android:id="@+id/personNameMore"

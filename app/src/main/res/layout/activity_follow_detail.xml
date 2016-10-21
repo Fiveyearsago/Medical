@@ -18,10 +18,11 @@
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_above="@+id/bottom_layout"
         android:layout_below="@+id/head_layout"
-        android:paddingLeft="15dp">
+        android:paddingLeft="@dimen/primary_margin"
+        android:paddingRight="@dimen/primary_margin">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -34,7 +35,6 @@
                     android:orientation="vertical">
 
                     <com.flyco.tablayout.SegmentTabLayout
-
                         android:id="@+id/segmentTabLayout"
                         android:layout_width="match_parent"
                         android:layout_height="34dp"
@@ -50,10 +50,10 @@
                         app:tl_textUnselectColor="@color/black"
                         app:tl_textsize="14dp" />
 
-                    <android.support.v4.view.ViewPager
-                        android:id="@+id/viewPager"
+                    <com.jy.medical.widget.CustomViewpager
+                        android:id="@+id/xViewPager"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="9dp" />
                 </LinearLayout>
 
@@ -62,7 +62,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="74dp"
                     android:background="@color/white"
-
                     android:paddingLeft="15dp"
                     android:paddingRight="15dp">
 
@@ -160,6 +159,7 @@
             android:layout_centerVertical="true"
             android:background="@drawable/bg_button_none"
             android:text="提交"
+            android:textSize="@dimen/primary_text_size"
             android:textColor="@drawable/btn_press_selector" />
     </RelativeLayout>
 </RelativeLayout>
