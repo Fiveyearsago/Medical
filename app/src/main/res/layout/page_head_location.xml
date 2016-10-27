@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:id="@+id/title_head"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:background="@color/pageHeadBackground">
+
+        <ImageView
+            android:id="@+id/page_head_image"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/primary_margin"
+            android:background="@drawable/nav_image_selector"
+            android:clickable="true"
+            android:scaleType="fitXY" />
+
+        <com.jy.medical.widget.CleanableEditText
+            android:id="@+id/page_head_text"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:editable="false"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/bg_btn_search"
+            android:drawableLeft="@mipmap/search_pressed"
+            android:drawablePadding="5dp"
+            android:textColorHint="@color/white"
+            android:drawableRight="@mipmap/clear"
+            android:hint="搜索"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/primary_text_size" />
+
+        <TextView
+            android:id="@+id/page_head_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/primary_margin"
+            android:clickable="true"
+            android:text="确定"
+            android:textColor="@drawable/title_text_color_selector"
+            android:textSize="@dimen/large_text_size" />
+
+    </RelativeLayout>
+</merge>

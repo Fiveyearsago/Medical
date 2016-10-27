@@ -25,11 +25,24 @@ public class FollowEditActivity extends BaseActivity {
 
     @Override
     public void initView() {
-
+        setStatusBarTint();
+        setTitleState(findViewById(R.id.title_head), true, "编辑", true, "保存");
+        findViewById(R.id.follow_edit_location).setOnClickListener(this);
     }
 
     @Override
     public void widgetClick(View v) {
-
+        switch (v.getId()){
+            case R.id.page_head_image:
+                finish();
+                break;
+            case R.id.page_head_button:
+                break;
+            case R.id.follow_edit_location:
+                startActivity(SelectAddressActivity.class);
+                break;
+            default:
+                break;
+        }
     }
 }

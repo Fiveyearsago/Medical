@@ -15,9 +15,14 @@
     <color name="btnPressed">#6CA6F2</color>
     <color name="colorYellow">#FFC106</color>
     <color name="colorFinished">#00C632</color>
+    <color name="btn_green_normal">#00C632</color>
+    <color name="btn_green_pressed">#00B02D</color>
+    <color name="btn_blue_pressed">#277CEF</color>
+    <color name="btn_blue_normal">#3282F0</color>
     <color name="colorTimeout">#FF0000</color>
     <color name="timetimepicker_default_text_color">#999999</color>
     <color name="timepicker_toolbar_bg">#F6F6F6</color>
     <color name="timepicker_dialog_bg">#F6F6F6</color>
     <color name="timepicker_line">#3282F0</color>
+    <color name="search_head_bg">#22FFFFFF</color>
 </resources>

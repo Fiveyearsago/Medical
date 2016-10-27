@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.baidu.mapapi.SDKInitializer;
 import com.jy.medical.R;
 import com.jy.medical.widget.CleanableEditText;
 import com.pgyersdk.crash.PgyCrashManager;
@@ -37,6 +38,8 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_base);
+        SMSSDK.initSDK(this, "1792404991e59", "95ce745b999dc842803436b2d50161b2");
+//        SDKInitializer.initialize(getApplicationContext());
         int layoutId = getLayoutId();
         if (layoutId != 0) {
             setContentView(layoutId);
@@ -46,7 +49,8 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         initParms(bundle);
 //        PgyCrashManager.register(this);
 //        PgyUpdateManager.register(this);
-        SMSSDK.initSDK(this, "1792404991e59", "95ce745b999dc842803436b2d50161b2");
+
+
         initView();
         initData();
     }
@@ -129,6 +133,16 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         View view = navView.findViewById(R.id.nav_layout);
         navImage.setOnClickListener(this);
         view.setOnClickListener(this);
+    }
+    public void setLocationNavState(View navView,boolean flag, String titleText) {
+        ImageView navBack = (ImageView) navView.findViewById(R.id.page_head_image);
+        if (!flag){
+            navBack.setVisibility(View.GONE);
+        }
+        TextView navText = (TextView) navView.findViewById(R.id.page_head_button);
+        navText.setText(titleText);
+        navBack.setOnClickListener(this);
+        navText.setOnClickListener(this);
     }
 
     /**

@@ -1,6 +1,7 @@
 package com.jy.medical.fragment;
 
 
+import android.app.VoiceInteractor;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,18 +12,31 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.jy.ah.bus.data.Request;
+import com.jy.ah.bus.data.Response;
 import com.jy.medical.R;
 import com.jy.medical.activities.LoginActivity;
 import com.jy.medical.activities.PlatformActivity;
 import com.jy.medical.adapter.LawAdapter;
 import com.jy.medical.entities.ToolData;
+import com.jy.medical.util.NetOperaterUtil;
+import com.jy.medical.util.PublicString;
+import com.jy.medical.util.ServerApiUtils;
 import com.jy.medical.widget.CleanableEditText;
+import com.jy.mobile.dto.MsUserDTO;
+import com.jy.mobile.request.QtLoginDTO;
+
+import org.xutils.common.Callback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,10 +81,47 @@ public class LoginFragment extends Fragment {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//                requestServer();
                 startActivity(new Intent(mContext, PlatformActivity.class));
             }
         });
         return accountLayout;
     }
 
+    public void requestServer(){
+        QtLoginDTO qtLoginDTO = new QtLoginDTO();
+        qtLoginDTO.setUserName("0131002498");
+        qtLoginDTO.setPassword("ta8888");
+        Gson gson = new Gson();
+        String data = gson.toJson(qtLoginDTO);
+        ServerApiUtils.sendToServer(data, "001001", PublicString.URL_IFC,new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Log.i("result", result);
+                Gson responseGson=new Gson();
+                Response response=responseGson.fromJson(result, Response.class);
+                if (response != null && "1".equals(response.getResponseCode())) {
+                    String data = response.getData();
+                    Log.i("ResponseCode", response.getResponseCode());
+                    MsUserDTO msUserDTO = responseGson.fromJson(data, MsUserDTO.class);
+                    Log.i("msUserDTO",msUserDTO.toString());
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+    }
 }

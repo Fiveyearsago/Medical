@@ -1,6 +1,7 @@
 package com.jy.medical.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.jy.medical.R;
+import com.jy.medical.activities.FollowEditActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -41,8 +43,12 @@ public class FollowRecordFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_follow_record,container,false);
-//        TextView textView = (TextView) view.findViewById(R.id.text_page);
-//        textView.setText("第"+mPage+"页");
+        view.findViewById(R.id.record_edit).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), FollowEditActivity.class));
+            }
+        });
         return view;
     }
 

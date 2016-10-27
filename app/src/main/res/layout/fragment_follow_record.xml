@@ -30,6 +30,7 @@
             android:textSize="@dimen/primary_text_size" />
 
         <ImageView
+            android:id="@+id/record_edit"
             android:layout_width="22dp"
             android:layout_height="22dp"
             android:layout_alignParentRight="true"
