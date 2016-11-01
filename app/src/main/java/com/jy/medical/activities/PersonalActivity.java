@@ -2,6 +2,7 @@ package com.jy.medical.activities;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
 import com.jy.medical.R;
 import com.jy.medical.widget.pickerview.TimePickerDialog;
@@ -11,6 +12,7 @@ import com.jy.medical.widget.pickerview.utils.PickerContants;
 
 public class PersonalActivity extends BaseActivity {
     private TimePickerDialog mDialogYearMonthDay;
+    private Button logOut;
 
     @Override
     public void initData() {
@@ -34,11 +36,12 @@ public class PersonalActivity extends BaseActivity {
         findViewById(R.id.layout_person_phone).setOnClickListener(this);
         findViewById(R.id.layout_person_psw).setOnClickListener(this);
         findViewById(R.id.layout_person_born).setOnClickListener(this);
+        findViewById(R.id.log_out).setOnClickListener(this);
     }
 
     @Override
     public void widgetClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.page_head_image:
                 finish();
                 break;
@@ -59,14 +62,18 @@ public class PersonalActivity extends BaseActivity {
             case R.id.layout_person_psw:
                 startActivity(EditPswActivity.class);
                 break;
+            case R.id.log_out:
+                startActivity(LoginActivity.class);
+                break;
             default:
                 break;
         }
 
     }
-    public  void initTimePicker(){
-        PickerContants.DEFAULT_MIN_YEAR=1950;
-        PickerContants.YEAR_COUNT=70;
+
+    public void initTimePicker() {
+        PickerContants.DEFAULT_MIN_YEAR = 1950;
+        PickerContants.YEAR_COUNT = 70;
         mDialogYearMonthDay = new TimePickerDialog.Builder()
                 .setType(Type.YEAR_MONTH_DAY)
                 .setCancelStringId("取消")

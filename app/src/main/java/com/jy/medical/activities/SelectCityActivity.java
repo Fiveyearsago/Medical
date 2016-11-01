@@ -9,6 +9,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baidu.location.BDLocation;
 import com.jy.medical.R;
 import com.jy.medical.adapter.SortAdapter;
 import com.jy.medical.util.GetLocation;
@@ -150,7 +151,12 @@ public class SelectCityActivity extends BaseActivity implements GetLocation.Loca
      * @param city
      */
     @Override
-    public void locationResponse(String address, String province, String city) {
+    public void getLocationSuccess(BDLocation bdLocation, String address, String province, String city) {
         tv_city_name.setText(province);
+    }
+
+    @Override
+    public void getLocationFailed() {
+
     }
 }

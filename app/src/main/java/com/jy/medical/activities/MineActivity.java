@@ -32,6 +32,7 @@ public class MineActivity extends BaseActivity {
         setTitleState(findViewById(R.id.title_head), false, "我的", false, "");
         findViewById(R.id.layout_mine_suggest).setOnClickListener(this);
         findViewById(R.id.layout_mine_head).setOnClickListener(this);
+        findViewById(R.id.layout_collect).setOnClickListener(this);
         View navView = findViewById(R.id.navView);
         radioPlatform = (RadioButton) navView.findViewById(R.id.radio_btn_platform);
         radioMine = (RadioButton) navView.findViewById(R.id.radio_btn_mine);
@@ -46,7 +47,7 @@ public class MineActivity extends BaseActivity {
 
     @Override
     public void widgetClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.radio_btn_tool:
                 startActivity(ToolActivity.class);
                 break;
@@ -58,6 +59,9 @@ public class MineActivity extends BaseActivity {
                 break;
             case R.id.layout_mine_head:
                 startActivity(PersonalActivity.class);
+                break;
+            case R.id.layout_collect:
+                startActivity(CollectActivity.class);
                 break;
             default:
                 break;

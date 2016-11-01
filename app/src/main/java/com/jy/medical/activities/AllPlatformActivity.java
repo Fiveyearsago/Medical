@@ -44,7 +44,7 @@ public class AllPlatformActivity extends BaseActivity {
         adapter = new PlatformFragmentPagerAdapter(getSupportFragmentManager(),
                 this);
         viewPager.setAdapter(adapter);
-        slidingTabLayout.setViewPager(viewPager,new String[]{"全部","待办","进行中","超时","未完成"} );
+        slidingTabLayout.setViewPager(viewPager, new String[]{"全部", "待办", "进行中", "超时", "未完成"});
         slidingTabLayout.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelect(int position) {
@@ -80,6 +80,9 @@ public class AllPlatformActivity extends BaseActivity {
         switch (v.getId()) {
             case R.id.page_third_head_image:
                 finish();
+                break;
+            case R.id.page_third_head_collect:
+                startActivity(SearchPlatformActivity.class);
                 break;
         }
     }

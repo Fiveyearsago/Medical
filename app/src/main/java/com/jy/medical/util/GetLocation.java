@@ -15,7 +15,8 @@ public class GetLocation {
 	private static String province="";
 	public static LocationClient mLocationClient = null;
 	public  interface LocationCallBack{
-		void locationResponse(String address, String province, String city);
+		void getLocationSuccess(BDLocation bdLocation,String address, String province, String city);
+		void getLocationFailed();
 	}
 	public static void getLoc(Context context,final LocationCallBack locationCallBack) {
 
@@ -28,11 +29,11 @@ public class GetLocation {
 						address= bdLocation.getAddrStr();
 						province=bdLocation.getProvince();
 						city=bdLocation.getCity();
-						mLocationClient.stop();
-						locationCallBack.locationResponse(address,province,city);
+						locationCallBack.getLocationSuccess(bdLocation,address,province,city);
+//						mLocationClient.stop();
 					}else{
-						mLocationClient.stop();
-						locationCallBack.locationResponse("定位失败...","定位失败...","定位失败...");
+						locationCallBack.getLocationFailed();
+//						mLocationClient.stop();
 					}
 
 				}
@@ -44,10 +45,9 @@ public class GetLocation {
 	// 初始化定位数据
 	private static void initLocation() {
 		LocationClientOption option = new LocationClientOption();
-		 option.setLocationMode(LocationMode.Hight_Accuracy);
 		option.setLocationMode(LocationMode.Hight_Accuracy);// 可选，默认高精度，设置定位模式，高精度，低功耗，仅设备
 		option.setCoorType("bd09ll");// 可选，默认gcj02，设置返回的定位结果坐标系
-		int span = 1000;
+		int span = 0;
 		option.setLocationMode(LocationMode.Hight_Accuracy);
 		option.setAddrType("all");
 		option.setScanSpan(span);// 可选，默认0，即仅定位一次，设置发起定位请求的间隔需要大于等于1000ms才是有效的

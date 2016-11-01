@@ -26,7 +26,7 @@
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.GET_TASKS" />
-    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
 
     <application
         android:name=".MedicalApplication"
@@ -133,7 +133,10 @@
             android:name=".activities.FollowEditActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".activities.AddContactsActivity" />
-        <activity android:name=".activities.SelectAddressActivity"></activity>
+        <activity android:name=".activities.SelectAddressActivity" />
+        <activity android:name=".activities.MapDemoActivity" />
+        <activity android:name=".activities.CollectActivity" />
+        <activity android:name=".activities.SearchPlatformActivity"></activity>
     </application>
 
 </manifest>

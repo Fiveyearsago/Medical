@@ -144,7 +144,11 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         navBack.setOnClickListener(this);
         navText.setOnClickListener(this);
     }
-
+    public void setSearchTitle(View navView, String titleText) {
+        TextView navText = (TextView) navView.findViewById(R.id.page_head_search_button);
+        navText.setText(titleText);
+        navText.setOnClickListener(this);
+    }
     /**
      * Description 设置Title状态
      * Author songran
