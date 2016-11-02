@@ -96,10 +96,21 @@
         <item name="android:windowExitAnimation">@anim/slide_out_bottom</item>
     </style>
     <style name="DateRadioStyle">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">25dp</item>
+        <item name="android:layout_height">25dp</item>
+        <item name="android:gravity">center</item>
         <item name="android:background">@drawable/platform_date_text_bg_selector</item>
         <item name="android:textColor">@drawable/platform_date_text_selector</item>
+        <item name="android:textSize">17dp</item>
+        <item name="android:button">@null</item>
+        <item name="android:layout_centerInParent">true</item>
+    </style>
+    <style name="DateRadioTodayStyle">
+        <item name="android:layout_width">25dp</item>
+        <item name="android:layout_height">25dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/platform_date_today_bg_selector</item>
+        <item name="android:textColor">@drawable/platform_date_today_text_selector</item>
         <item name="android:textSize">17dp</item>
         <item name="android:button">@null</item>
         <item name="android:layout_centerInParent">true</item>

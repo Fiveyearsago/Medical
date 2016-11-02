@@ -1,31 +1,33 @@
 package com.jy.medical.activities;
 
 import android.app.ActivityManager;
-import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.jy.ah.bus.data.Response;
 import com.jy.medical.R;
 import com.jy.medical.adapter.PlatformAdapter;
-import com.jy.medical.adapter.ToolAdapter;
 import com.jy.medical.entities.PlatformData;
-import com.jy.medical.entities.ToolData;
+import com.jy.medical.util.PublicString;
+import com.jy.medical.util.ServerApiUtils;
+import com.jy.mobile.dto.ClaimDTO;
+import com.jy.mobile.request.QtRecieveTaskDTO;
+import com.jy.mobile.response.SpRecieveTaskDTO;
 
-import org.w3c.dom.Text;
+import org.xutils.common.Callback;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,13 +43,23 @@ public class PlatformActivity extends BaseActivity {
     private TextView platformAllTextView;
     private int mYear, mMonth, mDay;
     private Map<String, String> map;
+    private List<RadioButton> radioList;
 
     @Override
     public void initData() {
 
     }
 
-    public  void initDateData() {
+    public void initDateData() {
+        radioList = new ArrayList<>();
+        View view = findViewById(R.id.date_layout);
+        radioList.add((RadioButton) view.findViewById(R.id.radio1));
+        radioList.add((RadioButton) view.findViewById(R.id.radio2));
+        radioList.add((RadioButton) view.findViewById(R.id.radio3));
+        radioList.add((RadioButton) view.findViewById(R.id.radio4));
+        radioList.add((RadioButton) view.findViewById(R.id.radio5));
+        radioList.add((RadioButton) view.findViewById(R.id.radio6));
+        radioList.add((RadioButton) view.findViewById(R.id.radio7));
         map = new HashMap<>();
         //设置日期
         Calendar c = Calendar.getInstance();
@@ -55,11 +67,12 @@ public class PlatformActivity extends BaseActivity {
         mMonth = c.get(Calendar.MONTH);//获取当前月份
         mDay = c.get(Calendar.DAY_OF_MONTH);//获取当前月份的日期号码
 
-        for (int i = -3; i < 3; i--) {
+        for (int i = -3; i <= 3; i++) {
             Calendar calendar = Calendar.getInstance();
             calendar.add(Calendar.DAY_OF_MONTH, i);
             Log.i("Day", calendar.get(Calendar.DAY_OF_MONTH) + "");
-            map.put(""+calendar.get(Calendar.DAY_OF_MONTH),calendar.get(Calendar.YEAR)+"."+calendar.get(Calendar.MONTH)+"."+calendar.get(Calendar.DAY_OF_MONTH));
+            map.put("" + calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.YEAR) + "." + calendar.get(Calendar.MONTH) + "." + calendar.get(Calendar.DAY_OF_MONTH));
+            radioList.get(i + 3).setText(calendar.get(Calendar.DAY_OF_MONTH) + "");
         }
     }
 
@@ -100,13 +113,50 @@ public class PlatformActivity extends BaseActivity {
 
         list = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            list.add(new PlatformData("小明" + i, "2016-10-9", "完成", "C201610141120"));
+            list.add(new PlatformData("任务" + i, "2016-10-9", "完成", "C201610141120"));
         }
         adapter = new PlatformAdapter(this, list);
         platformRecycler.setAdapter(adapter);
         initDateData();
-
+//        requestData();
     }
+
+    private void requestData() {
+        QtRecieveTaskDTO qtRecieveTaskDTO = new QtRecieveTaskDTO();
+        qtRecieveTaskDTO.setUserId("000111");
+        Gson gson = new Gson();
+        String data = gson.toJson(qtRecieveTaskDTO);
+        ServerApiUtils.sendToServer(data, "002001", PublicString.URL_IFC, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Log.i("result", result);
+                Gson responseGson=new Gson();
+                Response response=responseGson.fromJson(result, Response.class);
+                if (response != null && "1".equals(response.getResponseCode())) {
+                    String data = response.getData();
+                    Log.i("ResponseCode", response.getResponseCode());
+                    SpRecieveTaskDTO spRecieveTaskDTO = responseGson.fromJson(data, SpRecieveTaskDTO.class);
+                    Log.i("msUserDTO",spRecieveTaskDTO.toString());
+                    List<ClaimDTO> claimDTOList=spRecieveTaskDTO.getClaimList();
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+}
 
     @Override
     public void widgetClick(View v) {

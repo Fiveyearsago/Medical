@@ -1,0 +1,167 @@
+package com.jy.medical.entities;
+
+import java.util.List;
+
+/**
+ * Created by songran on 16/11/2.
+ */
+
+public class ClaimBean {
+
+    /**
+     * claimId : 11bb26330a640646666b13634c176211
+     * reportNo : 07313608082016000032
+     * reportDate : 2016-02-24 13:16:00
+     * insuredName : 刘启军
+     * plateNo : 鄂H26B59
+     * dangerDate : 2016-02-24 12:45:00
+     * mobilePhone : 15872977228
+     * companyId : 0131363001
+     * companyName : 湖北省分公司荆门中支业务一部
+     * bPolicyNo : 6313630080820160000143
+     * fPolicyNo : 6313630080120160000160
+     * createDate : 2016-02-24 13:23:11
+     * lockFlag : 0
+     * taskList : [{"id":"4028f8be54030eb4015403f827610026","claimId":"11bb26330a640646666b13634c176211","taskType":"05","taskState":"2","taskName":"被扶养人情况核查","injureName":"未知人1","injureId":"8ae486b853151597015315d3f1c00240","dispatchDate":"2016-04-11 14:17:55"}]
+     */
+
+    private String claimId;
+    private String reportNo;
+    private String reportDate;
+    private String insuredName;
+    private String plateNo;
+    private String dangerDate;
+    private String mobilePhone;
+    private String companyId;
+    private String companyName;
+    private String bPolicyNo;
+    private String fPolicyNo;
+    private String createDate;
+    private String lockFlag;
+    /**
+     * id : 4028f8be54030eb4015403f827610026
+     * claimId : 11bb26330a640646666b13634c176211
+     * taskType : 05
+     * taskState : 2
+     * taskName : 被扶养人情况核查
+     * injureName : 未知人1
+     * injureId : 8ae486b853151597015315d3f1c00240
+     * dispatchDate : 2016-04-11 14:17:55
+     */
+
+    private List<TaskBean> taskList;
+
+    public String getClaimId() {
+        return claimId;
+    }
+
+    public void setClaimId(String claimId) {
+        this.claimId = claimId;
+    }
+
+    public String getReportNo() {
+        return reportNo;
+    }
+
+    public void setReportNo(String reportNo) {
+        this.reportNo = reportNo;
+    }
+
+    public String getReportDate() {
+        return reportDate;
+    }
+
+    public void setReportDate(String reportDate) {
+        this.reportDate = reportDate;
+    }
+
+    public String getInsuredName() {
+        return insuredName;
+    }
+
+    public void setInsuredName(String insuredName) {
+        this.insuredName = insuredName;
+    }
+
+    public String getPlateNo() {
+        return plateNo;
+    }
+
+    public void setPlateNo(String plateNo) {
+        this.plateNo = plateNo;
+    }
+
+    public String getDangerDate() {
+        return dangerDate;
+    }
+
+    public void setDangerDate(String dangerDate) {
+        this.dangerDate = dangerDate;
+    }
+
+    public String getMobilePhone() {
+        return mobilePhone;
+    }
+
+    public void setMobilePhone(String mobilePhone) {
+        this.mobilePhone = mobilePhone;
+    }
+
+    public String getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(String companyId) {
+        this.companyId = companyId;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public String getBPolicyNo() {
+        return bPolicyNo;
+    }
+
+    public void setBPolicyNo(String bPolicyNo) {
+        this.bPolicyNo = bPolicyNo;
+    }
+
+    public String getFPolicyNo() {
+        return fPolicyNo;
+    }
+
+    public void setFPolicyNo(String fPolicyNo) {
+        this.fPolicyNo = fPolicyNo;
+    }
+
+    public String getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(String createDate) {
+        this.createDate = createDate;
+    }
+
+    public String getLockFlag() {
+        return lockFlag;
+    }
+
+    public void setLockFlag(String lockFlag) {
+        this.lockFlag = lockFlag;
+    }
+
+    public List<TaskBean> getTaskList() {
+        return taskList;
+    }
+
+    public void setTaskList(List<TaskBean> taskList) {
+        this.taskList = taskList;
+    }
+
+
+}
