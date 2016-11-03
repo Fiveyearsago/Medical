@@ -22,7 +22,7 @@ import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.model.LatLng;
 import com.jy.medical.R;
 import com.jy.medical.adapter.AddressAdapter;
-import com.jy.medical.entities.AddressData;
+import com.jy.medical.greendao.entities.AddressData;
 import com.jy.medical.util.GetLocation;
 import com.jy.medical.util.MyOrientationListener;
 import com.jy.medical.widget.SlideBottomPanel;

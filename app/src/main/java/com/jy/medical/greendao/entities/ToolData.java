@@ -1,4 +1,4 @@
-package com.jy.medical.entities;
+package com.jy.medical.greendao.entities;
 
 /**
  * Created by songran on 16/10/9.

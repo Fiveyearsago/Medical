@@ -7,13 +7,7 @@ import android.view.View;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.jy.medical.R;
-import com.jy.medical.adapter.LawFragmentPagerAdapter;
-import com.jy.medical.adapter.PlatformAdapter;
 import com.jy.medical.adapter.PlatformFragmentPagerAdapter;
-import com.jy.medical.entities.PlatformData;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class AllPlatformActivity extends BaseActivity {
     private SlidingTabLayout slidingTabLayout;

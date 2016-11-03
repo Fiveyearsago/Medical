@@ -10,7 +10,7 @@ import android.widget.RadioButton;
 
 import com.jy.medical.R;
 import com.jy.medical.adapter.ToolAdapter;
-import com.jy.medical.entities.ToolData;
+import com.jy.medical.greendao.entities.ToolData;
 
 import java.util.ArrayList;
 import java.util.List;

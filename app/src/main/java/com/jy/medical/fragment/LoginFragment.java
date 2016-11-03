@@ -1,35 +1,21 @@
 package com.jy.medical.fragment;
 
 
-import android.app.VoiceInteractor;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.jy.ah.bus.data.Request;
 import com.jy.ah.bus.data.Response;
 import com.jy.medical.R;
-import com.jy.medical.activities.LoginActivity;
 import com.jy.medical.activities.PlatformActivity;
-import com.jy.medical.adapter.LawAdapter;
-import com.jy.medical.entities.ToolData;
-import com.jy.medical.util.NetOperaterUtil;
 import com.jy.medical.util.PublicString;
 import com.jy.medical.util.ServerApiUtils;
 import com.jy.medical.widget.CleanableEditText;
@@ -37,9 +23,6 @@ import com.jy.mobile.dto.MsUserDTO;
 import com.jy.mobile.request.QtLoginDTO;
 
 import org.xutils.common.Callback;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.

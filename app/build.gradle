@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
+apply plugin: 'org.greenrobot.greendao'
 
 android {
     compileSdkVersion 24
@@ -15,37 +16,41 @@ android {
     }
 
 
-        buildTypes {
-            debug {
-                //Zipalign优化
-                zipAlignEnabled true
-                // 移除无用的resource文件
-                shrinkResources false
-                //混淆
-                minifyEnabled false
-                //加载默认混淆配置文件
-                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            }
-            release {
-                // 不显示Log
-                buildConfigField "boolean", "LOG_DEBUG", "false"
-                //混淆
-                minifyEnabled false
-                //Zipalign优化
-                zipAlignEnabled true
-                // 移除无用的resource文件
-                shrinkResources false
-                proguardFiles 'proguard-rules.pro'
-            }
+    buildTypes {
+        debug {
+            //Zipalign优化
+            zipAlignEnabled true
+            // 移除无用的resource文件
+            shrinkResources false
+            //混淆
+            minifyEnabled false
+            //加载默认混淆配置文件
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-
-
-    }
-    repositories {
-        flatDir {
-            dirs 'libs'
+        release {
+            // 不显示Log
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+            //混淆
+            minifyEnabled false
+            //Zipalign优化
+            zipAlignEnabled true
+            // 移除无用的resource文件
+            shrinkResources false
+            proguardFiles 'proguard-rules.pro'
         }
     }
+    greendao {
+        schemaVersion 1
+        daoPackage 'com.jy.medical.greendao.gen'
+        targetGenDir 'src/main/java'
+    }
+
+}
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
@@ -69,4 +74,5 @@ dependencies {
     compile files('libs/bus.jar')
 //    compile 'com.github.kingideayou:SlideBottomPanel:1.0.6'
     compile 'com.nineoldandroids:library:2.4.0+'
+    compile 'org.greenrobot:greendao:3.2.0'
 }

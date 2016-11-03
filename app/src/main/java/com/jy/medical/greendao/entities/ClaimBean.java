@@ -1,11 +1,13 @@
-package com.jy.medical.entities;
+package com.jy.medical.greendao.entities;
+
+import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Id;
 
 import java.util.List;
 
 /**
  * Created by songran on 16/11/2.
  */
-
 public class ClaimBean {
 
     /**
@@ -24,7 +26,7 @@ public class ClaimBean {
      * lockFlag : 0
      * taskList : [{"id":"4028f8be54030eb4015403f827610026","claimId":"11bb26330a640646666b13634c176211","taskType":"05","taskState":"2","taskName":"被扶养人情况核查","injureName":"未知人1","injureId":"8ae486b853151597015315d3f1c00240","dispatchDate":"2016-04-11 14:17:55"}]
      */
-
+    private Long id;
     private String claimId;
     private String reportNo;
     private String reportDate;

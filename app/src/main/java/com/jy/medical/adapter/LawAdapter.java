@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 import com.jy.medical.R;
 import com.jy.medical.activities.LawDetailActivity;
-import com.jy.medical.entities.ToolData;
+import com.jy.medical.greendao.entities.ToolData;
 
 import java.util.List;
 

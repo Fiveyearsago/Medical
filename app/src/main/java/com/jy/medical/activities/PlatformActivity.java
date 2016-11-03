@@ -17,7 +17,7 @@ import com.google.gson.Gson;
 import com.jy.ah.bus.data.Response;
 import com.jy.medical.R;
 import com.jy.medical.adapter.PlatformAdapter;
-import com.jy.medical.entities.PlatformData;
+import com.jy.medical.greendao.entities.PlatformData;
 import com.jy.medical.util.PublicString;
 import com.jy.medical.util.ServerApiUtils;
 import com.jy.mobile.dto.ClaimDTO;
@@ -118,7 +118,7 @@ public class PlatformActivity extends BaseActivity {
         adapter = new PlatformAdapter(this, list);
         platformRecycler.setAdapter(adapter);
         initDateData();
-//        requestData();
+        requestData();
     }
 
     private void requestData() {

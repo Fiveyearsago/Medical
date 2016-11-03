@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 
 import com.jy.medical.R;
 import com.jy.medical.adapter.LawAdapter;
-import com.jy.medical.entities.ToolData;
+import com.jy.medical.greendao.entities.ToolData;
 
 import java.util.ArrayList;
 import java.util.List;
