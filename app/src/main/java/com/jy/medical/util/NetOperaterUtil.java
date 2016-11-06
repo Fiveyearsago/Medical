@@ -12,7 +12,6 @@ import org.xutils.x;
 
 public  class NetOperaterUtil {
     public static  void getResponse1(String url,String json){
-
     }
 
 
@@ -22,6 +21,7 @@ public  class NetOperaterUtil {
         requestParams.setConnectTimeout(30000);
         requestParams.setAsJsonContent(true);
         requestParams.setBodyContent(json);
+        Log.i("requestJson",json);
         x.http().post(requestParams, callback);
     }
 }

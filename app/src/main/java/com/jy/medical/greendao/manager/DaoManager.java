@@ -1,4 +1,4 @@
-package com.jy.medical.greendao.util;
+package com.jy.medical.greendao.manager;
 
 /**
  * Created by songran on 16/11/3.
@@ -14,13 +14,16 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import com.jy.medical.greendao.gen.DaoMaster;
 import com.jy.medical.greendao.gen.DaoSession;
+import com.jy.medical.greendao.util.THDevOpenHelper;
+
 import org.greenrobot.greendao.query.QueryBuilder;
 
 public class DaoManager {
     private static final String TAG = DaoManager.class.getSimpleName();
     private static final String DB_NAME = "medical1.db";//数据库名称
     private volatile static DaoManager mDaoManager;//多线程访问
-    private static DaoMaster.DevOpenHelper mHelper;
+//    private static DaoMaster.DevOpenHelper mHelper;
+    private static THDevOpenHelper mHelper;
     private static DaoMaster mDaoMaster;
     private static DaoSession mDaoSession;
     private static SQLiteDatabase db;
@@ -60,7 +63,8 @@ public class DaoManager {
      */
     public DaoMaster getDaoMaster() {
         if (null == mDaoMaster) {
-            mHelper = new DaoMaster.DevOpenHelper(context, DB_NAME, null);
+//            mHelper = new DaoMaster.DevOpenHelper(context, DB_NAME, null);
+            mHelper = new THDevOpenHelper(context, DB_NAME, null);
             mDaoMaster = new DaoMaster(mHelper.getWritableDatabase());
         }
         return mDaoMaster;

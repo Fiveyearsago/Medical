@@ -7,11 +7,17 @@ package com.jy.medical.greendao.util;
 
 import android.content.Context;
 
+import com.jy.medical.greendao.manager.ClaimManager;
+import com.jy.medical.greendao.manager.StudentManager;
+import com.jy.medical.greendao.manager.TaskManager;
+
 /**
  * Created by jinfangmei on 2016/6/16.
  */
 public class DaoUtils {
     private static StudentManager studentManager;
+    private static ClaimManager claimManager;
+    private static TaskManager taskManager;
     public static Context context;
 
     public static void init(Context context) {
@@ -29,5 +35,18 @@ public class DaoUtils {
             studentManager = new StudentManager(context);
         }
         return studentManager;
+    }
+    public static ClaimManager getClaimInstance() {
+        if (claimManager == null) {
+            claimManager = new ClaimManager(context);
+        }
+        return claimManager;
+    }
+
+    public static TaskManager getTaskInstance() {
+        if (taskManager == null) {
+            taskManager = new TaskManager(context);
+        }
+        return taskManager;
     }
 }

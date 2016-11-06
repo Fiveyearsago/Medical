@@ -8,7 +8,7 @@ import org.greenrobot.greendao.annotation.Generated;
  * Created by songran on 16/11/2.
  */
 @Entity
-public  class TaskBeanData {
+public class TaskBeanData {
     @Id
     private Long id;
 
@@ -23,9 +23,22 @@ public  class TaskBeanData {
 
     @Generated(hash = 1607895647)
     public TaskBeanData(Long id, String taskNo, String claimId, String taskType,
-            String taskState, String taskName, String injureName, String injureId,
-            String dispatchDate) {
+                        String taskState, String taskName, String injureName, String injureId,
+                        String dispatchDate) {
         this.id = id;
+        this.taskNo = taskNo;
+        this.claimId = claimId;
+        this.taskType = taskType;
+        this.taskState = taskState;
+        this.taskName = taskName;
+        this.injureName = injureName;
+        this.injureId = injureId;
+        this.dispatchDate = dispatchDate;
+    }
+
+    public TaskBeanData(String taskNo, String claimId, String taskType,
+                        String taskState, String taskName, String injureName, String injureId,
+                        String dispatchDate) {
         this.taskNo = taskNo;
         this.claimId = claimId;
         this.taskType = taskType;

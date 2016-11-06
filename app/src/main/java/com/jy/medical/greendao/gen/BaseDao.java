@@ -9,7 +9,7 @@ package com.jy.medical.greendao.gen;
 import android.content.Context;
 import android.util.Log;
 
-import com.jy.medical.greendao.util.DaoManager;
+import com.jy.medical.greendao.manager.DaoManager;
 import org.greenrobot.greendao.query.QueryBuilder;
 
 import java.util.List;

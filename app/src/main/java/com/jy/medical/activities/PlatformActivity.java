@@ -17,7 +17,10 @@ import com.google.gson.Gson;
 import com.jy.ah.bus.data.Response;
 import com.jy.medical.R;
 import com.jy.medical.adapter.PlatformAdapter;
+import com.jy.medical.controller.JsonToBean;
 import com.jy.medical.greendao.entities.PlatformData;
+import com.jy.medical.greendao.manager.ClaimManager;
+import com.jy.medical.greendao.util.DaoUtils;
 import com.jy.medical.util.PublicString;
 import com.jy.medical.util.ServerApiUtils;
 import com.jy.mobile.dto.ClaimDTO;
@@ -112,13 +115,15 @@ public class PlatformActivity extends BaseActivity {
         platformRecycler.setLayoutManager(layoutManager);
 
         list = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            list.add(new PlatformData("任务" + i, "2016-10-9", "完成", "C201610141120"));
-        }
+//        for (int i = 0; i < 10; i++) {
+//            list.add(new PlatformData("任务" + i, "2016-10-9", "完成", "C201610141120"));
+//        }
+        ClaimManager claimManager= DaoUtils.getClaimInstance();
+        list=claimManager.selectAllData();
         adapter = new PlatformAdapter(this, list);
         platformRecycler.setAdapter(adapter);
         initDateData();
-        requestData();
+//        requestData();
     }
 
     private void requestData() {
@@ -138,6 +143,7 @@ public class PlatformActivity extends BaseActivity {
                     SpRecieveTaskDTO spRecieveTaskDTO = responseGson.fromJson(data, SpRecieveTaskDTO.class);
                     Log.i("msUserDTO",spRecieveTaskDTO.toString());
                     List<ClaimDTO> claimDTOList=spRecieveTaskDTO.getClaimList();
+                    JsonToBean.ClaimDTOToBean(claimDTOList);
                 }
             }
 

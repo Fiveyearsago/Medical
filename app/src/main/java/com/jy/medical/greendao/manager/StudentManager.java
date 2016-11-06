@@ -1,4 +1,4 @@
-package com.jy.medical.greendao.util;
+package com.jy.medical.greendao.manager;
 
 /**
  * Created by songran on 16/11/3.

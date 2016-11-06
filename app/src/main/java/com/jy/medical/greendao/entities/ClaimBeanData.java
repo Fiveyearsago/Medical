@@ -5,6 +5,8 @@ import org.greenrobot.greendao.annotation.Id;
 
 import java.util.List;
 import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.annotation.NotNull;
+import org.greenrobot.greendao.annotation.Unique;
 
 /**
  * Created by songran on 16/11/2.
@@ -28,8 +30,10 @@ public class ClaimBeanData {
      * lockFlag : 0
      * taskList : [{"id":"4028f8be54030eb4015403f827610026","claimId":"11bb26330a640646666b13634c176211","taskType":"05","taskState":"2","taskName":"被扶养人情况核查","injureName":"未知人1","injureId":"8ae486b853151597015315d3f1c00240","dispatchDate":"2016-04-11 14:17:55"}]
      */
-    @Id
+    @Id (autoincrement = true)
     private Long id;
+    @Unique
+    @NotNull
     private String claimId;
     private String reportNo;
     private String reportDate;
@@ -43,10 +47,26 @@ public class ClaimBeanData {
     private String fPolicyNo;
     private String createDate;
     private String lockFlag;
-    @Generated(hash = 787843043)
-    public ClaimBeanData(Long id, String claimId, String reportNo, String reportDate, String insuredName, String plateNo, String dangerDate, String mobilePhone, String companyId, String companyName, String bPolicyNo, String fPolicyNo, String createDate,
+    @Generated(hash = 750019871)
+    public ClaimBeanData(Long id, @NotNull String claimId, String reportNo, String reportDate, String insuredName, String plateNo, String dangerDate, String mobilePhone, String companyId, String companyName, String bPolicyNo, String fPolicyNo, String createDate,
             String lockFlag) {
         this.id = id;
+        this.claimId = claimId;
+        this.reportNo = reportNo;
+        this.reportDate = reportDate;
+        this.insuredName = insuredName;
+        this.plateNo = plateNo;
+        this.dangerDate = dangerDate;
+        this.mobilePhone = mobilePhone;
+        this.companyId = companyId;
+        this.companyName = companyName;
+        this.bPolicyNo = bPolicyNo;
+        this.fPolicyNo = fPolicyNo;
+        this.createDate = createDate;
+        this.lockFlag = lockFlag;
+    }
+    public ClaimBeanData( String claimId, String reportNo, String reportDate, String insuredName, String plateNo, String dangerDate, String mobilePhone, String companyId, String companyName, String bPolicyNo, String fPolicyNo, String createDate,
+            String lockFlag) {
         this.claimId = claimId;
         this.reportNo = reportNo;
         this.reportDate = reportDate;

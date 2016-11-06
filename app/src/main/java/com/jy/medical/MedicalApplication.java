@@ -1,11 +1,9 @@
 package com.jy.medical;
 
 import android.app.Application;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 
 import com.baidu.mapapi.SDKInitializer;
-import com.jy.medical.greendao.util.DaoManager;
+import com.jy.medical.greendao.manager.DaoManager;
 import com.jy.medical.greendao.gen.DaoSession;
 import com.jy.medical.greendao.util.DBUtils;
 import com.jy.medical.greendao.util.DaoUtils;

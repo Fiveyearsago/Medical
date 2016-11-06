@@ -10,7 +10,12 @@ public class PlatformData {
     private String tag;
     private String reportNum;
 
-    public PlatformData(String peopleName, String time, String tag, String reportNum) {
+    private String claimId;
+    private String taskNo;
+
+    public PlatformData(String claimId, String taskNo, String peopleName, String time, String tag, String reportNum) {
+        this.claimId = claimId;
+        this.taskNo = taskNo;
         this.peopleName = peopleName;
         this.time = time;
         this.tag = tag;
@@ -47,5 +52,20 @@ public class PlatformData {
 
     public void setReportNum(String reportNum) {
         this.reportNum = reportNum;
+    }
+    public String getClaimId() {
+        return claimId;
+    }
+
+    public void setClaimId(String claimId) {
+        this.claimId = claimId;
+    }
+
+    public String getTaskNo() {
+        return taskNo;
+    }
+
+    public void setTaskNo(String taskNo) {
+        this.taskNo = taskNo;
     }
 }
