@@ -27,6 +27,8 @@
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.RESTART_PACKAGES"/>
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
 
     <application
         android:name=".MedicalApplication"
@@ -89,11 +91,13 @@
         <activity
             android:name=".activities.PlatformActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/noAnimationTheme" />
+            android:theme="@style/noAnimationTheme"
+            android:launchMode="singleTask"/>
         <activity
             android:name=".activities.ToolActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/noAnimationTheme" />
+            android:theme="@style/noAnimationTheme"
+            android:launchMode="singleTask"/>
         <activity
             android:name=".activities.ToolDetailActivity"
             android:screenOrientation="portrait" />

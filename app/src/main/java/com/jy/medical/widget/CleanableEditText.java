@@ -2,15 +2,20 @@ package com.jy.medical.widget;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.media.MediaDrm;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.CycleInterpolator;
 import android.view.animation.TranslateAnimation;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+
+import java.util.List;
 
 /**
  * Created by songran on 16/9/29.
@@ -82,6 +87,12 @@ public class CleanableEditText extends EditText {
                 break;
         }
         return super.onTouchEvent(event);
+    }
+
+    @Override
+    protected void onSelectionChanged(int selStart, int selEnd) {
+        super.onSelectionChanged(selStart, selEnd);
+        Log.i("selection",(selEnd-selStart)+"");
     }
 
     private class FocusChangeListenerImpl implements OnFocusChangeListener{

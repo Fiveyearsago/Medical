@@ -75,4 +75,6 @@ dependencies {
 //    compile 'com.github.kingideayou:SlideBottomPanel:1.0.6'
     compile 'com.nineoldandroids:library:2.4.0+'
     compile 'org.greenrobot:greendao:3.2.0'
+//    compile 'com.bigkoo:alertview:1.0.3'
+    compile project(':alertview')
 }

@@ -103,7 +103,6 @@ public class ClaimManager extends BaseDao<ClaimBeanData> {
         ClaimBeanDataDao claimBeanDataDao = daoSession.getClaimBeanDataDao();
         TaskBeanDataDao taskBeanDataDao = daoSession.getTaskBeanDataDao();
         QueryBuilder<ClaimBeanData> qb = claimBeanDataDao.queryBuilder();
-        QueryBuilder<TaskBeanData> queryBuilder = taskBeanDataDao.queryBuilder();
         qb.where(ClaimBeanDataDao.Properties.ClaimId.isNotNull());
         List<ClaimBeanData> datas = qb.list();
         if (datas != null) {
@@ -111,13 +110,15 @@ public class ClaimManager extends BaseDao<ClaimBeanData> {
                 String peopleName = datas.get(i).getInsuredName();
                 String reportNum = datas.get(i).getReportNo();
                 String claimId = datas.get(i).getClaimId();
+                String phone=datas.get(i).getMobilePhone();
+                QueryBuilder<TaskBeanData> queryBuilder = taskBeanDataDao.queryBuilder();
                 queryBuilder.where(TaskBeanDataDao.Properties.ClaimId.eq(claimId));
                 List<TaskBeanData> taskBeanDatas= queryBuilder.list();
                 for (int j = 0; j < taskBeanDatas.size(); j++) {
                     String time = taskBeanDatas.get(j).getDispatchDate();
                     String tag = taskBeanDatas.get(j).getTaskState();
                     String taskNo = taskBeanDatas.get(j).getTaskNo();
-                    list.add(new PlatformData(claimId, taskNo, peopleName, time, tag, reportNum));
+                    list.add(new PlatformData(claimId, taskNo, peopleName, time, tag, reportNum,phone));
                 }
             }
         }

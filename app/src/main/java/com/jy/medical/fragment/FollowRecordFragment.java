@@ -18,14 +18,12 @@ import com.jy.medical.activities.FollowEditActivity;
 public class FollowRecordFragment extends Fragment {
     public static final String ARGS_PAGE = "args_page";
     private int mPage;
+    private static FollowRecordFragment followRecordFragment;
 
     public static FollowRecordFragment newInstance() {
-        Bundle args = new Bundle();
-
-//        args.putInt(ARGS_PAGE, page);
-        FollowRecordFragment fragment = new FollowRecordFragment();
-//        fragment.setArguments(args);
-        return fragment;
+        if (followRecordFragment==null)
+         followRecordFragment = new FollowRecordFragment();
+        return followRecordFragment;
     }
 
     public FollowRecordFragment() {

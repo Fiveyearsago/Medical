@@ -7,16 +7,6 @@
     android:background="@color/pageBackground"
     tools:context="com.jy.medical.activities.PlatformActivity">
 
-    <LinearLayout
-        android:id="@+id/platform_head"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <include layout="@layout/page_head_platform" />
-        <include layout="@layout/platform_content_head" />
-    </LinearLayout>
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/platform_recycler"
         android:layout_width="match_parent"
@@ -37,5 +27,18 @@
             layout="@layout/navigation_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/platform_head"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <include layout="@layout/page_head_platform" />
+        <include layout="@layout/platform_content_head1" />
     </LinearLayout>
 </RelativeLayout>

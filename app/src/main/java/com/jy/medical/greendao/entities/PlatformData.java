@@ -1,10 +1,12 @@
 package com.jy.medical.greendao.entities;
 
+import java.io.Serializable;
+
 /**
  * Created by songran on 16/10/14.
  */
 
-public class PlatformData {
+public class PlatformData implements Serializable {
     private String peopleName;
     private String time;
     private String tag;
@@ -12,14 +14,24 @@ public class PlatformData {
 
     private String claimId;
     private String taskNo;
+    private String phoneNum;
 
-    public PlatformData(String claimId, String taskNo, String peopleName, String time, String tag, String reportNum) {
+    public PlatformData(String claimId, String taskNo, String peopleName, String time, String tag, String reportNum,String phoneNum) {
         this.claimId = claimId;
         this.taskNo = taskNo;
         this.peopleName = peopleName;
         this.time = time;
         this.tag = tag;
         this.reportNum = reportNum;
+        this.phoneNum = phoneNum;
+    }
+
+    public String getPhoneNum() {
+        return phoneNum;
+    }
+
+    public void setPhoneNum(String phoneNum) {
+        this.phoneNum = phoneNum;
     }
 
     public String getPeopleName() {

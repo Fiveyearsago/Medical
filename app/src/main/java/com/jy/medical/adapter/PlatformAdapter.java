@@ -2,15 +2,20 @@ package com.jy.medical.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.jy.medical.R;
 import com.jy.medical.activities.FollowDetailActivity;
 import com.jy.medical.greendao.entities.PlatformData;
+import com.jy.medical.util.TimeUtil;
 
+import java.text.ParseException;
 import java.util.List;
 
 /**
@@ -20,7 +25,7 @@ import java.util.List;
 public class PlatformAdapter extends BaseHeadFootAdapter {
 
     private Context context;
-    private List<PlatformData>list;
+    private List<PlatformData> list;
 
     public PlatformAdapter(Context context, List<PlatformData> list) {
         this.context = context;
@@ -40,14 +45,7 @@ public class PlatformAdapter extends BaseHeadFootAdapter {
 
     @Override
     protected void onBindFooterView(View footerView) {
-//        footerView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Toast.makeText(context,"foot was clicked",Toast.LENGTH_SHORT).show();
-//            }
-//        });
     }
-
 
 
     @Override
@@ -56,31 +54,56 @@ public class PlatformAdapter extends BaseHeadFootAdapter {
     }
 
 
-
     @Override
     protected void onBindView(RecyclerView.ViewHolder holder, final int position) {
-        final PlatformViewHolder viewHolder= (PlatformViewHolder) holder;
+        final PlatformViewHolder viewHolder = (PlatformViewHolder) holder;
+        final PlatformData platformData=list.get(position);
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                view.setBackgroundColor(Color.parseColor("#F5F5F5"));
-//                viewHolder.toolText.setTextColor(Color.parseColor("#999999"));
-//                Toast.makeText(context,"big text "+position+"was clicked",Toast.LENGTH_SHORT).show();
-//                view.setBackgroundColor(Color.parseColor("#FFFFFF"));
-//                context.startActivity(new Intent(context, LawDetailActivity.class));
-                context.startActivity(new Intent(context, FollowDetailActivity.class));
+                Intent intent= new Intent(context, FollowDetailActivity.class);
+                intent.putExtra("info",platformData);
+                context.startActivity(intent);
+
             }
         });
 
-        viewHolder.platformPeopleName.setText(list.get(position).getPeopleName());
-        viewHolder.platformTag.setText(list.get(position).getTag());
-        viewHolder.platformTime.setText(list.get(position).getTime());
-        viewHolder.platformReportNum.setText(list.get(position).getReportNum());
+        try {
+            int gapNum = TimeUtil.getGapCount(platformData.getTime());
+            if (TimeUtil.getGapCount(platformData.getTime()) > 0) {
+                viewHolder.platformTimeOutNum.setText(gapNum+"");
+                viewHolder.viewLayout.setVisibility(View.VISIBLE);
+                viewHolder.platformTag.setText("超时");
+                viewHolder.platformTag.setTextColor(context.getResources().getColor(R.color.colorTimeout));
+                viewHolder.platformTag.setBackground(context.getResources().getDrawable(R.drawable.platform_timeout));
+
+            } else {
+                viewHolder.platformTag.setText("完成");
+                viewHolder.viewLayout.setVisibility(View.GONE);
+                viewHolder.platformTag.setTextColor(context.getResources().getColor(R.color.colorFinished));
+                viewHolder.platformTag.setBackground(context.getResources().getDrawable(R.drawable.platform_finished));
+
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        switch (platformData.getTag()) {
+            case "0":
+
+                break;
+            case "1":
+                break;
+            case "2":
+                break;
+        }
+        viewHolder.platformPeopleName.setText(platformData.getPeopleName());
+        viewHolder.platformTime.setText(platformData.getTime());
+        viewHolder.platformReportNum.setText(platformData.getReportNum());
     }
 
     @Override
     public PlatformViewHolder onCreateHolder(ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(context).inflate(R.layout.item_platform,null);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_platform, null);
         return new PlatformViewHolder(view);
     }
 }

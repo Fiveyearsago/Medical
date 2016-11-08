@@ -1,23 +1,19 @@
 package com.jy.medical.activities;
 
-import android.content.res.Configuration;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
-import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.view.WindowManager;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.flyco.tablayout.SlidingTabLayout;
 import com.flyco.tablayout.listener.OnTabSelectListener;
+import com.jy.medical.MedicalApplication;
 import com.jy.medical.R;
 import com.jy.medical.adapter.LoginFragmentPagerAdapter;
 
@@ -25,10 +21,11 @@ public class LoginActivity extends BaseActivity {
     private SlidingTabLayout slidingTabLayout;
     private ViewPager viewPager;
     private LoginFragmentPagerAdapter adapter;
-    private View rootLinearLayout;
-    private TextInputEditText textInputEditTextAccount;
-    private int mHeaderViewHeight;
-    private View blankView;
+    private boolean mIsExit;
+
+    public LoginActivity() {
+    }
+
     @Override
     public void initData() {
 
@@ -46,6 +43,7 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        MedicalApplication.getInstance().addActivity(this);
 //        getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN);
 //        getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 //        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
@@ -101,5 +99,24 @@ public class LoginActivity extends BaseActivity {
         DisplayMetrics dm = rootView.getResources().getDisplayMetrics();
         int heightDiff = rootView.getBottom() - r.bottom;
         return heightDiff > softKeyboardHeight * dm.density;
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (mIsExit) {
+                exit();
+            } else {
+                Toast.makeText(this, "再按一次退出", Toast.LENGTH_SHORT).show();
+                mIsExit = true;
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mIsExit = false;
+                    }
+                }, 2000);
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

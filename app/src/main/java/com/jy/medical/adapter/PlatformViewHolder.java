@@ -16,6 +16,8 @@ public class PlatformViewHolder extends RecyclerView.ViewHolder {
     public TextView platformPeopleName;
     public TextView platformReportNum;
     public TextView platformTime;
+    public View viewLayout;
+    public TextView platformTimeOutNum;
 
     public PlatformViewHolder(View itemView) {
         super(itemView);
@@ -24,5 +26,7 @@ public class PlatformViewHolder extends RecyclerView.ViewHolder {
         platformTag = (TextView) itemView.findViewById(R.id.item_platform_tag);
         platformTime = (TextView) itemView.findViewById(R.id.item_platform_time_text);
         platformReportNum = (TextView) itemView.findViewById(R.id.item_platform_report_num);
+        platformTimeOutNum = (TextView) itemView.findViewById(R.id.item_time_out_num);
+        viewLayout =  itemView.findViewById(R.id.time_out_layout);
     }
 }

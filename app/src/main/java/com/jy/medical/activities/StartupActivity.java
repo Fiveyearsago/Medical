@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.jy.medical.MedicalApplication;
 import com.jy.medical.R;
 
 public class StartupActivity extends BaseActivity {
@@ -12,6 +13,7 @@ public class StartupActivity extends BaseActivity {
 
     @Override
     public void initData() {
+        MedicalApplication.getInstance().addActivity(this);
         Handler handler = new Handler();
         Runnable runnable=new Runnable() {
             @Override
@@ -36,6 +38,7 @@ public class StartupActivity extends BaseActivity {
     @Override
     public void initView() {
 //        startActivity(LoginActivity.class);
+        MedicalApplication.getInstance().addActivity(this);
     }
 
     @Override

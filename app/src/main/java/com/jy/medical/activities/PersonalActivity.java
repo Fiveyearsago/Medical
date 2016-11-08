@@ -10,6 +10,9 @@ import com.jy.medical.widget.pickerview.data.Type;
 import com.jy.medical.widget.pickerview.listener.OnDateSetListener;
 import com.jy.medical.widget.pickerview.utils.PickerContants;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class PersonalActivity extends BaseActivity {
     private TimePickerDialog mDialogYearMonthDay;
     private Button logOut;
@@ -92,12 +95,17 @@ public class PersonalActivity extends BaseActivity {
                 .setCallBack(new OnDateSetListener() {
                     @Override
                     public void onDateSet(TimePickerDialog timePickerView, long millseconds) {
-//                        String text = getDateToString(millseconds);
-//                        mEditTime2.setText(text);
+                        String text = getDateToString(millseconds);
+//                        textA.setText(text);
                     }
                 })
                 .build();
         mDialogYearMonthDay.show(getSupportFragmentManager(), "year_month_day");
 
+    }
+    public String getDateToString(long time) {
+        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+        Date d = new Date(time);
+        return sf.format(d);
     }
 }

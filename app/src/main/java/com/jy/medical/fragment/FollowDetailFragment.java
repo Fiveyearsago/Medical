@@ -14,16 +14,13 @@ import com.jy.medical.R;
  * A simple {@link Fragment} subclass.
  */
 public class FollowDetailFragment extends Fragment {
-    public static final String ARGS_PAGE = "args_page";
-    private int mPage;
-
+private  static FollowDetailFragment followDetailFragment;
     public static FollowDetailFragment newInstance() {
-        Bundle args = new Bundle();
+        if (followDetailFragment == null) {
+            followDetailFragment = new FollowDetailFragment();
+        }
 
-//        args.putInt(ARGS_PAGE, page);
-        FollowDetailFragment fragment = new FollowDetailFragment();
-//        fragment.setArguments(args);
-        return fragment;
+        return followDetailFragment;
     }
 
     public FollowDetailFragment() {

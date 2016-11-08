@@ -1,6 +1,7 @@
 package com.jy.medical;
 
 import android.app.Application;
+import android.support.v7.app.AppCompatActivity;
 
 import com.baidu.mapapi.SDKInitializer;
 import com.jy.medical.greendao.manager.DaoManager;
@@ -11,11 +12,35 @@ import com.pgyersdk.crash.PgyCrashManager;
 
 import org.xutils.x;
 
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * Description
  * Created by songran on 16/9/22.
  */
 public class MedicalApplication extends Application {
+    private List<AppCompatActivity> activityList = new LinkedList<>();
+    private static MedicalApplication instance;
+//    private MedicalApplication(){ }
+    //单例模式中获取唯一的MyApplication实例
+    public static MedicalApplication getInstance() {
+        if(null == instance) {
+            instance = new MedicalApplication();
+        }
+        return instance;
+    }
+    //添加Activity到容器中
+    public void addActivity(AppCompatActivity activity)  {
+        activityList.add(activity);
+    }
+    //遍历所有Activity并finish
+    public void exit(){
+        for(AppCompatActivity activity:activityList) {
+            activity.finish();
+        }
+        System.exit(0);
+    }
 
     @Override
     public void onCreate() {

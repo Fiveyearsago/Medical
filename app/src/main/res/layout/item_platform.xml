@@ -22,33 +22,70 @@
             android:layout_centerVertical="true"
             android:orientation="vertical">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/item_platform_people_name"
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/item_platform_people_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Mr.Song"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/primary_text_size" />
+
+                    <TextView
+                        android:id="@+id/item_platform_tag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:background="@drawable/platform_finished"
+                        android:paddingBottom="1dp"
+                        android:paddingLeft="4dp"
+                        android:paddingRight="4dp"
+                        android:paddingTop="1dp"
+                        android:text="完成"
+                        android:textColor="@color/black"
+                        android:textSize="12dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/time_out_layout"
+                    android:visibility="gone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Mr.Song"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/primary_text_size" />
+                    android:layout_alignParentRight="true"
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/item_platform_tag"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:background="@drawable/platform_finished"
-                    android:paddingBottom="1dp"
-                    android:paddingLeft="4dp"
-                    android:paddingRight="4dp"
-                    android:paddingTop="1dp"
-                    android:text="完成"
-                    android:textColor="@color/black"
-                    android:textSize="12dp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="超"
+                        android:textColor="@color/minorColor"
+                        android:textSize="12dp" />
 
-            </LinearLayout>
+                    <TextView
+                        android:id="@+id/item_time_out_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1"
+                        android:textColor="@color/colorTimeout"
+                        android:textSize="17dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="天"
+                        android:textColor="@color/minorColor"
+                        android:textSize="12dp" />
+                </LinearLayout>
+            </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"

@@ -1,6 +1,7 @@
 package com.jy.medical.activities;
 
 import android.app.ActivityManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,13 +9,16 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.jy.ah.bus.data.Response;
+import com.jy.medical.MedicalApplication;
 import com.jy.medical.R;
 import com.jy.medical.adapter.PlatformAdapter;
 import com.jy.medical.controller.JsonToBean;
@@ -47,6 +51,8 @@ public class PlatformActivity extends BaseActivity {
     private int mYear, mMonth, mDay;
     private Map<String, String> map;
     private List<RadioButton> radioList;
+    private RadioGroup radioGroup;
+
 
     @Override
     public void initData() {
@@ -55,7 +61,10 @@ public class PlatformActivity extends BaseActivity {
 
     public void initDateData() {
         radioList = new ArrayList<>();
-        View view = findViewById(R.id.date_layout);
+        View viewLayout = findViewById(R.id.date_layout);
+        View view = viewLayout.findViewById(R.id.platform_radioGroup);
+        radioGroup= (RadioGroup) viewLayout.findViewById(R.id.platform_radioGroup);
+
         radioList.add((RadioButton) view.findViewById(R.id.radio1));
         radioList.add((RadioButton) view.findViewById(R.id.radio2));
         radioList.add((RadioButton) view.findViewById(R.id.radio3));
@@ -63,6 +72,14 @@ public class PlatformActivity extends BaseActivity {
         radioList.add((RadioButton) view.findViewById(R.id.radio5));
         radioList.add((RadioButton) view.findViewById(R.id.radio6));
         radioList.add((RadioButton) view.findViewById(R.id.radio7));
+        radioGroup.check(radioList.get(3).getId());
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                Log.i("checkedId",checkedId+"");
+            }
+        });
+
         map = new HashMap<>();
         //设置日期
         Calendar c = Calendar.getInstance();
@@ -77,6 +94,7 @@ public class PlatformActivity extends BaseActivity {
             map.put("" + calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.YEAR) + "." + calendar.get(Calendar.MONTH) + "." + calendar.get(Calendar.DAY_OF_MONTH));
             radioList.get(i + 3).setText(calendar.get(Calendar.DAY_OF_MONTH) + "");
         }
+        radioList.get(3).setText("今");
     }
 
     @Override
@@ -91,6 +109,7 @@ public class PlatformActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        MedicalApplication.getInstance().addActivity(this);
         setStatusBarTint();
 //        setTitleState(findViewById(R.id.title_head), false, "跟踪平台", false, "");
         View view = findViewById(R.id.platform_title_head);
@@ -105,19 +124,11 @@ public class PlatformActivity extends BaseActivity {
         radioTool = (RadioButton) navView.findViewById(R.id.radio_btn_tool);
         radioMine.setOnClickListener(this);
         radioTool.setOnClickListener(this);
-        radioPlatform.setChecked(true);
-        radioMine.setChecked(false);
-        radioTool.setChecked(false);
-
         platformRecycler = (RecyclerView) findViewById(R.id.platform_recycler);
         platformRecycler.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         platformRecycler.setLayoutManager(layoutManager);
-
         list = new ArrayList<>();
-//        for (int i = 0; i < 10; i++) {
-//            list.add(new PlatformData("任务" + i, "2016-10-9", "完成", "C201610141120"));
-//        }
         ClaimManager claimManager= DaoUtils.getClaimInstance();
         list=claimManager.selectAllData();
         adapter = new PlatformAdapter(this, list);
@@ -169,6 +180,7 @@ public class PlatformActivity extends BaseActivity {
         switch (v.getId()) {
             case R.id.radio_btn_mine:
                 overridePendingTransition(0, 0);
+                this.finish();
                 startActivity(MineActivity.class);
                 break;
             case R.id.radio_btn_tool:
@@ -190,10 +202,7 @@ public class PlatformActivity extends BaseActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             if (mIsExit) {
-//                this.finish();
-                ActivityManager manager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
-                manager.killBackgroundProcesses(getPackageName());
-
+                exit();
             } else {
                 Toast.makeText(this, "再按一次退出", Toast.LENGTH_SHORT).show();
                 mIsExit = true;
@@ -207,5 +216,28 @@ public class PlatformActivity extends BaseActivity {
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        radioPlatform.setChecked(true);
+        radioMine.setChecked(false);
+        radioTool.setChecked(false);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

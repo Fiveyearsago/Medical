@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/date_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp">
+
+        <RadioGroup
+            android:id="@+id/platform_radioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radio1"
+                style="@style/DateRadioStyle1"
+                android:text="19" />
+
+
+            <RadioButton
+                android:id="@+id/radio2"
+                style="@style/DateRadioStyle1"
+                android:text="20" />
+
+
+            <RadioButton
+                android:id="@+id/radio3"
+                style="@style/DateRadioStyle1"
+                android:text="21" />
+
+            <RadioButton
+                android:id="@+id/radio4"
+                style="@style/DateRadioTodayStyle"
+                android:text="22" />
+
+
+            <RadioButton
+                android:id="@+id/radio5"
+                style="@style/DateRadioStyle1"
+                android:text="23" />
+
+
+            <RadioButton
+                android:id="@+id/radio6"
+                style="@style/DateRadioStyle1"
+                android:text="24" />
+
+
+            <RadioButton
+                android:id="@+id/radio7"
+
+                style="@style/DateRadioStyle1"
+                android:text="25" />
+
+
+        </RadioGroup>
+    </LinearLayout>
+
+</LinearLayout>

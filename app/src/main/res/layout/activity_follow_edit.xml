@@ -24,12 +24,13 @@
         android:background="@color/white"
         android:gravity="center_vertical"
         android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:paddingLeft="@dimen/primary_margin"
-            android:paddingRight="@dimen/primary_margin"
-            android:layout_centerInParent="true">
+            android:paddingRight="@dimen/primary_margin">
 
             <Button
                 android:id="@+id/follow_edit_commit"
@@ -60,17 +61,16 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/bottom_layout"
         android:layout_below="@+id/head_layout"
-        android:background="@color/white"
         android:layout_marginBottom="10dp"
-       >
+        android:background="@color/white">
 
         <LinearLayout
 
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:orientation="vertical"
             android:paddingLeft="@dimen/primary_text_size"
-            android:paddingRight="@dimen/primary_text_size"
-            android:orientation="vertical">
+            android:paddingRight="@dimen/primary_text_size">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -130,13 +130,16 @@
                     android:textSize="@dimen/primary_text_size" />
 
                 <TextView
+                    android:id="@+id/follow_edit_accident_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="5dp"
                     android:layout_toLeftOf="@+id/accident_time_image"
-                    android:text="必选"
-                    android:textColor="@color/hintColor"
+                    android:hint="必选"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/hintColor"
                     android:textSize="@dimen/primary_text_size" />
 
                 <ImageView
@@ -145,7 +148,6 @@
                     android:layout_height="16dp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-
                     android:background="@mipmap/more"
                     android:scaleType="fitXY" />
             </RelativeLayout>
@@ -168,14 +170,21 @@
                     android:textColor="@color/navigateColor"
                     android:textSize="@dimen/primary_text_size" />
 
-                <ImageView
-                    android:id="@+id/add_contact"
-                    android:layout_width="13dp"
-                    android:layout_height="13dp"
+                <RelativeLayout
+                    android:id="@+id/follow_edit_add_contact_layout"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:background="@drawable/add_contact_selector"
-                    android:scaleType="fitXY" />
+                    android:layout_centerVertical="true">
+
+                    <ImageView
+                        android:id="@+id/add_contact"
+                        android:layout_width="13dp"
+                        android:layout_height="13dp"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/add_contact_selector"
+                        android:scaleType="fitXY" />
+                </RelativeLayout>
             </RelativeLayout>
 
             <View

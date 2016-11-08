@@ -9,6 +9,7 @@
         <item name="android:textColor">@color/black</item>
         <item name="windowNoTitle">true</item>
     </style>
+
     <style name="ToolRadioButtonNav">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
@@ -20,6 +21,7 @@
         <item name="android:textColor">@color/navigateColor</item>
         <item name="android:button">@null</item>
     </style>
+
     <style name="RadioButtonNav">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
@@ -31,12 +33,14 @@
         <item name="android:textColor">@drawable/nav_text_color_selector</item>
         <item name="android:button">@null</item>
     </style>
+
     <style name="LeftTextStyle">
         <item name="android:layout_centerVertical">true</item>
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">@dimen/primary_text_size</item>
         <item name="android:layout_marginLeft">@dimen/primary_margin</item>
     </style>
+
     <style name="ButtonBackground">
         <item name="android:layout_marginTop">59dp</item>
         <item name="android:layout_marginLeft">25dp</item>
@@ -47,12 +51,15 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">45dp</item>
     </style>
+
     <style name="FullScreen" parent="AppTheme">
         <item name="android:windowFullscreen">true</item>
     </style>
+
     <style name="noAnimationTheme" parent="AppTheme">
         <item name="android:windowAnimationStyle">@style/noAnimation</item>
     </style>
+
     <style name="noAnimation">
         <item name="android:activityOpenEnterAnimation">@null</item>
         <item name="android:activityOpenExitAnimation">@null</item>
@@ -68,6 +75,7 @@
         <item name="android:taskToBackExitAnimation">@null</item>
 
     </style>
+
     <style name="CompensationTextStyle">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
@@ -75,6 +83,7 @@
         <item name="android:textColor">@color/navigateColor</item>
         <item name="android:layout_centerVertical">true</item>
     </style>
+
     <style name="CompensationTextStyleRight">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
@@ -83,6 +92,7 @@
         <item name="android:layout_centerVertical">true</item>
         <item name="android:layout_alignParentRight">true</item>
     </style>
+
     <style name="Dialog.NoTitle" parent="Theme.AppCompat.Dialog">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowFullscreen">true</item>
@@ -95,10 +105,26 @@
         <item name="android:windowEnterAnimation">@anim/slide_in_bottom</item>
         <item name="android:windowExitAnimation">@anim/slide_out_bottom</item>
     </style>
+
     <style name="DateRadioStyle">
         <item name="android:layout_width">25dp</item>
         <item name="android:layout_height">25dp</item>
         <item name="android:gravity">center</item>
+        <item name="android:scaleType">center</item>
+        <item name="android:background">@drawable/platform_date_text_bg_selector</item>
+        <item name="android:textColor">@drawable/platform_date_text_selector</item>
+        <item name="android:textSize">17dp</item>
+        <item name="android:button">@null</item>
+        <item name="android:layout_centerInParent">true</item>
+    </style>
+    <style name="DateRadioStyle1">
+        <item name="android:layout_width">27dp</item>
+        <item name="android:layout_height">25dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_marginLeft">14dp</item>
+        <item name="android:layout_marginRight">14dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:scaleType">center</item>
         <item name="android:background">@drawable/platform_date_text_bg_selector</item>
         <item name="android:textColor">@drawable/platform_date_text_selector</item>
         <item name="android:textSize">17dp</item>
@@ -106,8 +132,11 @@
         <item name="android:layout_centerInParent">true</item>
     </style>
     <style name="DateRadioTodayStyle">
-        <item name="android:layout_width">25dp</item>
+        <item name="android:layout_width">27dp</item>
         <item name="android:layout_height">25dp</item>
+        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:layout_marginRight">8dp</item>
+        <item name="android:layout_weight">1</item>
         <item name="android:gravity">center</item>
         <item name="android:background">@drawable/platform_date_today_bg_selector</item>
         <item name="android:textColor">@drawable/platform_date_today_text_selector</item>
@@ -115,14 +144,17 @@
         <item name="android:button">@null</item>
         <item name="android:layout_centerInParent">true</item>
     </style>
+
     <style name="textTimeoutTab">
         <item name="android:textSize">24dp</item>
         <item name="android:textColor">@color/colorTimeout</item>
     </style>
+
     <style name="textNormalTab">
         <item name="android:textSize">24dp</item>
         <item name="android:textColor">@color/colorYellow</item>
     </style>
+
     <style name="loading_dialog" parent="android:style/Theme.Dialog">
         <item name="android:windowFrame">@null</item>
         <item name="android:windowNoTitle">true</item>

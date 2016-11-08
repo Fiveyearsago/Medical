@@ -21,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.baidu.mapapi.SDKInitializer;
+import com.jy.medical.MedicalApplication;
 import com.jy.medical.R;
 import com.jy.medical.widget.CleanableEditText;
 import com.pgyersdk.crash.PgyCrashManager;
@@ -39,6 +40,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_base);
         SMSSDK.initSDK(this, "1792404991e59", "95ce745b999dc842803436b2d50161b2");
+//        MedicalApplication.getInstance().addActivity(this);
 //        SDKInitializer.initialize(getApplicationContext());
         int layoutId = getLayoutId();
         if (layoutId != 0) {
@@ -49,11 +51,10 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         initParms(bundle);
 //        PgyCrashManager.register(this);
 //        PgyUpdateManager.register(this);
-
-
         initView();
         initData();
     }
+
 
     /**
      * 布局文件ID
@@ -116,6 +117,9 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     }
 
 
+    public void exit(){
+        MedicalApplication.getInstance().exit();
+    }
     public void setThirdNavState(View navView,String textTitle,int leftDrawable,int rightDrawable) {
         ImageView navImage = (ImageView) navView.findViewById(R.id.page_third_head_image);
         ImageView collectImage = (ImageView) navView.findViewById(R.id.page_third_head_collect);
