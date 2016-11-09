@@ -1,10 +1,13 @@
 package com.jy.medical.greendao.util;
 
 
+
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.util.Log;
 
 import org.greenrobot.greendao.AbstractDao;
 import org.greenrobot.greendao.database.Database;
@@ -18,91 +21,95 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Created by songran on 16/11/4.
+ *
+ * please call {@link #migrate(SQLiteDatabase, Class[])}
+ *
  */
+public final class MigrationHelper {
 
-public class MigrationHelper {
+    public static boolean DEBUG = false;
+    private static String TAG = "MigrationHelper";
 
-    /**
-     * 调用升级方法
-     * @param db
-     * @param daoClasses 一系列dao.class
-     */
     public static void migrate(SQLiteDatabase db, Class<? extends AbstractDao<?, ?>>... daoClasses) {
         Database database = new StandardDatabase(db);
-        //1 新建临时表
+        if (DEBUG) {
+            Log.d(TAG, "【Database Version】" + db.getVersion());
+            Log.d(TAG, "【Generate temp table】start");
+        }
         generateTempTables(database, daoClasses);
-        //2 创建新表
+        if (DEBUG) {
+            Log.d(TAG, "【Generate temp table】complete");
+        }
+        dropAllTables(database, true, daoClasses);
         createAllTables(database, false, daoClasses);
-        //3 临时表数据写入新表，删除临时表
+
+        if (DEBUG) {
+            Log.d(TAG, "【Restore data】start");
+        }
         restoreData(database, daoClasses);
+        if (DEBUG) {
+            Log.d(TAG, "【Restore data】complete");
+        }
     }
 
-
-    /**
-     * 生成临时表，存储旧的表数据
-     * @param db
-     * @param daoClasses
-     */
     private static void generateTempTables(Database db, Class<? extends AbstractDao<?, ?>>... daoClasses) {
-        //方法2
-        for (int i=0;i<daoClasses.length;i++){
-            DaoConfig daoConfig = new DaoConfig(db,daoClasses[i]);
-            String tableName = daoConfig.tablename;
-            if (!checkTable(db,tableName))
-                continue;
-            String tempTableName = daoConfig.tablename.concat("_TEMP");
-            StringBuilder insertTableStringBuilder = new StringBuilder();
-            insertTableStringBuilder.append("alter table ")
-                    .append(tableName)
-                    .append(" rename to ")
-                    .append(tempTableName)
-                    .append(";");
-            db.execSQL(insertTableStringBuilder.toString());
-        }
-    }
+        for (int i = 0; i < daoClasses.length; i++) {
+            String tempTableName = null;
 
-    /**
-     * 检测table是否存在
-     * @param db
-     * @param tableName
-     */
-    private static Boolean checkTable(Database db,String  tableName){
-        StringBuilder query = new StringBuilder();
-        query.append("SELECT count(*) FROM sqlite_master WHERE type='table' AND name='").append(tableName).append("'");
-        Cursor c = db.rawQuery(query.toString(), null);
-        if (c.moveToNext()){
-            int count = c.getInt(0);
-            if(count>0){
-                return true;
+            try {
+                DaoConfig daoConfig = new DaoConfig(db, daoClasses[i]);
+                String tableName = daoConfig.tablename;
+                tempTableName = daoConfig.tablename.concat("_TEMP");
+
+                StringBuilder dropTableStringBuilder = new StringBuilder();
+                dropTableStringBuilder.append("DROP TABLE IF EXISTS ").append(tempTableName).append(";");
+                db.execSQL(dropTableStringBuilder.toString());
+
+                StringBuilder insertTableStringBuilder = new StringBuilder();
+                insertTableStringBuilder.append("CREATE TEMPORARY TABLE ").append(tempTableName);
+                insertTableStringBuilder.append(" AS SELECT * FROM ").append(tableName).append(";");
+                db.execSQL(insertTableStringBuilder.toString());
+                if (DEBUG) {
+                    Log.d(TAG, "【Table】" + tableName +"\n ---Columns-->"+getColumnsStr(daoConfig));
+                    Log.d(TAG, "【Generate temp table】" + tempTableName);
+                }
+            } catch (SQLException e) {
+                Log.e(TAG, "【Failed to generate temp table】" + tempTableName, e);
             }
-            return false;
         }
-        return false;
     }
 
-    /**
-     * 删除所有旧表
-     * @param db
-     * @param ifExists
-     * @param daoClasses
-     */
+    private static String getColumnsStr(DaoConfig daoConfig) {
+        if (daoConfig == null) {
+            return "no columns";
+        }
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < daoConfig.allColumns.length; i++) {
+            builder.append(daoConfig.allColumns[i]);
+            builder.append(",");
+        }
+        if (builder.length() > 0) {
+            builder.deleteCharAt(builder.length() - 1);
+        }
+        return builder.toString();
+    }
+
+
     private static void dropAllTables(Database db, boolean ifExists, @NonNull Class<? extends AbstractDao<?, ?>>... daoClasses) {
         reflectMethod(db, "dropTable", ifExists, daoClasses);
+        if (DEBUG) {
+            Log.d(TAG, "【Drop all table】");
+        }
     }
 
-    /**
-     * 创建新的表结构
-     * @param db
-     * @param ifNotExists
-     * @param daoClasses
-     */
     private static void createAllTables(Database db, boolean ifNotExists, @NonNull Class<? extends AbstractDao<?, ?>>... daoClasses) {
         reflectMethod(db, "createTable", ifNotExists, daoClasses);
+        if (DEBUG) {
+            Log.d(TAG, "【Create all table】");
+        }
     }
 
     /**
-     * 创建根删除都在NoteDao声明了，可以直接拿过来用
      * dao class already define the sql exec method, so just invoke it
      */
     private static void reflectMethod(Database db, String methodName, boolean isExists, @NonNull Class<? extends AbstractDao<?, ?>>... daoClasses) {
@@ -111,8 +118,7 @@ public class MigrationHelper {
         }
         try {
             for (Class cls : daoClasses) {
-                //根据方法名，找到声明的方法
-                Method method = cls.getDeclaredMethod(methodName, SQLiteDatabase.class, boolean.class);
+                Method method = cls.getDeclaredMethod(methodName, Database.class, boolean.class);
                 method.invoke(null, db, isExists);
             }
         } catch (NoSuchMethodException e) {
@@ -124,42 +130,46 @@ public class MigrationHelper {
         }
     }
 
-    /**
-     * 临时表的数据写入新表
-     * @param db
-     * @param daoClasses
-     */
     private static void restoreData(Database db, Class<? extends AbstractDao<?, ?>>... daoClasses) {
         for (int i = 0; i < daoClasses.length; i++) {
-            DaoConfig daoConfig = new DaoConfig(db, daoClasses[i]);
-            String tableName = daoConfig.tablename;
-            String tempTableName = daoConfig.tablename.concat("_TEMP");
-            if (!checkTable(db,tempTableName))
-                continue;
-            // get all columns from tempTable, take careful to use the columns list
-            List<String> columns = getColumns(db, tempTableName);
-            //新表，临时表都包含的字段
-            ArrayList<String> properties = new ArrayList<>(columns.size());
-            for (int j = 0; j < daoConfig.properties.length; j++) {
-                String columnName = daoConfig.properties[j].columnName;
-                if (columns.contains(columnName)) {
-                    properties.add(columnName);
-                }
-            }
-            if (properties.size() > 0) {
-                final String columnSQL = TextUtils.join(",", properties);
+            String tempTableName = null;
 
-                StringBuilder insertTableStringBuilder = new StringBuilder();
-                insertTableStringBuilder.append("INSERT INTO ").append(tableName).append(" (");
-                insertTableStringBuilder.append(columnSQL);
-                insertTableStringBuilder.append(") SELECT ");
-                insertTableStringBuilder.append(columnSQL);
-                insertTableStringBuilder.append(" FROM ").append(tempTableName).append(";");
-                db.execSQL(insertTableStringBuilder.toString());
+            try {
+                DaoConfig daoConfig = new DaoConfig(db, daoClasses[i]);
+                String tableName = daoConfig.tablename;
+                tempTableName = daoConfig.tablename.concat("_TEMP");
+                // get all columns from tempTable, take careful to use the columns list
+                List<String> columns = getColumns(db, tempTableName);
+                ArrayList<String> properties = new ArrayList<>(columns.size());
+                for (int j = 0; j < daoConfig.properties.length; j++) {
+                    String columnName = daoConfig.properties[j].columnName;
+                    if (columns.contains(columnName)) {
+                        properties.add(columnName);
+                    }
+                }
+                if (properties.size() > 0) {
+                    final String columnSQL = TextUtils.join(",", properties);
+
+                    StringBuilder insertTableStringBuilder = new StringBuilder();
+                    insertTableStringBuilder.append("INSERT INTO ").append(tableName).append(" (");
+                    insertTableStringBuilder.append(columnSQL);
+                    insertTableStringBuilder.append(") SELECT ");
+                    insertTableStringBuilder.append(columnSQL);
+                    insertTableStringBuilder.append(" FROM ").append(tempTableName).append(";");
+                    db.execSQL(insertTableStringBuilder.toString());
+                    if (DEBUG) {
+                        Log.d(TAG, "【Restore data】 to " + tableName);
+                    }
+                }
+                StringBuilder dropTableStringBuilder = new StringBuilder();
+                dropTableStringBuilder.append("DROP TABLE ").append(tempTableName);
+                db.execSQL(dropTableStringBuilder.toString());
+                if (DEBUG) {
+                    Log.d(TAG, "【Drop temp table】" + tempTableName);
+                }
+            } catch (SQLException e) {
+                Log.e(TAG, "【Failed to restore data from temp table (probably new table)】" + tempTableName, e);
             }
-            StringBuilder dropTableStringBuilder = new StringBuilder();
-            dropTableStringBuilder.append("DROP TABLE ").append(tempTableName);
-            db.execSQL(dropTableStringBuilder.toString());
         }
     }
 
@@ -181,4 +191,6 @@ public class MigrationHelper {
         }
         return columns;
     }
+
 }
+

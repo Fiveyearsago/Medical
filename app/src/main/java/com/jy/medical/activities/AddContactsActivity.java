@@ -9,10 +9,13 @@ import android.provider.ContactsContract;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Toast;
 
 import com.jy.medical.R;
 import com.jy.medical.adapter.ContactAdapter;
 import com.jy.medical.greendao.entities.ContactData;
+import com.jy.medical.greendao.manager.ContactManager;
+import com.jy.medical.greendao.util.DaoUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,10 +23,12 @@ import java.util.List;
 public class AddContactsActivity extends BaseActivity {
 
     private RecyclerView contactRecycler;
-    private List<ContactData>list;
+    private List<ContactData> list;
     private ContactAdapter adapter;
     private static final String[] PHONES_PROJECTION = new String[]{
             ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME, ContactsContract.CommonDataKinds.Phone.NUMBER, ContactsContract.CommonDataKinds.Phone.PHOTO_ID, ContactsContract.CommonDataKinds.Phone.CONTACT_ID};
+    private ContactManager contactManager;
+    private String taskNo;
 
     @Override
     public void initData() {
@@ -37,7 +42,7 @@ public class AddContactsActivity extends BaseActivity {
 
     @Override
     public void initParms(Bundle parms) {
-
+        taskNo = parms.getString("taskNo");
     }
 
     @Override
@@ -50,18 +55,21 @@ public class AddContactsActivity extends BaseActivity {
         contactRecycler.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         contactRecycler.setLayoutManager(layoutManager);
-        list=new ArrayList<>();
-        adapter=new ContactAdapter(this,list);
+        list = new ArrayList<>();
+        adapter = new ContactAdapter(this, list);
         contactRecycler.setAdapter(adapter);
+        contactManager = DaoUtils.getContactInstance();
     }
 
     @Override
     public void widgetClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.page_head_image:
                 finish();
                 break;
             case R.id.page_head_button:
+                //保存联系人
+                saveContact();
                 break;
             case R.id.add_contact_button:
                 //添加一天联系人空白记录
@@ -74,7 +82,27 @@ public class AddContactsActivity extends BaseActivity {
                 break;
         }
     }
-    public void addItem(){
+
+    private void saveContact() {
+        if (!checkContact()) return;
+        contactManager.insertData(list);
+        finish();
+
+    }
+
+    private boolean checkContact() {
+        //检查联系人填写
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getName().equals("") || list.get(i).getPhoneNum().equals("")) {
+                Toast.makeText(this, "请完善联系人信息", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+
+        }
+        return true;
+    }
+
+    public void addItem() {
         adapter.addItem();
     }
 
@@ -87,9 +115,9 @@ public class AddContactsActivity extends BaseActivity {
             // 获取手机联系人
             Cursor phoneCursor2 = resolver.query(contactData,
                     PHONES_PROJECTION, null, null, null);
-            String phoneNumber=null,contactName = null;
+            String phoneNumber = null, contactName = null;
             while (phoneCursor2.moveToNext()) {
-                 phoneNumber = phoneCursor2
+                phoneNumber = phoneCursor2
                         .getString(1);
                 contactName = phoneCursor2
                         .getString(0);
@@ -98,6 +126,8 @@ public class AddContactsActivity extends BaseActivity {
             }
             list.get(requestCode).setName(contactName);
             list.get(requestCode).setPhoneNum(phoneNumber);
+            list.get(requestCode).setTaskNo(taskNo);
+
             adapter.notifyDataSetChanged();
         }
 

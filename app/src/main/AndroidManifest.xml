@@ -27,8 +27,8 @@
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-    <uses-permission android:name="android.permission.RESTART_PACKAGES"/>
-    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.RESTART_PACKAGES" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:name=".MedicalApplication"
@@ -90,14 +90,14 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.PlatformActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/noAnimationTheme"
-            android:launchMode="singleTask"/>
+            android:theme="@style/noAnimationTheme" />
         <activity
             android:name=".activities.ToolActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/noAnimationTheme"
-            android:launchMode="singleTask"/>
+            android:theme="@style/noAnimationTheme" />
         <activity
             android:name=".activities.ToolDetailActivity"
             android:screenOrientation="portrait" />
@@ -136,11 +136,27 @@
         <activity
             android:name=".activities.FollowEditActivity"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".activities.AddContactsActivity" />
-        <activity android:name=".activities.SelectAddressActivity" />
-        <activity android:name=".activities.MapDemoActivity" />
-        <activity android:name=".activities.CollectActivity" />
-        <activity android:name=".activities.SearchPlatformActivity"></activity>
+        <activity
+            android:name=".activities.AddContactsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.SelectAddressActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.MapDemoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.CollectActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.SearchPlatformActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".activities.LocalAlbumActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".activities.LocalAlbumDetailActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

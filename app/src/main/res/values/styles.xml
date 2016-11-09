@@ -163,4 +163,10 @@
         <item name="android:backgroundDimEnabled">false</item>
         <item name="android:windowContentOverlay">@null</item>
     </style>
+    <style name="dividing_line_style">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">@dimen/dividing_0.5</item>
+        <item name="android:background">@color/gray_dividing</item>
+    </style>
+
 </resources>

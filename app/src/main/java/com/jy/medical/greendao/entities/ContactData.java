@@ -2,6 +2,7 @@ package com.jy.medical.greendao.entities;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.Generated;
 
 /**
  * Created by songran on 16/11/8.
@@ -18,6 +19,20 @@ public class ContactData {
         this.title = title;
         this.name = name;
         this.phoneNum = phoneNum;
+    }
+
+    @Generated(hash = 341878437)
+    public ContactData(Long id, String title, String name, String phoneNum,
+            String taskNo) {
+        this.id = id;
+        this.title = title;
+        this.name = name;
+        this.phoneNum = phoneNum;
+        this.taskNo = taskNo;
+    }
+
+    @Generated(hash = 471005222)
+    public ContactData() {
     }
 
     public String getTaskNo() {
@@ -50,5 +65,13 @@ public class ContactData {
 
     public void setPhoneNum(String phoneNum) {
         this.phoneNum = phoneNum;
+    }
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

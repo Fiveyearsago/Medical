@@ -16,8 +16,6 @@ import com.jy.medical.activities.FollowEditActivity;
  * A simple {@link Fragment} subclass.
  */
 public class FollowRecordFragment extends Fragment {
-    public static final String ARGS_PAGE = "args_page";
-    private int mPage;
     private static FollowRecordFragment followRecordFragment;
 
     public static FollowRecordFragment newInstance() {
@@ -27,24 +25,24 @@ public class FollowRecordFragment extends Fragment {
     }
 
     public FollowRecordFragment() {
-        // Required empty public constructor
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        mPage = getArguments().getInt(ARGS_PAGE);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        final Bundle data = getArguments();//获得从activity中传递过来的值
         View view = inflater.inflate(R.layout.fragment_follow_record,container,false);
         view.findViewById(R.id.record_edit).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), FollowEditActivity.class));
+                Intent intent=new Intent(getActivity(), FollowEditActivity.class);
+                intent.putExtra("taskNo",data.getString("taskNo"));
+                startActivity(intent);
             }
         });
         return view;

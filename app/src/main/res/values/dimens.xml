@@ -18,4 +18,10 @@
     <dimen name="picker_line_width">1dp</dimen>
     <dimen name="picker_line_mar">15dp</dimen>
     <dimen name="picker_height">230dp</dimen>
+
+    <dimen name="album_header_bar_height">50.0dp</dimen>
+    <dimen name="title_view_left_back_padding_left">12.0dip</dimen>
+    <dimen name="header_bar_height">44.0dip</dimen>
+    <dimen name="title_view_left_back_padding_right">12.0dip</dimen>
+    <dimen name="dividing_line_width_height">0.5dip</dimen>
 </resources>

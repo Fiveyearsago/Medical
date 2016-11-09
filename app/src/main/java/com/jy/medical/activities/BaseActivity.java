@@ -34,6 +34,8 @@ import cn.smssdk.SMSSDK;
 
 public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener {
     protected final String TAG = this.getClass().getSimpleName();
+    //应用是否销毁标志
+    protected boolean isDestroy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         SMSSDK.initSDK(this, "1792404991e59", "95ce745b999dc842803436b2d50161b2");
 //        MedicalApplication.getInstance().addActivity(this);
 //        SDKInitializer.initialize(getApplicationContext());
+        isDestroy=false;
         int layoutId = getLayoutId();
         if (layoutId != 0) {
             setContentView(layoutId);
@@ -237,5 +240,11 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
             }
         });
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        isDestroy=true;
     }
 }

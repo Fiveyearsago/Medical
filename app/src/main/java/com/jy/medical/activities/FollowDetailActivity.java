@@ -86,8 +86,14 @@ public class FollowDetailActivity extends BaseActivity implements OnItemClickLis
         mAlertView = new AlertView(platformData.getPeopleName(), platformData.getPhoneNum().trim(), "取消", new String[]{"呼叫"}, null, this, AlertView.Style.Alert, this).setCancelable(true).setOnDismissListener(this);
 
         List<Fragment> fragmentList=new ArrayList<>();
-        fragmentList.add(FollowRecordFragment.newInstance());
-        fragmentList.add(FollowDetailFragment.newInstance());
+        Bundle bundle=new Bundle();
+        bundle.putString("taskNo",platformData.getTaskNo());
+        FollowRecordFragment followRecordFragment= FollowRecordFragment.newInstance();
+        FollowDetailFragment followDetailFragment= FollowDetailFragment.newInstance();
+        followRecordFragment.setArguments(bundle);
+        followDetailFragment.setArguments(bundle);
+        fragmentList.add(followRecordFragment);
+        fragmentList.add(followDetailFragment);
         adapter = new BaseFragmentPagerAdapter(getSupportFragmentManager(),
                 this,new String[]{"跟踪记录","详细资料"},fragmentList);
         segmentTabLayout = (SegmentTabLayout) findViewById(R.id.segmentTabLayout);
