@@ -59,6 +59,7 @@ public class AddContactsActivity extends BaseActivity {
         adapter = new ContactAdapter(this, list);
         contactRecycler.setAdapter(adapter);
         contactManager = DaoUtils.getContactInstance();
+        addItem();
     }
 
     @Override

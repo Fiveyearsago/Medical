@@ -150,13 +150,16 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.SearchPlatformActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.LocalAlbumActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.LocalAlbumDetailActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
+        <activity android:name=".activities.PhotoPreActivity" />
+        <activity android:name=".activities.SelectAreaActivity"></activity>
+        <activity android:name=".activities.SelectHospitalActivity"></activity>
     </application>
 
 </manifest>

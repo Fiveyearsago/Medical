@@ -13,6 +13,7 @@ import com.bigkoo.alertview.AlertView;
 import com.bigkoo.alertview.OnItemClickListener;
 import com.jy.medical.R;
 import com.jy.medical.activities.LocalAlbumActivity;
+import com.jy.medical.activities.PhotoPreActivity;
 import com.jy.medical.util.ImageUtils;
 import com.jy.medical.util.PublicString;
 
@@ -25,10 +26,12 @@ import java.util.List;
 public class PictureAdapter extends BaseHeadFootAdapter {
     private Context context;
     private List<Bitmap> list;
+    private String taskNo;
 
-    public PictureAdapter(Context context, List<Bitmap> list) {
+    public PictureAdapter(Context context, List<Bitmap> list,String taskNo) {
         this.context = context;
         this.list = list;
+        this.taskNo=taskNo;
     }
 
     @Override
@@ -82,6 +85,10 @@ public class PictureAdapter extends BaseHeadFootAdapter {
                     }).show();
                 }else {
                     //预览照片
+                    Intent intent = new Intent(context, PhotoPreActivity.class);
+                    intent.putExtra("taskNo",taskNo);
+                    intent.putExtra("index",position);
+                    context.startActivity(intent);
                 }
             }
         });

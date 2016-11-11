@@ -105,7 +105,7 @@ public class FollowEditActivity extends BaseActivity {
         list = new ArrayList<>();
 
         pictureRecyclerView.setLayoutManager(layoutManager);
-        setPhotoData();
+//        setPhotoData();
 
         contactRecycler = (RecyclerView) findViewById(R.id.contact_recycler);
         contactRecycler.setHasFixedSize(true);
@@ -139,10 +139,11 @@ public class FollowEditActivity extends BaseActivity {
         Resources res = getResources();
         Bitmap bmp = BitmapFactory.decodeResource(res, R.mipmap.add_photo);
         list.add(bmp);
-        pictureAdapter = new PictureAdapter(this, list);
+        pictureAdapter = new PictureAdapter(this, list,taskNo);
         pictureAdapter.notifyDataSetChanged();
         pictureRecyclerView.setAdapter(pictureAdapter);
     }
+
 
     @Override
     public void widgetClick(View v) {
@@ -180,6 +181,7 @@ public class FollowEditActivity extends BaseActivity {
         contactDataList = contactManager.selectAllContact(taskNo);
         adapter = new ContactEditAdapter(this, contactDataList);
         contactRecycler.setAdapter(adapter);
+        setPhotoData();
     }
 
     public void commitData() {
@@ -284,7 +286,7 @@ public class FollowEditActivity extends BaseActivity {
                         LocalImageHelper.getInstance().setCurrentSize(pictures.size());
                     }
                     taskPhotoManager.insertData(newDatas);
-                    setPhotoData();
+//                    setPhotoData();
                     //清空选中的图片;
                     files.clear();
                     //设置当前选中的图片数量

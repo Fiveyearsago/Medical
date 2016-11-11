@@ -63,7 +63,7 @@ public class PlatformActivity extends BaseActivity {
         radioList = new ArrayList<>();
         View viewLayout = findViewById(R.id.date_layout);
         View view = viewLayout.findViewById(R.id.platform_radioGroup);
-        radioGroup= (RadioGroup) viewLayout.findViewById(R.id.platform_radioGroup);
+        radioGroup = (RadioGroup) viewLayout.findViewById(R.id.platform_radioGroup);
 
         radioList.add((RadioButton) view.findViewById(R.id.radio1));
         radioList.add((RadioButton) view.findViewById(R.id.radio2));
@@ -76,7 +76,7 @@ public class PlatformActivity extends BaseActivity {
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                Log.i("checkedId",checkedId+"");
+                Log.i("checkedId", checkedId + "");
             }
         });
 
@@ -129,8 +129,8 @@ public class PlatformActivity extends BaseActivity {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         platformRecycler.setLayoutManager(layoutManager);
         list = new ArrayList<>();
-        ClaimManager claimManager= DaoUtils.getClaimInstance();
-        list=claimManager.selectAllData();
+        ClaimManager claimManager = DaoUtils.getClaimInstance();
+        list = claimManager.selectAllData();
         adapter = new PlatformAdapter(this, list);
         platformRecycler.setAdapter(adapter);
         initDateData();
@@ -146,14 +146,14 @@ public class PlatformActivity extends BaseActivity {
             @Override
             public void onSuccess(String result) {
                 Log.i("result", result);
-                Gson responseGson=new Gson();
-                Response response=responseGson.fromJson(result, Response.class);
+                Gson responseGson = new Gson();
+                Response response = responseGson.fromJson(result, Response.class);
                 if (response != null && "1".equals(response.getResponseCode())) {
                     String data = response.getData();
                     Log.i("ResponseCode", response.getResponseCode());
                     SpRecieveTaskDTO spRecieveTaskDTO = responseGson.fromJson(data, SpRecieveTaskDTO.class);
-                    Log.i("msUserDTO",spRecieveTaskDTO.toString());
-                    List<ClaimDTO> claimDTOList=spRecieveTaskDTO.getClaimList();
+                    Log.i("msUserDTO", spRecieveTaskDTO.toString());
+                    List<ClaimDTO> claimDTOList = spRecieveTaskDTO.getClaimList();
                     JsonToBean.ClaimDTOToBean(claimDTOList);
                 }
             }
@@ -173,7 +173,7 @@ public class PlatformActivity extends BaseActivity {
 
             }
         });
-}
+    }
 
     @Override
     public void widgetClick(View v) {

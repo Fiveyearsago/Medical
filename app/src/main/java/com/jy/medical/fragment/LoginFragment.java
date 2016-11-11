@@ -16,6 +16,8 @@ import com.google.gson.Gson;
 import com.jy.ah.bus.data.Response;
 import com.jy.medical.R;
 import com.jy.medical.activities.PlatformActivity;
+import com.jy.medical.activities.SelectAreaActivity;
+import com.jy.medical.activities.SelectHospitalActivity;
 import com.jy.medical.util.PublicString;
 import com.jy.medical.util.ServerApiUtils;
 import com.jy.medical.widget.CleanableEditText;
@@ -66,6 +68,7 @@ public class LoginFragment extends Fragment {
             public void onClick(View view) {
 //                requestServer();
                 startActivity(new Intent(mContext, PlatformActivity.class));
+//                startActivity(new Intent(mContext, SelectHospitalActivity.class));
             }
         });
         return accountLayout;

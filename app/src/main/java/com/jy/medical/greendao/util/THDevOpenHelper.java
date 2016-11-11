@@ -8,11 +8,17 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.jy.medical.greendao.entities.CityData;
 import com.jy.medical.greendao.entities.ContactData;
+import com.jy.medical.greendao.entities.HospitalData;
+import com.jy.medical.greendao.entities.MedicalDepartment;
 import com.jy.medical.greendao.entities.TaskPhoto;
+import com.jy.medical.greendao.gen.CityDataDao;
 import com.jy.medical.greendao.gen.ClaimBeanDataDao;
 import com.jy.medical.greendao.gen.ContactDataDao;
 import com.jy.medical.greendao.gen.DaoMaster;
+import com.jy.medical.greendao.gen.HospitalDataDao;
+import com.jy.medical.greendao.gen.MedicalDepartmentDao;
 import com.jy.medical.greendao.gen.TaskBeanDataDao;
 import com.jy.medical.greendao.gen.TaskPhotoDao;
 
@@ -29,13 +35,22 @@ public class THDevOpenHelper extends DaoMaster.OpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        Log.i("newVersion",newVersion+"");
-        Log.i("oldVersion",oldVersion+"");
+        Log.i("newVersion", newVersion + "");
+        Log.i("oldVersion", oldVersion + "");
         switch (newVersion) {
             case 10:
                 //创建新表，注意createTable()是静态方法
-                MigrationHelper.migrate(db,TaskPhotoDao.class);
+                MigrationHelper.migrate(db, TaskPhotoDao.class);
                 // TODO
+                break;
+            case 11:
+                MigrationHelper.migrate(db, CityDataDao.class);
+                break;
+            case 12:
+                MigrationHelper.migrate(db, CityDataDao.class);
+                break;
+            case 13:
+                MigrationHelper.migrate(db, MedicalDepartmentDao.class, HospitalDataDao.class);
                 break;
         }
     }
