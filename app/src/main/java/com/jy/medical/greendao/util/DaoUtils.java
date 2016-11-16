@@ -7,11 +7,18 @@ package com.jy.medical.greendao.util;
 
 import android.content.Context;
 
+import com.jy.medical.greendao.entities.SearchData;
 import com.jy.medical.greendao.manager.CityDataManager;
 import com.jy.medical.greendao.manager.ClaimManager;
 import com.jy.medical.greendao.manager.ContactManager;
+import com.jy.medical.greendao.manager.DiagnoseManager;
 import com.jy.medical.greendao.manager.HospitalDataManager;
 import com.jy.medical.greendao.manager.MedicalDepartmentManager;
+import com.jy.medical.greendao.manager.MedicalVisitManager;
+import com.jy.medical.greendao.manager.SearchDataManager;
+import com.jy.medical.greendao.manager.SelectedDepartmentManager;
+import com.jy.medical.greendao.manager.SelectedDiagnoseManager;
+import com.jy.medical.greendao.manager.SelectedHospitalManager;
 import com.jy.medical.greendao.manager.TaskManager;
 import com.jy.medical.greendao.manager.TaskPhotoManager;
 
@@ -26,6 +33,12 @@ public class DaoUtils {
     private static CityDataManager cityDataManager;
     private static HospitalDataManager hospitalDataManager;
     private static MedicalDepartmentManager medicalDepartmentManager;
+    private static SearchDataManager searchDataManager;
+    private static MedicalVisitManager medicalVisitManager;
+    private static SelectedHospitalManager selectedHospitalManager;
+    private static SelectedDepartmentManager selectedDepartmentManager;
+    private static DiagnoseManager diagnoseManager;
+    private static SelectedDiagnoseManager selectedDiagnoseManager;
     public static Context context;
 
     public static void init(Context context) {
@@ -36,6 +49,44 @@ public class DaoUtils {
     /**
      * 单列模式获取Manager对象
      */
+    public static SelectedDiagnoseManager getSelectedDiagnoseInstance() {
+        if (selectedDiagnoseManager == null) {
+            selectedDiagnoseManager = new SelectedDiagnoseManager(context);
+        }
+        return selectedDiagnoseManager;
+    }
+    public static DiagnoseManager getDiagnoseInstance() {
+        if (diagnoseManager == null) {
+            diagnoseManager = new DiagnoseManager(context);
+        }
+        return diagnoseManager;
+    }
+    public static SelectedDepartmentManager getSelectedDepartmentInstance() {
+        if (selectedDepartmentManager == null) {
+            selectedDepartmentManager = new SelectedDepartmentManager(context);
+        }
+        return selectedDepartmentManager;
+    }
+    public static SelectedHospitalManager getSelectedHospitaInstance() {
+        if (selectedHospitalManager == null) {
+            selectedHospitalManager = new SelectedHospitalManager(context);
+        }
+        return selectedHospitalManager;
+    }public static MedicalVisitManager getMedicalVisitInstance() {
+        if (medicalVisitManager == null) {
+            medicalVisitManager = new MedicalVisitManager(context);
+        }
+        return medicalVisitManager;
+    }
+
+
+    public static SearchDataManager getSearchDataInstance() {
+        if (searchDataManager == null) {
+            searchDataManager = new SearchDataManager(context);
+        }
+        return searchDataManager;
+    }
+
     public static HospitalDataManager getHospitalInstance() {
         if (hospitalDataManager == null) {
             hospitalDataManager = new HospitalDataManager(context);

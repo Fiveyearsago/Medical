@@ -158,8 +158,11 @@
             android:name=".activities.LocalAlbumDetailActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".activities.PhotoPreActivity" />
-        <activity android:name=".activities.SelectAreaActivity"></activity>
-        <activity android:name=".activities.SelectHospitalActivity"></activity>
+        <activity android:name=".activities.SelectAreaActivity" />
+        <activity android:name=".activities.SelectHospitalActivity" />
+        <activity android:name=".activities.MedicalVisitsActivity" />
+        <activity android:name=".activities.SearchHospitalActivity" />
+        <activity android:name=".activities.SelectDepartmentsActivity"></activity>
     </application>
 
 </manifest>

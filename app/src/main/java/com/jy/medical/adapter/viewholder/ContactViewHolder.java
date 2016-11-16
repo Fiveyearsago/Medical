@@ -1,4 +1,4 @@
-package com.jy.medical.adapter;
+package com.jy.medical.adapter.viewholder;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

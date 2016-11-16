@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.jy.medical.R;
+import com.jy.medical.adapter.viewholder.CityViewHolder;
 import com.jy.medical.greendao.entities.CityData;
 
 import java.util.List;

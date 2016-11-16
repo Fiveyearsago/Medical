@@ -18,8 +18,7 @@ import java.util.List;
 
 
 /**
- * Created by jamy on 16/6/16.
- * 在这个类中添加不同的查询条件
+ * Created by songran on 16/11/3.
  */
 public class TaskManager extends BaseDao<TaskBeanData> {
     public TaskManager(Context context) {

@@ -17,8 +17,14 @@ import com.jy.medical.greendao.gen.CityDataDao;
 import com.jy.medical.greendao.gen.ClaimBeanDataDao;
 import com.jy.medical.greendao.gen.ContactDataDao;
 import com.jy.medical.greendao.gen.DaoMaster;
+import com.jy.medical.greendao.gen.DiagnoseDao;
 import com.jy.medical.greendao.gen.HospitalDataDao;
 import com.jy.medical.greendao.gen.MedicalDepartmentDao;
+import com.jy.medical.greendao.gen.MedicalVisitDao;
+import com.jy.medical.greendao.gen.SearchDataDao;
+import com.jy.medical.greendao.gen.SelectedDepartmentDao;
+import com.jy.medical.greendao.gen.SelectedDiagnoseDao;
+import com.jy.medical.greendao.gen.SelectedHospitalDao;
 import com.jy.medical.greendao.gen.TaskBeanDataDao;
 import com.jy.medical.greendao.gen.TaskPhotoDao;
 
@@ -41,7 +47,6 @@ public class THDevOpenHelper extends DaoMaster.OpenHelper {
             case 10:
                 //创建新表，注意createTable()是静态方法
                 MigrationHelper.migrate(db, TaskPhotoDao.class);
-                // TODO
                 break;
             case 11:
                 MigrationHelper.migrate(db, CityDataDao.class);
@@ -51,6 +56,12 @@ public class THDevOpenHelper extends DaoMaster.OpenHelper {
                 break;
             case 13:
                 MigrationHelper.migrate(db, MedicalDepartmentDao.class, HospitalDataDao.class);
+                break;
+            case 14:
+                MigrationHelper.migrate(db, SearchDataDao.class);
+                break;
+            case 15:
+                MigrationHelper.migrate(db, DiagnoseDao.class, MedicalVisitDao.class, SelectedDepartmentDao.class, SelectedDiagnoseDao.class, SelectedHospitalDao.class);
                 break;
         }
     }

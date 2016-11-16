@@ -18,8 +18,9 @@
                 android:id="@+id/page_head_search_editText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
                 android:layout_marginLeft="10dp"
-
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
                 android:background="@drawable/bg_btn_search"

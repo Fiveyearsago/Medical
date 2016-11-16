@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.jy.medical.R;
+import com.jy.medical.adapter.viewholder.ContactViewHolder;
 import com.jy.medical.greendao.entities.ContactData;
 
 import java.util.List;

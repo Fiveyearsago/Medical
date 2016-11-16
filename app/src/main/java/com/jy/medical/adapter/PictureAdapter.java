@@ -14,8 +14,8 @@ import com.bigkoo.alertview.OnItemClickListener;
 import com.jy.medical.R;
 import com.jy.medical.activities.LocalAlbumActivity;
 import com.jy.medical.activities.PhotoPreActivity;
+import com.jy.medical.adapter.viewholder.PictureHolder;
 import com.jy.medical.util.ImageUtils;
-import com.jy.medical.util.PublicString;
 
 import java.util.List;
 

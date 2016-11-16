@@ -55,4 +55,11 @@ public class HospitalDataManager extends BaseDao<HospitalData> {
         }
 
     }
+
+    public List<HospitalData> getData(){
+        HospitalDataDao hospitalDataDao = daoSession.getHospitalDataDao();
+        QueryBuilder<HospitalData> qb = hospitalDataDao.queryBuilder();
+        qb.where(HospitalDataDao.Properties.HospitalId.isNotNull());
+        return qb.list();
+    }
 }

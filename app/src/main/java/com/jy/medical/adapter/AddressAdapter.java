@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.jy.medical.R;
+import com.jy.medical.adapter.viewholder.AddressViewHolder;
 import com.jy.medical.greendao.entities.AddressData;
 
 import java.util.List;
@@ -18,7 +19,7 @@ import java.util.List;
 public class AddressAdapter extends BaseHeadFootAdapter {
 
     private Context context;
-    private List<AddressData>list;
+    private List<AddressData> list;
 
     public AddressAdapter(Context context, List<AddressData> list) {
         this.context = context;
@@ -31,21 +32,13 @@ public class AddressAdapter extends BaseHeadFootAdapter {
         headerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Toast.makeText(context,"head was clicked",Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     @Override
     protected void onBindFooterView(View footerView) {
-//        footerView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Toast.makeText(context,"foot was clicked",Toast.LENGTH_SHORT).show();
-//            }
-//        });
     }
-
 
 
     @Override
@@ -54,10 +47,9 @@ public class AddressAdapter extends BaseHeadFootAdapter {
     }
 
 
-
     @Override
     protected void onBindView(RecyclerView.ViewHolder holder, final int position) {
-        final AddressViewHolder viewHolder= (AddressViewHolder) holder;
+        final AddressViewHolder viewHolder = (AddressViewHolder) holder;
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -70,7 +62,7 @@ public class AddressAdapter extends BaseHeadFootAdapter {
 
     @Override
     public AddressViewHolder onCreateHolder(ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(context).inflate(R.layout.item_address,null);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_address, null);
         return new AddressViewHolder(view);
     }
 }

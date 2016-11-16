@@ -10,6 +10,7 @@ import com.jy.medical.greendao.entities.MedicalDepartment;
 import com.jy.medical.greendao.entities.MedicalDepartment;
 import com.jy.medical.greendao.gen.BaseDao;
 import com.jy.medical.greendao.gen.MedicalDepartmentDao;
+import com.nostra13.universalimageloader.utils.L;
 
 import org.greenrobot.greendao.annotation.NotNull;
 import org.greenrobot.greendao.query.QueryBuilder;
@@ -18,8 +19,7 @@ import java.util.List;
 
 
 /**
- * Created by jamy on 16/6/16.
- * 在这个类中添加不同的查询条件
+ * Created by songran on 16/11/3.
  */
 public class MedicalDepartmentManager extends BaseDao<MedicalDepartment> {
     public MedicalDepartmentManager(Context context) {
@@ -54,5 +54,11 @@ public class MedicalDepartmentManager extends BaseDao<MedicalDepartment> {
             }
         }
 
+    }
+    public List<MedicalDepartment> getDataList(){
+        MedicalDepartmentDao medicalDepartmentDao = daoSession.getMedicalDepartmentDao();
+        QueryBuilder<MedicalDepartment> qb = medicalDepartmentDao.queryBuilder();
+        qb.where(MedicalDepartmentDao.Properties.Key.isNotNull());
+        return qb.list();
     }
 }

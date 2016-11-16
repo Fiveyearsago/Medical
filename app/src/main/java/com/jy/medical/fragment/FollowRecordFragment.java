@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.jy.medical.R;
 import com.jy.medical.activities.FollowEditActivity;
+import com.jy.medical.activities.MedicalVisitsActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -40,7 +41,8 @@ public class FollowRecordFragment extends Fragment {
         view.findViewById(R.id.record_edit).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getActivity(), FollowEditActivity.class);
+//                Intent intent=new Intent(getActivity(), FollowEditActivity.class);
+                Intent intent=new Intent(getActivity(), MedicalVisitsActivity.class);
                 intent.putExtra("taskNo",data.getString("taskNo"));
                 startActivity(intent);
             }

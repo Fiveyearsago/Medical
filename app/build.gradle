@@ -40,7 +40,7 @@ android {
         }
     }
     greendao {
-        schemaVersion 13
+        schemaVersion 15
         daoPackage 'com.jy.medical.greendao.gen'
         targetGenDir 'src/main/java'
     }
@@ -77,4 +77,6 @@ dependencies {
     compile 'org.greenrobot:greendao:3.2.0'
 //    compile 'com.bigkoo:alertview:1.0.3'
     compile project(':alertview')
+//    compile 'com.chanven.lib:cptr:1.1.0'
+    compile project(':cptr')
 }
