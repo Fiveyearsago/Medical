@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/diagnose_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:background="@drawable/item_click_bg_selector"
+            android:paddingLeft="@dimen/primary_margin"
+            android:paddingRight="@dimen/primary_margin"
+            android:text="头部"
+            android:textColor="@color/navigateColor"
+            android:textSize="@dimen/primary_text_size" />
+
+        <ImageView
+            android:id="@+id/complete_status_image"
+            android:layout_width="10dp"
+            android:layout_height="16dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@mipmap/more"
+            android:scaleType="fitXY" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/lineColor"
+        android:paddingLeft="@dimen/primary_margin"
+        android:paddingRight="@dimen/primary_margin" />
+</LinearLayout>

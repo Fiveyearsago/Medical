@@ -16,6 +16,7 @@ import com.chanven.lib.cptr.loadmore.OnLoadMoreListener;
 import com.chanven.lib.cptr.recyclerview.RecyclerAdapterWithHF;
 import com.google.gson.Gson;
 import com.jy.ah.bus.data.Response;
+import com.jy.medical.MedicalApplication;
 import com.jy.medical.R;
 import com.jy.medical.adapter.HospitalAdapter;
 import com.jy.medical.greendao.entities.HospitalData;
@@ -63,6 +64,7 @@ public class SelectHospitalActivity extends BaseActivity {
     public void initView() {
 //        getHospitalData();
         setStatusBarTint();
+        MedicalApplication.getInstance().addActivity(this);
         setNavState(findViewById(R.id.title_head_second), "选择医院");
         findViewById(R.id.text_search).setOnClickListener(this);
         ptrClassicFrameLayout= (PtrClassicFrameLayout) findViewById(R.id.hospital_recyclerView_frame);

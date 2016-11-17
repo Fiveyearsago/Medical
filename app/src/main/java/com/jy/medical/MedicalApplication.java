@@ -50,6 +50,7 @@ public class MedicalApplication extends Application {
         for (AppCompatActivity activity : activityList) {
             if(activity.getClass().equals(cls) ){
                 finishActivity(activity);
+                break;
             }
         }
     }

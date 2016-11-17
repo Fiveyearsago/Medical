@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
+    android:layout_marginTop="@dimen/minor_margin"
     android:orientation="vertical"
     android:paddingLeft="8dp"
     android:paddingRight="8dp">
@@ -10,7 +11,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="39dp"
-        android:layout_marginTop="@dimen/minor_margin"
+
         android:background="@color/white">
 
         <TextView
@@ -31,10 +32,11 @@
 
         <ImageView
             android:id="@+id/record_edit"
-            android:layout_width="22dp"
-            android:layout_height="22dp"
+            android:layout_width="39dp"
+            android:layout_height="39dp"
+            android:padding="8dp"
             android:layout_alignParentRight="true"
-            android:background="@drawable/edit_selector"
+            android:src="@drawable/edit_selector"
             android:scaleType="fitXY" />
     </RelativeLayout>
 

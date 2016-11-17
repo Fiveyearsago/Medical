@@ -130,20 +130,6 @@ public class FollowDetailActivity extends BaseActivity implements OnItemClickLis
             }
         });
         viewPager.setCurrentItem(0);
-        viewPager.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                Log.i("OnTouch","viewPagerOnTouch");
-                return false;
-            }
-        });
-        findViewById(R.id.scrollView).setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                Log.i("OnTouch","scrollViewOnTouch");
-                return false;
-            }
-        });
 
     }
 

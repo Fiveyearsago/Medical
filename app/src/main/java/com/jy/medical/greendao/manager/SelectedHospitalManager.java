@@ -39,7 +39,7 @@ public class SelectedHospitalManager extends BaseDao<SelectedHospital> {
     private boolean isExist(SelectedHospital selectedHospital) {
         SelectedHospitalDao selectedHospitalDao = daoSession.getSelectedHospitalDao();
         QueryBuilder<SelectedHospital> qb = selectedHospitalDao.queryBuilder();
-        qb.where(SelectedHospitalDao.Properties.HospitalId.eq(selectedHospital.getHospitalId()));
+        qb.where(qb.and(SelectedHospitalDao.Properties.HospitalId.eq(selectedHospital.getHospitalId()),SelectedHospitalDao.Properties.TaskNo.eq(selectedHospital.getTaskNo())));
         qb.list();
         return qb.list().size() > 0 ? true : false;
     }
@@ -53,10 +53,32 @@ public class SelectedHospitalManager extends BaseDao<SelectedHospital> {
         }
 
     }
-    public List<SelectedHospital> getDataList(){
+    public void insertSingleData(@NotNull SelectedHospital selectedHospital) {
+        SelectedHospitalDao selectedHospitalDao = daoSession.getSelectedHospitalDao();
+            if (!isExist(selectedHospital)){
+                selectedHospitalDao.insert(selectedHospital);
+        }
+
+    }
+    public List<SelectedHospital> getDataList(String taskNo){
         SelectedHospitalDao selectedHospitalDao = daoSession.getSelectedHospitalDao();
         QueryBuilder<SelectedHospital> qb = selectedHospitalDao.queryBuilder();
-        qb.where(SelectedHospitalDao.Properties.Id.isNotNull());
+        qb.where(SelectedHospitalDao.Properties.TaskNo.eq(taskNo));
         return qb.list();
+    }
+    public void deleteSingleData(SelectedHospital selectedHospital) {
+        SelectedHospitalDao selectedHospitalDao = daoSession.getSelectedHospitalDao();
+        if (isExist(selectedHospital)) {
+            selectedHospitalDao.delete(selectedHospital);
+        }
+    }
+    /**
+     * 根据ID进行数据库的删除操作
+     *
+     * @param id
+     */
+    public void deleteById(long id) {
+
+        daoSession.getSelectedHospitalDao().deleteByKey(id);
     }
 }

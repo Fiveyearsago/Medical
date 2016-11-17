@@ -13,17 +13,32 @@ public class SelectedHospital {
     Long id;
     private  String taskNo;
     private String hospitalId;
+    private String hospitalName;
+    private String departmentId;
+    private String departmentName;
+
+    public SelectedHospital(String taskNo, String hospitalId, String hospitalName, String departmentId, String departmentName) {
+        this.taskNo = taskNo;
+        this.hospitalId = hospitalId;
+        this.hospitalName = hospitalName;
+        this.departmentId = departmentId;
+        this.departmentName = departmentName;
+    }
 
     public SelectedHospital(String taskNo, String hospitalId) {
         this.taskNo = taskNo;
         this.hospitalId = hospitalId;
     }
 
-    @Generated(hash = 503556855)
-    public SelectedHospital(Long id, String taskNo, String hospitalId) {
+    @Generated(hash = 805868994)
+    public SelectedHospital(Long id, String taskNo, String hospitalId, String hospitalName, String departmentId,
+            String departmentName) {
         this.id = id;
         this.taskNo = taskNo;
         this.hospitalId = hospitalId;
+        this.hospitalName = hospitalName;
+        this.departmentId = departmentId;
+        this.departmentName = departmentName;
     }
 
     @Generated(hash = 1690898615)
@@ -52,5 +67,29 @@ public class SelectedHospital {
 
     public void setHospitalId(String hospitalId) {
         this.hospitalId = hospitalId;
+    }
+
+    public String getHospitalName() {
+        return this.hospitalName;
+    }
+
+    public void setHospitalName(String hospitalName) {
+        this.hospitalName = hospitalName;
+    }
+
+    public String getDepartmentId() {
+        return this.departmentId;
+    }
+
+    public void setDepartmentId(String departmentId) {
+        this.departmentId = departmentId;
+    }
+
+    public String getDepartmentName() {
+        return this.departmentName;
+    }
+
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
     }
 }

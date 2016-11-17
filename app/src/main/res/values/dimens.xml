@@ -24,4 +24,6 @@
     <dimen name="header_bar_height">44.0dip</dimen>
     <dimen name="title_view_left_back_padding_right">12.0dip</dimen>
     <dimen name="dividing_line_width_height">0.5dip</dimen>
+    <dimen name="creator_width">70dp</dimen>
+
 </resources>

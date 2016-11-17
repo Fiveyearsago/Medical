@@ -13,7 +13,9 @@ import com.jy.medical.MedicalApplication;
 import com.jy.medical.R;
 import com.jy.medical.adapter.DepartmentAdapter;
 import com.jy.medical.greendao.entities.MedicalDepartment;
+import com.jy.medical.greendao.entities.SelectedHospital;
 import com.jy.medical.greendao.manager.MedicalDepartmentManager;
+import com.jy.medical.greendao.manager.SelectedHospitalManager;
 import com.jy.medical.greendao.util.DaoUtils;
 
 import java.util.ArrayList;
@@ -25,6 +27,9 @@ public class SelectDepartmentsActivity extends BaseActivity implements Departmen
     private RecyclerView recyclerView;
     private List<MedicalDepartment>checkedList;
     private TextView countText;
+    private String taskNo;
+    private String hospitalId;
+    private String hospitalName;
 
     @Override
     public void initData() {
@@ -38,7 +43,9 @@ public class SelectDepartmentsActivity extends BaseActivity implements Departmen
 
     @Override
     public void initParms(Bundle parms) {
-
+        taskNo=parms.getString("taskNo");
+        hospitalId=parms.getString("hospitalId");
+        hospitalName=parms.getString("hospitalName");
     }
 
     @Override
@@ -52,22 +59,6 @@ public class SelectDepartmentsActivity extends BaseActivity implements Departmen
         list=new ArrayList<>();
         checkedList=new ArrayList<>();
         initRecyclerData();
-        recyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
-            @Override
-            public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
-                return false;
-            }
-
-            @Override
-            public void onTouchEvent(RecyclerView rv, MotionEvent e) {
-
-            }
-
-            @Override
-            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-
-            }
-        });
     }
 
     @Override
@@ -78,11 +69,28 @@ public class SelectDepartmentsActivity extends BaseActivity implements Departmen
                 break;
             case R.id.page_head_button:
                 //点击确定，存储选择科室数据
-
+                saveSelectedData();
                 break;
         }
 
     }
+
+    private void saveSelectedData() {
+        String departmentId="";
+        String departmentName="";
+        for (int i = 0; i < checkedList.size(); i++) {
+            departmentId+=(checkedList.get(i).getKey()+",");
+            departmentName+=(checkedList.get(i).getValue()+",");
+        }
+        departmentName=departmentName.substring(0,departmentName.lastIndexOf(","));
+        departmentId=departmentId.substring(0,departmentId.lastIndexOf(","));
+        SelectedHospital selectedHospital=new SelectedHospital(taskNo,hospitalId,hospitalName,departmentId,departmentName);
+        SelectedHospitalManager selectedHospitalManager=DaoUtils.getSelectedHospitaInstance();
+        selectedHospitalManager.insertSingleData(selectedHospital);
+        MedicalApplication.getInstance().finishActivity(SelectHospitalActivity.class);
+        finish();
+    }
+
     public  void initRecyclerData(){
         MedicalDepartmentManager medicalDepartmentManager= DaoUtils.getDepartmentInstance();
         list=medicalDepartmentManager.getDataList();

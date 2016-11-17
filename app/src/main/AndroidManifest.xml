@@ -162,7 +162,9 @@
         <activity android:name=".activities.SelectHospitalActivity" />
         <activity android:name=".activities.MedicalVisitsActivity" />
         <activity android:name=".activities.SearchHospitalActivity" />
-        <activity android:name=".activities.SelectDepartmentsActivity"></activity>
+        <activity android:name=".activities.SelectDepartmentsActivity" />
+        <activity android:name=".activities.AddNursingActivity" />
+        <activity android:name=".activities.AddDiagnoseActivity"></activity>
     </application>
 
 </manifest>

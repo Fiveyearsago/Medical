@@ -75,6 +75,8 @@ public class HospitalAdapter extends BaseHeadFootAdapter {
 //                bundle.putString("taskNo",taskNo);
                 Intent intent = new Intent(context, SelectDepartmentsActivity.class);
                 intent.putExtra("taskNo",taskNo);
+                intent.putExtra("hospitalId",list.get(position).getHospitalId());
+                intent.putExtra("hospitalName",list.get(position).getHospitalName());
                 ((AppCompatActivity)context).startActivityForResult(intent, PublicString.REQUEST_HOSPITAL);
             }
         });

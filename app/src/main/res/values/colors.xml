@@ -42,4 +42,9 @@
     <color name="mine_dividing_line_color">#cacaca</color>
     <color name="mine_bg_selected">#d9d9d9</color>
     <color name="mine_bg">#ffffff</color>
+    <color name="creatorGray">#c7c7cc</color>
+    <color name="creatorGrayPressed">#b7b7bd</color>
+    <color name="creatorRed">#ff3b30</color>
+    <color name="creatorRedPressed">#f90d00</color>
+
 </resources>
