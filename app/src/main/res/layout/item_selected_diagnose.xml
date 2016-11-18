@@ -8,33 +8,31 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/item_click_bg_selector"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/diagnose_tag"
-            android:layout_width="wrap_content"
-            android:layout_height="44dp"
-            android:gravity="center_vertical"
-            android:paddingLeft="@dimen/primary_margin"
-            android:text="[D01.123]"
-            android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/primary_text_size" />
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/diagnose_text"
             android:layout_width="match_parent"
-            android:layout_height="44dp"
-            android:gravity="center_vertical"
-            android:paddingLeft="6dp"
-            android:paddingRight="@dimen/primary_margin"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:text="医院"
             android:textColor="@color/black"
             android:textSize="@dimen/primary_text_size" />
+
+        <TextView
+            android:id="@+id/treat_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="8dp"
+            android:text="科室"
+            android:textColor="@color/minorColor"
+            android:textSize="@dimen/primary_text_size" />
+
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginLeft="@dimen/primary_margin"
-        android:layout_marginRight="@dimen/primary_margin"
         android:background="@color/lineColor" />
 </LinearLayout>

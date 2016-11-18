@@ -13,20 +13,27 @@ public class SelectedDiagnose {
     Long id;
     private String taskNo;
     private String diagnoseId;
+    private String diagnoseName;
     private String treatmentMode;
+    private String treatmentModeName;
 
-    public SelectedDiagnose(String taskNo, String diagnoseId, String treatmentMode) {
+    public SelectedDiagnose(String taskNo, String diagnoseId, String diagnoseName, String treatmentMode, String treatmentModeName) {
         this.taskNo = taskNo;
         this.diagnoseId = diagnoseId;
+        this.diagnoseName = diagnoseName;
         this.treatmentMode = treatmentMode;
+        this.treatmentModeName = treatmentModeName;
     }
 
-    @Generated(hash = 127555266)
-    public SelectedDiagnose(Long id, String taskNo, String diagnoseId, String treatmentMode) {
+    @Generated(hash = 215067916)
+    public SelectedDiagnose(Long id, String taskNo, String diagnoseId, String diagnoseName, String treatmentMode,
+            String treatmentModeName) {
         this.id = id;
         this.taskNo = taskNo;
         this.diagnoseId = diagnoseId;
+        this.diagnoseName = diagnoseName;
         this.treatmentMode = treatmentMode;
+        this.treatmentModeName = treatmentModeName;
     }
 
     @Generated(hash = 1561465160)
@@ -63,5 +70,21 @@ public class SelectedDiagnose {
 
     public void setTreatmentMode(String treatmentMode) {
         this.treatmentMode = treatmentMode;
+    }
+
+    public String getDiagnoseName() {
+        return this.diagnoseName;
+    }
+
+    public void setDiagnoseName(String diagnoseName) {
+        this.diagnoseName = diagnoseName;
+    }
+
+    public String getTreatmentModeName() {
+        return this.treatmentModeName;
+    }
+
+    public void setTreatmentModeName(String treatmentModeName) {
+        this.treatmentModeName = treatmentModeName;
     }
 }

@@ -72,7 +72,7 @@ public class MedicalApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        PgyCrashManager.register(this);
+//        PgyCrashManager.register(this);
         SDKInitializer.initialize(this);
         instance=this;
         x.Ext.init(this);

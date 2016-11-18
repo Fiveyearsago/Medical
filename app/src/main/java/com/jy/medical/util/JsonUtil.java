@@ -2,9 +2,11 @@ package com.jy.medical.util;
 
 import com.jy.medical.greendao.entities.CityData;
 import com.jy.medical.greendao.entities.HospitalData;
+import com.jy.medical.greendao.entities.HumanParts;
 import com.jy.medical.greendao.entities.MedicalDepartment;
 import com.jy.medical.greendao.manager.CityDataManager;
 import com.jy.medical.greendao.manager.HospitalDataManager;
+import com.jy.medical.greendao.manager.HumanPartsManager;
 import com.jy.medical.greendao.manager.MedicalDepartmentManager;
 import com.jy.medical.greendao.util.DaoUtils;
 import com.jy.mobile.dto.DictKEYValueDTO;
@@ -35,6 +37,21 @@ public class JsonUtil {
             }
             CityDataManager cityDataManager = DaoUtils.getCityDataInstance();
             cityDataManager.insertData(list);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+    public static void saveHPData(String result) {
+        List<HumanParts> list = new ArrayList<>();
+        try {
+            JSONArray jsonArray = new JSONArray(result);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject object = jsonArray.getJSONObject(i);
+                list.add(new HumanParts(object.get("aid").toString(), object.get("code").toString(), object.get("name").toString()));
+            }
+            HumanPartsManager humanPartsManager = DaoUtils.getHumanPartsInstance();
+            humanPartsManager.insertData(list);
         } catch (JSONException e) {
             e.printStackTrace();
         }

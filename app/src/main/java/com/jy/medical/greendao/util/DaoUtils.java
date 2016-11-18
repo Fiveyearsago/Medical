@@ -8,11 +8,13 @@ package com.jy.medical.greendao.util;
 import android.content.Context;
 
 import com.jy.medical.greendao.entities.SearchData;
+import com.jy.medical.greendao.manager.CategoryDataManager;
 import com.jy.medical.greendao.manager.CityDataManager;
 import com.jy.medical.greendao.manager.ClaimManager;
 import com.jy.medical.greendao.manager.ContactManager;
 import com.jy.medical.greendao.manager.DiagnoseManager;
 import com.jy.medical.greendao.manager.HospitalDataManager;
+import com.jy.medical.greendao.manager.HumanPartsManager;
 import com.jy.medical.greendao.manager.MedicalDepartmentManager;
 import com.jy.medical.greendao.manager.MedicalVisitManager;
 import com.jy.medical.greendao.manager.SearchDataManager;
@@ -39,6 +41,8 @@ public class DaoUtils {
     private static SelectedDepartmentManager selectedDepartmentManager;
     private static DiagnoseManager diagnoseManager;
     private static SelectedDiagnoseManager selectedDiagnoseManager;
+    private static HumanPartsManager humanPartsManager;
+    private static CategoryDataManager categoryDataManager;
     public static Context context;
 
     public static void init(Context context) {
@@ -49,6 +53,18 @@ public class DaoUtils {
     /**
      * 单列模式获取Manager对象
      */
+    public static CategoryDataManager getCategoryDataInstance() {
+        if (categoryDataManager == null) {
+            categoryDataManager = new CategoryDataManager(context);
+        }
+        return categoryDataManager;
+    }
+    public static HumanPartsManager getHumanPartsInstance() {
+        if (humanPartsManager == null) {
+            humanPartsManager = new HumanPartsManager(context);
+        }
+        return humanPartsManager;
+    }
     public static SelectedDiagnoseManager getSelectedDiagnoseInstance() {
         if (selectedDiagnoseManager == null) {
             selectedDiagnoseManager = new SelectedDiagnoseManager(context);

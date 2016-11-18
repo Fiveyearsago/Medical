@@ -11,7 +11,8 @@
     <color name="hintColor">#BBBBBB</color>
     <color name="navigateColor">#666666</color>
     <color name="minorColor">#999999</color>
-    <color name="itemClickColor">#F5F5F5</color>
+    <color name="itemClickColor">#DDDDDD</color>
+    <!--<color name="itemClickColor">#F5F5F5</color>-->
     <color name="btnPressed">#6CA6F2</color>
     <color name="colorYellow">#FFC106</color>
     <color name="colorFinished">#00C632</color>

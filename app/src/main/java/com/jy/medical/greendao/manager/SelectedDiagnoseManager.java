@@ -39,7 +39,7 @@ public class SelectedDiagnoseManager extends BaseDao<SelectedDiagnose> {
     private boolean isExist(SelectedDiagnose selectedDiagnose) {
         SelectedDiagnoseDao selectedDiagnoseDao = daoSession.getSelectedDiagnoseDao();
         QueryBuilder<SelectedDiagnose> qb = selectedDiagnoseDao.queryBuilder();
-        qb.where(SelectedDiagnoseDao.Properties.DiagnoseId.eq(selectedDiagnose.getDiagnoseId()));
+        qb.where(qb.and(SelectedDiagnoseDao.Properties.TaskNo.eq(selectedDiagnose.getTaskNo()),SelectedDiagnoseDao.Properties.DiagnoseId.eq(selectedDiagnose.getDiagnoseId())));
         qb.list();
         return qb.list().size() > 0 ? true : false;
     }
@@ -53,10 +53,22 @@ public class SelectedDiagnoseManager extends BaseDao<SelectedDiagnose> {
         }
 
     }
-    public List<SelectedDiagnose> getDataList(){
+    public void insertSingleData(@NotNull SelectedDiagnose selectedDiagnose) {
+        SelectedDiagnoseDao selectedDiagnoseDao = daoSession.getSelectedDiagnoseDao();
+            if (!isExist(selectedDiagnose)){
+                selectedDiagnoseDao.insert(selectedDiagnose);
+            }
+    }
+    public List<SelectedDiagnose> getDataList(String taskNo){
         SelectedDiagnoseDao selectedDiagnoseDao = daoSession.getSelectedDiagnoseDao();
         QueryBuilder<SelectedDiagnose> qb = selectedDiagnoseDao.queryBuilder();
-        qb.where(SelectedDiagnoseDao.Properties.Id.isNotNull());
+        qb.where(SelectedDiagnoseDao.Properties.TaskNo.eq(taskNo));
         return qb.list();
+    }
+    public void deleteSingleData(SelectedDiagnose selectedDiagnose) {
+        SelectedDiagnoseDao selectedDiagnoseDao = daoSession.getSelectedDiagnoseDao();
+        if (isExist(selectedDiagnose)) {
+            selectedDiagnoseDao.delete(selectedDiagnose);
+        }
     }
 }
