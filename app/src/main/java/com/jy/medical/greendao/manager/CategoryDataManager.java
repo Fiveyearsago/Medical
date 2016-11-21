@@ -53,10 +53,10 @@ public class CategoryDataManager extends BaseDao<CategoryData> {
         }
 
     }
-    public List<CategoryData> getDataList(){
+    public List<CategoryData> getDataList(String typeCode){
         CategoryDataDao categoryDataDao = daoSession.getCategoryDataDao();
         QueryBuilder<CategoryData> qb = categoryDataDao.queryBuilder();
-        qb.where(CategoryDataDao.Properties.Id.isNotNull());
+        qb.where(CategoryDataDao.Properties.TypeCode.eq(typeCode));
         return qb.list();
     }
 }

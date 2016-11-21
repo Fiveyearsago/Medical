@@ -23,6 +23,7 @@ import com.jy.medical.greendao.gen.HospitalDataDao;
 import com.jy.medical.greendao.gen.HumanPartsDao;
 import com.jy.medical.greendao.gen.MedicalDepartmentDao;
 import com.jy.medical.greendao.gen.MedicalVisitDao;
+import com.jy.medical.greendao.gen.NursingDataDao;
 import com.jy.medical.greendao.gen.SearchDataDao;
 import com.jy.medical.greendao.gen.SelectedDepartmentDao;
 import com.jy.medical.greendao.gen.SelectedDiagnoseDao;
@@ -72,6 +73,21 @@ public class THDevOpenHelper extends DaoMaster.OpenHelper {
                 MigrationHelper.migrate(db, HumanPartsDao.class, CategoryDataDao.class);
                 break;
             case 18:
+                MigrationHelper.migrate(db, SelectedDiagnoseDao.class);
+                break;
+            case 19:
+                MigrationHelper.migrate(db, NursingDataDao.class);
+                break;
+            case 20:
+                MigrationHelper.migrate(db, NursingDataDao.class);
+                break;
+            case 21:
+                MigrationHelper.migrate(db, MedicalVisitDao.class);
+                break;
+            case 22:
+                MigrationHelper.migrate(db, SelectedHospitalDao.class);
+                break;
+            case 23:
                 MigrationHelper.migrate(db, SelectedDiagnoseDao.class);
                 break;
         }

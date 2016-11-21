@@ -236,4 +236,5 @@ public abstract class BaseHeadFootAdapter extends RecyclerView.Adapter {
         }
     }
 
+
 }

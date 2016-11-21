@@ -160,13 +160,16 @@
         <activity android:name=".activities.PhotoPreActivity" />
         <activity android:name=".activities.SelectAreaActivity" />
         <activity android:name=".activities.SelectHospitalActivity" />
-        <activity android:name=".activities.MedicalVisitsActivity" />
+        <activity android:name=".activities.MedicalVisitsActivity"
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".activities.SearchHospitalActivity" />
         <activity android:name=".activities.SelectDepartmentsActivity" />
         <activity android:name=".activities.AddNursingActivity" />
         <activity android:name=".activities.AddDiagnoseActivity" />
         <activity android:name=".activities.SelectDiagnoseActivity" />
-        <activity android:name=".activities.SelectTreatActivity"></activity>
+        <activity android:name=".activities.SelectTreatActivity" />
+        <activity android:name=".activities.SelectCategoryActivity" />
+        <activity android:name=".activities.SelectCompleteActivity"></activity>
     </application>
 
 </manifest>

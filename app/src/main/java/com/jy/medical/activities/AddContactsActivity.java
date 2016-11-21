@@ -73,11 +73,11 @@ public class AddContactsActivity extends BaseActivity {
                 saveContact();
                 break;
             case R.id.add_contact_button:
-                //添加一天联系人空白记录
+                //添加一联系人空白记录
                 addItem();
                 break;
             case R.id.add_contact_layout:
-                //添加一天联系人空白记录
+                //添加一联系人空白记录
                 addItem();
 //                Toast.makeText(AddContactsActivity.this,"dd",Toast.LENGTH_SHORT).show();
                 break;
@@ -92,13 +92,13 @@ public class AddContactsActivity extends BaseActivity {
     }
 
     private boolean checkContact() {
+
         //检查联系人填写
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).getName().equals("") || list.get(i).getPhoneNum().equals("")) {
                 Toast.makeText(this, "请完善联系人信息", Toast.LENGTH_SHORT).show();
                 return false;
             }
-
         }
         return true;
     }

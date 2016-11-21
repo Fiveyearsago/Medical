@@ -40,7 +40,7 @@ android {
         }
     }
     greendao {
-        schemaVersion 18
+        schemaVersion 23
         daoPackage 'com.jy.medical.greendao.gen'
         targetGenDir 'src/main/java'
     }

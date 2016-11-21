@@ -47,6 +47,7 @@ public class DiagnoseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 intent.putExtra("taskNo",taskNo);
                 intent.putExtra("diagnoseId",list.get(position).getDiagnoseId());
                 intent.putExtra("diagnoseName",list.get(position).getItemCnName());
+                intent.putExtra("diagnoseCode",list.get(position).getItemCode());
                 context.startActivity(intent);
             }
         });

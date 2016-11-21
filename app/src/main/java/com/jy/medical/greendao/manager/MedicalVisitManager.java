@@ -51,12 +51,37 @@ public class MedicalVisitManager extends BaseDao<MedicalVisit> {
                 medicalVisitDao.insert(medicalVisitList.get(i));
             }
         }
-
     }
-    public List<MedicalVisit> getDataList(){
+    public void insertSingleData(MedicalVisit medicalVisit){
+        MedicalVisitDao medicalVisitDao = daoSession.getMedicalVisitDao();
+        if (!isExist(medicalVisit)){
+            medicalVisitDao.insert(medicalVisit);
+        }else {
+            MedicalVisit medicalVisit1=getData(medicalVisit.getTaskNo());
+            medicalVisit1.setMedicalFee(medicalVisit.getMedicalFee());
+            medicalVisit1.setCompleteStatus(medicalVisit.getCompleteStatus());
+            medicalVisit1.setRemark(medicalVisit.getRemark());
+            medicalVisit1.setCommitFlag(medicalVisit.getCommitFlag());
+            medicalVisitDao.update(medicalVisit1);
+        }
+    }
+    public long getID(MedicalVisit medicalVisit) {
+        return daoSession.getMedicalVisitDao().getKey(medicalVisit);
+    }
+    public List<MedicalVisit> getDataList(String taskNo){
         MedicalVisitDao medicalVisitDao = daoSession.getMedicalVisitDao();
         QueryBuilder<MedicalVisit> qb = medicalVisitDao.queryBuilder();
-        qb.where(MedicalVisitDao.Properties.Id.isNotNull());
+        qb.where(MedicalVisitDao.Properties.TaskNo.eq(taskNo));
         return qb.list();
+    }
+    public MedicalVisit getData(String taskNo){
+        MedicalVisitDao medicalVisitDao = daoSession.getMedicalVisitDao();
+        QueryBuilder<MedicalVisit> qb = medicalVisitDao.queryBuilder();
+        qb.where(MedicalVisitDao.Properties.TaskNo.eq(taskNo));
+        if (qb.list().size()>0){
+            return qb.list().get(0);
+        }else {
+            return null;
+        }
     }
 }

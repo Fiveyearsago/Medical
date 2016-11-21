@@ -8,22 +8,22 @@
     tools:context="com.jy.medical.activities.AddNursingActivity">
 
     <LinearLayout
-        android:id="@+id/contact_head"
+        android:id="@+id/nursing_head"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <include layout="@layout/page_head" />
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/contact_recycler"
+        android:id="@+id/nursing_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/contact_bottom"
-        android:layout_below="@+id/contact_head"
+        android:layout_above="@+id/nursing_bottom"
+        android:layout_below="@+id/nursing_head"
         android:layout_marginTop="10dp" />
 
     <RelativeLayout
-        android:id="@+id/contact_bottom"
+        android:id="@+id/nursing_bottom"
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_alignParentBottom="true"
@@ -32,7 +32,7 @@
         android:background="@color/white">
 
         <RelativeLayout
-            android:id="@+id/add_contact_layout"
+            android:id="@+id/add_nursing_layout"
             android:layout_width="match_parent"
             android:layout_height="39dp"
             android:layout_centerInParent="true"
@@ -41,7 +41,7 @@
             android:background="@drawable/btn_blue_selector">
 
             <Button
-                android:id="@+id/add_contact_button"
+                android:id="@+id/add_nursing_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"

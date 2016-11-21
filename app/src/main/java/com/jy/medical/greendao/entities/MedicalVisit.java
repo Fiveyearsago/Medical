@@ -15,22 +15,25 @@ public class MedicalVisit {
     private String medicalFee;
     private String remark;
     private String completeStatus;
+    private String commitFlag;
 
-    public MedicalVisit(String taskNo, String medicalFee, String remark, String completeStatus) {
+    public MedicalVisit(String taskNo, String medicalFee, String remark, String completeStatus, String commitFlag) {
         this.taskNo = taskNo;
         this.medicalFee = medicalFee;
         this.remark = remark;
         this.completeStatus = completeStatus;
+        this.commitFlag = commitFlag;
     }
 
-    @Generated(hash = 1542091512)
-    public MedicalVisit(Long id, String taskNo, String medicalFee, String remark,
-            String completeStatus) {
+    @Generated(hash = 866985587)
+    public MedicalVisit(Long id, String taskNo, String medicalFee, String remark, String completeStatus,
+            String commitFlag) {
         this.id = id;
         this.taskNo = taskNo;
         this.medicalFee = medicalFee;
         this.remark = remark;
         this.completeStatus = completeStatus;
+        this.commitFlag = commitFlag;
     }
 
     @Generated(hash = 2047523780)
@@ -75,5 +78,13 @@ public class MedicalVisit {
 
     public void setCompleteStatus(String completeStatus) {
         this.completeStatus = completeStatus;
+    }
+
+    public String getCommitFlag() {
+        return this.commitFlag;
+    }
+
+    public void setCommitFlag(String commitFlag) {
+        this.commitFlag = commitFlag;
     }
 }

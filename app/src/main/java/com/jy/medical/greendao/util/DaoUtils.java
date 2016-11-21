@@ -17,6 +17,7 @@ import com.jy.medical.greendao.manager.HospitalDataManager;
 import com.jy.medical.greendao.manager.HumanPartsManager;
 import com.jy.medical.greendao.manager.MedicalDepartmentManager;
 import com.jy.medical.greendao.manager.MedicalVisitManager;
+import com.jy.medical.greendao.manager.NursingDataManager;
 import com.jy.medical.greendao.manager.SearchDataManager;
 import com.jy.medical.greendao.manager.SelectedDepartmentManager;
 import com.jy.medical.greendao.manager.SelectedDiagnoseManager;
@@ -43,6 +44,7 @@ public class DaoUtils {
     private static SelectedDiagnoseManager selectedDiagnoseManager;
     private static HumanPartsManager humanPartsManager;
     private static CategoryDataManager categoryDataManager;
+    private static NursingDataManager nursingDataManager;
     public static Context context;
 
     public static void init(Context context) {
@@ -53,6 +55,12 @@ public class DaoUtils {
     /**
      * 单列模式获取Manager对象
      */
+    public static NursingDataManager getNursingDataInstance() {
+        if (nursingDataManager == null) {
+            nursingDataManager = new NursingDataManager(context);
+        }
+        return nursingDataManager;
+    }
     public static CategoryDataManager getCategoryDataInstance() {
         if (categoryDataManager == null) {
             categoryDataManager = new CategoryDataManager(context);

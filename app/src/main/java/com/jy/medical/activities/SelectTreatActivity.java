@@ -16,6 +16,7 @@ public class SelectTreatActivity extends BaseActivity {
     private String taskNo;
     private String diagnoseId;
     private String diagnoseName;
+    private String diagnoseCode;
     private TextView treatConservative;
     private TextView treatOperation;
     private SelectedDiagnoseManager selectedDiagnoseManager;
@@ -34,6 +35,7 @@ public class SelectTreatActivity extends BaseActivity {
         taskNo=parms.getString("taskNo");
         diagnoseId=parms.getString("diagnoseId");
         diagnoseName=parms.getString("diagnoseName");
+        diagnoseCode=parms.getString("diagnoseCode");
         selectedDiagnoseManager= DaoUtils.getSelectedDiagnoseInstance();
     }
 
@@ -56,14 +58,14 @@ public class SelectTreatActivity extends BaseActivity {
             case R.id.treat_conservative:
                 //保存选择治疗方式
                 selectedDiagnoseManager=DaoUtils.getSelectedDiagnoseInstance();
-                selectedDiagnoseManager.insertSingleData(new SelectedDiagnose(taskNo,diagnoseId,diagnoseName,"0","保守治疗"));
+                selectedDiagnoseManager.insertSingleData(new SelectedDiagnose(taskNo,diagnoseId,diagnoseCode,diagnoseName,"0","保守治疗"));
                 MedicalApplication.getInstance().finishActivity(SelectDiagnoseActivity.class);
                 MedicalApplication.getInstance().finishActivity(AddDiagnoseActivity.class);
                 finish();
                 break;
             case R.id.treat_operation:
                 selectedDiagnoseManager=DaoUtils.getSelectedDiagnoseInstance();
-                selectedDiagnoseManager.insertSingleData(new SelectedDiagnose(taskNo,diagnoseId,diagnoseName,"1","手术治疗"));
+                selectedDiagnoseManager.insertSingleData(new SelectedDiagnose(taskNo,diagnoseId,diagnoseCode,diagnoseName,"1","手术治疗"));
                 MedicalApplication.getInstance().finishActivity(SelectDiagnoseActivity.class);
                 MedicalApplication.getInstance().finishActivity(AddDiagnoseActivity.class);
                 finish();

@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingBottom="10dp"
     android:background="@color/pageBackground"
-    android:layout_marginBottom="10dp"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -23,7 +23,7 @@
             android:background="@color/colorPrimary" />
 
         <TextView
-            android:id="@+id/item_title"
+            android:id="@+id/item_nursing_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -33,26 +33,24 @@
             android:textColor="@color/black"
             android:textSize="@dimen/primary_text_size" />
 
-        <RelativeLayout
-            android:id="@+id/item_delete_layout"
+
+        <ImageButton
+            android:id="@+id/item_delete_image"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true">
-
-            <ImageButton
-                android:id="@+id/item_delete_image"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_centerInParent="true"
-                android:background="@drawable/delete_selector"
-                android:scaleType="fitXY" />
-        </RelativeLayout>
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:padding="7dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/delete_selector" />
     </RelativeLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/lineColor" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="44dp"
@@ -70,7 +68,7 @@
             android:textSize="@dimen/primary_text_size" />
 
         <TextView
-            android:id="@+id/follow_edit_accident_time"
+            android:id="@+id/item_nursing_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -91,10 +89,12 @@
             android:background="@mipmap/more"
             android:scaleType="fitXY" />
     </RelativeLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/lineColor" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="44dp"
@@ -113,23 +113,26 @@
 
 
         <com.jy.medical.widget.CleanableEditText
-            android:drawableRight="@mipmap/clear"
-            android:drawablePadding="10dp"
-            android:layout_centerVertical="true"
+            android:id="@+id/item_nursing_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:textSize="@dimen/primary_text_size"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:drawablePadding="10dp"
+            android:drawableRight="@mipmap/clear"
+            android:gravity="right"
+            android:hint="必填"
             android:textColor="@color/black"
             android:textColorHint="@color/hintColor"
-            android:gravity="right"
-            android:background="@null"
-            android:hint="必填"/>
+            android:textSize="@dimen/primary_text_size" />
     </RelativeLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/lineColor" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="44dp"
@@ -148,23 +151,26 @@
 
 
         <com.jy.medical.widget.CleanableEditText
-            android:drawableRight="@mipmap/clear"
-            android:drawablePadding="10dp"
-            android:layout_centerVertical="true"
+            android:id="@+id/item_nursing_days"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:textSize="@dimen/primary_text_size"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:drawablePadding="10dp"
+            android:drawableRight="@mipmap/clear"
+            android:gravity="right"
+            android:hint="必填"
             android:textColor="@color/black"
             android:textColorHint="@color/hintColor"
-            android:gravity="right"
-            android:background="@null"
-            android:hint="必填"/>
+            android:textSize="@dimen/primary_text_size" />
     </RelativeLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/lineColor" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="44dp"
@@ -183,17 +189,18 @@
 
 
         <com.jy.medical.widget.CleanableEditText
-            android:drawableRight="@mipmap/clear"
-            android:drawablePadding="10dp"
-            android:layout_centerVertical="true"
+            android:id="@+id/item_nursing_fee"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:textSize="@dimen/primary_text_size"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:drawablePadding="10dp"
+            android:drawableRight="@mipmap/clear"
+            android:gravity="right"
+            android:hint="必填"
             android:textColor="@color/black"
             android:textColorHint="@color/hintColor"
-            android:gravity="right"
-            android:background="@null"
-            android:hint="必填"/>
+            android:textSize="@dimen/primary_text_size" />
     </RelativeLayout>
 </LinearLayout>
