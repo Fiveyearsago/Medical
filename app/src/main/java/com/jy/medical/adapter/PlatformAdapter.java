@@ -55,12 +55,12 @@ public class PlatformAdapter extends BaseHeadFootAdapter {
     @Override
     protected void onBindView(RecyclerView.ViewHolder holder, final int position) {
         final PlatformViewHolder viewHolder = (PlatformViewHolder) holder;
-        final PlatformData platformData=list.get(position);
+        final PlatformData platformData = list.get(position);
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent= new Intent(context, FollowDetailActivity.class);
-                intent.putExtra("info",platformData);
+                Intent intent = new Intent(context, FollowDetailActivity.class);
+                intent.putExtra("info", platformData);
                 context.startActivity(intent);
 
             }
@@ -69,7 +69,7 @@ public class PlatformAdapter extends BaseHeadFootAdapter {
         try {
             int gapNum = TimeUtil.getGapCount(platformData.getTime());
             if (TimeUtil.getGapCount(platformData.getTime()) > 0) {
-                viewHolder.platformTimeOutNum.setText(gapNum+"");
+                viewHolder.platformTimeOutNum.setText(gapNum + "");
                 viewHolder.viewLayout.setVisibility(View.VISIBLE);
                 viewHolder.platformTag.setText("超时");
                 viewHolder.platformTag.setTextColor(context.getResources().getColor(R.color.colorTimeout));
@@ -87,7 +87,6 @@ public class PlatformAdapter extends BaseHeadFootAdapter {
         }
         switch (platformData.getTag()) {
             case "0":
-
                 break;
             case "1":
                 break;
@@ -95,8 +94,41 @@ public class PlatformAdapter extends BaseHeadFootAdapter {
                 break;
         }
         viewHolder.platformPeopleName.setText(platformData.getPeopleName());
-        viewHolder.platformTime.setText(platformData.getTime());
+        viewHolder.platformTime.setText(TimeUtil.getTimeString(platformData.getTime()));
         viewHolder.platformReportNum.setText(platformData.getReportNum());
+        switch (platformData.getTaskType()) {
+            case "01":
+                viewHolder.taskType.setText("医");
+                break;
+            case "02":
+                viewHolder.taskType.setText("收");
+                break;
+            case "03":
+                viewHolder.taskType.setText("误");
+                break;
+            case "04":
+                viewHolder.taskType.setText("籍");
+                break;
+            case "05":
+                viewHolder.taskType.setText("扶");
+                break;
+            case "06":
+                viewHolder.taskType.setText("死");
+                break;
+            case "07":
+                viewHolder.taskType.setText("医");
+                break;
+            case "08":
+                viewHolder.taskType.setText("伤");
+                break;
+            case "09":
+                viewHolder.taskType.setText("基");
+                break;
+            case "10":
+                viewHolder.taskType.setText("处");
+                break;
+        }
+
     }
 
     @Override

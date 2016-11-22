@@ -35,4 +35,16 @@ public class TimeUtil {
 
         return (int) ((toCalendar.getTime().getTime()-fromCalendar.getTime().getTime())  / (1000 * 60 * 60 * 24));
     }
+    public static String getTimeString(String time) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        Date startDate= null;
+        try {
+            startDate = format.parse(time);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        SimpleDateFormat sdf =new SimpleDateFormat("M-d H:m");
+        String str = sdf.format(startDate);
+        return str;
+    }
 }

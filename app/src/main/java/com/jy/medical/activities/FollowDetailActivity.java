@@ -88,6 +88,7 @@ public class FollowDetailActivity extends BaseActivity implements OnItemClickLis
         List<Fragment> fragmentList=new ArrayList<>();
         Bundle bundle=new Bundle();
         bundle.putString("taskNo",platformData.getTaskNo());
+//        bundle.putString("taskNo",platformData.get());
         FollowRecordFragment followRecordFragment= FollowRecordFragment.newInstance();
         FollowDetailFragment followDetailFragment= FollowDetailFragment.newInstance();
         followRecordFragment.setArguments(bundle);

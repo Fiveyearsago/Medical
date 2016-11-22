@@ -3,6 +3,8 @@ package com.jy.medical.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,7 +18,9 @@ import com.jy.medical.activities.LocalAlbumActivity;
 import com.jy.medical.activities.PhotoPreActivity;
 import com.jy.medical.adapter.viewholder.PictureHolder;
 import com.jy.medical.util.ImageUtils;
+import com.jy.medical.util.LocalImageHelper;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -70,7 +74,13 @@ public class PictureAdapter extends BaseHeadFootAdapter {
                         public void onItemClick(Object o, int position1) {
                             if (position1==0){
                                 //拍照
-
+                                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                                //  拍照后保存图片的绝对路径
+                                String cameraPath = LocalImageHelper.getInstance().setCameraImgPath();
+                                File file = new File(cameraPath);
+                                intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file));
+                                ((AppCompatActivity)context).startActivityForResult(intent,
+                                        ImageUtils.REQUEST_CODE_GETIMAGE_BYCAMERA);
 
                             }else if (position1==1){
                                 //从相册选取

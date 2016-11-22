@@ -59,13 +59,13 @@ public class PhotoPreActivity extends BaseActivity {
         pictureList=new ArrayList<>();
         list=new ArrayList<>();
 
-        setPhotoData();
-        viewPager.setCurrentItem(0);
+
+
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 if (first && positionOffset == 0 && positionOffsetPixels == 0){
-                    onPageSelected(0);
+                    onPageSelected(index);
                     first = false;
                 }
             }
@@ -80,8 +80,9 @@ public class PhotoPreActivity extends BaseActivity {
 
             }
         });
-
-
+        setPhotoData();
+        viewPager.setCurrentItem(index);
+//        textTitle.setText((index+1) + "/" + pictureList.size());
     }
 
     private void setPhotoData() {
@@ -90,8 +91,8 @@ public class PhotoPreActivity extends BaseActivity {
         taskPhotoManager= DaoUtils.getTaskPhotoInstance();
         pictureList=taskPhotoManager.selectAllPhoto(taskNo);
         for (int i = 0; i < pictureList.size(); i++) {
-//            Bitmap bmp = PhotoUtil.convertToBitmap(pictureList.get(i).getPhotoPath(),640,480);
-            Bitmap bmp = PhotoUtil.getNativeImage(pictureList.get(i).getPhotoPath());
+            Bitmap bmp = PhotoUtil.convertToBitmap(pictureList.get(i).getPhotoPath(),480,640);
+//            Bitmap bmp = PhotoUtil.getNativeImage(pictureList.get(i).getPhotoPath());
             list.add(bmp);
         }
         adapter=new PhotoPreAdapter(this,list);

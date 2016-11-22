@@ -16,9 +16,12 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/provinceRecycler"
             android:layout_width="122dp"
+            android:background="@color/timepicker_toolbar_bg"
             android:layout_height="match_parent"/>
         <android.support.v7.widget.RecyclerView
             android:id="@+id/cityRecycler"
+            android:paddingLeft="@dimen/primary_margin"
+            android:paddingRight="@dimen/primary_margin"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:background="@color/white"

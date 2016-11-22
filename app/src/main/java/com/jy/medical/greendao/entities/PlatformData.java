@@ -15,8 +15,9 @@ public class PlatformData implements Serializable {
     private String claimId;
     private String taskNo;
     private String phoneNum;
+    private String taskType;
 
-    public PlatformData(String claimId, String taskNo, String peopleName, String time, String tag, String reportNum,String phoneNum) {
+    public PlatformData(String claimId, String taskNo,String taskType, String peopleName, String time, String tag, String reportNum,String phoneNum) {
         this.claimId = claimId;
         this.taskNo = taskNo;
         this.peopleName = peopleName;
@@ -24,6 +25,15 @@ public class PlatformData implements Serializable {
         this.tag = tag;
         this.reportNum = reportNum;
         this.phoneNum = phoneNum;
+        this.taskType = taskType;
+    }
+
+    public String getTaskType() {
+        return taskType;
+    }
+
+    public void setTaskType(String taskType) {
+        this.taskType = taskType;
     }
 
     public String getPhoneNum() {

@@ -56,6 +56,13 @@ public class TaskPhotoManager extends BaseDao<TaskPhoto> {
         }
 
     }
+    public void insertSingleData(@NotNull TaskPhoto taskPhoto) {
+        TaskPhotoDao taskPhotoDao = daoSession.getTaskPhotoDao();
+            if (!isExist(taskPhoto)){
+                taskPhotoDao.insert(taskPhoto);
+        }
+
+    }
 
     /**
      * 获取某个对象的主键ID

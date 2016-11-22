@@ -1,6 +1,9 @@
 package com.jy.medical.adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,11 +58,10 @@ public class CityAdapter extends BaseHeadFootAdapter {
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                view.setBackgroundColor(Color.parseColor("#F5F5F5"));
-//                viewHolder.toolText.setTextColor(Color.parseColor("#999999"));
-//                Toast.makeText(context,"big text "+position+"was clicked",Toast.LENGTH_SHORT).show();
-//                view.setBackgroundColor(Color.parseColor("#FFFFFF"));
-//                context.startActivity(new Intent(context, LawDetailActivity.class));
+                Intent intent=new Intent();
+                intent.putExtra("cityName",list.get(position).getName());
+                ((AppCompatActivity)context).setResult(Activity.RESULT_OK,intent);
+                ((AppCompatActivity) context).finish();
             }
         });
 
@@ -68,7 +70,7 @@ public class CityAdapter extends BaseHeadFootAdapter {
 
     @Override
     public CityViewHolder onCreateHolder(ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(context).inflate(R.layout.item_city,null);
+        View view= LayoutInflater.from(context).inflate(R.layout.item_city,parent,false);
         return new CityViewHolder(view);
     }
 }

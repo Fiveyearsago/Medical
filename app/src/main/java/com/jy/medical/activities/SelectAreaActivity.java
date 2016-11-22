@@ -88,22 +88,6 @@ public class SelectAreaActivity extends BaseActivity implements ProvinceAdapter.
         provinceRecycler.setAdapter(provinceAdapter);
         cityAdapter=new CityAdapter(this,cityList);
         cityRecycler.setAdapter(cityAdapter);
-        provinceRecycler.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
-            @Override
-            public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
-                return false;
-            }
-
-            @Override
-            public void onTouchEvent(RecyclerView rv, MotionEvent e) {
-
-            }
-
-            @Override
-            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-
-            }
-        });
 
     }
 

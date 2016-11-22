@@ -15,6 +15,7 @@
         android:layout_height="34dp"
         android:gravity="center"
         android:text="北京"
+        android:background="@drawable/item_click_bg_selector"
         android:textColor="@color/black"
         android:textSize="@dimen/primary_text_size" />
 

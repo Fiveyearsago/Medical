@@ -62,6 +62,18 @@ public class ProvinceAdapter extends BaseHeadFootAdapter {
         });
 
         viewHolder.name.setText(list.get(position).getName());
+        viewHolder.name.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                v.performClick();
+            }
+        });
+        viewHolder.name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                lCallBack.changeCityData(position);
+            }
+        });
     }
 
     @Override
@@ -70,6 +82,6 @@ public class ProvinceAdapter extends BaseHeadFootAdapter {
         return new ProvinceViewHolder(view);
     }
     public interface LCallBack{
-        public void changeCityData(int position);
+         void changeCityData(int position);
     }
 }

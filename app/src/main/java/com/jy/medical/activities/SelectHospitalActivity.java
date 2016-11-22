@@ -1,5 +1,6 @@
 package com.jy.medical.activities;
 
+import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chanven.lib.cptr.PtrClassicFrameLayout;
@@ -45,6 +47,7 @@ public class SelectHospitalActivity extends BaseActivity {
     Handler handler = new Handler();
     private int page = 0;
     private String taskNo;
+    private TextView cityText;
 
     @Override
     public void initData() {
@@ -66,6 +69,7 @@ public class SelectHospitalActivity extends BaseActivity {
         setStatusBarTint();
         MedicalApplication.getInstance().addActivity(this);
         setNavState(findViewById(R.id.title_head_second), "选择医院");
+        cityText= (TextView) findViewById(R.id.page_head_button);
         findViewById(R.id.text_search).setOnClickListener(this);
         ptrClassicFrameLayout= (PtrClassicFrameLayout) findViewById(R.id.hospital_recyclerView_frame);
         mRecyclerView= (RecyclerView) findViewById(R.id.hospital_recyclerView);
@@ -80,13 +84,14 @@ public class SelectHospitalActivity extends BaseActivity {
         mAdapter = new RecyclerAdapterWithHF(hospitalAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mAdapter);
-        ptrClassicFrameLayout.postDelayed(new Runnable() {
-
-            @Override
-            public void run() {
-                ptrClassicFrameLayout.autoRefresh(true);
-            }
-        }, 150);
+        ptrClassicFrameLayout.setLoadMoreEnable(true);
+//        ptrClassicFrameLayout.postDelayed(new Runnable() {
+//
+//            @Override
+//            public void run() {
+//                ptrClassicFrameLayout.autoRefresh(true);
+//            }
+//        }, 150);
         ptrClassicFrameLayout.setPtrHandler(new PtrDefaultHandler() {
 
             @Override
@@ -132,7 +137,8 @@ public class SelectHospitalActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.nav_layout:
-                startActivity(SelectAreaActivity.class);
+                Intent intent=new Intent(this,SelectAreaActivity.class);
+                startActivityForResult(intent,0x11);
                 break;
             case R.id.text_search:
                 startActivity(SearchHospitalActivity.class);
@@ -182,5 +188,17 @@ public class SelectHospitalActivity extends BaseActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode==RESULT_OK){
+            switch (requestCode){
+                case 0x11:
+                    cityText.setText(data.getStringExtra("cityName"));
+                    break;
+            }
+        }
     }
 }
