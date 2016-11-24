@@ -33,7 +33,7 @@ public class SelectedDiagnoseAdapter extends SwipeMenuAdapter<SelectedDiagnoseAd
     }
     @Override
     public View onCreateContentView(ViewGroup parent, int viewType) {
-        return LayoutInflater.from(context).inflate(R.layout.item_selected_diagnose, parent,false);
+        return LayoutInflater.from(context).inflate(R.layout.item_selected_diagnose, null,false);
     }
 
     @Override

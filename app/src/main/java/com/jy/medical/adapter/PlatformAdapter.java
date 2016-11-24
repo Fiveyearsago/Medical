@@ -59,7 +59,17 @@ public class PlatformAdapter extends BaseHeadFootAdapter {
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, FollowDetailActivity.class);
+                Intent intent = null;
+                switch (list.get(position).getTaskType()){
+                    case "01":
+                        intent = new Intent(context, FollowDetailActivity.class);
+                        break;
+                    case "09":
+                        intent = new Intent(context, FollowDetailActivity.class);
+                        break;
+                }
+                if (intent==null)
+                    return;
                 intent.putExtra("info", platformData);
                 context.startActivity(intent);
 

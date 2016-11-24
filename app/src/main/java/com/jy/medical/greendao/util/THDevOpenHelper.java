@@ -8,11 +8,13 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.jy.medical.greendao.entities.BaseInfoData;
 import com.jy.medical.greendao.entities.CityData;
 import com.jy.medical.greendao.entities.ContactData;
 import com.jy.medical.greendao.entities.HospitalData;
 import com.jy.medical.greendao.entities.MedicalDepartment;
 import com.jy.medical.greendao.entities.TaskPhoto;
+import com.jy.medical.greendao.gen.BaseInfoDataDao;
 import com.jy.medical.greendao.gen.CategoryDataDao;
 import com.jy.medical.greendao.gen.CityDataDao;
 import com.jy.medical.greendao.gen.ClaimBeanDataDao;
@@ -89,6 +91,9 @@ public class THDevOpenHelper extends DaoMaster.OpenHelper {
                 break;
             case 23:
                 MigrationHelper.migrate(db, SelectedDiagnoseDao.class);
+                break;
+            case 24:
+                MigrationHelper.migrate(db, BaseInfoDataDao.class);
                 break;
         }
     }

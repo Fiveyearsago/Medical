@@ -13,6 +13,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -42,6 +43,7 @@ import com.jy.medical.greendao.manager.SelectedHospitalManager;
 import com.jy.medical.greendao.manager.TaskPhotoManager;
 import com.jy.medical.greendao.util.DaoUtils;
 import com.jy.medical.inter.OnItemClickListener;
+import com.jy.medical.util.CommitUtil;
 import com.jy.medical.util.ImageUtils;
 import com.jy.medical.util.LocalImageHelper;
 import com.jy.medical.util.PhotoUtil;
@@ -198,7 +200,7 @@ public class MedicalVisitsActivity extends BaseActivity {
         Resources res = getResources();
         Bitmap bmp = BitmapFactory.decodeResource(res, R.mipmap.add_photo);
         list.add(bmp);
-        pictureAdapter = new PictureAdapter(this, list,taskNo);
+        pictureAdapter = new PictureAdapter(this, list,taskNo,true,true);
         pictureAdapter.notifyDataSetChanged();
         pictureRecyclerView.setAdapter(pictureAdapter);
     }
@@ -258,16 +260,17 @@ public class MedicalVisitsActivity extends BaseActivity {
                 //保存编辑信息
                 saveData();
                 Toast.makeText(this,"已保存所有信息",Toast.LENGTH_SHORT).show();
+                finish();
                 break;
             case R.id.visit_edit_commit:
                 //保存编辑信息
-                saveData();
+
                 AlertView mAlertView = new AlertView("提示", "提交后不能进行修改，是否提交？", "否", new String[]{"是"}, null, this, AlertView.Style.Alert, new com.bigkoo.alertview.OnItemClickListener() {
                     @Override
                     public void onItemClick(Object o, int position1) {
                         if (position1==0){
                             //提交信息
-                            commitData();
+                            commitMedicalData();
 
                         }
                     }
@@ -277,6 +280,7 @@ public class MedicalVisitsActivity extends BaseActivity {
             case R.id.visit_edit_save:
                 //保存编辑信息
                 saveData();
+                finish();
                 break;
             case R.id.add_hospital:
                 //选择医院
@@ -299,8 +303,34 @@ public class MedicalVisitsActivity extends BaseActivity {
         }
     }
 
-    private void commitData() {
+    private void commitMedicalData() {
         saveData();
+        CommitUtil.commitMedical(this, taskNo, new CommitUtil.CommitCallBack() {
+            @Override
+            public void commitSuccess() {
+                Toast toast= Toast.makeText(MedicalVisitsActivity.this, "已成功提交", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER,0,0);
+                toast.show();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        finish();
+                    }
+                },1000);
+            }
+
+            @Override
+            public void commitFailed() {
+                Toast.makeText(MedicalVisitsActivity.this,"提交失败",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+    private void commitData() {
+//        CommitUtil.commitMedical(this,taskNo);
+        saveData();
+
         medicalVisit=medicalVisitManager.getDataList(taskNo).get(0);
         QTInspectHospitalInfoDTO qtInspectHospitalInfoDTO=new QTInspectHospitalInfoDTO();
         qtInspectHospitalInfoDTO.setTaskNo(taskNo);
@@ -356,6 +386,7 @@ public class MedicalVisitsActivity extends BaseActivity {
                     //标记已提交
                     medicalVisit.setCommitFlag("1");
                     medicalVisitManager.insertSingleData(medicalVisit);
+                    finish();
                 }
             }
 
@@ -479,17 +510,16 @@ public class MedicalVisitsActivity extends BaseActivity {
                         for (int i = 0; i < files.size(); i++) {
                             String photoPath=ImageUtils.getAbsoluteImagePath(this,Uri.parse(files.get(i).getOriginalUri()));
                             newDatas.add(new TaskPhoto(taskNo,photoPath ));
-
-                            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(75, 75);
-//                        params.rightMargin = padding;
-                            FilterImageView imageView = new FilterImageView(this);
-                            imageView.setLayoutParams(params);
-                            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                            ImageLoader.getInstance().displayImage(files.get(i).getThumbnailUri(), new ImageViewAware(imageView), options,
-                                    null, null, files.get(i).getOrientation());
-                            imageView.setOnClickListener(this);
-                            pictures.add(files.get(i));
-                            LocalImageHelper.getInstance().setCurrentSize(pictures.size());
+//                            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(75, 75);
+////                        params.rightMargin = padding;
+//                            FilterImageView imageView = new FilterImageView(this);
+//                            imageView.setLayoutParams(params);
+//                            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+//                            ImageLoader.getInstance().displayImage(files.get(i).getThumbnailUri(), new ImageViewAware(imageView), options,
+//                                    null, null, files.get(i).getOrientation());
+//                            imageView.setOnClickListener(this);
+//                            pictures.add(files.get(i));
+//                            LocalImageHelper.getInstance().setCurrentSize(pictures.size());
                         }
                         taskPhotoManager.insertData(newDatas);
 //                    setPhotoData();

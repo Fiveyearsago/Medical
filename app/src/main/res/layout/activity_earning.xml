@@ -1,0 +1,625 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_follow_edit"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/pageBackground"
+    tools:context="com.jy.medical.activities.FollowEditActivity">
+
+    <LinearLayout
+        android:id="@+id/head_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/page_head" />
+    </LinearLayout>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bottom_layout"
+        android:layout_below="@+id/head_layout"
+        android:layout_marginBottom="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/primary_text_size"
+                android:paddingRight="@dimen/primary_text_size">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="在职情况"
+                        android:textColor="@color/navigateColor"
+                        android:textSize="@dimen/primary_text_size" />
+
+                    <TextView
+                        android:id="@+id/job_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="5dp"
+                        android:layout_toLeftOf="@+id/job_status_image"
+                        android:text="必选"
+                        android:textColor="@color/hintColor"
+                        android:textSize="@dimen/primary_text_size" />
+
+                    <ImageView
+                        android:id="@+id/job_status_image"
+                        android:layout_width="10dp"
+                        android:layout_height="16dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:background="@mipmap/more"
+                        android:scaleType="fitXY" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/lineColor" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/movie_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="影像资料"
+                        android:textColor="@color/navigateColor"
+                        android:textSize="@dimen/primary_text_size" />
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/movie_info"
+                        android:text="(必填)"
+                        android:textColor="@color/minorColor"
+                        android:textSize="@dimen/primary_text_size" />
+                </RelativeLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/picture_recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/lineColor" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="备注信息"
+                        android:textColor="@color/navigateColor"
+                        android:textSize="@dimen/primary_text_size" />
+                </RelativeLayout>
+
+                <com.jy.medical.widget.CleanableEditText
+                    android:id="@+id/remark_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@null"
+                    android:drawableRight="@mipmap/clear"
+                    android:gravity="top"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/hintColor"
+                    android:textSize="@dimen/primary_text_size" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/lineColor" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="完成情况"
+                        android:textColor="@color/navigateColor"
+                        android:textSize="@dimen/primary_text_size" />
+
+                    <TextView
+                        android:id="@+id/complete_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="5dp"
+                        android:layout_toLeftOf="@+id/complete_status_image"
+                        android:text="必选"
+                        android:textColor="@color/hintColor"
+                        android:textSize="@dimen/primary_text_size" />
+
+                    <ImageView
+                        android:id="@+id/complete_status_image"
+                        android:layout_width="10dp"
+                        android:layout_height="16dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:background="@mipmap/more"
+                        android:scaleType="fitXY" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/primary_text_size"
+                android:paddingRight="@dimen/primary_text_size">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="行业"
+                        android:textColor="@color/navigateColor"
+                        android:textSize="@dimen/primary_text_size" />
+
+                    <TextView
+                        android:id="@+id/industry"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="5dp"
+                        android:layout_toLeftOf="@+id/industry_image"
+                        android:text="必选"
+                        android:textColor="@color/hintColor"
+                        android:textSize="@dimen/primary_text_size" />
+
+                    <ImageView
+                        android:id="@+id/industry_image"
+                        android:layout_width="10dp"
+                        android:layout_height="16dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:background="@mipmap/more"
+                        android:scaleType="fitXY" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/lineColor" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="单位名称"
+                        android:textColor="@color/navigateColor"
+                        android:textSize="@dimen/primary_text_size" />
+
+
+                    <com.jy.medical.widget.CleanableEditText
+                        android:id="@+id/nursing_fee"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:background="@null"
+                        android:drawablePadding="10dp"
+                        android:drawableRight="@mipmap/clear"
+                        android:gravity="right"
+                        android:hint="必填"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/hintColor"
+                        android:textSize="@dimen/primary_text_size" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/lineColor" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="单位地址"
+                        android:textColor="@color/navigateColor"
+                        android:textSize="@dimen/primary_text_size" />
+
+                    <ImageButton
+                        android:id="@+id/company_location"
+                        android:layout_width="16dp"
+                        android:layout_height="21dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/btn_location_selector"
+                        android:scaleType="fitXY" />
+                </RelativeLayout>
+
+                <com.jy.medical.widget.CleanableEditText
+                    android:id="@+id/company_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@null"
+                    android:drawableRight="@mipmap/clear"
+                    android:ellipsize="end"
+                    android:gravity="top"
+                    android:hint="必填"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/hintColor"
+                    android:textSize="@dimen/primary_text_size" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/lineColor" />
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+
+                        android:text="联系人"
+                        android:textColor="@color/navigateColor"
+                        android:textSize="@dimen/primary_text_size" />
+
+                    <ImageView
+                        android:id="@+id/add_contact"
+                        android:layout_width="34dp"
+                        android:layout_height="34dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:cropToPadding="true"
+                        android:padding="10dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/add_contact_selector" />
+
+                </RelativeLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/contact_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/lineColor" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="入职时间"
+                        android:textColor="@color/navigateColor"
+                        android:textSize="@dimen/primary_text_size" />
+
+                    <TextView
+                        android:id="@+id/entry_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="5dp"
+                        android:layout_toLeftOf="@+id/entry_time_image"
+                        android:hint="必选"
+                        android:text=""
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/hintColor"
+                        android:textSize="@dimen/primary_text_size" />
+
+                    <ImageView
+                        android:id="@+id/entry_time_image"
+                        android:layout_width="10dp"
+                        android:layout_height="16dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:background="@mipmap/more"
+                        android:scaleType="fitXY" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/lineColor" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="劳务合同"
+                        android:textColor="@color/navigateColor"
+                        android:textSize="@dimen/primary_text_size" />
+
+                    <TextView
+                        android:id="@+id/agreement"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="5dp"
+                        android:layout_toLeftOf="@+id/agreement_image"
+                        android:hint="必选"
+                        android:text=""
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/hintColor"
+                        android:textSize="@dimen/primary_text_size" />
+
+                    <ImageView
+                        android:id="@+id/agreement_image"
+                        android:layout_width="10dp"
+                        android:layout_height="16dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:background="@mipmap/more"
+                        android:scaleType="fitXY" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/lineColor" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="社保"
+                        android:textColor="@color/navigateColor"
+                        android:textSize="@dimen/primary_text_size" />
+
+                    <TextView
+                        android:id="@+id/social"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="5dp"
+                        android:layout_toLeftOf="@+id/social_image"
+                        android:hint="必选"
+                        android:text=""
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/hintColor"
+                        android:textSize="@dimen/primary_text_size" />
+
+                    <ImageView
+                        android:id="@+id/social_image"
+                        android:layout_width="10dp"
+                        android:layout_height="16dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:background="@mipmap/more"
+                        android:scaleType="fitXY" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/lineColor" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="收入发放形式"
+                        android:textColor="@color/navigateColor"
+                        android:textSize="@dimen/primary_text_size" />
+
+                    <TextView
+                        android:id="@+id/income_form"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="5dp"
+                        android:layout_toLeftOf="@+id/income_form_image"
+                        android:hint="必选"
+                        android:text=""
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/hintColor"
+                        android:textSize="@dimen/primary_text_size" />
+
+                    <ImageView
+                        android:id="@+id/income_form_image"
+                        android:layout_width="10dp"
+                        android:layout_height="16dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:background="@mipmap/more"
+                        android:scaleType="fitXY" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/lineColor" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="月收入"
+                        android:textColor="@color/navigateColor"
+                        android:textSize="@dimen/primary_text_size" />
+
+
+                    <com.jy.medical.widget.CleanableEditText
+                        android:id="@+id/monthly_income"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:background="@null"
+                        android:drawablePadding="10dp"
+                        android:drawableRight="@mipmap/clear"
+                        android:gravity="right"
+                        android:hint="必填"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/hintColor"
+                        android:textSize="@dimen/primary_text_size" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/primary_text_size"
+                android:paddingRight="@dimen/primary_text_size">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="离职时间"
+                        android:textColor="@color/navigateColor"
+                        android:textSize="@dimen/primary_text_size" />
+
+                    <TextView
+                        android:id="@+id/leave_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="5dp"
+                        android:layout_toLeftOf="@+id/leave_time_image"
+                        android:hint="必选"
+                        android:text=""
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/hintColor"
+                        android:textSize="@dimen/primary_text_size" />
+
+                    <ImageView
+                        android:id="@+id/leave_time_image"
+                        android:layout_width="10dp"
+                        android:layout_height="16dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:background="@mipmap/more"
+                        android:scaleType="fitXY" />
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/bottom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:paddingLeft="@dimen/primary_margin"
+            android:paddingRight="@dimen/primary_margin">
+
+            <Button
+                android:id="@+id/follow_edit_commit"
+                android:layout_width="0dp"
+                android:layout_height="39dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_green_selector"
+                android:text="提交"
+                android:textColor="@drawable/btn_press_selector"
+                android:textSize="@dimen/primary_text_size" />
+
+            <Button
+                android:id="@+id/follow_edit_save"
+                android:layout_width="0dp"
+                android:layout_height="39dp"
+                android:layout_marginLeft="@dimen/primary_text_size"
+                android:layout_toRightOf="@+id/follow_edit_commit"
+                android:layout_weight="1"
+                android:background="@drawable/btn_blue_selector"
+                android:text="保存"
+                android:textColor="@drawable/btn_press_selector"
+                android:textSize="@dimen/primary_text_size" />
+        </LinearLayout>
+
+    </RelativeLayout>
+</RelativeLayout>

@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,7 +13,6 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -25,10 +23,8 @@ import com.google.gson.Gson;
 import com.jy.ah.bus.data.Response;
 import com.jy.medical.MedicalApplication;
 import com.jy.medical.R;
-import com.jy.medical.adapter.ContactAdapter;
 import com.jy.medical.adapter.ContactEditAdapter;
 import com.jy.medical.adapter.PictureAdapter;
-import com.jy.medical.controller.JsonToBean;
 import com.jy.medical.greendao.entities.BaseInfoData;
 import com.jy.medical.greendao.entities.ContactData;
 import com.jy.medical.greendao.entities.TaskPhoto;
@@ -48,10 +44,7 @@ import com.jy.medical.widget.pickerview.TimePickerDialog;
 import com.jy.medical.widget.pickerview.data.Type;
 import com.jy.medical.widget.pickerview.listener.OnDateSetListener;
 import com.jy.medical.widget.pickerview.utils.PickerContants;
-import com.jy.mobile.dto.ClaimDTO;
 import com.jy.mobile.request.QTInspectAccidentInfoDTO;
-import com.jy.mobile.request.QtRecieveTaskDTO;
-import com.jy.mobile.response.SpRecieveTaskDTO;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
@@ -65,7 +58,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class FollowEditActivity extends BaseActivity {
+public class EarningActivity extends BaseActivity {
 
     private RecyclerView pictureRecyclerView;
     private PictureAdapter pictureAdapter;
@@ -96,7 +89,7 @@ public class FollowEditActivity extends BaseActivity {
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_follow_edit;
+        return R.layout.activity_earning;
     }
 
     @Override
@@ -179,14 +172,14 @@ public class FollowEditActivity extends BaseActivity {
                 break;
             case R.id.page_head_button:
                 saveData();
-                Toast toast= Toast.makeText(FollowEditActivity.this, "已保存所有信息", Toast.LENGTH_SHORT);
+                Toast toast= Toast.makeText(EarningActivity.this, "已保存所有信息", Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER,0,0);
                 toast.show();
                 finish();
                 break;
             case R.id.follow_edit_save:
                 saveData();
-                Toast toast1= Toast.makeText(FollowEditActivity.this, "已保存所有信息", Toast.LENGTH_SHORT);
+                Toast toast1= Toast.makeText(EarningActivity.this, "已保存所有信息", Toast.LENGTH_SHORT);
                 toast1.setGravity(Gravity.CENTER,0,0);
                 toast1.show();
                 finish();

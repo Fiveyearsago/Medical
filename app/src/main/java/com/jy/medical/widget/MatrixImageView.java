@@ -492,7 +492,7 @@ public class MatrixImageView extends ImageView {
 	 * @ClassName: OnSingleTapListener
 	 * @Description:  监听ViewPager屏幕单击事件，本质是监听子控件MatrixImageView的单击事件
 	 * @author LinJ
-	 * @date 2015-1-12 下午4:48:52 
+	 * @date 2015-1-12 下午4:ic_launcher:52
 	 *
 	 */
 	public interface OnSingleTapListener{

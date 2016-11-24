@@ -11,50 +11,9 @@
         android:id="@+id/head_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
         <include layout="@layout/page_head" />
     </LinearLayout>
 
-
-    <RelativeLayout
-        android:id="@+id/bottom_layout"
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:layout_alignParentBottom="true"
-        android:background="@color/white"
-        android:gravity="center_vertical"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:paddingLeft="@dimen/primary_margin"
-            android:paddingRight="@dimen/primary_margin">
-
-            <Button
-                android:id="@+id/follow_edit_commit"
-                android:layout_width="0dp"
-                android:layout_height="39dp"
-                android:layout_weight="1"
-                android:background="@drawable/btn_green_selector"
-                android:text="提交"
-                android:textColor="@drawable/btn_press_selector"
-                android:textSize="@dimen/primary_text_size" />
-
-            <Button
-                android:id="@+id/follow_edit_save"
-                android:layout_width="0dp"
-                android:layout_height="39dp"
-                android:layout_marginLeft="@dimen/primary_text_size"
-                android:layout_toRightOf="@+id/follow_edit_commit"
-                android:layout_weight="1"
-                android:background="@drawable/btn_blue_selector"
-                android:text="保存"
-                android:textColor="@drawable/btn_press_selector"
-                android:textSize="@dimen/primary_text_size" />
-        </LinearLayout>
-    </RelativeLayout>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -62,10 +21,10 @@
         android:layout_above="@+id/bottom_layout"
         android:layout_below="@+id/head_layout"
         android:layout_marginBottom="10dp"
-        android:background="@color/white">
+       >
 
         <LinearLayout
-
+            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
@@ -96,8 +55,9 @@
             </RelativeLayout>
 
             <com.jy.medical.widget.CleanableEditText
+                android:id="@+id/address_edit"
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="5dp"
                 android:background="@null"
@@ -105,7 +65,6 @@
                 android:ellipsize="end"
                 android:gravity="top"
                 android:hint="必填"
-                android:maxLines="2"
                 android:textColor="@color/black"
                 android:textColorHint="@color/hintColor"
                 android:textSize="@dimen/primary_text_size" />
@@ -157,41 +116,35 @@
                 android:layout_height="1dp"
                 android:background="@color/lineColor" />
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="44dp">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="44dp">
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
 
                     android:text="联系人"
                     android:textColor="@color/navigateColor"
                     android:textSize="@dimen/primary_text_size" />
-
-                <RelativeLayout
-                    android:id="@+id/follow_edit_add_contact_layout"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                <ImageView
+                    android:id="@+id/add_contact"
+                    android:layout_width="34dp"
+                    android:layout_height="34dp"
                     android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true">
+                    android:layout_centerVertical="true"
+                    android:cropToPadding="true"
+                    android:padding="10dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/add_contact_selector" />
 
-                    <ImageView
-                        android:id="@+id/add_contact"
-                        android:layout_width="13dp"
-                        android:layout_height="13dp"
-                        android:layout_centerVertical="true"
-                        android:background="@drawable/add_contact_selector"
-                        android:scaleType="fitXY" />
-                </RelativeLayout>
             </RelativeLayout>
+
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/contact_recycler"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-
+                android:layout_height="wrap_content" />
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -211,8 +164,9 @@
             </RelativeLayout>
 
             <com.jy.medical.widget.CleanableEditText
+                android:id="@+id/detail_info_edit"
                 android:layout_width="match_parent"
-                android:layout_height="53dp"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="5dp"
                 android:background="@null"
@@ -220,7 +174,6 @@
                 android:ellipsize="end"
                 android:gravity="top"
                 android:hint="必填"
-                android:maxLines="2"
                 android:textColor="@color/black"
                 android:textColorHint="@color/hintColor"
                 android:textSize="@dimen/primary_text_size" />
@@ -279,14 +232,14 @@
             </RelativeLayout>
 
             <com.jy.medical.widget.CleanableEditText
+                android:id="@+id/remark_edit"
                 android:layout_width="match_parent"
-                android:layout_height="53dp"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="5dp"
                 android:background="@null"
                 android:drawableRight="@mipmap/clear"
                 android:gravity="top"
-                android:maxLines="2"
                 android:textColor="@color/black"
                 android:textColorHint="@color/hintColor"
                 android:textSize="@dimen/primary_text_size" />
@@ -294,6 +247,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:layout_marginTop="10dp"
                 android:background="@color/lineColor" />
 
             <RelativeLayout
@@ -310,6 +264,7 @@
                     android:textSize="@dimen/primary_text_size" />
 
                 <TextView
+                    android:id="@+id/complete_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -331,4 +286,46 @@
         </LinearLayout>
 
     </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/bottom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:paddingLeft="@dimen/primary_margin"
+            android:paddingRight="@dimen/primary_margin">
+
+            <Button
+                android:id="@+id/follow_edit_commit"
+                android:layout_width="0dp"
+                android:layout_height="39dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_green_selector"
+                android:text="提交"
+                android:textColor="@drawable/btn_press_selector"
+                android:textSize="@dimen/primary_text_size" />
+
+            <Button
+                android:id="@+id/follow_edit_save"
+                android:layout_width="0dp"
+                android:layout_height="39dp"
+                android:layout_marginLeft="@dimen/primary_text_size"
+                android:layout_toRightOf="@+id/follow_edit_commit"
+                android:layout_weight="1"
+                android:background="@drawable/btn_blue_selector"
+                android:text="保存"
+                android:textColor="@drawable/btn_press_selector"
+                android:textSize="@dimen/primary_text_size" />
+        </LinearLayout>
+    </RelativeLayout>
 </RelativeLayout>

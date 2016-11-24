@@ -39,7 +39,7 @@
                 android:layout_width="0dp"
                 android:layout_height="39dp"
                 android:layout_marginLeft="@dimen/primary_text_size"
-                android:layout_toRightOf="@+id/follow_edit_commit"
+                android:layout_toRightOf="@+id/visit_edit_commit"
                 android:layout_weight="1"
                 android:background="@drawable/btn_blue_selector"
                 android:text="保存"
@@ -282,7 +282,7 @@
                 <com.jy.medical.widget.CleanableEditText
                     android:id="@+id/nursing_remark"
                     android:layout_width="match_parent"
-                    android:layout_height="53dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="5dp"
                     android:background="@null"
@@ -296,6 +296,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
+                    android:layout_marginTop="10dp"
                     android:background="@color/lineColor" />
 
                 <RelativeLayout

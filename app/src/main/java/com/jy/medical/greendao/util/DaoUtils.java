@@ -8,6 +8,7 @@ package com.jy.medical.greendao.util;
 import android.content.Context;
 
 import com.jy.medical.greendao.entities.SearchData;
+import com.jy.medical.greendao.manager.BaseInfoDataManager;
 import com.jy.medical.greendao.manager.CategoryDataManager;
 import com.jy.medical.greendao.manager.CityDataManager;
 import com.jy.medical.greendao.manager.ClaimManager;
@@ -45,6 +46,7 @@ public class DaoUtils {
     private static HumanPartsManager humanPartsManager;
     private static CategoryDataManager categoryDataManager;
     private static NursingDataManager nursingDataManager;
+    private static BaseInfoDataManager baseInfoDataManager;
     public static Context context;
 
     public static void init(Context context) {
@@ -55,6 +57,12 @@ public class DaoUtils {
     /**
      * 单列模式获取Manager对象
      */
+    public static BaseInfoDataManager getBaseInfoDataInstance() {
+        if (baseInfoDataManager == null) {
+            baseInfoDataManager = new BaseInfoDataManager(context);
+        }
+        return baseInfoDataManager;
+    }
     public static NursingDataManager getNursingDataInstance() {
         if (nursingDataManager == null) {
             nursingDataManager = new NursingDataManager(context);

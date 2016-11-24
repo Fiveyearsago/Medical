@@ -5,6 +5,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jy.medical.MedicalApplication;
@@ -31,6 +32,8 @@ public class PhotoPreActivity extends BaseActivity {
     private ViewPager viewPager;
     private TextView textTitle;
     private Boolean first = true;
+    private Boolean deleteFlag;
+    private TextView deleteText;
 
 
     @Override
@@ -45,26 +48,32 @@ public class PhotoPreActivity extends BaseActivity {
 
     @Override
     public void initParms(Bundle parms) {
-        index=parms.getInt("index");
-        taskNo=parms.getString("taskNo");
+        index = parms.getInt("index");
+        taskNo = parms.getString("taskNo");
+        deleteFlag = parms.getBoolean("deleteFlag");
     }
 
     @Override
     public void initView() {
         setStatusBarTint();
         MedicalApplication.getInstance().addActivity(this);
-        setTitleState(findViewById(R.id.title_head), true, "", true, "删除");
-        textTitle= (TextView) findViewById(R.id.page_head_text);
-        viewPager= (ViewPager) findViewById(R.id.viewpager);
-        pictureList=new ArrayList<>();
-        list=new ArrayList<>();
-
+        View view = findViewById(R.id.title_head);
+        setTitleState(view, true, "", true, "删除");
+        deleteText = (TextView) view.findViewById(R.id.page_head_button);
+        if (deleteFlag)
+            deleteText.setVisibility(View.VISIBLE);
+        else
+            deleteText.setVisibility(View.GONE);
+        textTitle = (TextView) findViewById(R.id.page_head_text);
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        pictureList = new ArrayList<>();
+        list = new ArrayList<>();
 
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                if (first && positionOffset == 0 && positionOffsetPixels == 0){
+                if (first && positionOffset == 0 && positionOffsetPixels == 0) {
                     onPageSelected(index);
                     first = false;
                 }
@@ -72,7 +81,7 @@ public class PhotoPreActivity extends BaseActivity {
 
             @Override
             public void onPageSelected(int position) {
-                textTitle.setText((position+1)+"/"+pictureList.size());
+                textTitle.setText((position + 1) + "/" + pictureList.size());
             }
 
             @Override
@@ -88,14 +97,14 @@ public class PhotoPreActivity extends BaseActivity {
     private void setPhotoData() {
         pictureList.clear();
         list.clear();
-        taskPhotoManager= DaoUtils.getTaskPhotoInstance();
-        pictureList=taskPhotoManager.selectAllPhoto(taskNo);
+        taskPhotoManager = DaoUtils.getTaskPhotoInstance();
+        pictureList = taskPhotoManager.selectAllPhoto(taskNo);
         for (int i = 0; i < pictureList.size(); i++) {
-            Bitmap bmp = PhotoUtil.convertToBitmap(pictureList.get(i).getPhotoPath(),480,640);
+            Bitmap bmp = PhotoUtil.convertToBitmap(pictureList.get(i).getPhotoPath(), 480, 640);
 //            Bitmap bmp = PhotoUtil.getNativeImage(pictureList.get(i).getPhotoPath());
             list.add(bmp);
         }
-        adapter=new PhotoPreAdapter(this,list);
+        adapter = new PhotoPreAdapter(this, list);
         viewPager.setAdapter(adapter);
     }
 
@@ -114,19 +123,18 @@ public class PhotoPreActivity extends BaseActivity {
     }
 
     private void deletePhoto() {
-        int currentIndex=viewPager.getCurrentItem();
+        int currentIndex = viewPager.getCurrentItem();
         taskPhotoManager.deleteObject(pictureList.get(currentIndex));
 //        viewPager.removeViewAt(viewPager.getCurrentItem());
         setPhotoData();
-        if (pictureList.size()==0){
+        if (pictureList.size() == 0) {
             finish();
-        }else {
-            if (currentIndex>0) {
+        } else {
+            if (currentIndex > 0) {
                 viewPager.setCurrentItem(currentIndex - 1, true);
                 textTitle.setText((currentIndex) + "/" + pictureList.size());
-            }
-            else {
-                textTitle.setText((currentIndex+1) + "/" + pictureList.size());
+            } else {
+                textTitle.setText((currentIndex + 1) + "/" + pictureList.size());
             }
         }
 

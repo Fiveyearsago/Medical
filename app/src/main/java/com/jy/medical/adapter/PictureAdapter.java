@@ -31,11 +31,15 @@ public class PictureAdapter extends BaseHeadFootAdapter {
     private Context context;
     private List<Bitmap> list;
     private String taskNo;
+    private boolean deleteFlag;//是否可以删除
+    private boolean preFlag;//是否可以预览
 
-    public PictureAdapter(Context context, List<Bitmap> list,String taskNo) {
+    public PictureAdapter(Context context, List<Bitmap> list,String taskNo,boolean deleteFlag,boolean preFlag) {
         this.context = context;
         this.list = list;
         this.taskNo=taskNo;
+        this.deleteFlag=deleteFlag;
+        this.preFlag=preFlag;
     }
 
     @Override
@@ -65,7 +69,7 @@ public class PictureAdapter extends BaseHeadFootAdapter {
         viewHolder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (position==list.size()-1){
+                if (position==list.size()-1&&preFlag){
                     //添加照片
                     new AlertView("添加照片", null, "取消", null,
                             new String[]{"拍照", "从相册中选择"},
@@ -98,6 +102,7 @@ public class PictureAdapter extends BaseHeadFootAdapter {
                     Intent intent = new Intent(context, PhotoPreActivity.class);
                     intent.putExtra("taskNo",taskNo);
                     intent.putExtra("index",position);
+                    intent.putExtra("deleteFlag",deleteFlag);
                     context.startActivity(intent);
                 }
             }

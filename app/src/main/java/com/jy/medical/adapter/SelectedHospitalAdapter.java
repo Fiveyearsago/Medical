@@ -33,7 +33,7 @@ public class SelectedHospitalAdapter extends SwipeMenuAdapter<SelectedHospitalAd
     }
     @Override
     public View onCreateContentView(ViewGroup parent, int viewType) {
-        return LayoutInflater.from(context).inflate(R.layout.item_selected_hospital, parent,false);
+        return LayoutInflater.from(context).inflate(R.layout.item_selected_hospital, null,false);
     }
 
     @Override

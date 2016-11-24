@@ -240,6 +240,7 @@ public class LocalAlbumDetailActivity extends BaseActivity implements MatrixImag
             case R.id.header_finish:
                 MedicalApplication.getInstance().finishActivity(LocalAlbumActivity.class);
                 LocalImageHelper.getInstance().setResultOk(true);
+                setResult(RESULT_OK);
                 finish();
                 break;
             case R.id.album_back:
