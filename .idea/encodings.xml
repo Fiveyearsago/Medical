@@ -4,6 +4,9 @@
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/jy/medical/util/GetLocation.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/jy/medical/widget/pickerview/ControllerImpl.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/jy/medical/widget/pickerview/IController.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/jy/medical/widget/pickerview/OnSetListener.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/jy/medical/widget/pickerview/SelectPickerDialog.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/jy/medical/widget/pickerview/SelectWheel.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/jy/medical/widget/pickerview/TimePickerDialog.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/jy/medical/widget/pickerview/adapters/AbstractWheelAdapter.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/jy/medical/widget/pickerview/adapters/AbstractWheelTextAdapter.java" charset="GBK" />

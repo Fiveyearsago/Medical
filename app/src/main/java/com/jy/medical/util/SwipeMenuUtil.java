@@ -46,6 +46,19 @@ public class SwipeMenuUtil {
             swipeRightMenu.addMenuItem(deleteItem);
         }
     };
+    private static  SwipeMenuCreator swipeMenuCreatorEdit = new SwipeMenuCreator() {
+        @Override
+        public void onCreateMenu(SwipeMenu swipeLeftMenu, SwipeMenu swipeRightMenu, int viewType) {
+            int width = mContext.getResources().getDimensionPixelSize(R.dimen.creator_width_44);
+            int height = ViewGroup.LayoutParams.MATCH_PARENT;
+            SwipeMenuItem deleteItem = new SwipeMenuItem(mContext)
+                    .setBackgroundDrawable(R.drawable.creator_delete_selector)
+                    .setImage(R.mipmap.creator_delete)
+                    .setWidth(width)
+                    .setHeight(height);
+            swipeRightMenu.addMenuItem(deleteItem);
+        }
+    };
     public static  SwipeMenuCreator getSwipeMenuDelete(Context context){
         mContext=context;
         return swipeMenuCreator1;
@@ -53,5 +66,9 @@ public class SwipeMenuUtil {
     public static  SwipeMenuCreator getSwipeMenuEdit(Context context){
         mContext=context;
         return swipeMenuCreator;
+    }
+    public static  SwipeMenuCreator getSwipeMenuEdit44(Context context){
+        mContext=context;
+        return swipeMenuCreatorEdit;
     }
 }

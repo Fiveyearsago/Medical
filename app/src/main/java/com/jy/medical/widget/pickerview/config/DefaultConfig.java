@@ -26,7 +26,7 @@ public class DefaultConfig {
     public static final int TOOLBAR_TV_COLOR = 0xFFFFFFFF;
     public static final int TV_NORMAL_COLOR = 0xFF999999;
     public static final int TV_SELECTOR_COLOR = 0XFF404040;
-    public static final int TV_SIZE = 12;
+    public static final int TV_SIZE = 17;
     public static final boolean CYCLIC = true;
 
     public static void init(Context context) {

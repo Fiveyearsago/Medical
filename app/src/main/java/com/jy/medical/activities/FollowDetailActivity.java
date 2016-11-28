@@ -59,8 +59,8 @@ public class FollowDetailActivity extends BaseActivity implements OnItemClickLis
     private TextView textReport;
     private ImageButton imagePhone;
     private AlertView mAlertView;
-    private String taskType;
-    private String commitFlag;
+    private String taskType="";
+    private String commitFlag="";
     private MedicalVisitManager medicalVisitManager = DaoUtils.getMedicalVisitInstance();
     private BaseInfoDataManager baseInfoDataManager = DaoUtils.getBaseInfoDataInstance();
     private View layoutBottom;
@@ -120,6 +120,14 @@ public class FollowDetailActivity extends BaseActivity implements OnItemClickLis
                 fragmentList.add(followDetailFragment);
                 MedicalVisit medicalVisit = medicalVisitManager.getData(platformData.getTaskNo());
                 commitFlag = (medicalVisit == null) ? "" : medicalVisit.getCommitFlag();
+                break;
+            case "02":
+                followDetailFragment.setArguments(bundle);
+                medicalVisitFragment.setArguments(bundle);
+                fragmentList.add(medicalVisitFragment);
+                fragmentList.add(followDetailFragment);
+                MedicalVisit medicalVisit1 = medicalVisitManager.getData(platformData.getTaskNo());
+                commitFlag = (medicalVisit1 == null) ? "" : medicalVisit1.getCommitFlag();
                 break;
             case "09":
                 baseInfoFragment.setArguments(bundle);
@@ -288,11 +296,11 @@ public class FollowDetailActivity extends BaseActivity implements OnItemClickLis
     @Override
     protected void onResume() {
         super.onResume();
-        if (taskType.equals("1")) {
-            layoutBottom.setVisibility(View.GONE);
-        } else {
-            layoutBottom.setVisibility(View.VISIBLE);
-        }
+//        if (taskType.equals("1")) {
+//            layoutBottom.setVisibility(View.GONE);
+//        } else {
+//            layoutBottom.setVisibility(View.VISIBLE);
+//        }
         if (commitFlag.equals("1")){
             layoutBottom.setVisibility(View.GONE);
         }else {

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.jy.medical.R;
+import com.jy.medical.activities.EarningActivity;
 import com.jy.medical.activities.FollowDetailActivity;
 import com.jy.medical.adapter.viewholder.PlatformViewHolder;
 import com.jy.medical.greendao.entities.PlatformData;
@@ -59,17 +60,20 @@ public class PlatformAdapter extends BaseHeadFootAdapter {
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = null;
-                switch (list.get(position).getTaskType()){
-                    case "01":
-                        intent = new Intent(context, FollowDetailActivity.class);
-                        break;
-                    case "09":
-                        intent = new Intent(context, FollowDetailActivity.class);
-                        break;
-                }
-                if (intent==null)
-                    return;
+                Intent intent = new Intent(context, FollowDetailActivity.class);
+//                switch (list.get(position).getTaskType()){
+//                    case "01":
+//                        intent = new Intent(context, FollowDetailActivity.class);
+//                        break;
+//                    case "02":
+//                        intent = new Intent(context, EarningActivity.class);
+//                        break;
+//                    case "09":
+//                        intent = new Intent(context, FollowDetailActivity.class);
+//                        break;
+//                }
+//                if (intent==null)
+//                    return;
                 intent.putExtra("info", platformData);
                 context.startActivity(intent);
 
@@ -111,7 +115,7 @@ public class PlatformAdapter extends BaseHeadFootAdapter {
                 viewHolder.taskType.setText("医");
                 break;
             case "02":
-                viewHolder.taskType.setText("收");
+                viewHolder.taskType.setText("薪");
                 break;
             case "03":
                 viewHolder.taskType.setText("误");

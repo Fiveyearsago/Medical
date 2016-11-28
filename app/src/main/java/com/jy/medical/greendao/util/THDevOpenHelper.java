@@ -49,52 +49,52 @@ public class THDevOpenHelper extends DaoMaster.OpenHelper {
         Log.i("newVersion", newVersion + "");
         Log.i("oldVersion", oldVersion + "");
         switch (newVersion) {
-            case 10:
-                //创建新表，注意createTable()是静态方法
-                MigrationHelper.migrate(db, TaskPhotoDao.class);
-                break;
-            case 11:
-                MigrationHelper.migrate(db, CityDataDao.class);
-                break;
-            case 12:
-                MigrationHelper.migrate(db, CityDataDao.class);
-                break;
-            case 13:
-                MigrationHelper.migrate(db, MedicalDepartmentDao.class, HospitalDataDao.class);
-                break;
-            case 14:
-                MigrationHelper.migrate(db, SearchDataDao.class);
-                break;
-            case 15:
-                MigrationHelper.migrate(db, DiagnoseDao.class, MedicalVisitDao.class, SelectedDepartmentDao.class, SelectedDiagnoseDao.class, SelectedHospitalDao.class);
-                break;
-            case 16:
-                MigrationHelper.migrate(db, SelectedHospitalDao.class);
-                break;
-            case 17:
-                MigrationHelper.migrate(db, HumanPartsDao.class, CategoryDataDao.class);
-                break;
-            case 18:
-                MigrationHelper.migrate(db, SelectedDiagnoseDao.class);
-                break;
-            case 19:
-                MigrationHelper.migrate(db, NursingDataDao.class);
-                break;
-            case 20:
-                MigrationHelper.migrate(db, NursingDataDao.class);
-                break;
-            case 21:
-                MigrationHelper.migrate(db, MedicalVisitDao.class);
-                break;
-            case 22:
-                MigrationHelper.migrate(db, SelectedHospitalDao.class);
-                break;
-            case 23:
-                MigrationHelper.migrate(db, SelectedDiagnoseDao.class);
-                break;
-            case 24:
-                MigrationHelper.migrate(db, BaseInfoDataDao.class);
-                break;
+//            case 10:
+//                //创建新表，注意createTable()是静态方法
+//                MigrationHelper.migrate(db, TaskPhotoDao.class);
+//                break;
+//            case 11:
+//                MigrationHelper.migrate(db, CityDataDao.class);
+//                break;
+//            case 12:
+//                MigrationHelper.migrate(db, CityDataDao.class);
+//                break;
+//            case 13:
+//                MigrationHelper.migrate(db, MedicalDepartmentDao.class, HospitalDataDao.class);
+//                break;
+//            case 14:
+//                MigrationHelper.migrate(db, SearchDataDao.class);
+//                break;
+//            case 15:
+//                MigrationHelper.migrate(db, DiagnoseDao.class, MedicalVisitDao.class, SelectedDepartmentDao.class, SelectedDiagnoseDao.class, SelectedHospitalDao.class);
+//                break;
+//            case 16:
+//                MigrationHelper.migrate(db, SelectedHospitalDao.class);
+//                break;
+//            case 17:
+//                MigrationHelper.migrate(db, HumanPartsDao.class, CategoryDataDao.class);
+//                break;
+//            case 18:
+//                MigrationHelper.migrate(db, SelectedDiagnoseDao.class);
+//                break;
+//            case 19:
+//                MigrationHelper.migrate(db, NursingDataDao.class);
+//                break;
+//            case 20:
+//                MigrationHelper.migrate(db, NursingDataDao.class);
+//                break;
+//            case 21:
+//                MigrationHelper.migrate(db, MedicalVisitDao.class);
+//                break;
+//            case 22:
+//                MigrationHelper.migrate(db, SelectedHospitalDao.class);
+//                break;
+//            case 23:
+//                MigrationHelper.migrate(db, SelectedDiagnoseDao.class);
+//                break;
+//            case 24:
+//                MigrationHelper.migrate(db, BaseInfoDataDao.class);
+//                break;
         }
     }
 }

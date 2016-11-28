@@ -21,7 +21,6 @@ import java.util.List;
 
 public class SelectedHospitalAdapter extends SwipeMenuAdapter<SelectedHospitalAdapter.SelectedHospitalViewHolder> {
     public List<SelectedHospital> selectedHospitals;
-    public List<SelectedDepartment>selectedDepartments;
     public Context context;
     public OnItemClickListener mOnItemClickListener;
     public SelectedHospitalAdapter(List<SelectedHospital> selectedHospitals, Context context) {

@@ -102,5 +102,10 @@ public class ContactManager extends BaseDao<ContactData> {
     /***********************************
      * 在次添加一些ContactData特有的数据库操作语句
      * ************************************/
-
+    public void deleteSingleData(ContactData contactData) {
+        ContactDataDao contactDataDao = daoSession.getContactDataDao();
+        if (isExist(contactData)) {
+            contactDataDao.delete(contactData);
+        }
+    }
 }

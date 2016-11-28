@@ -169,7 +169,7 @@
         <activity android:name=".activities.SelectTreatActivity" />
         <activity android:name=".activities.SelectCategoryActivity" />
         <activity android:name=".activities.SelectCompleteActivity"></activity>
-        <activity android:name=".activities.EarningActivity"></activity>
+        <activity android:name=".activities.EarningActivity" android:windowSoftInputMode="adjustPan"></activity>
     </application>
 
 </manifest>

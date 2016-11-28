@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jy.medical.R;
+import com.jy.medical.activities.EarningActivity;
 import com.jy.medical.activities.MedicalVisitsActivity;
 import com.jy.medical.adapter.PictureAdapter;
 import com.jy.medical.adapter.SelectedDiagnoseAdapter;
@@ -92,7 +93,8 @@ public class MedicalVisitFragment extends Fragment {
         medicalEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), MedicalVisitsActivity.class);
+//                Intent intent = new Intent(getActivity(), MedicalVisitsActivity.class);
+                Intent intent = new Intent(getActivity(), EarningActivity.class);
                 intent.putExtra("taskNo", data.getString("taskNo"));
                 startActivity(intent);
             }

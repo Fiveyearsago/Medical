@@ -1,11 +1,13 @@
 package com.jy.medical.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,12 +15,14 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bigkoo.alertview.AlertView;
+import com.bigkoo.alertview.OnItemClickListener;
 import com.google.gson.Gson;
 import com.jy.ah.bus.data.Response;
 import com.jy.medical.MedicalApplication;
@@ -34,12 +38,16 @@ import com.jy.medical.greendao.manager.TaskPhotoManager;
 import com.jy.medical.greendao.util.DaoUtils;
 import com.jy.medical.util.ImageUtils;
 import com.jy.medical.util.LocalImageHelper;
+import com.jy.medical.util.MultiSelectUtil;
 import com.jy.medical.util.PhotoUtil;
 import com.jy.medical.util.PublicString;
 import com.jy.medical.util.ServerApiUtils;
 import com.jy.medical.util.StringUtils;
+import com.jy.medical.util.SwipeMenuUtil;
 import com.jy.medical.widget.CleanableEditText;
 import com.jy.medical.widget.FilterImageView;
+import com.jy.medical.widget.pickerview.OnSetListener;
+import com.jy.medical.widget.pickerview.SelectPickerDialog;
 import com.jy.medical.widget.pickerview.TimePickerDialog;
 import com.jy.medical.widget.pickerview.data.Type;
 import com.jy.medical.widget.pickerview.listener.OnDateSetListener;
@@ -49,6 +57,9 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 import com.nostra13.universalimageloader.core.imageaware.ImageViewAware;
+import com.yanzhenjie.recyclerview.swipe.Closeable;
+import com.yanzhenjie.recyclerview.swipe.OnSwipeMenuItemClickListener;
+import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 
 import org.xutils.common.Callback;
 
@@ -64,24 +75,25 @@ public class EarningActivity extends BaseActivity {
     private PictureAdapter pictureAdapter;
     private List<TaskPhoto> pictureList;
     private List<Bitmap> list;
-    private TextView textAccidentTime;
     private TimePickerDialog mDialogYearMonthDay;
-    private RecyclerView contactRecycler;
+    private SwipeMenuRecyclerView contactRecycler;
     private List<ContactData> contactDataList;
     private ContactEditAdapter adapter;
-    private ContactManager contactManager;
-    private TaskPhotoManager taskPhotoManager;
+    private ContactManager contactManager = DaoUtils.getContactInstance();
+    private TaskPhotoManager taskPhotoManager = DaoUtils.getTaskPhotoInstance();
     private String taskNo;
     private List<LocalImageHelper.LocalFile> pictures = new ArrayList<>();//图片路径数组
     DisplayImageOptions options;
-    private TextView completeStatus;
-    private CleanableEditText addressEdit;
-    private CleanableEditText detailInfoEdit;
-    private CleanableEditText remarkEdit;
+    private TextView jobStatus, industryText, completeStatus, entryTime, agreementText, socialText, incomeForm, leaveTime;
+    private ImageButton companyLocation;
+
+    private CleanableEditText companyAddress, monthlyIncome, companyName, remarkEdit;
     private Button btnCommit;
     private Button btnSave;
+    private View layout1, layout;
     private BaseInfoDataManager baseInfoDataManager = DaoUtils.getBaseInfoDataInstance();
-//    private BaseInfoData baseInfoData;
+    //    private BaseInfoData baseInfoData;
+    private Context context;
 
     @Override
     public void initData() {
@@ -100,22 +112,41 @@ public class EarningActivity extends BaseActivity {
     @Override
     public void initView() {
         setStatusBarTint();
+        context = this;
         MedicalApplication.getInstance().addActivity(this);
         setTitleState(findViewById(R.id.title_head), true, "编辑", true, "保存");
+        layout1 = findViewById(R.id.layout1);
+        layout = findViewById(R.id.layout);
+        jobStatus = (TextView) findViewById(R.id.job_status);
         completeStatus = (TextView) findViewById(R.id.complete_status);
-        addressEdit = (CleanableEditText) findViewById(R.id.address_edit);
-        detailInfoEdit = (CleanableEditText) findViewById(R.id.detail_info_edit);
+        industryText = (TextView) findViewById(R.id.industry);
+        companyName = (CleanableEditText) findViewById(R.id.company_name);
+        entryTime = (TextView) findViewById(R.id.entry_time);
+        agreementText = (TextView) findViewById(R.id.agreement);
+        socialText = (TextView) findViewById(R.id.social);
+        incomeForm = (TextView) findViewById(R.id.income_form);
+        leaveTime = (TextView) findViewById(R.id.leave_time);
+
+        companyLocation = (ImageButton) findViewById(R.id.company_location);
+        companyAddress = (CleanableEditText) findViewById(R.id.company_address);
+        monthlyIncome = (CleanableEditText) findViewById(R.id.monthly_income);
         remarkEdit = (CleanableEditText) findViewById(R.id.remark_edit);
-        btnCommit = (Button) findViewById(R.id.follow_edit_commit);
-        btnSave = (Button) findViewById(R.id.follow_edit_save);
+        btnCommit = (Button) findViewById(R.id.earning_commit);
+        btnSave = (Button) findViewById(R.id.earning_save);
         btnCommit.setOnClickListener(this);
         btnSave.setOnClickListener(this);
+
+        jobStatus.setOnClickListener(this);
         completeStatus.setOnClickListener(this);
-        findViewById(R.id.follow_edit_location).setOnClickListener(this);
-        findViewById(R.id.follow_edit_commit).setOnClickListener(this);
+        industryText.setOnClickListener(this);
+        entryTime.setOnClickListener(this);
+        agreementText.setOnClickListener(this);
+        socialText.setOnClickListener(this);
+        incomeForm.setOnClickListener(this);
+        leaveTime.setOnClickListener(this);
+        companyLocation.setOnClickListener(this);
         findViewById(R.id.add_contact).setOnClickListener(this);
-        textAccidentTime = (TextView) findViewById(R.id.follow_edit_accident_time);
-        textAccidentTime.setOnClickListener(this);
+
         pictureRecyclerView = (RecyclerView) findViewById(R.id.picture_recyclerView);
         pictureRecyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 4);
@@ -126,10 +157,12 @@ public class EarningActivity extends BaseActivity {
         pictureRecyclerView.setLayoutManager(layoutManager);
 //        setPhotoData();
 
-        contactRecycler = (RecyclerView) findViewById(R.id.contact_recycler);
+        contactRecycler = (SwipeMenuRecyclerView) findViewById(R.id.contact_recycler);
         contactRecycler.setHasFixedSize(true);
         contactRecycler.setLayoutManager(layoutManager1);
-        contactManager = DaoUtils.getContactInstance();
+        contactRecycler.setItemAnimator(new DefaultItemAnimator());
+        contactRecycler.setSwipeMenuCreator(SwipeMenuUtil.getSwipeMenuEdit44(this));
+        contactRecycler.setSwipeMenuItemClickListener(menuItemClickListener);
         contactDataList = new ArrayList<>();
         contactDataList = contactManager.selectAllContact(taskNo);
         adapter = new ContactEditAdapter(this, contactDataList);
@@ -149,7 +182,6 @@ public class EarningActivity extends BaseActivity {
     private void setPhotoData() {
         pictureList.clear();
         list.clear();
-        taskPhotoManager = DaoUtils.getTaskPhotoInstance();
         pictureList = taskPhotoManager.selectAllPhoto(taskNo);
         for (int i = 0; i < pictureList.size(); i++) {
             Bitmap bmp = PhotoUtil.convertToBitmap(pictureList.get(i).getPhotoPath(), 75, 75);
@@ -158,7 +190,7 @@ public class EarningActivity extends BaseActivity {
         Resources res = getResources();
         Bitmap bmp = BitmapFactory.decodeResource(res, R.mipmap.add_photo);
         list.add(bmp);
-        pictureAdapter = new PictureAdapter(this, list, taskNo,true,true);
+        pictureAdapter = new PictureAdapter(this, list, taskNo, true, true);
         pictureAdapter.notifyDataSetChanged();
         pictureRecyclerView.setAdapter(pictureAdapter);
     }
@@ -172,15 +204,15 @@ public class EarningActivity extends BaseActivity {
                 break;
             case R.id.page_head_button:
                 saveData();
-                Toast toast= Toast.makeText(EarningActivity.this, "已保存所有信息", Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.CENTER,0,0);
+                Toast toast = Toast.makeText(EarningActivity.this, "已保存所有信息", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER, 0, 0);
                 toast.show();
                 finish();
                 break;
-            case R.id.follow_edit_save:
+            case R.id.earning_save:
                 saveData();
-                Toast toast1= Toast.makeText(EarningActivity.this, "已保存所有信息", Toast.LENGTH_SHORT);
-                toast1.setGravity(Gravity.CENTER,0,0);
+                Toast toast1 = Toast.makeText(EarningActivity.this, "已保存所有信息", Toast.LENGTH_SHORT);
+                toast1.setGravity(Gravity.CENTER, 0, 0);
                 toast1.show();
                 finish();
                 break;
@@ -190,15 +222,19 @@ public class EarningActivity extends BaseActivity {
                 bundle.putString("taskNo", taskNo);
                 startActivity(AddContactsActivity.class, bundle);
                 break;
-            case R.id.follow_edit_accident_time:
-                //选择事故时间
-                initTimePicker();
+            case R.id.entry_time:
+                //选择入职时间
+                initStartTimePicker();
                 break;
-            case R.id.follow_edit_commit:
+            case R.id.leave_time:
+                //选择离职时间
+                MultiSelectUtil.initTimePicker(context, leaveTime, leaveTime.getText().toString());
+                break;
+            case R.id.earning_commit:
                 AlertView mAlertView = new AlertView("提示", "提交后不能进行修改，是否提交？", "否", new String[]{"是"}, null, this, AlertView.Style.Alert, new com.bigkoo.alertview.OnItemClickListener() {
                     @Override
                     public void onItemClick(Object o, int position1) {
-                        if (position1==0){
+                        if (position1 == 0) {
                             //提交信息
                             commitData();
                         }
@@ -206,52 +242,96 @@ public class EarningActivity extends BaseActivity {
                 }).setCancelable(true).setOnDismissListener(null);
                 mAlertView.show();
                 break;
-            case R.id.follow_edit_location:
+            case R.id.company_location:
                 startActivity(SelectAddressActivity.class);
-//                startActivity(MapDemoActivity.class);
+                break;
+            case R.id.industry:
+                //选择行业
+                selectIndustry();
+                break;
+            case R.id.job_status:
+                //选择在职情况
+                MultiSelectUtil.selectStatusWithCallBack(context, jobStatus, new String[]{"在职", "离职"}, "选择在职情况", new MultiSelectUtil.VCallBack() {
+                    @Override
+                    public void setLayoutVisible() {
+                        if (jobStatus.getText().equals("离职")) {
+                            layout1.setVisibility(View.VISIBLE);
+                            layout.setVisibility(View.GONE);
+                        } else {
+                            layout.setVisibility(View.VISIBLE);
+                            layout1.setVisibility(View.GONE);
+                        }
+                    }
+                });
+
                 break;
             case R.id.complete_status:
                 //选择完成情况
-                Intent intent = new Intent(this, SelectCompleteActivity.class);
-                startActivityForResult(intent, 0x11);
+                MultiSelectUtil.selectStatus(context, completeStatus, new String[]{"已完成", "无法完成"}, "选择完成情况");
+
+                break;
+            case R.id.agreement:
+                //选择劳务合同
+                MultiSelectUtil.selectStatus(context, agreementText, new String[]{"已签订", "未签订"}, "选择劳务合同");
+                break;
+            case R.id.social:
+                //选择社保
+                MultiSelectUtil.selectStatus(context, socialText, new String[]{"已交", "未交"}, "选择社保");
+                break;
+            case R.id.income_form:
+                //选择收入发放形式
+                MultiSelectUtil.selectStatus(context, incomeForm, new String[]{"现金", "转账"}, "选择收入发放形式");
                 break;
             default:
                 break;
         }
     }
 
+    private void selectIndustry() {
+        //选择行业
+    }
+
+
     private void saveData() {
-        String address = addressEdit.getText().toString();
-        String time = textAccidentTime.getText().toString();
-        String detailInfo = detailInfoEdit.getText().toString();
-        String remark = remarkEdit.getText().toString();
-        String completeStatusText = completeStatus.getText().toString().equals("已完成") ? "0" : "1";
-        BaseInfoData baseInfoData = new BaseInfoData(taskNo, address, time, detailInfo, remark, completeStatusText, "");
-        baseInfoDataManager.insertSingleData(baseInfoData);
+//        String address = addressEdit.getText().toString();
+//        String time = textAccidentTime.getText().toString();
+//        String detailInfo = detailInfoEdit.getText().toString();
+//        String remark = remarkEdit.getText().toString();
+//        String completeStatusText = completeStatus.getText().toString().equals("已完成") ? "0" : "1";
+//        BaseInfoData baseInfoData = new BaseInfoData(taskNo, address, time, detailInfo, remark, completeStatusText, "");
+//        baseInfoDataManager.insertSingleData(baseInfoData);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        contactDataList = contactManager.selectAllContact(taskNo);
-        adapter = new ContactEditAdapter(this, contactDataList);
-        contactRecycler.setAdapter(adapter);
+        initContact();
         setPhotoData();
         initOtherData();
     }
 
+    private void initContact() {
+        contactDataList = contactManager.selectAllContact(taskNo);
+        adapter = new ContactEditAdapter(this, contactDataList);
+        contactRecycler.setAdapter(adapter);
+    }
+
     private void initOtherData() {
-        BaseInfoData baseInfoData = baseInfoDataManager.getData(taskNo);
-        if (baseInfoData == null)
-            return;
-        addressEdit.setText(baseInfoData.getAddress());
-        textAccidentTime.setText(baseInfoData.getTime());
-        detailInfoEdit.setText(baseInfoData.getDetailInfo());
-        remarkEdit.setText(baseInfoData.getRemark());
-        if (baseInfoData.getCompleteStatus().equals("0"))
-            completeStatus.setText("已完成");
-        else if (baseInfoData.getCompleteStatus().equals("1"))
-            completeStatus.setText("无法完成");
+        if (jobStatus.getText().equals("离职")) {
+            layout1.setVisibility(View.VISIBLE);
+            layout.setVisibility(View.GONE);
+        } else {
+            layout.setVisibility(View.VISIBLE);
+            layout1.setVisibility(View.GONE);
+        }
+//        BaseInfoData baseInfoData = baseInfoDataManager.getData(taskNo);
+//        if (baseInfoData == null)
+//            return;
+//        remarkEdit.setText(baseInfoData.getRemark());
+//        if (baseInfoData.getCompleteStatus().equals("0"))
+//            completeStatus.setText("已完成");
+//        else if (baseInfoData.getCompleteStatus().equals("1"))
+//            completeStatus.setText("无法完成");
     }
 
     public void commitData() {
@@ -298,7 +378,7 @@ public class EarningActivity extends BaseActivity {
         });
     }
 
-    public void initTimePicker() {
+    public void initStartTimePicker() {
         PickerContants.DEFAULT_MIN_YEAR = 1950;
         PickerContants.YEAR_COUNT = 70;
         mDialogYearMonthDay = new TimePickerDialog.Builder()
@@ -315,12 +395,42 @@ public class EarningActivity extends BaseActivity {
                 .setThemeColor(getResources().getColor(R.color.timepicker_dialog_bg))
                 .setWheelItemTextNormalColor(getResources().getColor(R.color.timetimepicker_default_text_color))
                 .setWheelItemTextSelectorColor(getResources().getColor(R.color.colorPrimary))
-                .setWheelItemTextSize(12)
+                .setWheelItemTextSize(17)
                 .setCallBack(new OnDateSetListener() {
                     @Override
                     public void onDateSet(TimePickerDialog timePickerView, long millseconds) {
                         String text = getDateToString(millseconds);
-                        textAccidentTime.setText(text);
+                        entryTime.setText(text);
+                    }
+                })
+                .build();
+        mDialogYearMonthDay.show(getSupportFragmentManager(), "year_month_day");
+
+    }
+
+    public void initEndTimePicker() {
+        PickerContants.DEFAULT_MIN_YEAR = 1950;
+        PickerContants.YEAR_COUNT = 70;
+        mDialogYearMonthDay = new TimePickerDialog.Builder()
+                .setType(Type.YEAR_MONTH_DAY)
+                .setCancelStringId("取消")
+                .setSureStringId("确定")
+                .setTitleStringId("选择时间")
+                .setYearText("年")
+                .setMonthText("月")
+                .setDayText("日")
+                .setCyclic(false)
+//                .setMinMillseconds(System.currentTimeMillis())
+                .setCurrentMillseconds(System.currentTimeMillis())
+                .setThemeColor(getResources().getColor(R.color.timepicker_dialog_bg))
+                .setWheelItemTextNormalColor(getResources().getColor(R.color.timetimepicker_default_text_color))
+                .setWheelItemTextSelectorColor(getResources().getColor(R.color.colorPrimary))
+                .setWheelItemTextSize(15)
+                .setCallBack(new OnDateSetListener() {
+                    @Override
+                    public void onDateSet(TimePickerDialog timePickerView, long millseconds) {
+                        String text = getDateToString(millseconds);
+                        leaveTime.setText(text);
                     }
                 })
                 .build();
@@ -351,7 +461,7 @@ public class EarningActivity extends BaseActivity {
                     File file = new File(cameraPath);
 
                     if (file.exists()) {
-                        taskPhotoManager.insertSingleData(new TaskPhoto(taskNo,cameraPath));
+                        taskPhotoManager.insertSingleData(new TaskPhoto(taskNo, cameraPath));
                     } else {
                         Toast.makeText(this, "图片获取失败", Toast.LENGTH_SHORT).show();
                     }
@@ -394,4 +504,22 @@ public class EarningActivity extends BaseActivity {
             }
         }
     }
+
+    /**
+     * 菜单点击监听。
+     */
+    private OnSwipeMenuItemClickListener menuItemClickListener = new OnSwipeMenuItemClickListener() {
+        @Override
+        public void onItemClick(Closeable closeable, int adapterPosition, int menuPosition, int direction) {
+            closeable.smoothCloseMenu();// 关闭被点击的菜单。
+
+            if (direction == SwipeMenuRecyclerView.RIGHT_DIRECTION) {
+                contactManager.deleteSingleData(contactDataList.get(adapterPosition));
+                contactDataList.remove(adapterPosition);
+                adapter.notifyDataSetChanged();
+            } else if (direction == SwipeMenuRecyclerView.LEFT_DIRECTION) {
+            }
+        }
+    };
+
 }

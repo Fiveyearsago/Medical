@@ -1,5 +1,6 @@
 package com.jy.medical.widget.pickerview.config;
 
+import com.jy.medical.widget.pickerview.OnSetListener;
 import com.jy.medical.widget.pickerview.data.Type;
 import com.jy.medical.widget.pickerview.data.WheelCalendar;
 import com.jy.medical.widget.pickerview.listener.OnDateSetListener;
@@ -29,6 +30,9 @@ public class PickerConfig {
     public String mHour = DefaultConfig.HOUR;
     public String mMinute = DefaultConfig.MINUTE;
 
+    public String[] stringData;
+    public int index=0;
+
     /**
      * The min timeMillseconds
      */
@@ -39,4 +43,5 @@ public class PickerConfig {
     public WheelCalendar mCurrentCalendar = new WheelCalendar(System.currentTimeMillis());
 
     public OnDateSetListener mCallBack;
+    public OnSetListener mCallBack1;
 }

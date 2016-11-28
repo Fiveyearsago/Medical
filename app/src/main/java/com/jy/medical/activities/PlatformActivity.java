@@ -139,7 +139,8 @@ public class PlatformActivity extends BaseActivity {
 
     private void requestData() {
         QtRecieveTaskDTO qtRecieveTaskDTO = new QtRecieveTaskDTO();
-        qtRecieveTaskDTO.setUserId("000111");
+//        qtRecieveTaskDTO.setUserId("000111");
+        qtRecieveTaskDTO.setUserId("0131002498");
         Gson gson = new Gson();
         String data = gson.toJson(qtRecieveTaskDTO);
         ServerApiUtils.sendToServer(data, "002001", PublicString.URL_IFC, new Callback.CommonCallback<String>() {
