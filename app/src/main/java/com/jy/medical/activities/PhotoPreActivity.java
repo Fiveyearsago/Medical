@@ -1,6 +1,8 @@
 package com.jy.medical.activities;
 
 import android.graphics.Bitmap;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -34,7 +36,7 @@ public class PhotoPreActivity extends BaseActivity {
     private Boolean first = true;
     private Boolean deleteFlag;
     private TextView deleteText;
-
+    private Handler handler;
 
     @Override
     public void initData() {
@@ -90,22 +92,52 @@ public class PhotoPreActivity extends BaseActivity {
             }
         });
         setPhotoData();
-        viewPager.setCurrentItem(index);
+//        viewPager.setCurrentItem(index);
+        handler=new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+                adapter = new PhotoPreAdapter(PhotoPreActivity.this, list);
+                viewPager.setAdapter(adapter);
+            }
+        };
 //        textTitle.setText((index+1) + "/" + pictureList.size());
     }
 
     private void setPhotoData() {
-        pictureList.clear();
-        list.clear();
-        taskPhotoManager = DaoUtils.getTaskPhotoInstance();
-        pictureList = taskPhotoManager.selectAllPhoto(taskNo);
-        for (int i = 0; i < pictureList.size(); i++) {
-            Bitmap bmp = PhotoUtil.convertToBitmap(pictureList.get(i).getPhotoPath(), 480, 640);
-//            Bitmap bmp = PhotoUtil.getNativeImage(pictureList.get(i).getPhotoPath());
-            list.add(bmp);
-        }
-        adapter = new PhotoPreAdapter(this, list);
-        viewPager.setAdapter(adapter);
+        Thread thread=new Thread(){
+            @Override
+            public void run() {
+                pictureList.clear();
+                list.clear();
+                taskPhotoManager = DaoUtils.getTaskPhotoInstance();
+                pictureList = taskPhotoManager.selectAllPhoto(taskNo);
+                for (int i = 0; i < pictureList.size(); i++) {
+                    Bitmap bmp = PhotoUtil.getSDCardImg(pictureList.get(i).getPhotoPath());
+                    list.add(bmp);
+                }
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        adapter = new PhotoPreAdapter(PhotoPreActivity.this, list);
+                        viewPager.setAdapter(adapter);
+                        viewPager.setCurrentItem(index);
+                    }
+                });
+            }
+        };
+        thread.start();
+//        pictureList.clear();
+//        list.clear();
+//        taskPhotoManager = DaoUtils.getTaskPhotoInstance();
+//        pictureList = taskPhotoManager.selectAllPhoto(taskNo);
+//        for (int i = 0; i < pictureList.size(); i++) {
+////            Bitmap bmp = PhotoUtil.convertToBitmap(pictureList.get(i).getPhotoPath(), 480, 640);
+//            Bitmap bmp = PhotoUtil.getSDCardImg(pictureList.get(i).getPhotoPath());
+////            Bitmap bmp = PhotoUtil.getNativeImage(pictureList.get(i).getPhotoPath());
+//            list.add(bmp);
+//        }
+//        adapter = new PhotoPreAdapter(this, list);
+//        viewPager.setAdapter(adapter);
     }
 
     @Override
@@ -125,8 +157,11 @@ public class PhotoPreActivity extends BaseActivity {
     private void deletePhoto() {
         int currentIndex = viewPager.getCurrentItem();
         taskPhotoManager.deleteObject(pictureList.get(currentIndex));
-//        viewPager.removeViewAt(viewPager.getCurrentItem());
-        setPhotoData();
+//        viewPager.removeViewAt(currentIndex);
+        pictureList.remove(currentIndex);
+        list.remove(currentIndex);
+        adapter.notifyDataSetChanged();
+//        setPhotoData();
         if (pictureList.size() == 0) {
             finish();
         } else {
@@ -134,7 +169,7 @@ public class PhotoPreActivity extends BaseActivity {
                 viewPager.setCurrentItem(currentIndex - 1, true);
                 textTitle.setText((currentIndex) + "/" + pictureList.size());
             } else {
-                textTitle.setText((currentIndex + 1) + "/" + pictureList.size());
+                textTitle.setText((currentIndex+1) + "/" + pictureList.size());
             }
         }
 

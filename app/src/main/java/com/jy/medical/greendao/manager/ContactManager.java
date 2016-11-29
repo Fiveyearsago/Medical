@@ -42,7 +42,7 @@ public class ContactManager extends BaseDao<ContactData> {
     private boolean isExist(ContactData contactData) {
         ContactDataDao contactDataDao = daoSession.getContactDataDao();
         QueryBuilder<ContactData> qb = contactDataDao.queryBuilder();
-        qb.where(qb.and(ContactDataDao.Properties.Name.eq(contactData.getName()),ContactDataDao.Properties.PhoneNum.eq(contactData.getPhoneNum())));
+        qb.where(qb.and(ContactDataDao.Properties.TaskNo.eq(contactData.getTaskNo()),ContactDataDao.Properties.Name.eq(contactData.getName()),ContactDataDao.Properties.PhoneNum.eq(contactData.getPhoneNum())));
         qb.list();
         return qb.list().size() > 0 ? true : false;
     }

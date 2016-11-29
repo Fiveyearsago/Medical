@@ -38,7 +38,7 @@ public class SelectCategoryActivity extends BaseActivity {
     @Override
     public void initView() {
         setStatusBarTint();
-        setTitleState(findViewById(R.id.title_head), true, "选择护理人身份", false, "");
+        setTitleState(findViewById(R.id.title_head), true, "选择行业", false, "");
         recyclerView= (RecyclerView) findViewById(R.id.category_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         categoryDataList=new ArrayList<>();
@@ -50,6 +50,10 @@ public class SelectCategoryActivity extends BaseActivity {
 
     @Override
     public void widgetClick(View v) {
-
+        switch (v.getId()) {
+            case R.id.page_head_tab_image:
+                finish();
+                break;
+        }
     }
 }

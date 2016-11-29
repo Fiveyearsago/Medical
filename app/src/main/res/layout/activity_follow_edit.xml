@@ -54,7 +54,7 @@
                     android:scaleType="fitXY" />
             </RelativeLayout>
 
-            <com.jy.medical.widget.CleanableEditText
+            <com.jy.medical.widget.ClearEditText
                 android:id="@+id/address_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -163,7 +163,7 @@
                     android:textSize="@dimen/primary_text_size" />
             </RelativeLayout>
 
-            <com.jy.medical.widget.CleanableEditText
+            <com.jy.medical.widget.ClearEditText
                 android:id="@+id/detail_info_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -231,7 +231,7 @@
                     android:textSize="@dimen/primary_text_size" />
             </RelativeLayout>
 
-            <com.jy.medical.widget.CleanableEditText
+            <com.jy.medical.widget.ClearEditText
                 android:id="@+id/remark_edit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

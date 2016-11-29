@@ -8,6 +8,6 @@ public class PublicString {
     public static int REQUEST_PICK_PHOTO=0x10;
     public static int REQUEST_HOSPITAL=0x11;
     public static String URL_BASE="http://192.168.223.134:8088/mobileService";
-    public static String URL_IFC="http://192.168.223.134:8088/mobileService/ifc";
-//    public static String URL_IFC="http://124.42.1.7:8001/mobileService/ifc";
+//    public static String URL_IFC="http://192.168.223.134:8088/mobileService/ifc";
+    public static String URL_IFC="http://124.42.1.7:8001/mobileService/ifc";
 }

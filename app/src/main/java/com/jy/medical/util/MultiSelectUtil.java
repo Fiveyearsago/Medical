@@ -28,7 +28,7 @@ public class MultiSelectUtil {
         return sf.format(d);
     }
 
-    public static void initTimePicker(Context context, final TextView textView,String string) {
+    public static void initTimePicker(Context context, final TextView textView,String string,String title) {
         Calendar calendar = Calendar.getInstance();
         if (!string.equals("")) {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -48,7 +48,7 @@ public class MultiSelectUtil {
                 .setType(Type.YEAR_MONTH_DAY)
                 .setCancelStringId("取消")
                 .setSureStringId("确定")
-                .setTitleStringId("选择时间")
+                .setTitleStringId(title)
                 .setYearText("年")
                 .setMonthText("月")
                 .setDayText("日")

@@ -51,7 +51,7 @@ import com.jy.medical.util.PublicString;
 import com.jy.medical.util.ServerApiUtils;
 import com.jy.medical.util.StringUtils;
 import com.jy.medical.util.SwipeMenuUtil;
-import com.jy.medical.widget.CleanableEditText;
+import com.jy.medical.widget.ClearEditText;
 import com.jy.medical.widget.FilterImageView;
 import com.jy.mobile.dto.ClaimDTO;
 import com.jy.mobile.dto.DisabilityDescrDTO;
@@ -90,8 +90,8 @@ public class MedicalVisitsActivity extends BaseActivity {
     private NursingDataManager nursingDataManager = DaoUtils.getNursingDataInstance();
     private MedicalVisitManager medicalVisitManager = DaoUtils.getMedicalVisitInstance();
     private TextView completeStatus;
-    private CleanableEditText nursingFeeEdit;
-    private CleanableEditText nursingRemarkEdit;
+    private ClearEditText nursingFeeEdit;
+    private ClearEditText nursingRemarkEdit;
     private Button btnCommit;
     private Button btnSave;
     private MedicalVisit medicalVisit;
@@ -127,8 +127,8 @@ public class MedicalVisitsActivity extends BaseActivity {
         MedicalApplication.getInstance().addActivity(this);
         setTitleState(findViewById(R.id.title_head), true, "编辑", true, "保存");
         completeStatus = (TextView) findViewById(R.id.complete_status_text);
-        nursingFeeEdit = (CleanableEditText) findViewById(R.id.nursing_fee);
-        nursingRemarkEdit = (CleanableEditText) findViewById(R.id.nursing_remark);
+        nursingFeeEdit = (ClearEditText) findViewById(R.id.nursing_fee);
+        nursingRemarkEdit = (ClearEditText) findViewById(R.id.nursing_remark);
         btnCommit = (Button) findViewById(R.id.visit_edit_commit);
         btnSave = (Button) findViewById(R.id.visit_edit_save);
         btnCommit.setOnClickListener(this);
@@ -241,11 +241,12 @@ public class MedicalVisitsActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        setPhotoData();
         initHospitalData();
         initDiagnoseData();
         initNursingData();
         initOtherData();
-        setPhotoData();
+
     }
 
     @Override

@@ -18,13 +18,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jy.medical.R;
-import com.jy.medical.activities.EarningActivity;
+import com.jy.medical.activities.DelayActivity;
 import com.jy.medical.activities.MedicalVisitsActivity;
 import com.jy.medical.adapter.PictureAdapter;
 import com.jy.medical.adapter.SelectedDiagnoseAdapter;
 import com.jy.medical.adapter.SelectedHospitalAdapter;
 import com.jy.medical.adapter.SelectedNursingAdapter;
-import com.jy.medical.greendao.entities.BaseInfoData;
 import com.jy.medical.greendao.entities.MedicalVisit;
 import com.jy.medical.greendao.entities.NursingData;
 import com.jy.medical.greendao.entities.SelectedDiagnose;
@@ -94,7 +93,8 @@ public class MedicalVisitFragment extends Fragment {
             @Override
             public void onClick(View v) {
 //                Intent intent = new Intent(getActivity(), MedicalVisitsActivity.class);
-                Intent intent = new Intent(getActivity(), EarningActivity.class);
+//                Intent intent = new Intent(getActivity(), EarningActivity.class);
+                Intent intent = new Intent(getActivity(), DelayActivity.class);
                 intent.putExtra("taskNo", data.getString("taskNo"));
                 startActivity(intent);
             }

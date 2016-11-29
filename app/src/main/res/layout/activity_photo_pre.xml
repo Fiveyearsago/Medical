@@ -9,8 +9,8 @@
 <include layout="@layout/page_head"/>
     <com.jy.medical.widget.AlbumViewPager
         android:id="@+id/viewpager"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:background="@color/album_item_bg" />
 
 </LinearLayout>

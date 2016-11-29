@@ -27,11 +27,14 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.MediaStore.MediaColumns;
 import android.util.DisplayMetrics;
+import android.util.Log;
 
 
 import com.jy.medical.MedicalApplication;
 
 import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -39,6 +42,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -71,6 +75,7 @@ public class ImageUtils {
 			throws IOException {
 		saveImage(context, fileName, bitmap, 100);
 	}
+
 
 	public static void saveImage(Context context, String fileName,
 								 Bitmap bitmap, int quality) throws IOException {
@@ -177,6 +182,71 @@ public class ImageUtils {
 		return getBitmapByPath(filePath, null);
 	}
 
+	public static Bitmap compressBmpLess300(String filePath){
+		Bitmap bmp=getBitmapByPath(filePath);
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		int options = 100;//个人喜欢从80开始,
+		bmp.compress(Bitmap.CompressFormat.JPEG, options, baos);
+		int size=bmp.getRowBytes() * bmp.getHeight();
+		Log.i("size",size+"");
+
+		while (baos.toByteArray().length / 1024 > 300) {
+			baos.reset();
+			options -= 10;
+			bmp.compress(Bitmap.CompressFormat.JPEG, options, baos);
+			Log.i("baos.length",baos.toByteArray().length+"");
+		}
+		InputStream is = new ByteArrayInputStream(baos.toByteArray());
+		Bitmap bitmap=BitmapFactory.decodeStream(is);
+		int size1=bitmap.getRowBytes() * bitmap.getHeight();
+		Log.i("size1",size+"");
+		return bitmap;
+	}
+	public static Bitmap compressPathToString(String filePath){
+		Bitmap bmp=getBitmapByPath(filePath);
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		int options = 80;//个人喜欢从80开始,
+		bmp.compress(Bitmap.CompressFormat.JPEG, options, baos);
+		int size=bmp.getRowBytes() * bmp.getHeight();
+		Log.i("size",size+"");
+
+		while (baos.toByteArray().length / 1024 > 1000) {
+			baos.reset();
+			options -= 10;
+			bmp.compress(Bitmap.CompressFormat.JPEG, options, baos);
+			Log.i("baos.length",baos.toByteArray().length+"");
+			if (options<=10)
+				break;
+		}
+		InputStream is = new ByteArrayInputStream(baos.toByteArray());
+		return BitmapFactory.decodeStream(is);
+	}
+	public static InputStream String2InputStream(String str){
+		ByteArrayInputStream stream = new ByteArrayInputStream(str.getBytes());
+		return stream;
+	}
+	public static Bitmap String2Bitmap(String str) {
+		ByteArrayInputStream stream = new ByteArrayInputStream(str.getBytes());
+		return BitmapFactory.decodeStream(stream);
+	}
+	// 将InputStream转换成Bitmap
+	public static Bitmap InputStream2Bitmap(InputStream is) {
+		return BitmapFactory.decodeStream(is);
+	}
+
+	static String inputStream2String(InputStream is){
+		BufferedReader in = new BufferedReader(new InputStreamReader(is));
+		StringBuffer buffer = new StringBuffer();
+		String line = "";
+		try {
+			while ((line = in.readLine()) != null){
+                buffer.append(line);
+            }
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return buffer.toString();
+	}
 	public static Bitmap getBitmapByPath(String filePath,
 										 BitmapFactory.Options opts) {
 		FileInputStream fis = null;

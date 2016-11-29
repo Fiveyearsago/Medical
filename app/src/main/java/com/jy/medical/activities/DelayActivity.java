@@ -27,10 +27,10 @@ import com.jy.medical.adapter.ContactEditAdapter;
 import com.jy.medical.adapter.PictureAdapter;
 import com.jy.medical.greendao.entities.BaseInfoData;
 import com.jy.medical.greendao.entities.ContactData;
-import com.jy.medical.greendao.entities.EarningData;
+import com.jy.medical.greendao.entities.DelayData;
 import com.jy.medical.greendao.entities.TaskPhoto;
 import com.jy.medical.greendao.manager.ContactManager;
-import com.jy.medical.greendao.manager.EarningDataManager;
+import com.jy.medical.greendao.manager.DelayDataManager;
 import com.jy.medical.greendao.manager.TaskPhotoManager;
 import com.jy.medical.greendao.util.DaoUtils;
 import com.jy.medical.util.CommitUtil;
@@ -44,7 +44,6 @@ import com.jy.medical.util.StringUtils;
 import com.jy.medical.util.SwipeMenuUtil;
 import com.jy.medical.util.ToastUtil;
 import com.jy.medical.widget.ClearEditText;
-import com.jy.medical.widget.pickerview.TimePickerDialog;
 import com.jy.mobile.request.QTInspectAccidentInfoDTO;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
@@ -58,7 +57,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EarningActivity extends BaseActivity {
+public class DelayActivity extends BaseActivity {
 
     private RecyclerView pictureRecyclerView;
     private PictureAdapter pictureAdapter;
@@ -75,12 +74,12 @@ public class EarningActivity extends BaseActivity {
     private TextView jobStatus, industryText, completeStatus, entryTime, agreementText, socialText, incomeForm, leaveTime;
     private ImageButton companyLocation;
 
-    private ClearEditText companyAddress, monthlyIncome, companyName;
-    private ClearEditText  remarkEdit;
+    private ClearEditText companyAddressEdit, monthlyIncomeEdit, companyNameEdit;
+    private ClearEditText  remarkEdit,restDaysEdit,moneyReduceEdit;
     private Button btnCommit;
     private Button btnSave;
     private View layout1, layout;
-    private EarningDataManager earningDataManager = DaoUtils.getEarningDataInstance();
+    private DelayDataManager DelayDataManager = DaoUtils.getDelayDataInstance();
     //    private BaseInfoData baseInfoData;
     private Context context;
     private String industryKey = "";
@@ -91,7 +90,7 @@ public class EarningActivity extends BaseActivity {
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_earning;
+        return R.layout.activity_delay;
     }
 
     @Override
@@ -110,7 +109,7 @@ public class EarningActivity extends BaseActivity {
         jobStatus = (TextView) findViewById(R.id.job_status);
         completeStatus = (TextView) findViewById(R.id.complete_status);
         industryText = (TextView) findViewById(R.id.industry);
-        companyName = (ClearEditText) findViewById(R.id.company_name);
+        companyNameEdit = (ClearEditText) findViewById(R.id.company_name);
         entryTime = (TextView) findViewById(R.id.entry_time);
         agreementText = (TextView) findViewById(R.id.agreement);
         socialText = (TextView) findViewById(R.id.social);
@@ -118,9 +117,10 @@ public class EarningActivity extends BaseActivity {
         leaveTime = (TextView) findViewById(R.id.leave_time);
 
         companyLocation = (ImageButton) findViewById(R.id.company_location);
-        companyAddress = (ClearEditText) findViewById(R.id.company_address);
-        monthlyIncome = (ClearEditText) findViewById(R.id.monthly_income);
-//        remarkEdit = (ClearEditText) findViewById(R.id.remark_edit);
+        companyAddressEdit = (ClearEditText) findViewById(R.id.company_address);
+        monthlyIncomeEdit = (ClearEditText) findViewById(R.id.monthly_income);
+        moneyReduceEdit = (ClearEditText) findViewById(R.id.money_reduce);
+        restDaysEdit = (ClearEditText) findViewById(R.id.rest_days);
         remarkEdit = (ClearEditText) findViewById(R.id.remark_edit);
 
         btnCommit = (Button) findViewById(R.id.earning_commit);
@@ -223,7 +223,7 @@ public class EarningActivity extends BaseActivity {
             case R.id.earning_commit:
 //                CommitUtil.checkEarningInfo(context, taskNo);
                 saveData();
-                if (!CommitUtil.checkEarningInfo(context, taskNo))
+                if (!CommitUtil.checkDelayInfo(context, taskNo))
                     break;
                 AlertView mAlertView = new AlertView("提示", "提交后不能进行修改，是否提交？", "否", new String[]{"是"}, null, this, AlertView.Style.Alert, new com.bigkoo.alertview.OnItemClickListener() {
                     @Override
@@ -290,7 +290,8 @@ public class EarningActivity extends BaseActivity {
     private void saveData() {
         String jobStatusValue = "", jobStatusKey = "", remark = "", completeStatusKey = "", completeStatusValue = "",
                 industryKey1 = industryKey, industryValue = "", companyNameValue = "", companyAddressValue = "", entryTimeValue = "", leaveTimeValue = "",
-                agreementKey = "", agreementValue = "", socialKey = "", socialValue = "", incomeFormKey = "", incomeFormValue = "", monthlyIncomeValue = "", commitFlagValue = "";
+                agreementKey = "", agreementValue = "", socialKey = "", socialValue = "", incomeFormKey = "", incomeFormValue = "", monthlyIncomeValue = "", commitFlagValue = "",
+        restDays="",moneyReduce="";
         jobStatusValue = jobStatus.getText().toString();
         if (jobStatusValue.equals("在职")) {
             jobStatusKey = "0";
@@ -305,11 +306,13 @@ public class EarningActivity extends BaseActivity {
             completeStatusKey = "1";
         }
         industryValue = industryText.getText().toString();
-        companyNameValue = companyName.getText().toString();
-        companyAddressValue = companyAddress.getText().toString();
+        companyNameValue = companyNameEdit.getText().toString();
+        companyAddressValue = companyAddressEdit.getText().toString();
         entryTimeValue = entryTime.getText().toString();
         leaveTimeValue = leaveTime.getText().toString();
         agreementValue = agreementText.getText().toString();
+        restDays=restDaysEdit.getText().toString();
+        moneyReduce=moneyReduceEdit.getText().toString();
         if (agreementValue.equals("已签订")) {
             agreementKey = "0";
         } else if (agreementValue.equals("未签订")) {
@@ -328,9 +331,9 @@ public class EarningActivity extends BaseActivity {
         } else if (incomeFormValue.equals("转账")) {
             incomeFormKey = "1";
         }
-        monthlyIncomeValue = monthlyIncome.getText().toString();
-        EarningData earningData = new EarningData(taskNo, jobStatusKey, jobStatusValue, remark, completeStatusKey, completeStatusValue, industryKey1, industryValue, companyNameValue, companyAddressValue, entryTimeValue, leaveTimeValue, agreementKey, agreementValue, socialKey, socialValue, incomeFormKey, incomeFormValue, monthlyIncomeValue, "");
-        earningDataManager.insertSingleData(earningData);
+        monthlyIncomeValue = monthlyIncomeEdit.getText().toString();
+        DelayData DelayData = new DelayData(taskNo, jobStatusKey, jobStatusValue, remark, completeStatusKey, completeStatusValue, industryKey1, industryValue, companyNameValue, companyAddressValue, entryTimeValue, leaveTimeValue, agreementKey, agreementValue, socialKey, socialValue, incomeFormKey, incomeFormValue, monthlyIncomeValue, "",restDays,moneyReduce);
+        DelayDataManager.insertSingleData(DelayData);
 
     }
 
@@ -348,11 +351,11 @@ public class EarningActivity extends BaseActivity {
     }
 
     private void initOtherData() {
-        EarningData earningData = earningDataManager.getData(taskNo);
-        if (earningData == null)
+        DelayData DelayData = DelayDataManager.getData(taskNo);
+        if (DelayData == null)
             return;
-        if (!earningData.getJobStatusValue().equals(""))
-            jobStatus.setText(earningData.getJobStatusValue());
+        if (!DelayData.getJobStatusValue().equals(""))
+            jobStatus.setText(DelayData.getJobStatusValue());
 
         if (jobStatus.getText().equals("离职")) {
             layout1.setVisibility(View.VISIBLE);
@@ -361,17 +364,20 @@ public class EarningActivity extends BaseActivity {
             layout.setVisibility(View.VISIBLE);
             layout1.setVisibility(View.GONE);
         }
-        industryText.setText(earningData.getIndustryValue());
-        completeStatus.setText(earningData.getCompleteStatusValue());
-        entryTime.setText(earningData.getEntryTime());
-        agreementText.setText(earningData.getAgreementValue());
-        socialText.setText(earningData.getSocialValue());
-        incomeForm.setText(earningData.getIncomeFormValue());
-        leaveTime.setText(earningData.getLeaveTime());
-        companyAddress.setText(earningData.getCompanyAddress());
-         monthlyIncome.setText(earningData.getMonthlyIncome());
-         companyName.setText(earningData.getCompanyName());
-         remarkEdit.setText(earningData.getRemark());
+
+        restDaysEdit.setText(DelayData.getRestDays());
+        moneyReduceEdit.setText(DelayData.getMoneyReduce());
+        industryText.setText(DelayData.getIndustryValue());
+        completeStatus.setText(DelayData.getCompleteStatusValue());
+        entryTime.setText(DelayData.getEntryTime());
+        agreementText.setText(DelayData.getAgreementValue());
+        socialText.setText(DelayData.getSocialValue());
+        incomeForm.setText(DelayData.getIncomeFormValue());
+        leaveTime.setText(DelayData.getLeaveTime());
+        companyAddressEdit.setText(DelayData.getCompanyAddress());
+         monthlyIncomeEdit.setText(DelayData.getMonthlyIncome());
+         companyNameEdit.setText(DelayData.getCompanyName());
+         remarkEdit.setText(DelayData.getRemark());
 
     }
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_follow_edit"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -17,12 +17,53 @@
     </LinearLayout>
 
 
+    <RelativeLayout
+        android:id="@+id/bottom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:paddingLeft="@dimen/primary_margin"
+            android:paddingRight="@dimen/primary_margin">
+
+            <Button
+                android:id="@+id/earning_commit"
+                android:layout_width="0dp"
+                android:layout_height="39dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_green_selector"
+                android:text="提交"
+                android:textColor="@drawable/btn_press_selector"
+                android:textSize="@dimen/primary_text_size" />
+
+            <Button
+                android:id="@+id/earning_save"
+                android:layout_width="0dp"
+                android:layout_height="39dp"
+                android:layout_marginLeft="@dimen/primary_text_size"
+                android:layout_toRightOf="@+id/follow_edit_commit"
+                android:layout_weight="1"
+                android:background="@drawable/btn_blue_selector"
+                android:text="保存"
+                android:textColor="@drawable/btn_press_selector"
+                android:textSize="@dimen/primary_text_size" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:layout_above="@+id/bottom_layout"
-        android:layout_below="@+id/head_layout"
-        android:layout_marginBottom="10dp">
+        android:layout_below="@+id/head_layout">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -57,11 +98,12 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="5dp"
-                        android:layout_toRightOf="@+id/job_status_tag"
                         android:layout_toLeftOf="@+id/job_status_image"
-                        android:text="必选"
+                        android:layout_toRightOf="@+id/job_status_tag"
                         android:gravity="right"
-                        android:textColor="@color/hintColor"
+                        android:hint="必选"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/hintColor"
                         android:textSize="@dimen/primary_text_size" />
 
                     <ImageView
@@ -125,7 +167,19 @@
                         android:textSize="@dimen/primary_text_size" />
                 </RelativeLayout>
 
-                <com.jy.medical.widget.CleanableEditText
+                <!--<com.jy.medical.widget.ClearEditText-->
+                    <!--android:id="@+id/remark_edit"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginLeft="10dp"-->
+                    <!--android:layout_marginRight="5dp"-->
+                    <!--android:background="@null"-->
+                    <!--android:drawableRight="@mipmap/clear"-->
+                    <!--android:gravity="top"-->
+                    <!--android:textColor="@color/black"-->
+                    <!--android:textColorHint="@color/hintColor"-->
+                    <!--android:textSize="@dimen/primary_text_size" />-->
+                <com.jy.medical.widget.ClearEditText
                     android:id="@+id/remark_edit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -158,19 +212,6 @@
                         android:textColor="@color/navigateColor"
                         android:textSize="@dimen/primary_text_size" />
 
-                    <TextView
-                        android:id="@+id/complete_status"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="5dp"
-                        android:gravity="right"
-                        android:layout_toRightOf="@+id/complete_status_tag"
-                        android:layout_toLeftOf="@+id/complete_status_image"
-                        android:text="必选"
-                        android:textColor="@color/hintColor"
-                        android:textSize="@dimen/primary_text_size" />
-
                     <ImageView
                         android:id="@+id/complete_status_image"
                         android:layout_width="10dp"
@@ -179,6 +220,20 @@
                         android:layout_centerVertical="true"
                         android:background="@mipmap/more"
                         android:scaleType="fitXY" />
+
+                    <TextView
+                        android:id="@+id/complete_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="5dp"
+                        android:layout_toLeftOf="@+id/complete_status_image"
+                        android:layout_toRightOf="@+id/complete_status_tag"
+                        android:gravity="right"
+                        android:hint="必选"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/hintColor"
+                        android:textSize="@dimen/primary_text_size" />
                 </RelativeLayout>
             </LinearLayout>
 
@@ -211,12 +266,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_toRightOf="@+id/industry_tag"
-                        android:gravity="right"
                         android:layout_marginRight="5dp"
                         android:layout_toLeftOf="@+id/industry_image"
-                        android:text="必选"
-                        android:textColor="@color/hintColor"
+                        android:layout_toRightOf="@+id/industry_tag"
+                        android:gravity="right"
+                        android:hint="必选"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/hintColor"
                         android:textSize="@dimen/primary_text_size" />
 
                     <ImageView
@@ -247,7 +303,7 @@
                         android:textSize="@dimen/primary_text_size" />
 
 
-                    <com.jy.medical.widget.CleanableEditText
+                    <com.jy.medical.widget.ClearEditText
                         android:id="@+id/company_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -291,7 +347,7 @@
                         android:scaleType="fitXY" />
                 </RelativeLayout>
 
-                <com.jy.medical.widget.CleanableEditText
+                <com.jy.medical.widget.ClearEditText
                     android:id="@+id/company_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -340,10 +396,10 @@
                 </RelativeLayout>
 
                 <com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView
-                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
                     android:id="@+id/contact_recycler"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
                 <View
                     android:layout_width="match_parent"
@@ -370,9 +426,9 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="5dp"
+                        android:layout_toLeftOf="@+id/entry_time_image"
                         android:layout_toRightOf="@+id/entry_time_tag"
                         android:gravity="right"
-                        android:layout_toLeftOf="@+id/entry_time_image"
                         android:hint="必选"
                         android:text=""
                         android:textColor="@color/black"
@@ -458,9 +514,9 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="5dp"
+                        android:layout_toLeftOf="@+id/social_image"
                         android:layout_toRightOf="@+id/social_tag"
                         android:gravity="right"
-                        android:layout_toLeftOf="@+id/social_image"
                         android:hint="必选"
                         android:text=""
                         android:textColor="@color/black"
@@ -502,9 +558,9 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="5dp"
+                        android:layout_toLeftOf="@+id/income_form_image"
                         android:layout_toRightOf="@+id/income_form_tag"
                         android:gravity="right"
-                        android:layout_toLeftOf="@+id/income_form_image"
                         android:hint="必选"
                         android:text=""
                         android:textColor="@color/black"
@@ -539,7 +595,7 @@
                         android:textSize="@dimen/primary_text_size" />
 
 
-                    <com.jy.medical.widget.CleanableEditText
+                    <com.jy.medical.widget.ClearEditText
                         android:id="@+id/monthly_income"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -585,10 +641,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_toRightOf="@+id/leave_time_tag"
-                        android:gravity="right"
                         android:layout_marginRight="5dp"
                         android:layout_toLeftOf="@+id/leave_time_image"
+                        android:layout_toRightOf="@+id/leave_time_tag"
+                        android:gravity="right"
                         android:hint="必选"
                         android:text=""
                         android:textColor="@color/black"
@@ -608,47 +664,4 @@
         </LinearLayout>
 
     </ScrollView>
-
-    <RelativeLayout
-        android:id="@+id/bottom_layout"
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:background="@color/white"
-        android:gravity="center_vertical"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:paddingLeft="@dimen/primary_margin"
-            android:paddingRight="@dimen/primary_margin">
-
-            <Button
-                android:id="@+id/earning_commit"
-                android:layout_width="0dp"
-                android:layout_height="39dp"
-                android:layout_weight="1"
-                android:background="@drawable/btn_green_selector"
-                android:text="提交"
-                android:textColor="@drawable/btn_press_selector"
-                android:textSize="@dimen/primary_text_size" />
-
-            <Button
-                android:id="@+id/earning_save"
-                android:layout_width="0dp"
-                android:layout_height="39dp"
-                android:layout_marginLeft="@dimen/primary_text_size"
-                android:layout_toRightOf="@+id/follow_edit_commit"
-                android:layout_weight="1"
-                android:background="@drawable/btn_blue_selector"
-                android:text="保存"
-                android:textColor="@drawable/btn_press_selector"
-                android:textSize="@dimen/primary_text_size" />
-        </LinearLayout>
-
-    </RelativeLayout>
 </RelativeLayout>

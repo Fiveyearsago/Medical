@@ -15,6 +15,7 @@ import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.jy.medical.R;
 import com.jy.medical.adapter.BaseFragmentPagerAdapter;
 import com.jy.medical.fragment.BaseInfoFragment;
+import com.jy.medical.fragment.EarningFragment;
 import com.jy.medical.fragment.FollowDetailFragment;
 import com.jy.medical.fragment.FollowRecordFragment;
 import com.jy.medical.fragment.MedicalVisitFragment;
@@ -49,7 +51,7 @@ import java.util.List;
  */
 public class FollowDetailActivity extends BaseActivity implements OnItemClickListener, OnDismissListener {
     private TextView taskTimeTab;
-    private int dayNum = 3;
+    private int dayNum = 0;
     private CustomViewpager viewPager;
     private SegmentTabLayout segmentTabLayout;
     private BaseFragmentPagerAdapter adapter;
@@ -65,6 +67,7 @@ public class FollowDetailActivity extends BaseActivity implements OnItemClickLis
     private BaseInfoDataManager baseInfoDataManager = DaoUtils.getBaseInfoDataInstance();
     private View layoutBottom;
     private Context context;
+    private ImageView taskTypeImage;
     @Override
     public void initData() {
         context=this;
@@ -96,6 +99,7 @@ public class FollowDetailActivity extends BaseActivity implements OnItemClickLis
         setStatusBarTint();
         setTitleState(findViewById(R.id.title_head), true, "跟踪详情", false, "");
         findViewById(R.id.task_time_btn).setOnClickListener(this);
+        taskTypeImage= (ImageView) findViewById(R.id.task_state_image);
         layoutBottom = findViewById(R.id.bottom_layout);
         textName = (TextView) findViewById(R.id.follow_detail_name);
         textTime = (TextView) findViewById(R.id.follow_detail_time_text);
@@ -111,6 +115,7 @@ public class FollowDetailActivity extends BaseActivity implements OnItemClickLis
         bundle.putString("taskNo", platformData.getTaskNo());
         FollowDetailFragment followDetailFragment = FollowDetailFragment.newInstance();
         MedicalVisitFragment medicalVisitFragment = MedicalVisitFragment.newInstance(this);
+        EarningFragment earningFragment = EarningFragment.newInstance(this);
         BaseInfoFragment baseInfoFragment = BaseInfoFragment.newInstance(this);
         switch (taskType) {
             case "01":
@@ -123,8 +128,8 @@ public class FollowDetailActivity extends BaseActivity implements OnItemClickLis
                 break;
             case "02":
                 followDetailFragment.setArguments(bundle);
-                medicalVisitFragment.setArguments(bundle);
-                fragmentList.add(medicalVisitFragment);
+                earningFragment.setArguments(bundle);
+                fragmentList.add(earningFragment);
                 fragmentList.add(followDetailFragment);
                 MedicalVisit medicalVisit1 = medicalVisitManager.getData(platformData.getTaskNo());
                 commitFlag = (medicalVisit1 == null) ? "" : medicalVisit1.getCommitFlag();
@@ -306,6 +311,11 @@ public class FollowDetailActivity extends BaseActivity implements OnItemClickLis
         }else {
             layoutBottom.setVisibility(View.VISIBLE);
         }
+        setTaskTypeImage();
+    }
+
+    private void setTaskTypeImage() {
+        taskTypeImage.setBackground(context.getResources().getDrawable(R.mipmap.detail_timeout));
     }
 
 }

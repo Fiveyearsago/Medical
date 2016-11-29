@@ -60,6 +60,11 @@ public class PhotoPreAdapter extends PagerAdapter {
     public void destroyItem(ViewGroup container, int position, Object object) {
 //        super.destroyItem(container, position, object);
 //        container.removeViewAt(position);
-
+        ((ViewPager) container).removeView((View)object);
+    }
+    @Override
+    public int getItemPosition(Object object) {//TODO 这是重点继续研究
+        //return super.getItemPosition(object);//默认是不改变
+        return POSITION_NONE;//可以即时刷新看源码
     }
 }

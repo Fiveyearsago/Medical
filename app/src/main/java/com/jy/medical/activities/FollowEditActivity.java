@@ -42,7 +42,7 @@ import com.jy.medical.util.PhotoUtil;
 import com.jy.medical.util.PublicString;
 import com.jy.medical.util.ServerApiUtils;
 import com.jy.medical.util.StringUtils;
-import com.jy.medical.widget.CleanableEditText;
+import com.jy.medical.widget.ClearEditText;
 import com.jy.medical.widget.FilterImageView;
 import com.jy.medical.widget.pickerview.TimePickerDialog;
 import com.jy.medical.widget.pickerview.data.Type;
@@ -82,9 +82,9 @@ public class FollowEditActivity extends BaseActivity {
     private List<LocalImageHelper.LocalFile> pictures = new ArrayList<>();//图片路径数组
     DisplayImageOptions options;
     private TextView completeStatus;
-    private CleanableEditText addressEdit;
-    private CleanableEditText detailInfoEdit;
-    private CleanableEditText remarkEdit;
+    private ClearEditText addressEdit;
+    private ClearEditText detailInfoEdit;
+    private ClearEditText remarkEdit;
     private Button btnCommit;
     private Button btnSave;
     private BaseInfoDataManager baseInfoDataManager = DaoUtils.getBaseInfoDataInstance();
@@ -110,9 +110,9 @@ public class FollowEditActivity extends BaseActivity {
         MedicalApplication.getInstance().addActivity(this);
         setTitleState(findViewById(R.id.title_head), true, "编辑", true, "保存");
         completeStatus = (TextView) findViewById(R.id.complete_status);
-        addressEdit = (CleanableEditText) findViewById(R.id.address_edit);
-        detailInfoEdit = (CleanableEditText) findViewById(R.id.detail_info_edit);
-        remarkEdit = (CleanableEditText) findViewById(R.id.remark_edit);
+        addressEdit = (ClearEditText) findViewById(R.id.address_edit);
+        detailInfoEdit = (ClearEditText) findViewById(R.id.detail_info_edit);
+        remarkEdit = (ClearEditText) findViewById(R.id.remark_edit);
         btnCommit = (Button) findViewById(R.id.follow_edit_commit);
         btnSave = (Button) findViewById(R.id.follow_edit_save);
         btnCommit.setOnClickListener(this);

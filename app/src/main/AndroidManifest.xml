@@ -119,6 +119,7 @@
             android:theme="@style/FullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -137,7 +138,8 @@
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.AddContactsActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.SelectAddressActivity"
             android:screenOrientation="portrait" />
@@ -159,17 +161,26 @@
         <activity android:name=".activities.PhotoPreActivity" />
         <activity android:name=".activities.SelectAreaActivity" />
         <activity android:name=".activities.SelectHospitalActivity" />
-        <activity android:name=".activities.MedicalVisitsActivity"
-            android:windowSoftInputMode="adjustPan"/>
+        <activity
+            android:name=".activities.MedicalVisitsActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".activities.SearchHospitalActivity" />
         <activity android:name=".activities.SelectDepartmentsActivity" />
-        <activity android:name=".activities.AddNursingActivity" />
+        <activity
+            android:name=".activities.AddNursingActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".activities.AddDiagnoseActivity" />
         <activity android:name=".activities.SelectDiagnoseActivity" />
         <activity android:name=".activities.SelectTreatActivity" />
         <activity android:name=".activities.SelectCategoryActivity" />
-        <activity android:name=".activities.SelectCompleteActivity"></activity>
-        <activity android:name=".activities.EarningActivity" android:windowSoftInputMode="adjustPan"></activity>
+        <activity android:name=".activities.SelectCompleteActivity" />
+        <activity
+            android:name=".activities.EarningActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activities.DelayActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".activities.PieActivity"></activity>
     </application>
 
 </manifest>

@@ -20,7 +20,9 @@ import com.jy.medical.greendao.gen.CityDataDao;
 import com.jy.medical.greendao.gen.ClaimBeanDataDao;
 import com.jy.medical.greendao.gen.ContactDataDao;
 import com.jy.medical.greendao.gen.DaoMaster;
+import com.jy.medical.greendao.gen.DelayDataDao;
 import com.jy.medical.greendao.gen.DiagnoseDao;
+import com.jy.medical.greendao.gen.EarningDataDao;
 import com.jy.medical.greendao.gen.HospitalDataDao;
 import com.jy.medical.greendao.gen.HumanPartsDao;
 import com.jy.medical.greendao.gen.MedicalDepartmentDao;
@@ -49,13 +51,13 @@ public class THDevOpenHelper extends DaoMaster.OpenHelper {
         Log.i("newVersion", newVersion + "");
         Log.i("oldVersion", oldVersion + "");
         switch (newVersion) {
-//            case 10:
-//                //创建新表，注意createTable()是静态方法
-//                MigrationHelper.migrate(db, TaskPhotoDao.class);
-//                break;
-//            case 11:
-//                MigrationHelper.migrate(db, CityDataDao.class);
-//                break;
+            case 2:
+                //创建新表，注意createTable()是静态方法
+                MigrationHelper.migrate(db, EarningDataDao.class);
+                break;
+            case 3:
+                MigrationHelper.migrate(db, DelayDataDao.class);
+                break;
 //            case 12:
 //                MigrationHelper.migrate(db, CityDataDao.class);
 //                break;

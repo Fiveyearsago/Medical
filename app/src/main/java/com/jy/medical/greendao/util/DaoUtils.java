@@ -13,7 +13,9 @@ import com.jy.medical.greendao.manager.CategoryDataManager;
 import com.jy.medical.greendao.manager.CityDataManager;
 import com.jy.medical.greendao.manager.ClaimManager;
 import com.jy.medical.greendao.manager.ContactManager;
+import com.jy.medical.greendao.manager.DelayDataManager;
 import com.jy.medical.greendao.manager.DiagnoseManager;
+import com.jy.medical.greendao.manager.EarningDataManager;
 import com.jy.medical.greendao.manager.HospitalDataManager;
 import com.jy.medical.greendao.manager.HumanPartsManager;
 import com.jy.medical.greendao.manager.MedicalDepartmentManager;
@@ -47,6 +49,8 @@ public class DaoUtils {
     private static CategoryDataManager categoryDataManager;
     private static NursingDataManager nursingDataManager;
     private static BaseInfoDataManager baseInfoDataManager;
+    private static EarningDataManager earningDataManager;
+    private static DelayDataManager delayDataManager;
     public static Context context;
 
     public static void init(Context context) {
@@ -57,54 +61,77 @@ public class DaoUtils {
     /**
      * 单列模式获取Manager对象
      */
+    public static DelayDataManager getDelayDataInstance() {
+        if (delayDataManager == null) {
+            delayDataManager = new DelayDataManager(context);
+        }
+        return delayDataManager;
+    }
+
+    public static EarningDataManager getEarningDataInstance() {
+        if (earningDataManager == null) {
+            earningDataManager = new EarningDataManager(context);
+        }
+        return earningDataManager;
+    }
+
     public static BaseInfoDataManager getBaseInfoDataInstance() {
         if (baseInfoDataManager == null) {
             baseInfoDataManager = new BaseInfoDataManager(context);
         }
         return baseInfoDataManager;
     }
+
     public static NursingDataManager getNursingDataInstance() {
         if (nursingDataManager == null) {
             nursingDataManager = new NursingDataManager(context);
         }
         return nursingDataManager;
     }
+
     public static CategoryDataManager getCategoryDataInstance() {
         if (categoryDataManager == null) {
             categoryDataManager = new CategoryDataManager(context);
         }
         return categoryDataManager;
     }
+
     public static HumanPartsManager getHumanPartsInstance() {
         if (humanPartsManager == null) {
             humanPartsManager = new HumanPartsManager(context);
         }
         return humanPartsManager;
     }
+
     public static SelectedDiagnoseManager getSelectedDiagnoseInstance() {
         if (selectedDiagnoseManager == null) {
             selectedDiagnoseManager = new SelectedDiagnoseManager(context);
         }
         return selectedDiagnoseManager;
     }
+
     public static DiagnoseManager getDiagnoseInstance() {
         if (diagnoseManager == null) {
             diagnoseManager = new DiagnoseManager(context);
         }
         return diagnoseManager;
     }
+
     public static SelectedDepartmentManager getSelectedDepartmentInstance() {
         if (selectedDepartmentManager == null) {
             selectedDepartmentManager = new SelectedDepartmentManager(context);
         }
         return selectedDepartmentManager;
     }
+
     public static SelectedHospitalManager getSelectedHospitaInstance() {
         if (selectedHospitalManager == null) {
             selectedHospitalManager = new SelectedHospitalManager(context);
         }
         return selectedHospitalManager;
-    }public static MedicalVisitManager getMedicalVisitInstance() {
+    }
+
+    public static MedicalVisitManager getMedicalVisitInstance() {
         if (medicalVisitManager == null) {
             medicalVisitManager = new MedicalVisitManager(context);
         }

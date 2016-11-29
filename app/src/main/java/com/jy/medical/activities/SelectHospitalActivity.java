@@ -65,7 +65,7 @@ public class SelectHospitalActivity extends BaseActivity {
     }
     @Override
     public void initView() {
-//        getHospitalData();
+        getHospitalData();
         setStatusBarTint();
         MedicalApplication.getInstance().addActivity(this);
         setNavState(findViewById(R.id.title_head_second), "选择医院");

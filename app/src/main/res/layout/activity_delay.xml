@@ -12,7 +12,6 @@
         android:id="@+id/head_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
         <include layout="@layout/page_head" />
     </LinearLayout>
 
@@ -59,9 +58,10 @@
                         android:layout_marginRight="5dp"
                         android:layout_toRightOf="@+id/job_status_tag"
                         android:layout_toLeftOf="@+id/job_status_image"
-                        android:text="必选"
                         android:gravity="right"
-                        android:textColor="@color/hintColor"
+                        android:hint="必选"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/hintColor"
                         android:textSize="@dimen/primary_text_size" />
 
                     <ImageView
@@ -91,7 +91,7 @@
                         android:textSize="@dimen/primary_text_size" />
 
 
-                    <com.jy.medical.widget.CleanableEditText
+                    <com.jy.medical.widget.ClearEditText
                         android:id="@+id/rest_days"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -124,7 +124,7 @@
                         android:textSize="@dimen/primary_text_size" />
 
 
-                    <com.jy.medical.widget.CleanableEditText
+                    <com.jy.medical.widget.ClearEditText
                         android:id="@+id/money_reduce"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -190,7 +190,7 @@
                         android:textSize="@dimen/primary_text_size" />
                 </RelativeLayout>
 
-                <com.jy.medical.widget.CleanableEditText
+                <com.jy.medical.widget.ClearEditText
                     android:id="@+id/remark_edit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -232,8 +232,9 @@
                         android:gravity="right"
                         android:layout_toRightOf="@+id/complete_status_tag"
                         android:layout_toLeftOf="@+id/complete_status_image"
-                        android:text="必选"
-                        android:textColor="@color/hintColor"
+                        android:hint="必选"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/hintColor"
                         android:textSize="@dimen/primary_text_size" />
 
                     <ImageView
@@ -280,8 +281,9 @@
                         android:gravity="right"
                         android:layout_marginRight="5dp"
                         android:layout_toLeftOf="@+id/industry_image"
-                        android:text="必选"
-                        android:textColor="@color/hintColor"
+                        android:hint="必选"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/hintColor"
                         android:textSize="@dimen/primary_text_size" />
 
                     <ImageView
@@ -312,7 +314,7 @@
                         android:textSize="@dimen/primary_text_size" />
 
 
-                    <com.jy.medical.widget.CleanableEditText
+                    <com.jy.medical.widget.ClearEditText
                         android:id="@+id/company_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -356,7 +358,7 @@
                         android:scaleType="fitXY" />
                 </RelativeLayout>
 
-                <com.jy.medical.widget.CleanableEditText
+                <com.jy.medical.widget.ClearEditText
                     android:id="@+id/company_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -439,7 +441,6 @@
                         android:gravity="right"
                         android:layout_toLeftOf="@+id/entry_time_image"
                         android:hint="必选"
-                        android:text=""
                         android:textColor="@color/black"
                         android:textColorHint="@color/hintColor"
                         android:textSize="@dimen/primary_text_size" />
@@ -604,7 +605,7 @@
                         android:textSize="@dimen/primary_text_size" />
 
 
-                    <com.jy.medical.widget.CleanableEditText
+                    <com.jy.medical.widget.ClearEditText
                         android:id="@+id/monthly_income"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

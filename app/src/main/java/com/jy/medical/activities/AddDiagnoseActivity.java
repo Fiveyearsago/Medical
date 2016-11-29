@@ -111,7 +111,8 @@ public class AddDiagnoseActivity extends BaseActivity {
             }
         });
         viewPager.setCurrentItem(0);
-//        requestHPData();
+        requestHPData();
+        requestData();
     }
 
     @Override

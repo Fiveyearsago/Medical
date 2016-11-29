@@ -134,7 +134,7 @@ public class PlatformActivity extends BaseActivity {
         adapter = new PlatformAdapter(this, list);
         platformRecycler.setAdapter(adapter);
         initDateData();
-//        requestData();
+        requestData();
     }
 
     private void requestData() {
