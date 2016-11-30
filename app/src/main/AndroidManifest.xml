@@ -180,6 +180,12 @@
         <activity
             android:name=".activities.DelayActivity"
             android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activities.HandleActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".activities.DeathActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".activities.PieActivity"></activity>
     </application>
 

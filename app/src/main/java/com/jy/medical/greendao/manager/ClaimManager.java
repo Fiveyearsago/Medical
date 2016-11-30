@@ -118,7 +118,8 @@ public class ClaimManager extends BaseDao<ClaimBeanData> {
                     String tag = taskBeanDatas.get(j).getTaskState();
                     String taskNo = taskBeanDatas.get(j).getTaskNo();
                     String taskType = taskBeanDatas.get(j).getTaskType();
-                    list.add(new PlatformData(claimId, taskNo,taskType, peopleName, time, tag, reportNum,phone));
+                    String commitFlag = taskBeanDatas.get(j).getCommitFlag();
+                    list.add(new PlatformData(claimId, taskNo,taskType, peopleName, time, tag, reportNum,phone,commitFlag));
                 }
             }
         }

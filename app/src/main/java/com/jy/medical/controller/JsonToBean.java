@@ -54,9 +54,9 @@ public class JsonToBean {
                     String dispatchDate = flowDTO.getDispatchDate();
                     //保存到数据库
 
-                    taskList.add(new TaskBeanData(null,taskNo, claimId, taskType,
+                    taskList.add(new TaskBeanData(taskNo, claimId, taskType,
                             taskState, taskName, injureName, injureId,
-                            dispatchDate));
+                            dispatchDate,"0"));
 
                 }
                 taskManager.insertData(taskList);

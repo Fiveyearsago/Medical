@@ -16,16 +16,26 @@ public class PlatformData implements Serializable {
     private String taskNo;
     private String phoneNum;
     private String taskType;
+    private String commitFlag;
 
-    public PlatformData(String claimId, String taskNo,String taskType, String peopleName, String time, String tag, String reportNum,String phoneNum) {
-        this.claimId = claimId;
-        this.taskNo = taskNo;
+    public PlatformData(String claimId, String taskNo,String taskType, String peopleName, String time, String tag, String reportNum,  String phoneNum, String commitFlag) {
         this.peopleName = peopleName;
         this.time = time;
         this.tag = tag;
         this.reportNum = reportNum;
+        this.claimId = claimId;
+        this.taskNo = taskNo;
         this.phoneNum = phoneNum;
         this.taskType = taskType;
+        this.commitFlag = commitFlag;
+    }
+
+    public String getCommitFlag() {
+        return commitFlag;
+    }
+
+    public void setCommitFlag(String commitFlag) {
+        this.commitFlag = commitFlag;
     }
 
     public String getTaskType() {

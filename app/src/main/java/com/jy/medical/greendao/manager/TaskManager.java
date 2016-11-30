@@ -66,32 +66,25 @@ public class TaskManager extends BaseDao<TaskBeanData> {
         return daoSession.getTaskBeanDataDao().getKey(taskBeanData);
     }
 
-
-    /***************************数据库删除*************************/
-
-    /**
-     * 根据ID进行数据库的删除操作
-     *
-     * @param id
-     */
-    private void deleteById(long id) {
-
-        daoSession.getTaskBeanDataDao().deleteByKey(id);
+    public TaskBeanData getData(String taskNo){
+        TaskBeanDataDao taskBeanDataDao = daoSession.getTaskBeanDataDao();
+        QueryBuilder<TaskBeanData> qb = taskBeanDataDao.queryBuilder();
+        qb.where(TaskBeanDataDao.Properties.TaskNo.eq(taskNo));
+        if (qb.list().size()>0){
+            return qb.list().get(0);
+        }else {
+            return null;
+        }
     }
-
-
-    /**
-     * 根据ID同步删除数据库操作
-     *
-     * @param ids
-     */
-    private void deleteByIds(List<Long> ids) {
-
-        daoSession.getTaskBeanDataDao().deleteByKeyInTx(ids);
+    public void updateCommitFlag(String taskNo,String commitFlag){
+        TaskBeanDataDao taskBeanDataDao = daoSession.getTaskBeanDataDao();
+        QueryBuilder<TaskBeanData> qb = taskBeanDataDao.queryBuilder();
+        qb.where(TaskBeanDataDao.Properties.TaskNo.eq(taskNo));
+        if (qb.list().size()>0) {
+            TaskBeanData taskBeanData= qb.list().get(0);
+            taskBeanData.setCommitFlag(commitFlag);
+            taskBeanDataDao.update(taskBeanData);
+        }
     }
-
-    /***********************************
-     * 在次添加一些TaskBeanData特有的数据库操作语句
-     * ************************************/
 
 }

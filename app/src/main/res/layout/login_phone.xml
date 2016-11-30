@@ -59,6 +59,6 @@
         android:layout_height="49dp"
         android:layout_marginTop="44dp"
         android:background="@drawable/bg_button_none"
-        android:text="登陆"
+        android:text="登录"
         android:textColor="@drawable/btn_press_selector" />
 </LinearLayout>

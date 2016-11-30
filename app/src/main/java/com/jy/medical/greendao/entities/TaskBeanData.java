@@ -20,11 +20,10 @@ public class TaskBeanData {
     private String injureName;
     private String injureId;
     private String dispatchDate;
-
-    @Generated(hash = 1607895647)
-    public TaskBeanData(Long id, String taskNo, String claimId, String taskType,
-                        String taskState, String taskName, String injureName, String injureId,
-                        String dispatchDate) {
+    private String commitFlag;
+    @Generated(hash = 5797976)
+    public TaskBeanData(Long id, String taskNo, String claimId, String taskType, String taskState, String taskName, String injureName, String injureId, String dispatchDate,
+            String commitFlag) {
         this.id = id;
         this.taskNo = taskNo;
         this.claimId = claimId;
@@ -34,11 +33,12 @@ public class TaskBeanData {
         this.injureName = injureName;
         this.injureId = injureId;
         this.dispatchDate = dispatchDate;
+        this.commitFlag = commitFlag;
     }
 
-    public TaskBeanData(String taskNo, String claimId, String taskType,
-                        String taskState, String taskName, String injureName, String injureId,
-                        String dispatchDate) {
+
+
+    public TaskBeanData(String taskNo, String claimId, String taskType, String taskState, String taskName, String injureName, String injureId, String dispatchDate, String commitFlag) {
         this.taskNo = taskNo;
         this.claimId = claimId;
         this.taskType = taskType;
@@ -47,12 +47,19 @@ public class TaskBeanData {
         this.injureName = injureName;
         this.injureId = injureId;
         this.dispatchDate = dispatchDate;
+        this.commitFlag = commitFlag;
     }
 
     @Generated(hash = 740133766)
     public TaskBeanData() {
     }
+    public String getCommitFlag() {
+        return commitFlag;
+    }
 
+    public void setCommitFlag(String commitFlag) {
+        this.commitFlag = commitFlag;
+    }
     public String getTaskNo() {
         return taskNo;
     }

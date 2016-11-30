@@ -14,7 +14,7 @@ import com.jy.medical.fragment.LoginPhoneFragment;
  */
 
 public class LoginFragmentPagerAdapter extends FragmentPagerAdapter {
-    private String[] titles = new String[]{"账号登陆", "短信验证码登陆"};
+    private String[] titles = new String[]{"账号登录", "短信验证码登录"};
     private Context context;
 
     public LoginFragmentPagerAdapter(FragmentManager fm, Context context) {

@@ -8,32 +8,12 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import com.jy.medical.greendao.entities.BaseInfoData;
-import com.jy.medical.greendao.entities.CityData;
-import com.jy.medical.greendao.entities.ContactData;
-import com.jy.medical.greendao.entities.HospitalData;
-import com.jy.medical.greendao.entities.MedicalDepartment;
-import com.jy.medical.greendao.entities.TaskPhoto;
-import com.jy.medical.greendao.gen.BaseInfoDataDao;
-import com.jy.medical.greendao.gen.CategoryDataDao;
-import com.jy.medical.greendao.gen.CityDataDao;
-import com.jy.medical.greendao.gen.ClaimBeanDataDao;
-import com.jy.medical.greendao.gen.ContactDataDao;
 import com.jy.medical.greendao.gen.DaoMaster;
+import com.jy.medical.greendao.gen.DeathDataDao;
 import com.jy.medical.greendao.gen.DelayDataDao;
-import com.jy.medical.greendao.gen.DiagnoseDao;
 import com.jy.medical.greendao.gen.EarningDataDao;
-import com.jy.medical.greendao.gen.HospitalDataDao;
-import com.jy.medical.greendao.gen.HumanPartsDao;
-import com.jy.medical.greendao.gen.MedicalDepartmentDao;
-import com.jy.medical.greendao.gen.MedicalVisitDao;
-import com.jy.medical.greendao.gen.NursingDataDao;
-import com.jy.medical.greendao.gen.SearchDataDao;
-import com.jy.medical.greendao.gen.SelectedDepartmentDao;
-import com.jy.medical.greendao.gen.SelectedDiagnoseDao;
-import com.jy.medical.greendao.gen.SelectedHospitalDao;
+import com.jy.medical.greendao.gen.HandleDataDao;
 import com.jy.medical.greendao.gen.TaskBeanDataDao;
-import com.jy.medical.greendao.gen.TaskPhotoDao;
 
 /**
  * 封装DaoMaster.OpenHelper方法, 在更新的时候,用来保存原来的数据
@@ -58,15 +38,15 @@ public class THDevOpenHelper extends DaoMaster.OpenHelper {
             case 3:
                 MigrationHelper.migrate(db, DelayDataDao.class);
                 break;
-//            case 12:
-//                MigrationHelper.migrate(db, CityDataDao.class);
-//                break;
-//            case 13:
-//                MigrationHelper.migrate(db, MedicalDepartmentDao.class, HospitalDataDao.class);
-//                break;
-//            case 14:
-//                MigrationHelper.migrate(db, SearchDataDao.class);
-//                break;
+            case 4:
+                MigrationHelper.migrate(db, HandleDataDao.class);
+                break;
+            case 5:
+                MigrationHelper.migrate(db, TaskBeanDataDao.class);
+                break;
+            case 6:
+                MigrationHelper.migrate(db, DeathDataDao.class);
+                break;
 //            case 15:
 //                MigrationHelper.migrate(db, DiagnoseDao.class, MedicalVisitDao.class, SelectedDepartmentDao.class, SelectedDiagnoseDao.class, SelectedHospitalDao.class);
 //                break;

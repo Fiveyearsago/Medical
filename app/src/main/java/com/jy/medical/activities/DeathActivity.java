@@ -7,33 +7,24 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bigkoo.alertview.AlertView;
-import com.google.gson.Gson;
-import com.jy.ah.bus.data.Response;
 import com.jy.medical.MedicalApplication;
 import com.jy.medical.R;
-import com.jy.medical.adapter.ContactAdapter;
 import com.jy.medical.adapter.ContactEditAdapter;
 import com.jy.medical.adapter.PictureAdapter;
-import com.jy.medical.controller.JsonToBean;
-import com.jy.medical.greendao.entities.BaseInfoData;
+import com.jy.medical.greendao.entities.DeathData;
 import com.jy.medical.greendao.entities.ContactData;
 import com.jy.medical.greendao.entities.TaskPhoto;
-import com.jy.medical.greendao.manager.BaseInfoDataManager;
+import com.jy.medical.greendao.manager.DeathDataManager;
 import com.jy.medical.greendao.manager.ContactManager;
 import com.jy.medical.greendao.manager.TaskPhotoManager;
 import com.jy.medical.greendao.util.DaoUtils;
@@ -42,58 +33,38 @@ import com.jy.medical.util.ImageUtils;
 import com.jy.medical.util.LocalImageHelper;
 import com.jy.medical.util.MultiSelectUtil;
 import com.jy.medical.util.PhotoUtil;
-import com.jy.medical.util.PublicString;
-import com.jy.medical.util.ServerApiUtils;
 import com.jy.medical.util.StringUtils;
 import com.jy.medical.util.ToastUtil;
 import com.jy.medical.widget.ClearEditText;
 import com.jy.medical.widget.FilterImageView;
 import com.jy.medical.widget.pickerview.TimePickerDialog;
-import com.jy.medical.widget.pickerview.data.Type;
-import com.jy.medical.widget.pickerview.listener.OnDateSetListener;
-import com.jy.medical.widget.pickerview.utils.PickerContants;
-import com.jy.mobile.dto.ClaimDTO;
-import com.jy.mobile.request.QTInspectAccidentInfoDTO;
-import com.jy.mobile.request.QtRecieveTaskDTO;
-import com.jy.mobile.response.SpRecieveTaskDTO;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 import com.nostra13.universalimageloader.core.imageaware.ImageViewAware;
 
-import org.xutils.common.Callback;
-
 import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-public class FollowEditActivity extends BaseActivity {
+public class DeathActivity extends BaseActivity {
 
     private RecyclerView pictureRecyclerView;
     private PictureAdapter pictureAdapter;
     private List<TaskPhoto> pictureList;
     private List<Bitmap> list;
-    private TextView textAccidentTime;
-    private TimePickerDialog mDialogYearMonthDay;
-    private RecyclerView contactRecycler;
-    private List<ContactData> contactDataList;
-    private ContactEditAdapter adapter;
-    private ContactManager contactManager;
     private TaskPhotoManager taskPhotoManager;
     private String taskNo;
     private List<LocalImageHelper.LocalFile> pictures = new ArrayList<>();//图片路径数组
     DisplayImageOptions options;
-    private TextView completeStatus;
+    private TextView completeStatusTextView, deathReasonTextView, deathTimeTextView;
     private ClearEditText addressEdit;
-    private ClearEditText detailInfoEdit;
+    private ClearEditText participationEdit;
     private ClearEditText remarkEdit;
     private Button btnCommit;
     private Button btnSave;
-    private BaseInfoDataManager baseInfoDataManager = DaoUtils.getBaseInfoDataInstance();
+    private DeathDataManager deathDataManager = DaoUtils.getDeathDataInstance();
     private Context context;
-//    private BaseInfoData baseInfoData;
 
     @Override
     public void initData() {
@@ -101,7 +72,7 @@ public class FollowEditActivity extends BaseActivity {
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_follow_edit;
+        return R.layout.activity_death;
     }
 
     @Override
@@ -111,43 +82,32 @@ public class FollowEditActivity extends BaseActivity {
 
     @Override
     public void initView() {
-        context=this;
+        context = this;
         setStatusBarTint();
         MedicalApplication.getInstance().addActivity(this);
         setTitleState(findViewById(R.id.title_head), true, "编辑", true, "保存");
-        completeStatus = (TextView) findViewById(R.id.complete_status);
-        addressEdit = (ClearEditText) findViewById(R.id.address_edit);
-        detailInfoEdit = (ClearEditText) findViewById(R.id.detail_info_edit);
+        completeStatusTextView = (TextView) findViewById(R.id.complete_status);
+        deathReasonTextView = (TextView) findViewById(R.id.death_reason);
+        deathTimeTextView = (TextView) findViewById(R.id.death_time);
+        addressEdit = (ClearEditText) findViewById(R.id.death_address);
+        participationEdit = (ClearEditText) findViewById(R.id.death_participation);
         remarkEdit = (ClearEditText) findViewById(R.id.remark_edit);
-        btnCommit = (Button) findViewById(R.id.follow_edit_commit);
-        btnSave = (Button) findViewById(R.id.follow_edit_save);
-        btnCommit.setOnClickListener(this);
+        btnCommit = (Button) findViewById(R.id.btn_commit);
+        btnSave = (Button) findViewById(R.id.btn_save);
+
+        findViewById(R.id.death_location).setOnClickListener(this);
+        deathReasonTextView.setOnClickListener(this);
+        deathTimeTextView.setOnClickListener(this);
         btnSave.setOnClickListener(this);
-        completeStatus.setOnClickListener(this);
-        findViewById(R.id.follow_edit_location).setOnClickListener(this);
-        findViewById(R.id.follow_edit_commit).setOnClickListener(this);
-        findViewById(R.id.add_contact).setOnClickListener(this);
-        textAccidentTime = (TextView) findViewById(R.id.follow_edit_accident_time);
-        textAccidentTime.setOnClickListener(this);
+        btnCommit.setOnClickListener(this);
+        completeStatusTextView.setOnClickListener(this);
+
         pictureRecyclerView = (RecyclerView) findViewById(R.id.picture_recyclerView);
         pictureRecyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 4);
-        RecyclerView.LayoutManager layoutManager1 = new LinearLayoutManager(this);
+        pictureRecyclerView.setLayoutManager(layoutManager);
         pictureList = new ArrayList<>();
         list = new ArrayList<>();
-
-        pictureRecyclerView.setLayoutManager(layoutManager);
-//        setPhotoData();
-
-        contactRecycler = (RecyclerView) findViewById(R.id.contact_recycler);
-        contactRecycler.setHasFixedSize(true);
-        contactRecycler.setLayoutManager(layoutManager1);
-        contactManager = DaoUtils.getContactInstance();
-        contactDataList = new ArrayList<>();
-        contactDataList = contactManager.selectAllContact(taskNo);
-        adapter = new ContactEditAdapter(this, contactDataList);
-        contactRecycler.setAdapter(adapter);
-
         options = new DisplayImageOptions.Builder()
                 .cacheInMemory(true)
                 .cacheOnDisk(false)
@@ -188,7 +148,7 @@ public class FollowEditActivity extends BaseActivity {
                 ToastUtil.showToast(context, "已保存所有信息");
                 finish();
                 break;
-            case R.id.follow_edit_save:
+            case R.id.btn_save:
                 saveData();
                 ToastUtil.showToast(context, "已保存所有信息");
                 finish();
@@ -199,18 +159,18 @@ public class FollowEditActivity extends BaseActivity {
                 bundle.putString("taskNo", taskNo);
                 startActivity(AddContactsActivity.class, bundle);
                 break;
-            case R.id.follow_edit_accident_time:
-                //选择事故时间
-                MultiSelectUtil.initTimePicker(context, textAccidentTime, textAccidentTime.getText().toString(), "选择处理时间");
+            case R.id.death_time:
+                //选择死亡日期
+                MultiSelectUtil.initTimePicker(context, deathTimeTextView, deathTimeTextView.getText().toString(), "选择死亡日期");
                 break;
-            case R.id.follow_edit_commit:
+            case R.id.btn_commit:
                 saveData();
                 CommitUtil.commitBaseInfo(context, taskNo, new CommitUtil.CommitCallBack() {
                     @Override
                     public void commitSuccess() {
-                        Intent intent=new Intent();
-                        intent.putExtra("commitFlag","1");
-                        setResult(RESULT_OK,intent);
+                        Intent intent = new Intent();
+                        intent.putExtra("commitFlag", "1");
+                        setResult(RESULT_OK, intent);
                         finish();
                     }
 
@@ -221,12 +181,16 @@ public class FollowEditActivity extends BaseActivity {
                 });
 
                 break;
-            case R.id.follow_edit_location:
+            case R.id.death_location:
                 startActivity(SelectAddressActivity.class);
+                break;
+            case R.id.death_reason:
+                //选择死亡原因
+                MultiSelectUtil.selectStatus(context, deathReasonTextView, new String[]{"损伤导致", "损伤与疾病共同导致", "疾病导致"}, "选择死亡原因");
                 break;
             case R.id.complete_status:
                 //选择完成情况
-                MultiSelectUtil.selectStatus(context, completeStatus, new String[]{"已完成", "无法完成"}, "选择完成情况");
+                MultiSelectUtil.selectStatus(context, completeStatusTextView, new String[]{"已完成", "无法完成"}, "选择完成情况");
                 break;
             default:
                 break;
@@ -234,47 +198,58 @@ public class FollowEditActivity extends BaseActivity {
     }
 
     private void saveData() {
+
+        String deathReason = "";
+        if (deathReasonTextView.getText().toString().equals("损伤导致")) {
+            deathReason = "0";
+        } else if (completeStatusTextView.getText().toString().equals("损伤与疾病共同导致")) {
+            deathReason = "1";
+        } else if (completeStatusTextView.getText().toString().equals("疾病导致")) {
+            deathReason = "2";
+        }
+        String participation = participationEdit.getText().toString();
+        String time = deathTimeTextView.getText().toString();
         String address = addressEdit.getText().toString();
-        String time = textAccidentTime.getText().toString();
-        String detailInfo = detailInfoEdit.getText().toString();
         String remark = remarkEdit.getText().toString();
-        String completeStatusText ="";
-        if (completeStatus.getText().toString().equals("已完成")){
-            completeStatusText="0";
-        }else if (completeStatus.getText().toString().equals("无法完成")){
-            completeStatusText="1";
-        }        BaseInfoData baseInfoData = new BaseInfoData(taskNo, address, time, detailInfo, remark, completeStatusText, "");
-        baseInfoDataManager.insertSingleData(baseInfoData);
+        String completeStatusText = "";
+        if (completeStatusTextView.getText().toString().equals("已完成")) {
+            completeStatusText = "0";
+        } else if (completeStatusTextView.getText().toString().equals("无法完成")) {
+            completeStatusText = "1";
+        }
+        DeathData deathData = new DeathData(taskNo, deathReason, participation, address, time, remark, completeStatusText, "");
+        deathDataManager.insertSingleData(deathData);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        setContactData();
         setPhotoData();
 
     }
 
-    private void setContactData() {
-        contactDataList = contactManager.selectAllContact(taskNo);
-        adapter = new ContactEditAdapter(this, contactDataList);
-        contactRecycler.setAdapter(adapter);
-    }
 
     private void initOtherData() {
-        BaseInfoData baseInfoData = baseInfoDataManager.getData(taskNo);
-        if (baseInfoData == null)
+        DeathData deathData = deathDataManager.getData(taskNo);
+        if (deathData == null)
             return;
-        addressEdit.setText(baseInfoData.getAddress());
-        textAccidentTime.setText(baseInfoData.getTime());
-        detailInfoEdit.setText(baseInfoData.getDetailInfo());
-        remarkEdit.setText(baseInfoData.getRemark());
-        if (baseInfoData.getCompleteStatus().equals("0"))
-            completeStatus.setText("已完成");
-        else if (baseInfoData.getCompleteStatus().equals("1"))
-            completeStatus.setText("无法完成");
-    }
+        addressEdit.setText(deathData.getDeathAddress());
+        deathTimeTextView.setText(deathData.getDeathTime());
+        participationEdit.setText(deathData.getParticipation());
+        remarkEdit.setText(deathData.getRemark());
+        if (deathData.getCompleteStatus().equals("0"))
+            completeStatusTextView.setText("已完成");
+        else if (deathData.getCompleteStatus().equals("1"))
+            completeStatusTextView.setText("无法完成");
 
+        if (deathData.getDeathReason().equals("0"))
+            deathReasonTextView.setText("损伤导致");
+        else if (deathData.getDeathReason().equals("1"))
+            deathReasonTextView.setText("损伤与疾病共同导致");
+        else if (deathData.getDeathReason().equals("2"))
+            deathReasonTextView.setText("疾病导致");
+
+    }
 
 
     @Override

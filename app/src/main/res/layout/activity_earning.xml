@@ -95,12 +95,12 @@
                     <TextView
                         android:id="@+id/job_status"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="5dp"
                         android:layout_toLeftOf="@+id/job_status_image"
                         android:layout_toRightOf="@+id/job_status_tag"
-                        android:gravity="right"
+                        android:gravity="right|center_vertical"
                         android:hint="必选"
                         android:textColor="@color/black"
                         android:textColorHint="@color/hintColor"
@@ -224,12 +224,12 @@
                     <TextView
                         android:id="@+id/complete_status"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="5dp"
                         android:layout_toLeftOf="@+id/complete_status_image"
                         android:layout_toRightOf="@+id/complete_status_tag"
-                        android:gravity="right"
+                        android:gravity="right|center_vertical"
                         android:hint="必选"
                         android:textColor="@color/black"
                         android:textColorHint="@color/hintColor"
@@ -264,12 +264,12 @@
                     <TextView
                         android:id="@+id/industry"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="5dp"
                         android:layout_toLeftOf="@+id/industry_image"
                         android:layout_toRightOf="@+id/industry_tag"
-                        android:gravity="right"
+                        android:gravity="right|center_vertical"
                         android:hint="必选"
                         android:textColor="@color/black"
                         android:textColorHint="@color/hintColor"
@@ -290,8 +290,9 @@
                     android:layout_height="1dp"
                     android:background="@color/lineColor" />
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
+                    android:gravity="center_vertical"
                     android:layout_height="44dp">
 
                     <TextView
@@ -305,19 +306,19 @@
 
                     <com.jy.medical.widget.ClearEditText
                         android:id="@+id/company_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
                         android:background="@null"
                         android:drawablePadding="10dp"
                         android:drawableRight="@mipmap/clear"
-                        android:gravity="right"
+                        android:gravity="right|center_vertical"
                         android:hint="必填"
+                        android:layout_marginRight="15dp"
                         android:textColor="@color/black"
                         android:textColorHint="@color/hintColor"
                         android:textSize="@dimen/primary_text_size" />
-                </RelativeLayout>
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
@@ -423,12 +424,12 @@
                     <TextView
                         android:id="@+id/entry_time"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="5dp"
                         android:layout_toLeftOf="@+id/entry_time_image"
                         android:layout_toRightOf="@+id/entry_time_tag"
-                        android:gravity="right"
+                        android:gravity="right|center_vertical"
                         android:hint="必选"
                         android:text=""
                         android:textColor="@color/black"
@@ -467,12 +468,12 @@
                     <TextView
                         android:id="@+id/agreement"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="5dp"
                         android:layout_toLeftOf="@+id/agreement_image"
                         android:layout_toRightOf="@+id/agreement_tag"
-                        android:gravity="right"
+                        android:gravity="right|center_vertical"
                         android:hint="必选"
                         android:text=""
                         android:textColor="@color/black"
@@ -511,12 +512,12 @@
                     <TextView
                         android:id="@+id/social"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="5dp"
                         android:layout_toLeftOf="@+id/social_image"
                         android:layout_toRightOf="@+id/social_tag"
-                        android:gravity="right"
+                        android:gravity="right|center_vertical"
                         android:hint="必选"
                         android:text=""
                         android:textColor="@color/black"
@@ -555,12 +556,12 @@
                     <TextView
                         android:id="@+id/income_form"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="5dp"
                         android:layout_toLeftOf="@+id/income_form_image"
                         android:layout_toRightOf="@+id/income_form_tag"
-                        android:gravity="right"
+                        android:gravity="right|center_vertical"
                         android:hint="必选"
                         android:text=""
                         android:textColor="@color/black"
@@ -582,9 +583,10 @@
                     android:layout_height="1dp"
                     android:background="@color/lineColor" />
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="44dp">
+                    android:layout_height="44dp"
+                    android:gravity="center_vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -597,19 +599,19 @@
 
                     <com.jy.medical.widget.ClearEditText
                         android:id="@+id/monthly_income"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
                         android:background="@null"
                         android:drawablePadding="10dp"
                         android:drawableRight="@mipmap/clear"
-                        android:gravity="right"
+                        android:gravity="right|center_vertical"
                         android:hint="必填"
+                        android:layout_marginRight="15dp"
                         android:textColor="@color/black"
                         android:textColorHint="@color/hintColor"
                         android:textSize="@dimen/primary_text_size" />
-                </RelativeLayout>
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -639,12 +641,12 @@
                     <TextView
                         android:id="@+id/leave_time"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="5dp"
                         android:layout_toLeftOf="@+id/leave_time_image"
                         android:layout_toRightOf="@+id/leave_time_tag"
-                        android:gravity="right"
+                        android:gravity="right|center_vertical"
                         android:hint="必选"
                         android:text=""
                         android:textColor="@color/black"

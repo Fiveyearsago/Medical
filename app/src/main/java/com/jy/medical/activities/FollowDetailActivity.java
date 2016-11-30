@@ -27,15 +27,23 @@ import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.jy.medical.R;
 import com.jy.medical.adapter.BaseFragmentPagerAdapter;
 import com.jy.medical.fragment.BaseInfoFragment;
+import com.jy.medical.fragment.DeathFragment;
 import com.jy.medical.fragment.EarningFragment;
 import com.jy.medical.fragment.FollowDetailFragment;
 import com.jy.medical.fragment.FollowRecordFragment;
+import com.jy.medical.fragment.HandleFragment;
 import com.jy.medical.fragment.MedicalVisitFragment;
 import com.jy.medical.greendao.entities.BaseInfoData;
 import com.jy.medical.greendao.entities.ContactData;
+import com.jy.medical.greendao.entities.DeathData;
+import com.jy.medical.greendao.entities.EarningData;
+import com.jy.medical.greendao.entities.HandleData;
 import com.jy.medical.greendao.entities.MedicalVisit;
 import com.jy.medical.greendao.entities.PlatformData;
 import com.jy.medical.greendao.manager.BaseInfoDataManager;
+import com.jy.medical.greendao.manager.DeathDataManager;
+import com.jy.medical.greendao.manager.EarningDataManager;
+import com.jy.medical.greendao.manager.HandleDataManager;
 import com.jy.medical.greendao.manager.MedicalVisitManager;
 import com.jy.medical.greendao.util.DaoUtils;
 import com.jy.medical.util.CommitUtil;
@@ -64,7 +72,10 @@ public class FollowDetailActivity extends BaseActivity implements OnItemClickLis
     private String taskType="";
     private String commitFlag="";
     private MedicalVisitManager medicalVisitManager = DaoUtils.getMedicalVisitInstance();
+    private EarningDataManager earningDataManager = DaoUtils.getEarningDataInstance();
+    private DeathDataManager deathDataManager = DaoUtils.getDeathDataInstance();
     private BaseInfoDataManager baseInfoDataManager = DaoUtils.getBaseInfoDataInstance();
+    private HandleDataManager handleDataManager = DaoUtils.getHandleDataInstance();
     private View layoutBottom;
     private Context context;
     private ImageView taskTypeImage;
@@ -98,7 +109,7 @@ public class FollowDetailActivity extends BaseActivity implements OnItemClickLis
     public void initView() {
         setStatusBarTint();
         setTitleState(findViewById(R.id.title_head), true, "跟踪详情", false, "");
-        findViewById(R.id.task_time_btn).setOnClickListener(this);
+        findViewById(R.id.task_commit_btn).setOnClickListener(this);
         taskTypeImage= (ImageView) findViewById(R.id.task_state_image);
         layoutBottom = findViewById(R.id.bottom_layout);
         textName = (TextView) findViewById(R.id.follow_detail_name);
@@ -116,9 +127,12 @@ public class FollowDetailActivity extends BaseActivity implements OnItemClickLis
         FollowDetailFragment followDetailFragment = FollowDetailFragment.newInstance();
         MedicalVisitFragment medicalVisitFragment = MedicalVisitFragment.newInstance(this);
         EarningFragment earningFragment = EarningFragment.newInstance(this);
+        DeathFragment deathFragment = DeathFragment.newInstance(this);
         BaseInfoFragment baseInfoFragment = BaseInfoFragment.newInstance(this);
+        HandleFragment handleFragment = HandleFragment.newInstance(this);
         switch (taskType) {
             case "01":
+                //医疗探视
                 followDetailFragment.setArguments(bundle);
                 medicalVisitFragment.setArguments(bundle);
                 fragmentList.add(medicalVisitFragment);
@@ -127,20 +141,40 @@ public class FollowDetailActivity extends BaseActivity implements OnItemClickLis
                 commitFlag = (medicalVisit == null) ? "" : medicalVisit.getCommitFlag();
                 break;
             case "02":
+                //收入情况
                 followDetailFragment.setArguments(bundle);
                 earningFragment.setArguments(bundle);
                 fragmentList.add(earningFragment);
                 fragmentList.add(followDetailFragment);
-                MedicalVisit medicalVisit1 = medicalVisitManager.getData(platformData.getTaskNo());
-                commitFlag = (medicalVisit1 == null) ? "" : medicalVisit1.getCommitFlag();
+                EarningData earningData = earningDataManager.getData(platformData.getTaskNo());
+                commitFlag = (earningData == null) ? "" : earningData.getCommitFlag();
+                break;
+            case "06":
+                //收入情况
+                followDetailFragment.setArguments(bundle);
+                deathFragment.setArguments(bundle);
+                fragmentList.add(deathFragment);
+                fragmentList.add(followDetailFragment);
+                DeathData deathData = deathDataManager.getData(platformData.getTaskNo());
+                commitFlag = (deathData == null) ? "" : deathData.getCommitFlag();
                 break;
             case "09":
+                //事故基本情况
                 baseInfoFragment.setArguments(bundle);
                 followDetailFragment.setArguments(bundle);
                 fragmentList.add(baseInfoFragment);
                 fragmentList.add(followDetailFragment);
                 BaseInfoData baseInfoData = baseInfoDataManager.getData(platformData.getTaskNo());
                 commitFlag = (baseInfoData == null) ? "" : baseInfoData.getCommitFlag();
+                break;
+            case "10":
+                //事故处理情况
+                handleFragment.setArguments(bundle);
+                followDetailFragment.setArguments(bundle);
+                fragmentList.add(handleFragment);
+                fragmentList.add(followDetailFragment);
+                HandleData handleData = handleDataManager.getData(platformData.getTaskNo());
+                commitFlag = (handleData == null) ? "" : handleData.getCommitFlag();
                 break;
             default:
                 followDetailFragment.setArguments(bundle);
@@ -192,14 +226,15 @@ public class FollowDetailActivity extends BaseActivity implements OnItemClickLis
     public void widgetClick(View v) {
         switch (v.getId()) {
             case R.id.page_head_image:
+                setResult(RESULT_OK);
                 finish();
                 break;
             case R.id.follow_detail_phone:
                 //拨打电话
                 mAlertView.show();
                 break;
-            case R.id.task_time_btn:
-                //拨打电话
+            case R.id.task_commit_btn:
+                //提交
                 commitData();
 
                 break;
@@ -218,6 +253,7 @@ public class FollowDetailActivity extends BaseActivity implements OnItemClickLis
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
+                                setResult(RESULT_OK);
                                 finish();
                             }
                         },1000);
@@ -230,18 +266,24 @@ public class FollowDetailActivity extends BaseActivity implements OnItemClickLis
                 });
                 break;
             case "02":
+                //收入情况
                 break;
             case "03":
+                //误工情况
                 break;
             case "04":
+                //户籍信息
                 break;
             case "05":
+                //被扶养人信息
                 break;
             case "06":
+                //死亡信息
                 break;
             case "07":
                 break;
             case "08":
+                //伤残信息
                 break;
             case "09":
                 CommitUtil.commitBaseInfo(this, platformData.getTaskNo(), new CommitUtil.CommitCallBack() {
@@ -253,6 +295,7 @@ public class FollowDetailActivity extends BaseActivity implements OnItemClickLis
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
+                                setResult(RESULT_OK);
                                 finish();
                             }
                         },1000);
@@ -265,6 +308,7 @@ public class FollowDetailActivity extends BaseActivity implements OnItemClickLis
                 });
                 break;
             case "10":
+                //事故处理信息
                 break;
 
         }
@@ -308,14 +352,26 @@ public class FollowDetailActivity extends BaseActivity implements OnItemClickLis
 //        }
         if (commitFlag.equals("1")){
             layoutBottom.setVisibility(View.GONE);
+            setTaskTypeImage();
         }else {
             layoutBottom.setVisibility(View.VISIBLE);
         }
-        setTaskTypeImage();
+
     }
 
     private void setTaskTypeImage() {
-        taskTypeImage.setBackground(context.getResources().getDrawable(R.mipmap.detail_timeout));
+        taskTypeImage.setBackground(context.getResources().getDrawable(R.mipmap.detail_finished));
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode==RESULT_OK){
+            switch (requestCode){
+                case 0x09:
+                    if (data.getStringExtra("commitFlag").equals("1"))
+                    commitFlag="1";
+                    break;
+            }
+        }
+    }
 }

@@ -53,7 +53,7 @@ public class LoginActivity extends BaseActivity {
         adapter = new LoginFragmentPagerAdapter(getSupportFragmentManager(),
                 this);
         viewPager.setAdapter(adapter);
-        slidingTabLayout.setViewPager(viewPager,new String[]{"账号登陆","手机验证码登陆"});
+        slidingTabLayout.setViewPager(viewPager,new String[]{"账号登录","手机验证码登录"});
         slidingTabLayout.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelect(int position) {

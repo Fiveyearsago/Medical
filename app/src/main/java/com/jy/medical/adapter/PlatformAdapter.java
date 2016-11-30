@@ -2,6 +2,7 @@ package com.jy.medical.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -61,28 +62,15 @@ public class PlatformAdapter extends BaseHeadFootAdapter {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, FollowDetailActivity.class);
-//                switch (list.get(position).getTaskType()){
-//                    case "01":
-//                        intent = new Intent(context, FollowDetailActivity.class);
-//                        break;
-//                    case "02":
-//                        intent = new Intent(context, EarningActivity.class);
-//                        break;
-//                    case "09":
-//                        intent = new Intent(context, FollowDetailActivity.class);
-//                        break;
-//                }
-//                if (intent==null)
-//                    return;
                 intent.putExtra("info", platformData);
-                context.startActivity(intent);
+                ((AppCompatActivity)context).startActivityForResult(intent,0x11);
 
             }
         });
 
         try {
             int gapNum = TimeUtil.getGapCount(platformData.getTime());
-            if (TimeUtil.getGapCount(platformData.getTime()) > 0) {
+            if (TimeUtil.getGapCount(platformData.getTime()) > 0&&!platformData.getCommitFlag().equals("1")) {
                 viewHolder.platformTimeOutNum.setText(gapNum + "");
                 viewHolder.viewLayout.setVisibility(View.VISIBLE);
                 viewHolder.platformTag.setText("超时");

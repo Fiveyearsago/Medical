@@ -13,9 +13,11 @@ import com.jy.medical.greendao.manager.CategoryDataManager;
 import com.jy.medical.greendao.manager.CityDataManager;
 import com.jy.medical.greendao.manager.ClaimManager;
 import com.jy.medical.greendao.manager.ContactManager;
+import com.jy.medical.greendao.manager.DeathDataManager;
 import com.jy.medical.greendao.manager.DelayDataManager;
 import com.jy.medical.greendao.manager.DiagnoseManager;
 import com.jy.medical.greendao.manager.EarningDataManager;
+import com.jy.medical.greendao.manager.HandleDataManager;
 import com.jy.medical.greendao.manager.HospitalDataManager;
 import com.jy.medical.greendao.manager.HumanPartsManager;
 import com.jy.medical.greendao.manager.MedicalDepartmentManager;
@@ -51,6 +53,8 @@ public class DaoUtils {
     private static BaseInfoDataManager baseInfoDataManager;
     private static EarningDataManager earningDataManager;
     private static DelayDataManager delayDataManager;
+    private static HandleDataManager handleDataManager;
+    private static DeathDataManager deathDataManager;
     public static Context context;
 
     public static void init(Context context) {
@@ -61,6 +65,20 @@ public class DaoUtils {
     /**
      * 单列模式获取Manager对象
      */
+    public static DeathDataManager getDeathDataInstance() {
+        if (deathDataManager == null) {
+            deathDataManager = new DeathDataManager(context);
+        }
+        return deathDataManager;
+    }
+
+    public static HandleDataManager getHandleDataInstance() {
+        if (handleDataManager == null) {
+            handleDataManager = new HandleDataManager(context);
+        }
+        return handleDataManager;
+    }
+
     public static DelayDataManager getDelayDataInstance() {
         if (delayDataManager == null) {
             delayDataManager = new DelayDataManager(context);

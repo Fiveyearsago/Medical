@@ -52,8 +52,7 @@ public class PlatformActivity extends BaseActivity {
     private Map<String, String> map;
     private List<RadioButton> radioList;
     private RadioGroup radioGroup;
-
-
+    private ClaimManager claimManager = DaoUtils.getClaimInstance();
     @Override
     public void initData() {
 
@@ -129,7 +128,7 @@ public class PlatformActivity extends BaseActivity {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         platformRecycler.setLayoutManager(layoutManager);
         list = new ArrayList<>();
-        ClaimManager claimManager = DaoUtils.getClaimInstance();
+
         list = claimManager.selectAllData();
         adapter = new PlatformAdapter(this, list);
         platformRecycler.setAdapter(adapter);
@@ -239,6 +238,17 @@ public class PlatformActivity extends BaseActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode==RESULT_OK){
+            switch (requestCode){
+                case 0x11:
+                    list = claimManager.selectAllData();
+                    adapter=new PlatformAdapter(PlatformActivity.this,list);
+                    adapter.notifyDataSetChanged();
+                    platformRecycler.setAdapter(adapter);
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }

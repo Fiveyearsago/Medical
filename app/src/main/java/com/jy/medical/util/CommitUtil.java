@@ -6,26 +6,31 @@ import android.view.Gravity;
 import android.widget.Toast;
 
 import com.baidu.location.BDLocation;
+import com.bigkoo.alertview.AlertView;
 import com.google.gson.Gson;
 import com.jy.ah.bus.data.Response;
 import com.jy.medical.greendao.entities.BaseInfoData;
 import com.jy.medical.greendao.entities.ContactData;
 import com.jy.medical.greendao.entities.DelayData;
 import com.jy.medical.greendao.entities.EarningData;
+import com.jy.medical.greendao.entities.HandleData;
 import com.jy.medical.greendao.entities.MedicalVisit;
 import com.jy.medical.greendao.entities.NursingData;
 import com.jy.medical.greendao.entities.SelectedDiagnose;
 import com.jy.medical.greendao.entities.SelectedHospital;
+import com.jy.medical.greendao.entities.TaskBeanData;
 import com.jy.medical.greendao.entities.TaskPhoto;
 import com.jy.medical.greendao.manager.BaseInfoDataManager;
 import com.jy.medical.greendao.manager.CategoryDataManager;
 import com.jy.medical.greendao.manager.ContactManager;
 import com.jy.medical.greendao.manager.DelayDataManager;
 import com.jy.medical.greendao.manager.EarningDataManager;
+import com.jy.medical.greendao.manager.HandleDataManager;
 import com.jy.medical.greendao.manager.MedicalVisitManager;
 import com.jy.medical.greendao.manager.NursingDataManager;
 import com.jy.medical.greendao.manager.SelectedDiagnoseManager;
 import com.jy.medical.greendao.manager.SelectedHospitalManager;
+import com.jy.medical.greendao.manager.TaskManager;
 import com.jy.medical.greendao.manager.TaskPhotoManager;
 import com.jy.medical.greendao.util.DaoUtils;
 import com.jy.mobile.dto.DisabilityDescrDTO;
@@ -204,8 +209,98 @@ public class  CommitUtil {
 
     public static void commitEarningInfo(final Context context, String taskNo, final CommitCallBack commitCallBack) {
     }
+    public static void commitHandleInfo(final Context context, String taskNo, final CommitCallBack commitCallBack) {
+        final HandleDataManager handleDataManager = DaoUtils.getHandleDataInstance();
+        ContactManager contactManager = DaoUtils.getContactInstance();
+        TaskPhotoManager taskPhotoManager = DaoUtils.getTaskPhotoInstance();
+        List<ContactData> contactDataList = new ArrayList<>();
+        List<TaskPhoto> pictureList = new ArrayList<>();
+        final HandleData handleData = handleDataManager.getData(taskNo);
+        if (handleData == null) {
+            ToastUtil.showToast(context, "请完善必填信息");
+            return;
+        }
 
-    public static void commitBaseInfo(final Context context, String taskNo, final CommitCallBack commitCallBack) {
+        if (handleData.getHandleName().equals("")) {
+            ToastUtil.showToast(context, "请填写事故处理人");
+            return;
+        } if (handleData.getHandleTime().equals("")) {
+            ToastUtil.showToast(context, "请填写处理时间");
+            return;
+        }
+        contactDataList = contactManager.selectAllContact(taskNo);
+        if ( contactDataList.size() == 0) {
+            ToastUtil.showToast(context, "请填写联系人");
+            return;
+        }
+        if (handleData.getHandleResult().equals("")) {
+            ToastUtil.showToast(context, "请填写处理结果");
+            return;
+        }
+        pictureList = taskPhotoManager.selectAllPhoto(taskNo);
+        if (pictureList.size() == 0 ) {
+            ToastUtil.showToast(context, "请选择照片");
+            return;
+        }
+        if (handleData.getCompleteStatus().equals("")) {
+            ToastUtil.showToast(context, "请填写完成情况");
+            return;
+        }
+        AlertView mAlertView = new AlertView("提示", "提交后不能进行修改，是否提交？", "否", new String[]{"是"}, null, context, AlertView.Style.Alert, new com.bigkoo.alertview.OnItemClickListener() {
+            @Override
+            public void onItemClick(Object o, int position1) {
+                if (position1==0){
+                    //提交信息
+//                    commitData();
+                }
+            }
+
+
+        }).setCancelable(true).setOnDismissListener(null);
+        mAlertView.show();
+//        QTInspectAccidentInfoDTO qtInspectAccidentInfoDTO = new QTInspectAccidentInfoDTO();
+//        qtInspectAccidentInfoDTO.setTaskNo(taskNo);
+//        qtInspectAccidentInfoDTO.setAddress(baseInfoData.getAddress());
+//        qtInspectAccidentInfoDTO.setContactPerson("宋冉");
+//        qtInspectAccidentInfoDTO.setContactTel("18612235095");
+//        qtInspectAccidentInfoDTO.setRemark(baseInfoData.getRemark());
+//        qtInspectAccidentInfoDTO.setAccidentDate(baseInfoData.getTime());
+//        qtInspectAccidentInfoDTO.setUserCode("0131002498");
+//        Gson gson = new Gson();
+//        String data = gson.toJson(qtInspectAccidentInfoDTO);
+//        ServerApiUtils.sendToServer(data, "002005", PublicString.URL_IFC, new Callback.CommonCallback<String>() {
+//            @Override
+//            public void onSuccess(String result) {
+//                Log.i("result", result);
+//                Gson responseGson = new Gson();
+//                Response response = responseGson.fromJson(result, Response.class);
+//                if (response != null && "1".equals(response.getResponseCode())) {
+//                    String data = response.getData();
+//                    Log.i("ResponseCode", response.getResponseCode());
+//                    baseInfoData.setCommitFlag("1");
+//                    baseInfoDataManager.insertSingleData(baseInfoData);
+//                    commitCallBack.commitSuccess();
+//                }
+//            }
+//
+//            @Override
+//            public void onError(Throwable ex, boolean isOnCallback) {
+//                commitCallBack.commitFailed();
+//            }
+//
+//            @Override
+//            public void onCancelled(CancelledException cex) {
+//
+//            }
+//
+//            @Override
+//            public void onFinished() {
+//
+//            }
+//        });
+    }
+
+    public static void commitBaseInfo(final Context context, final String taskNo, final CommitCallBack commitCallBack) {
         final BaseInfoDataManager baseInfoDataManager = DaoUtils.getBaseInfoDataInstance();
         ContactManager contactManager = DaoUtils.getContactInstance();
         TaskPhotoManager taskPhotoManager = DaoUtils.getTaskPhotoInstance();
@@ -216,63 +311,87 @@ public class  CommitUtil {
             ToastUtil.showToast(context, "请完善必填信息");
             return;
         }
-        if (baseInfoData.getAddress().equals("") || baseInfoData.getTime().equals("") || baseInfoData.getDetailInfo().equals("") || baseInfoData.getCompleteStatus().equals("")) {
-            Toast toast = Toast.makeText(context, "请完善必填信息", Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.CENTER, 0, 0);
-            toast.show();
+        if (baseInfoData.getAddress().equals("")) {
+            ToastUtil.showToast(context, "请填写事故地址");
+            return;
+        }
+        if (baseInfoData.getTime().equals("")) {
+            ToastUtil.showToast(context, "请填写事故时间");
             return;
         }
         pictureList = taskPhotoManager.selectAllPhoto(taskNo);
         contactDataList = contactManager.selectAllContact(taskNo);
-        if (pictureList.size() == 0 || contactDataList.size() == 0) {
-            Toast toast = Toast.makeText(context, "请完善必填信息", Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.CENTER, 0, 0);
-            toast.show();
+        if (contactDataList.size() == 0) {
+            ToastUtil.showToast(context, "请填写联系人");
             return;
         }
-        QTInspectAccidentInfoDTO qtInspectAccidentInfoDTO = new QTInspectAccidentInfoDTO();
-        qtInspectAccidentInfoDTO.setTaskNo(taskNo);
-        qtInspectAccidentInfoDTO.setAddress(baseInfoData.getAddress());
-        qtInspectAccidentInfoDTO.setContactPerson("宋冉");
-        qtInspectAccidentInfoDTO.setContactTel("18612235095");
-        qtInspectAccidentInfoDTO.setRemark(baseInfoData.getRemark());
-        qtInspectAccidentInfoDTO.setAccidentDate(baseInfoData.getTime());
-        qtInspectAccidentInfoDTO.setUserCode("0131002498");
-        Gson gson = new Gson();
-        String data = gson.toJson(qtInspectAccidentInfoDTO);
-        ServerApiUtils.sendToServer(data, "002005", PublicString.URL_IFC, new Callback.CommonCallback<String>() {
+
+        if (baseInfoData.getDetailInfo().equals("")) {
+            ToastUtil.showToast(context, "请填写事故详细信息");
+            return;
+        }
+        if (pictureList.size() == 0 ) {
+            ToastUtil.showToast(context, "请选择照片");
+            return;
+        }
+        if (baseInfoData.getCompleteStatus().equals("")) {
+            ToastUtil.showToast(context, "请填写完成情况");
+            return;
+        }
+        AlertView mAlertView = new AlertView("提示", "提交后不能进行修改，是否提交？", "否", new String[]{"是"}, null, context, AlertView.Style.Alert, new com.bigkoo.alertview.OnItemClickListener() {
             @Override
-            public void onSuccess(String result) {
-                Log.i("result", result);
-                Gson responseGson = new Gson();
-                Response response = responseGson.fromJson(result, Response.class);
-                if (response != null && "1".equals(response.getResponseCode())) {
-                    String data = response.getData();
-                    Log.i("ResponseCode", response.getResponseCode());
-                    baseInfoData.setCommitFlag("1");
-                    baseInfoDataManager.insertSingleData(baseInfoData);
-                    commitCallBack.commitSuccess();
+            public void onItemClick(Object o, int position1) {
+                if (position1 == 0) {
+                    //提交信息
+                    QTInspectAccidentInfoDTO qtInspectAccidentInfoDTO = new QTInspectAccidentInfoDTO();
+                    qtInspectAccidentInfoDTO.setTaskNo(taskNo);
+                    qtInspectAccidentInfoDTO.setAddress(baseInfoData.getAddress());
+                    qtInspectAccidentInfoDTO.setContactPerson("宋冉");
+                    qtInspectAccidentInfoDTO.setContactTel("18612235095");
+                    qtInspectAccidentInfoDTO.setRemark(baseInfoData.getRemark());
+                    qtInspectAccidentInfoDTO.setAccidentDate(baseInfoData.getTime());
+                    qtInspectAccidentInfoDTO.setUserCode("0131002498");
+                    Gson gson = new Gson();
+                    String data = gson.toJson(qtInspectAccidentInfoDTO);
+                    ServerApiUtils.sendToServer(data, "002005", PublicString.URL_IFC, new Callback.CommonCallback<String>() {
+                        @Override
+                        public void onSuccess(String result) {
+                            Log.i("result", result);
+                            Gson responseGson = new Gson();
+                            Response response = responseGson.fromJson(result, Response.class);
+                            if (response != null && "1".equals(response.getResponseCode())) {
+                                String data = response.getData();
+                                Log.i("ResponseCode", response.getResponseCode());
+                                baseInfoData.setCommitFlag("1");
+                                baseInfoDataManager.insertSingleData(baseInfoData);
+                                setCommitFlag(taskNo);
+                                commitCallBack.commitSuccess();
+                            }
+                        }
+
+                        @Override
+                        public void onError(Throwable ex, boolean isOnCallback) {
+                            commitCallBack.commitFailed();
+                        }
+
+                        @Override
+                        public void onCancelled(CancelledException cex) {
+
+                        }
+
+                        @Override
+                        public void onFinished() {
+
+                        }
+                    });
                 }
             }
+        }).setCancelable(true).setOnDismissListener(null);
+        mAlertView.show();
 
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-                commitCallBack.commitFailed();
-            }
-
-            @Override
-            public void onCancelled(CancelledException cex) {
-
-            }
-
-            @Override
-            public void onFinished() {
-
-            }
-        });
     }
 
-    public static void commitMedical(final Context context, String taskNo, final CommitCallBack commitCallBack) {
+    public static void commitMedical(final Context context, final String taskNo, final CommitCallBack commitCallBack) {
         List<SelectedHospital> selectedHospitals = new ArrayList<>();
         List<NursingData> nursingDataList = new ArrayList<>();
         List<SelectedDiagnose> selectedDiagnoseList = new ArrayList<>();
@@ -356,6 +475,7 @@ public class  CommitUtil {
                     //标记已提交
                     medicalVisit.setCommitFlag("1");
                     medicalVisitManager.insertSingleData(medicalVisit);
+                    setCommitFlag(taskNo);
                     commitCallBack.commitSuccess();
                 }
             }
@@ -375,5 +495,13 @@ public class  CommitUtil {
 
             }
         });
+    }
+    public static void setCommitFlag(String taskNo){
+        TaskManager taskManager=DaoUtils.getTaskInstance();
+        TaskBeanData taskBeanData=taskManager.getData(taskNo);
+        if (taskBeanData!=null){
+            taskManager.updateCommitFlag(taskNo,"1");
+        }
+
     }
 }
