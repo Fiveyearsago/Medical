@@ -43,15 +43,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
-                android:text="北京"
+                android:text="北京市"
+                android:drawableRight="@mipmap/pull_down"
                 android:textColor="@drawable/title_text_color_selector"
                 android:textSize="@dimen/primary_text_size" />
 
-            <Button
-                android:id="@+id/page_head_second_right_image"
-                android:layout_width="7dp"
-                android:layout_height="5dp"
-                android:background="@mipmap/pull_down" />
+            <!--<Button-->
+                <!--android:id="@+id/page_head_second_right_image"-->
+                <!--android:layout_width="7dp"-->
+                <!--android:layout_height="5dp"-->
+                <!--android:background="@mipmap/pull_down" />-->
         </LinearLayout>
     </RelativeLayout>
 </merge>

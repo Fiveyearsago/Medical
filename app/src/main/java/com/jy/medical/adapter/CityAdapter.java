@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import com.jy.medical.R;
 import com.jy.medical.adapter.viewholder.CityViewHolder;
 import com.jy.medical.greendao.entities.CityData;
+import com.jy.medical.util.SPUtils;
 
 import java.util.List;
 
@@ -58,6 +59,9 @@ public class CityAdapter extends BaseHeadFootAdapter {
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                SPUtils.put(context,"cityName",list.get(position).getName());
+                SPUtils.put(context,"cityKey",list.get(position).getAid());
                 Intent intent=new Intent();
                 intent.putExtra("cityName",list.get(position).getName());
                 ((AppCompatActivity)context).setResult(Activity.RESULT_OK,intent);

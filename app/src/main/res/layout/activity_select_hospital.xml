@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:cube_ptr="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_select_hospital"
     android:layout_width="match_parent"
@@ -8,10 +9,12 @@
     android:orientation="vertical"
     tools:context="com.jy.medical.activities.SelectHospitalActivity">
 
-    <include layout="@layout/page_head_second" />
+    <!--<include layout="@layout/page_head_second" />-->
+    <include layout="@layout/page_head_location_search" />
 
     <TextView
         android:id="@+id/text_search"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="29dp"
         android:gravity="center_vertical"
@@ -19,14 +22,13 @@
         android:paddingLeft="6dp"
         android:layout_marginLeft="@dimen/primary_margin"
         android:layout_marginRight="@dimen/primary_margin"
-
         android:background="@drawable/bg_hospital_search"
         android:drawableLeft="@mipmap/search_hospital"
         android:drawablePadding="5dp"
         android:text="搜索医院"
         android:textColor="@color/hintColor" />
+
     <com.chanven.lib.cptr.PtrClassicFrameLayout
-        xmlns:cube_ptr="http://schemas.android.com/apk/res-auto"
         android:id="@+id/hospital_recyclerView_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

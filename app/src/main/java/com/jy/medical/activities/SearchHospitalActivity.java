@@ -56,6 +56,7 @@ public class SearchHospitalActivity extends BaseActivity implements TextView.OnE
     Handler handler = new Handler();
     private int page = 0;
     private String taskNo;
+
     @Override
     public void initData() {
 
@@ -115,8 +116,9 @@ public class SearchHospitalActivity extends BaseActivity implements TextView.OnE
                         //刷新数据源
                         //hospitalDatas.clear();
                         mAdapter.notifyDataSetChanged();
-                        ptrClassicFrameLayout.refreshComplete();
+//                        ptrClassicFrameLayout.refreshComplete();
                         ptrClassicFrameLayout.setLoadMoreEnable(true);
+                        ptrClassicFrameLayout.setPullToRefresh(false);
                     }
                 }, 1500);
             }

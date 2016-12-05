@@ -12,6 +12,7 @@ import android.text.Spanned;
 import android.text.style.TextAppearanceSpan;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
@@ -33,6 +34,7 @@ import com.jy.medical.fragment.FollowDetailFragment;
 import com.jy.medical.fragment.FollowRecordFragment;
 import com.jy.medical.fragment.HandleFragment;
 import com.jy.medical.fragment.MedicalVisitFragment;
+import com.jy.medical.fragment.SupporterFragment;
 import com.jy.medical.greendao.entities.BaseInfoData;
 import com.jy.medical.greendao.entities.ContactData;
 import com.jy.medical.greendao.entities.DeathData;
@@ -130,6 +132,7 @@ public class FollowDetailActivity extends BaseActivity implements OnItemClickLis
         DeathFragment deathFragment = DeathFragment.newInstance(this);
         BaseInfoFragment baseInfoFragment = BaseInfoFragment.newInstance(this);
         HandleFragment handleFragment = HandleFragment.newInstance(this);
+        SupporterFragment supporterFragment = SupporterFragment.newInstance(this);
         switch (taskType) {
             case "01":
                 //医疗探视
@@ -149,14 +152,32 @@ public class FollowDetailActivity extends BaseActivity implements OnItemClickLis
                 EarningData earningData = earningDataManager.getData(platformData.getTaskNo());
                 commitFlag = (earningData == null) ? "" : earningData.getCommitFlag();
                 break;
-            case "06":
+            case "05":
                 //收入情况
+                followDetailFragment.setArguments(bundle);
+                supporterFragment.setArguments(bundle);
+                fragmentList.add(supporterFragment);
+                fragmentList.add(followDetailFragment);
+                EarningData earningData1 = earningDataManager.getData(platformData.getTaskNo());
+                commitFlag = (earningData1 == null) ? "" : earningData1.getCommitFlag();
+                break;
+            case "06":
+                //抚养人情况
                 followDetailFragment.setArguments(bundle);
                 deathFragment.setArguments(bundle);
                 fragmentList.add(deathFragment);
                 fragmentList.add(followDetailFragment);
                 DeathData deathData = deathDataManager.getData(platformData.getTaskNo());
                 commitFlag = (deathData == null) ? "" : deathData.getCommitFlag();
+                break;
+            case "08":
+                //抚养人情况
+                followDetailFragment.setArguments(bundle);
+                deathFragment.setArguments(bundle);
+                fragmentList.add(deathFragment);
+                fragmentList.add(followDetailFragment);
+                DeathData deathData1 = deathDataManager.getData(platformData.getTaskNo());
+                commitFlag = (deathData1 == null) ? "" : deathData1.getCommitFlag();
                 break;
             case "09":
                 //事故基本情况
@@ -374,4 +395,14 @@ public class FollowDetailActivity extends BaseActivity implements OnItemClickLis
             }
         }
     }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            setResult(RESULT_OK);
+            finish();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
 }

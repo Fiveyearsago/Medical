@@ -180,7 +180,6 @@ public class PlatformActivity extends BaseActivity {
         switch (v.getId()) {
             case R.id.radio_btn_mine:
                 overridePendingTransition(0, 0);
-                this.finish();
                 startActivity(MineActivity.class);
                 break;
             case R.id.radio_btn_tool:
@@ -242,9 +241,10 @@ public class PlatformActivity extends BaseActivity {
             switch (requestCode){
                 case 0x11:
                     list = claimManager.selectAllData();
-                    adapter=new PlatformAdapter(PlatformActivity.this,list);
+                    adapter.setData(list);
+//                    adapter=new PlatformAdapter(PlatformActivity.this,list);
                     adapter.notifyDataSetChanged();
-                    platformRecycler.setAdapter(adapter);
+//                    platformRecycler.setAdapter(adapter);
                     break;
                 default:
                     break;

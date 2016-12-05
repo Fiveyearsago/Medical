@@ -1,13 +1,17 @@
 package com.jy.medical.activities;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
+import com.jy.medical.MedicalApplication;
 import com.jy.medical.R;
 import com.jy.medical.adapter.ToolAdapter;
 import com.jy.medical.greendao.entities.ToolData;
@@ -20,6 +24,7 @@ public class ToolActivity extends BaseActivity {
     private RecyclerView toolRecycler;
     private List<ToolData>list;
     private ToolAdapter adapter;
+    private boolean mIsExit;
 
     @Override
     public void initData() {
@@ -38,6 +43,7 @@ public class ToolActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        MedicalApplication.getInstance().addActivity(this);
         setStatusBarTint();
         setTitleState(findViewById(R.id.title_head), false, "工具", false, "");
         View navView = findViewById(R.id.navView);
@@ -102,5 +108,24 @@ public class ToolActivity extends BaseActivity {
         radioTool.setChecked(true);
         radioMine.setChecked(false);
         radioPlatform.setChecked(false);
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (mIsExit) {
+                exit();
+            } else {
+                Toast.makeText(this, "再按一次退出", Toast.LENGTH_SHORT).show();
+                mIsExit = true;
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mIsExit = false;
+                    }
+                }, 2000);
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

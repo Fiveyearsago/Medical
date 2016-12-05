@@ -75,7 +75,7 @@
                 android:layout_marginTop="10dp"
                 android:background="@color/lineColor" />
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="44dp"
                 android:gravity="center_vertical">
@@ -83,18 +83,17 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
                     android:text="事故时间"
                     android:textColor="@color/navigateColor"
                     android:textSize="@dimen/primary_text_size" />
 
                 <TextView
                     android:id="@+id/follow_edit_accident_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical|right"
                     android:layout_marginRight="5dp"
-                    android:layout_toLeftOf="@+id/accident_time_image"
                     android:hint="必选"
                     android:text=""
                     android:textColor="@color/black"
@@ -105,11 +104,9 @@
                     android:id="@+id/accident_time_image"
                     android:layout_width="10dp"
                     android:layout_height="16dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
                     android:background="@mipmap/more"
                     android:scaleType="fitXY" />
-            </RelativeLayout>
+            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
@@ -250,7 +247,7 @@
                 android:layout_marginTop="10dp"
                 android:background="@color/lineColor" />
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="44dp"
                 android:gravity="center_vertical">
@@ -258,18 +255,17 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
                     android:text="完成情况"
                     android:textColor="@color/navigateColor"
                     android:textSize="@dimen/primary_text_size" />
 
                 <TextView
                     android:id="@+id/complete_status"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
                     android:layout_marginRight="5dp"
-                    android:layout_toLeftOf="@+id/complete_status_image"
+                    android:gravity="center_vertical|right"
                     android:text="必选"
                     android:textColor="@color/hintColor"
                     android:textSize="@dimen/primary_text_size" />
@@ -278,11 +274,9 @@
                     android:id="@+id/complete_status_image"
                     android:layout_width="10dp"
                     android:layout_height="16dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
                     android:background="@mipmap/more"
                     android:scaleType="fitXY" />
-            </RelativeLayout>
+            </LinearLayout>
         </LinearLayout>
 
     </ScrollView>
@@ -306,7 +300,7 @@
             android:paddingRight="@dimen/primary_margin">
 
             <Button
-                android:id="@+id/follow_edit_commit"
+                android:id="@+id/btn_commit"
                 android:layout_width="0dp"
                 android:layout_height="39dp"
                 android:layout_weight="1"
@@ -316,7 +310,7 @@
                 android:textSize="@dimen/primary_text_size" />
 
             <Button
-                android:id="@+id/follow_edit_save"
+                android:id="@+id/btn_save"
                 android:layout_width="0dp"
                 android:layout_height="39dp"
                 android:layout_marginLeft="@dimen/primary_text_size"

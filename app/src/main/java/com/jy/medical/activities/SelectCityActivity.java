@@ -1,5 +1,6 @@
 package com.jy.medical.activities;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import com.baidu.location.BDLocation;
 import com.jy.medical.R;
 import com.jy.medical.adapter.SortAdapter;
 import com.jy.medical.util.GetLocation;
+import com.jy.medical.util.SPUtils;
 import com.jy.medical.widget.selectcityview.CharacterParser;
 import com.jy.medical.widget.selectcityview.CitySortModel;
 import com.jy.medical.widget.selectcityview.PinyinComparator;
@@ -29,11 +31,11 @@ public class SelectCityActivity extends BaseActivity implements GetLocation.Loca
     private SortAdapter adapter;
     private CharacterParser characterParser;
     private List<CitySortModel> SourceDateList;
-    private TextView tv_catagory,tv_city_name;
+    private TextView tv_catagory, tv_city_name;
 
     @Override
     public void initData() {
-        GetLocation.getLoc(this,this);
+        GetLocation.getLoc(this, this);
     }
 
     @Override
@@ -45,6 +47,7 @@ public class SelectCityActivity extends BaseActivity implements GetLocation.Loca
     public void initParms(Bundle parms) {
 
     }
+
     @Override
     public void widgetClick(View v) {
         switch (v.getId()) {
@@ -55,6 +58,7 @@ public class SelectCityActivity extends BaseActivity implements GetLocation.Loca
                 break;
         }
     }
+
     @Override
     public void initView() {
         setStatusBarTint();
@@ -87,9 +91,17 @@ public class SelectCityActivity extends BaseActivity implements GetLocation.Loca
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                Toast.makeText(getApplication(),
-                        ((CitySortModel) adapter.getItem(position - 1)).getName(),
-                        Toast.LENGTH_SHORT).show();
+                if (position >= 1) {
+                    String province = ((CitySortModel) adapter.getItem(position - 1)).getName();
+//                    Toast.makeText(getApplication(),
+//                            province,
+//                            Toast.LENGTH_SHORT).show();
+//                    SPUtils.put(SelectCityActivity.this,"province",province);
+                    Intent intent = new Intent();
+                    intent.putExtra("province", province);
+                    setResult(RESULT_OK, intent);
+                    SelectCityActivity.this.finish();
+                }
             }
         });
 
@@ -99,12 +111,13 @@ public class SelectCityActivity extends BaseActivity implements GetLocation.Loca
         sortListView.addHeaderView(initHeadView());
         sortListView.setAdapter(adapter);
     }
+
     private View initHeadView() {
         View headView = getLayoutInflater().inflate(R.layout.item_city_head, null);
-         tv_catagory = (TextView) headView.findViewById(R.id.tv_catagory);
-         tv_city_name = (TextView) headView.findViewById(R.id.tv_city_name);
+        tv_catagory = (TextView) headView.findViewById(R.id.tv_catagory);
+        tv_city_name = (TextView) headView.findViewById(R.id.tv_city_name);
         tv_catagory.setText("当前位置");
-        tv_city_name.setText("北京");
+        tv_city_name.setText("北京市");
 //        Drawable drawable= getResources().getDrawable(R.mipmap.city_sure);
 //        drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
 //        tv_city_name.setCompoundDrawablesWithIntrinsicBounds(null, null,drawable , null);
@@ -146,6 +159,7 @@ public class SelectCityActivity extends BaseActivity implements GetLocation.Loca
 
     /**
      * 定位回调
+     *
      * @param address
      * @param province
      * @param city

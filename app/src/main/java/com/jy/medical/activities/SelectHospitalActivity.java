@@ -14,6 +14,8 @@ import android.widget.Toast;
 import com.chanven.lib.cptr.PtrClassicFrameLayout;
 import com.chanven.lib.cptr.PtrDefaultHandler;
 import com.chanven.lib.cptr.PtrFrameLayout;
+import com.chanven.lib.cptr.PtrHandler;
+import com.chanven.lib.cptr.PtrNoRefreshHandler;
 import com.chanven.lib.cptr.loadmore.OnLoadMoreListener;
 import com.chanven.lib.cptr.recyclerview.RecyclerAdapterWithHF;
 import com.google.gson.Gson;
@@ -26,6 +28,7 @@ import com.jy.medical.greendao.manager.HospitalDataManager;
 import com.jy.medical.greendao.util.DaoUtils;
 import com.jy.medical.util.JsonUtil;
 import com.jy.medical.util.PublicString;
+import com.jy.medical.util.SPUtils;
 import com.jy.medical.util.ServerApiUtils;
 import com.jy.mobile.dto.DictKEYValueDTO;
 import com.jy.mobile.dto.HosptialDTO;
@@ -38,7 +41,7 @@ import org.xutils.common.Callback;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SelectHospitalActivity extends BaseActivity {
+public class SelectHospitalActivity extends BaseActivity implements  PtrHandler{
     private PtrClassicFrameLayout ptrClassicFrameLayout;
     private RecyclerView mRecyclerView;
     private List<HospitalData>hospitalDatas;
@@ -68,8 +71,9 @@ public class SelectHospitalActivity extends BaseActivity {
         getHospitalData();
         setStatusBarTint();
         MedicalApplication.getInstance().addActivity(this);
-        setNavState(findViewById(R.id.title_head_second), "选择医院");
+        setLocationSearchState(findViewById(R.id.title_head));
         cityText= (TextView) findViewById(R.id.page_head_button);
+        cityText.setText(SPUtils.get(this,"cityName","北京市").toString());
         findViewById(R.id.text_search).setOnClickListener(this);
         ptrClassicFrameLayout= (PtrClassicFrameLayout) findViewById(R.id.hospital_recyclerView_frame);
         mRecyclerView= (RecyclerView) findViewById(R.id.hospital_recyclerView);
@@ -92,7 +96,8 @@ public class SelectHospitalActivity extends BaseActivity {
 //                ptrClassicFrameLayout.autoRefresh(true);
 //            }
 //        }, 150);
-        ptrClassicFrameLayout.setPtrHandler(new PtrDefaultHandler() {
+
+        ptrClassicFrameLayout.setPtrHandler(new PtrNoRefreshHandler() {
 
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
@@ -103,7 +108,7 @@ public class SelectHospitalActivity extends BaseActivity {
                         //刷新数据源
                         //hospitalDatas.clear();
                         mAdapter.notifyDataSetChanged();
-                        ptrClassicFrameLayout.refreshComplete();
+//                        ptrClassicFrameLayout.refreshComplete();
                         ptrClassicFrameLayout.setLoadMoreEnable(true);
                     }
                 }, 1500);
@@ -122,7 +127,7 @@ public class SelectHospitalActivity extends BaseActivity {
                         mAdapter.notifyDataSetChanged();
                         ptrClassicFrameLayout.loadMoreComplete(true);
                         page++;
-                        Toast.makeText(SelectHospitalActivity.this, "load more complete", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SelectHospitalActivity.this, "已加载完成", Toast.LENGTH_SHORT).show();
                     }
                 }, 1000);
             }
@@ -133,15 +138,17 @@ public class SelectHospitalActivity extends BaseActivity {
     @Override
     public void widgetClick(View v) {
         switch (v.getId()) {
-            case R.id.page_head_second_image:
+            case R.id.page_head_image:
                 finish();
                 break;
-            case R.id.nav_layout:
+            case R.id.page_head_button:
                 Intent intent=new Intent(this,SelectAreaActivity.class);
                 startActivityForResult(intent,0x11);
                 break;
-            case R.id.text_search:
-                startActivity(SearchHospitalActivity.class);
+            case R.id.page_head_text:
+                Bundle bundle=new Bundle();
+                bundle.putString("taskNo",taskNo);
+                startActivity(SearchHospitalActivity.class,bundle);
                 break;
             default:
                 break;
@@ -200,5 +207,15 @@ public class SelectHospitalActivity extends BaseActivity {
                     break;
             }
         }
+    }
+
+    @Override
+    public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
+        return false;
+    }
+
+    @Override
+    public void onRefreshBegin(PtrFrameLayout frame) {
+
     }
 }

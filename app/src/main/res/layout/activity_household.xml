@@ -16,18 +16,60 @@
     </LinearLayout>
 
 
+    <RelativeLayout
+        android:id="@+id/bottom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:paddingLeft="@dimen/primary_margin"
+            android:paddingRight="@dimen/primary_margin">
+
+            <Button
+                android:id="@+id/follow_edit_commit"
+                android:layout_width="0dp"
+                android:layout_height="39dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_green_selector"
+                android:text="提交"
+                android:textColor="@drawable/btn_press_selector"
+                android:textSize="@dimen/primary_text_size" />
+
+            <Button
+                android:id="@+id/follow_edit_save"
+                android:layout_width="0dp"
+                android:layout_height="39dp"
+                android:layout_marginLeft="@dimen/primary_text_size"
+                android:layout_toRightOf="@+id/follow_edit_commit"
+                android:layout_weight="1"
+                android:background="@drawable/btn_blue_selector"
+                android:text="保存"
+                android:textColor="@drawable/btn_press_selector"
+                android:textSize="@dimen/primary_text_size" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/bottom_layout"
         android:layout_below="@+id/head_layout"
-        android:layout_marginBottom="10dp">
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
 
 
             <LinearLayout
@@ -39,7 +81,7 @@
                 android:paddingLeft="@dimen/primary_text_size"
                 android:paddingRight="@dimen/primary_text_size">
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="44dp"
                     android:gravity="center_vertical">
@@ -53,26 +95,24 @@
                         android:textSize="@dimen/primary_text_size" />
 
                     <TextView
-                        android:id="@+id/household"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
+                        android:id="@+id/household_city"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
                         android:layout_marginRight="5dp"
-                        android:layout_toLeftOf="@+id/household_image"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical|right"
                         android:text="必选"
                         android:textColor="@color/hintColor"
                         android:textSize="@dimen/primary_text_size" />
 
                     <ImageView
-                        android:id="@+id/household_image"
                         android:layout_width="10dp"
                         android:layout_height="16dp"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:background="@mipmap/more"
                         android:scaleType="fitXY" />
-                </RelativeLayout>
-
+                </LinearLayout>
 
 
                 <View
@@ -81,7 +121,7 @@
                     android:background="@color/lineColor" />
 
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="44dp"
                     android:gravity="center_vertical">
@@ -96,11 +136,11 @@
 
                     <TextView
                         android:id="@+id/household_type"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
                         android:layout_marginRight="5dp"
-                        android:layout_toLeftOf="@+id/household_type_image"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical|right"
                         android:hint="必选"
                         android:text=""
                         android:textColor="@color/black"
@@ -108,21 +148,20 @@
                         android:textSize="@dimen/primary_text_size" />
 
                     <ImageView
-                        android:id="@+id/household_type_image"
                         android:layout_width="10dp"
                         android:layout_height="16dp"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:background="@mipmap/more"
                         android:scaleType="fitXY" />
-                </RelativeLayout>
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/lineColor" />
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="44dp"
                     android:gravity="center_vertical">
@@ -136,12 +175,12 @@
                         android:textSize="@dimen/primary_text_size" />
 
                     <TextView
-                        android:id="@+id/agreement"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
+                        android:id="@+id/father_live"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
                         android:layout_marginRight="5dp"
-                        android:layout_toLeftOf="@+id/father_image"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical|right"
                         android:hint="必选"
                         android:text=""
                         android:textColor="@color/black"
@@ -149,21 +188,20 @@
                         android:textSize="@dimen/primary_text_size" />
 
                     <ImageView
-                        android:id="@+id/father_image"
                         android:layout_width="10dp"
                         android:layout_height="16dp"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:background="@mipmap/more"
                         android:scaleType="fitXY" />
-                </RelativeLayout>
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/lineColor" />
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="44dp"
                     android:gravity="center_vertical">
@@ -177,12 +215,12 @@
                         android:textSize="@dimen/primary_text_size" />
 
                     <TextView
-                        android:id="@+id/mother"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
+                        android:id="@+id/mother_live"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
                         android:layout_marginRight="5dp"
-                        android:layout_toLeftOf="@+id/mother_image"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical|right"
                         android:hint="必选"
                         android:text=""
                         android:textColor="@color/black"
@@ -190,22 +228,22 @@
                         android:textSize="@dimen/primary_text_size" />
 
                     <ImageView
-                        android:id="@+id/mother_image"
                         android:layout_width="10dp"
                         android:layout_height="16dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
                         android:background="@mipmap/more"
                         android:scaleType="fitXY" />
-                </RelativeLayout>
+                </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/lineColor" />
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="44dp">
+                    android:layout_height="44dp"
+                    android:gravity="center_vertical"
+                   >
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -217,28 +255,29 @@
 
 
                     <com.jy.medical.widget.CleanableEditText
-                        android:id="@+id/children"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
+                        android:id="@+id/children_num"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical|right"
                         android:background="@null"
                         android:drawablePadding="10dp"
                         android:drawableRight="@mipmap/clear"
-                        android:gravity="right"
                         android:hint="必填"
                         android:textColor="@color/black"
                         android:textColorHint="@color/hintColor"
                         android:textSize="@dimen/primary_text_size" />
-                </RelativeLayout>
+                </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/lineColor" />
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="44dp">
+                    android:layout_height="44dp"
+                    android:gravity="center_vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -251,25 +290,25 @@
 
                     <com.jy.medical.widget.CleanableEditText
                         android:id="@+id/brothers"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical|right"
                         android:background="@null"
                         android:drawablePadding="10dp"
                         android:drawableRight="@mipmap/clear"
-                        android:gravity="right"
                         android:hint="必填"
                         android:textColor="@color/black"
                         android:textColorHint="@color/hintColor"
                         android:textSize="@dimen/primary_text_size" />
-                </RelativeLayout>
+                </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/lineColor" />
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="44dp"
                     android:gravity="center_vertical">
@@ -277,18 +316,17 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
                         android:text="户籍地居住"
                         android:textColor="@color/navigateColor"
                         android:textSize="@dimen/primary_text_size" />
 
                     <TextView
                         android:id="@+id/household_live"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical|right"
                         android:layout_marginRight="5dp"
-                        android:layout_toLeftOf="@+id/household_live_image"
                         android:hint="必选"
                         android:text=""
                         android:textColor="@color/black"
@@ -296,14 +334,11 @@
                         android:textSize="@dimen/primary_text_size" />
 
                     <ImageView
-                        android:id="@+id/household_live_image"
                         android:layout_width="10dp"
                         android:layout_height="16dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
                         android:background="@mipmap/more"
                         android:scaleType="fitXY" />
-                </RelativeLayout>
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
@@ -319,6 +354,7 @@
                 android:orientation="vertical"
                 android:paddingLeft="@dimen/primary_text_size"
                 android:paddingRight="@dimen/primary_text_size">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="44dp"
@@ -362,7 +398,8 @@
                     android:layout_height="1dp"
                     android:layout_marginTop="10dp"
                     android:background="@color/lineColor" />
-                <RelativeLayout
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="44dp"
                     android:gravity="center_vertical">
@@ -370,18 +407,17 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
                         android:text="居住开始时间"
                         android:textColor="@color/navigateColor"
                         android:textSize="@dimen/primary_text_size" />
 
                     <TextView
                         android:id="@+id/start_time"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical|right"
                         android:layout_marginRight="5dp"
-                        android:layout_toLeftOf="@+id/start_time_image"
                         android:hint="必选"
                         android:text=""
                         android:textColor="@color/black"
@@ -392,18 +428,16 @@
                         android:id="@+id/start_time_image"
                         android:layout_width="10dp"
                         android:layout_height="16dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
                         android:background="@mipmap/more"
                         android:scaleType="fitXY" />
-                </RelativeLayout>
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/lineColor" />
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="44dp"
                     android:gravity="center_vertical">
@@ -418,11 +452,12 @@
 
                     <TextView
                         android:id="@+id/end_time"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical|right"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="5dp"
-                        android:layout_toLeftOf="@+id/end_time_image"
                         android:hint="必选"
                         android:text=""
                         android:textColor="@color/black"
@@ -430,28 +465,24 @@
                         android:textSize="@dimen/primary_text_size" />
 
                     <ImageView
-                        android:id="@+id/end_time_image"
                         android:layout_width="10dp"
                         android:layout_height="16dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
                         android:background="@mipmap/more"
                         android:scaleType="fitXY" />
-                </RelativeLayout>
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/lineColor" />
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="44dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
                         android:text="连续居住年限"
                         android:textColor="@color/navigateColor"
                         android:textSize="@dimen/primary_text_size" />
@@ -459,23 +490,24 @@
 
                     <com.jy.medical.widget.CleanableEditText
                         android:id="@+id/live_years"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical|right"
                         android:background="@null"
                         android:drawablePadding="10dp"
                         android:drawableRight="@mipmap/clear"
-                        android:gravity="right"
                         android:hint="必填"
                         android:textColor="@color/black"
                         android:textColorHint="@color/hintColor"
                         android:textSize="@dimen/primary_text_size" />
-                </RelativeLayout>
+                </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/lineColor" />
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="44dp">
@@ -510,6 +542,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/lineColor" />
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="44dp"
@@ -575,7 +608,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@color/lineColor" />
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="44dp"
                     android:gravity="center_vertical">
@@ -583,76 +616,29 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
                         android:text="完成情况"
                         android:textColor="@color/navigateColor"
                         android:textSize="@dimen/primary_text_size" />
 
                     <TextView
                         android:id="@+id/complete_status"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical|right"
                         android:layout_marginRight="5dp"
-                        android:layout_toLeftOf="@+id/complete_status_image"
                         android:text="必选"
                         android:textColor="@color/hintColor"
                         android:textSize="@dimen/primary_text_size" />
 
                     <ImageView
-                        android:id="@+id/complete_status_image"
                         android:layout_width="10dp"
                         android:layout_height="16dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
                         android:background="@mipmap/more"
                         android:scaleType="fitXY" />
-                </RelativeLayout>
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
 
     </ScrollView>
-
-    <RelativeLayout
-        android:id="@+id/bottom_layout"
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:background="@color/white"
-        android:gravity="center_vertical"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:paddingLeft="@dimen/primary_margin"
-            android:paddingRight="@dimen/primary_margin">
-
-            <Button
-                android:id="@+id/follow_edit_commit"
-                android:layout_width="0dp"
-                android:layout_height="39dp"
-                android:layout_weight="1"
-                android:background="@drawable/btn_green_selector"
-                android:text="提交"
-                android:textColor="@drawable/btn_press_selector"
-                android:textSize="@dimen/primary_text_size" />
-
-            <Button
-                android:id="@+id/follow_edit_save"
-                android:layout_width="0dp"
-                android:layout_height="39dp"
-                android:layout_marginLeft="@dimen/primary_text_size"
-                android:layout_toRightOf="@+id/follow_edit_commit"
-                android:layout_weight="1"
-                android:background="@drawable/btn_blue_selector"
-                android:text="保存"
-                android:textColor="@drawable/btn_press_selector"
-                android:textSize="@dimen/primary_text_size" />
-        </LinearLayout>
-
-    </RelativeLayout>
 </RelativeLayout>

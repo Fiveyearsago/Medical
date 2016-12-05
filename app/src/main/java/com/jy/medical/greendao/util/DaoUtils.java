@@ -20,6 +20,7 @@ import com.jy.medical.greendao.manager.EarningDataManager;
 import com.jy.medical.greendao.manager.HandleDataManager;
 import com.jy.medical.greendao.manager.HospitalDataManager;
 import com.jy.medical.greendao.manager.HumanPartsManager;
+import com.jy.medical.greendao.manager.MaimDataManager;
 import com.jy.medical.greendao.manager.MedicalDepartmentManager;
 import com.jy.medical.greendao.manager.MedicalVisitManager;
 import com.jy.medical.greendao.manager.NursingDataManager;
@@ -27,6 +28,7 @@ import com.jy.medical.greendao.manager.SearchDataManager;
 import com.jy.medical.greendao.manager.SelectedDepartmentManager;
 import com.jy.medical.greendao.manager.SelectedDiagnoseManager;
 import com.jy.medical.greendao.manager.SelectedHospitalManager;
+import com.jy.medical.greendao.manager.SupporterDataManager;
 import com.jy.medical.greendao.manager.TaskManager;
 import com.jy.medical.greendao.manager.TaskPhotoManager;
 
@@ -55,6 +57,8 @@ public class DaoUtils {
     private static DelayDataManager delayDataManager;
     private static HandleDataManager handleDataManager;
     private static DeathDataManager deathDataManager;
+    private static SupporterDataManager supporterDataManager;
+    private static MaimDataManager maimDataManager;
     public static Context context;
 
     public static void init(Context context) {
@@ -65,6 +69,18 @@ public class DaoUtils {
     /**
      * 单列模式获取Manager对象
      */
+    public static MaimDataManager getMaimDataInstance() {
+        if (maimDataManager == null) {
+            maimDataManager = new MaimDataManager(context);
+        }
+        return maimDataManager;
+    }public static SupporterDataManager getSupporterDataInstance() {
+        if (supporterDataManager == null) {
+            supporterDataManager = new SupporterDataManager(context);
+        }
+        return supporterDataManager;
+    }
+
     public static DeathDataManager getDeathDataInstance() {
         if (deathDataManager == null) {
             deathDataManager = new DeathDataManager(context);

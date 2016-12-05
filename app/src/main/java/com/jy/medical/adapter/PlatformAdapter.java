@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.jy.medical.R;
+import com.jy.medical.activities.DetailActivity;
 import com.jy.medical.activities.EarningActivity;
 import com.jy.medical.activities.FollowDetailActivity;
 import com.jy.medical.adapter.viewholder.PlatformViewHolder;
@@ -32,6 +33,9 @@ public class PlatformAdapter extends BaseHeadFootAdapter {
         this.list = list;
     }
 
+    public void setData(List<PlatformData> list){
+        this.list = list;
+    }
 
     @Override
     protected void onBindHeaderView(View headerView) {
@@ -61,7 +65,8 @@ public class PlatformAdapter extends BaseHeadFootAdapter {
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, FollowDetailActivity.class);
+//                Intent intent = new Intent(context, FollowDetailActivity.class);
+                Intent intent = new Intent(context, DetailActivity.class);
                 intent.putExtra("info", platformData);
                 ((AppCompatActivity)context).startActivityForResult(intent,0x11);
 
@@ -121,7 +126,7 @@ public class PlatformAdapter extends BaseHeadFootAdapter {
                 viewHolder.taskType.setText("医");
                 break;
             case "08":
-                viewHolder.taskType.setText("伤");
+                viewHolder.taskType.setText("残");
                 break;
             case "09":
                 viewHolder.taskType.setText("基");

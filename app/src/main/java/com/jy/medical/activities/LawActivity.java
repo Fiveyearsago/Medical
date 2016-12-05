@@ -1,9 +1,11 @@
 package com.jy.medical.activities;
 
+import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import com.flyco.tablayout.SlidingTabLayout;
 import com.flyco.tablayout.listener.OnTabSelectListener;
@@ -14,6 +16,7 @@ public class LawActivity extends BaseActivity {
     private SlidingTabLayout slidingTabLayout;
     private ViewPager viewPager;
     private LawFragmentPagerAdapter adapter;
+    private TextView cityTV;
 
 
     @Override
@@ -35,6 +38,7 @@ public class LawActivity extends BaseActivity {
     public void initView() {
         setStatusBarTint();
         setNavState(findViewById(R.id.title_head_second),"法律法规");
+        cityTV= (TextView) findViewById(R.id.page_head_button);
         slidingTabLayout= (SlidingTabLayout) findViewById(R.id.tabLayout_law);
         viewPager= (ViewPager) findViewById(R.id.viewPager_law);
         adapter = new LawFragmentPagerAdapter(getSupportFragmentManager(),
@@ -78,10 +82,23 @@ public class LawActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.nav_layout:
-                startActivity(SelectCityActivity.class);
+                Intent intent=new Intent(this,SelectCityActivity.class);
+                startActivityForResult(intent,0x10);
                 break;
             default:
                 break;
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode==RESULT_OK){
+            switch (requestCode){
+                case 0x10:
+                    cityTV.setText(data.getStringExtra("province"));
+                    break;
+            }
+        }
+
     }
 }

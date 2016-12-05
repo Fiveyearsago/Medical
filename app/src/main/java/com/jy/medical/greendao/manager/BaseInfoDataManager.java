@@ -58,13 +58,8 @@ public class BaseInfoDataManager extends BaseDao<BaseInfoData> {
             baseInfoDataDao.insert(baseInfoData);
         }else {
             BaseInfoData baseInfoData1=getData(baseInfoData.getTaskNo());
-            baseInfoData1.setAddress(baseInfoData.getAddress());
-            baseInfoData1.setTime(baseInfoData.getTime());
-            baseInfoData1.setDetailInfo(baseInfoData.getDetailInfo());
-            baseInfoData1.setCompleteStatus(baseInfoData.getCompleteStatus());
-            baseInfoData1.setRemark(baseInfoData.getRemark());
-            baseInfoData1.setCommitFlag(baseInfoData.getCommitFlag());
-            baseInfoDataDao.update(baseInfoData1);
+            baseInfoData.setId(baseInfoData1.getId());
+            baseInfoDataDao.update(baseInfoData);
         }
     }
     public long getID(BaseInfoData baseInfoData) {

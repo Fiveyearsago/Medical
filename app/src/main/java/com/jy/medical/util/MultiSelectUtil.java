@@ -46,6 +46,7 @@ public class MultiSelectUtil {
         PickerContants.YEAR_COUNT = 70;
         TimePickerDialog mDialogYearMonthDay = new TimePickerDialog.Builder()
                 .setType(Type.YEAR_MONTH_DAY)
+//                .setType(Type.ALL)
                 .setCancelStringId("取消")
                 .setSureStringId("确定")
                 .setTitleStringId(title)

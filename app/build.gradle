@@ -40,10 +40,11 @@ android {
         }
     }
     greendao {
-        schemaVersion 6
+        schemaVersion 9
         daoPackage 'com.jy.medical.greendao.gen'
         targetGenDir 'src/main/java'
     }
+
 
 }
 repositories {
@@ -81,5 +82,5 @@ dependencies {
     compile project(':cptr')
     compile 'com.yanzhenjie:recyclerview-swipe:1.0.2'
     compile 'com.github.PhilJay:MPAndroidChart:v3.0.1'
-//    compile 'org.quanqi:mpandroidchart:3.0.1'
+    //    compile 'org.quanqi:mpandroidchart:3.0.1'
 }

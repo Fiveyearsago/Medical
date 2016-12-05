@@ -76,7 +76,6 @@ public class FollowEditActivity extends BaseActivity {
     private List<TaskPhoto> pictureList;
     private List<Bitmap> list;
     private TextView textAccidentTime;
-    private TimePickerDialog mDialogYearMonthDay;
     private RecyclerView contactRecycler;
     private List<ContactData> contactDataList;
     private ContactEditAdapter adapter;
@@ -93,7 +92,6 @@ public class FollowEditActivity extends BaseActivity {
     private Button btnSave;
     private BaseInfoDataManager baseInfoDataManager = DaoUtils.getBaseInfoDataInstance();
     private Context context;
-//    private BaseInfoData baseInfoData;
 
     @Override
     public void initData() {
@@ -119,13 +117,12 @@ public class FollowEditActivity extends BaseActivity {
         addressEdit = (ClearEditText) findViewById(R.id.address_edit);
         detailInfoEdit = (ClearEditText) findViewById(R.id.detail_info_edit);
         remarkEdit = (ClearEditText) findViewById(R.id.remark_edit);
-        btnCommit = (Button) findViewById(R.id.follow_edit_commit);
-        btnSave = (Button) findViewById(R.id.follow_edit_save);
+        btnCommit = (Button) findViewById(R.id.btn_commit);
+        btnSave = (Button) findViewById(R.id.btn_save);
         btnCommit.setOnClickListener(this);
         btnSave.setOnClickListener(this);
         completeStatus.setOnClickListener(this);
         findViewById(R.id.follow_edit_location).setOnClickListener(this);
-        findViewById(R.id.follow_edit_commit).setOnClickListener(this);
         findViewById(R.id.add_contact).setOnClickListener(this);
         textAccidentTime = (TextView) findViewById(R.id.follow_edit_accident_time);
         textAccidentTime.setOnClickListener(this);
@@ -137,8 +134,6 @@ public class FollowEditActivity extends BaseActivity {
         list = new ArrayList<>();
 
         pictureRecyclerView.setLayoutManager(layoutManager);
-//        setPhotoData();
-
         contactRecycler = (RecyclerView) findViewById(R.id.contact_recycler);
         contactRecycler.setHasFixedSize(true);
         contactRecycler.setLayoutManager(layoutManager1);

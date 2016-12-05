@@ -92,9 +92,7 @@ public class MedicalVisitFragment extends Fragment {
         medicalEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(getActivity(), MedicalVisitsActivity.class);
-//                Intent intent = new Intent(getActivity(), EarningActivity.class);
-                Intent intent = new Intent(getActivity(), DelayActivity.class);
+                Intent intent = new Intent(getActivity(), MedicalVisitsActivity.class);
                 intent.putExtra("taskNo", data.getString("taskNo"));
                 startActivity(intent);
             }

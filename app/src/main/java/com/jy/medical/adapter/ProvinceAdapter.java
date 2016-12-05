@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import com.jy.medical.R;
 import com.jy.medical.adapter.viewholder.ProvinceViewHolder;
 import com.jy.medical.greendao.entities.CityData;
+import com.jy.medical.util.SPUtils;
 
 import java.util.List;
 
@@ -54,12 +55,12 @@ public class ProvinceAdapter extends BaseHeadFootAdapter {
     @Override
     protected void onBindView(RecyclerView.ViewHolder holder, final int position) {
         final ProvinceViewHolder viewHolder= (ProvinceViewHolder) holder;
-        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                lCallBack.changeCityData(position);
-            }
-        });
+//        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                lCallBack.changeCityData(position);
+//            }
+//        });
 
         viewHolder.name.setText(list.get(position).getName());
         viewHolder.name.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -71,6 +72,8 @@ public class ProvinceAdapter extends BaseHeadFootAdapter {
         viewHolder.name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                SPUtils.put(context,"provinceName",list.get(position).getName());
+                SPUtils.put(context,"provinceKey",list.get(position).getAid());
                 lCallBack.changeCityData(position);
             }
         });

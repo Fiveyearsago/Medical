@@ -502,6 +502,5 @@ public class  CommitUtil {
         if (taskBeanData!=null){
             taskManager.updateCommitFlag(taskNo,"1");
         }
-
     }
 }

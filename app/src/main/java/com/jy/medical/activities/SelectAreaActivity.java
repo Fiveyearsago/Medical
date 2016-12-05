@@ -70,23 +70,24 @@ public class SelectAreaActivity extends BaseActivity implements ProvinceAdapter.
         setStatusBarTint();
         MedicalApplication.getInstance().addActivity(this);
         setTitleState(findViewById(R.id.title_head), true, "选择区域", false, "");
-//        getCityData();
-        provinceList=new ArrayList<>();
-        cityList=new ArrayList<>();
-        provinceRecycler= (RecyclerView) findViewById(R.id.provinceRecycler);
-        cityRecycler= (RecyclerView) findViewById(R.id.cityRecycler);
+        getCityData();
+        provinceList = new ArrayList<>();
+        cityList = new ArrayList<>();
+        provinceRecycler = (RecyclerView) findViewById(R.id.provinceRecycler);
+        cityRecycler = (RecyclerView) findViewById(R.id.cityRecycler);
         provinceRecycler.setHasFixedSize(true);
         cityRecycler.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         RecyclerView.LayoutManager layoutManager1 = new LinearLayoutManager(this);
         provinceRecycler.setLayoutManager(layoutManager);
         cityRecycler.setLayoutManager(layoutManager1);
-        CityDataManager cityDataManager= DaoUtils.getCityDataInstance();
-        provinceList=cityDataManager.selectAllProvince();
-        cityList=cityDataManager.selectAllCity(provinceList.get(0).getPid());
-        provinceAdapter=new ProvinceAdapter(this,provinceList,this);
+        CityDataManager cityDataManager = DaoUtils.getCityDataInstance();
+        provinceList = cityDataManager.selectAllProvince();
+        if (provinceList.size() > 0)
+            cityList = cityDataManager.selectAllCity(provinceList.get(0).getPid());
+        provinceAdapter = new ProvinceAdapter(this, provinceList, this);
         provinceRecycler.setAdapter(provinceAdapter);
-        cityAdapter=new CityAdapter(this,cityList);
+        cityAdapter = new CityAdapter(this, cityList);
         cityRecycler.setAdapter(cityAdapter);
 
     }
@@ -105,8 +106,8 @@ public class SelectAreaActivity extends BaseActivity implements ProvinceAdapter.
             @Override
             public void onSuccess(String result) {
                 Log.i("result", result);
-                Gson responseGson=new Gson();
-                Response response=responseGson.fromJson(result, Response.class);
+                Gson responseGson = new Gson();
+                Response response = responseGson.fromJson(result, Response.class);
                 if (response != null && "1".equals(response.getResponseCode())) {
                     String data = response.getData();
                     JsonUtil.saveCityData(data);
@@ -140,10 +141,10 @@ public class SelectAreaActivity extends BaseActivity implements ProvinceAdapter.
     @Override
     public void changeCityData(int position) {
         //选择省份后刷新城市列别相数据
-        String pId=provinceList.get(position).getAid();
-        CityDataManager cityDataManager=DaoUtils.getCityDataInstance();
-        cityList=cityDataManager.selectAllCity(pId);
-        cityAdapter=new CityAdapter(this,cityList);
+        String pId = provinceList.get(position).getAid();
+        CityDataManager cityDataManager = DaoUtils.getCityDataInstance();
+        cityList = cityDataManager.selectAllCity(pId);
+        cityAdapter = new CityAdapter(this, cityList);
         cityRecycler.setAdapter(cityAdapter);
 
     }

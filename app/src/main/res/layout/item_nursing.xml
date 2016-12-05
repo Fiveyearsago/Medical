@@ -95,7 +95,7 @@
         android:layout_height="1dp"
         android:background="@color/lineColor" />
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="44dp"
         android:background="@color/white"
@@ -106,7 +106,6 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:text="护理人姓名"
             android:textColor="@color/navigateColor"
             android:textSize="@dimen/primary_text_size" />
@@ -114,26 +113,26 @@
 
         <com.jy.medical.widget.CleanableEditText
             android:id="@+id/item_nursing_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
             android:background="@null"
             android:drawablePadding="10dp"
             android:drawableRight="@mipmap/clear"
-            android:gravity="right"
+            android:gravity="center_vertical|right"
             android:hint="必填"
+            android:layout_marginRight="15dp"
             android:textColor="@color/black"
             android:textColorHint="@color/hintColor"
             android:textSize="@dimen/primary_text_size" />
-    </RelativeLayout>
+    </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/lineColor" />
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="44dp"
         android:background="@color/white"
@@ -144,7 +143,6 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:text="护理天数"
             android:textColor="@color/navigateColor"
             android:textSize="@dimen/primary_text_size" />
@@ -152,26 +150,26 @@
 
         <com.jy.medical.widget.CleanableEditText
             android:id="@+id/item_nursing_days"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
             android:background="@null"
             android:drawablePadding="10dp"
             android:drawableRight="@mipmap/clear"
-            android:gravity="right"
+            android:gravity="center_vertical|right"
             android:hint="必填"
+            android:layout_marginRight="15dp"
             android:textColor="@color/black"
             android:textColorHint="@color/hintColor"
             android:textSize="@dimen/primary_text_size" />
-    </RelativeLayout>
+    </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/lineColor" />
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="44dp"
         android:background="@color/white"
@@ -182,7 +180,6 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:text="护理费"
             android:textColor="@color/navigateColor"
             android:textSize="@dimen/primary_text_size" />
@@ -190,17 +187,17 @@
 
         <com.jy.medical.widget.CleanableEditText
             android:id="@+id/item_nursing_fee"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
             android:background="@null"
             android:drawablePadding="10dp"
             android:drawableRight="@mipmap/clear"
-            android:gravity="right"
+            android:gravity="center_vertical|right"
+            android:layout_marginRight="15dp"
             android:hint="必填"
             android:textColor="@color/black"
             android:textColorHint="@color/hintColor"
             android:textSize="@dimen/primary_text_size" />
-    </RelativeLayout>
+    </LinearLayout>
 </LinearLayout>

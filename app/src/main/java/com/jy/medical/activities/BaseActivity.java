@@ -143,6 +143,14 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         navImage.setOnClickListener(this);
         view.setOnClickListener(this);
     }
+    public void setLocationSearchState(View navView) {
+        ImageView navBack = (ImageView) navView.findViewById(R.id.page_head_image);
+        TextView cityText = (TextView) navView.findViewById(R.id.page_head_button);
+        CleanableEditText cleanableEditText= (CleanableEditText) navView.findViewById(R.id.page_head_text);
+        navBack.setOnClickListener(this);
+        cityText.setOnClickListener(this);
+        cleanableEditText.setOnClickListener(this);
+    }
     public void setLocationNavState(View navView,boolean flag, String titleText) {
         ImageView navBack = (ImageView) navView.findViewById(R.id.page_head_image);
         if (!flag){
