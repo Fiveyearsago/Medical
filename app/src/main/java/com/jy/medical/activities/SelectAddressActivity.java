@@ -55,7 +55,7 @@ public class SelectAddressActivity extends BaseActivity implements GetLocation.L
     }
 
     @Override
-    public void initParms(Bundle parms) {
+    public void initParams(Bundle parms) {
 
     }
 

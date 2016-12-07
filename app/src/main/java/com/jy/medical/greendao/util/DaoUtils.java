@@ -21,6 +21,7 @@ import com.jy.medical.greendao.manager.HandleDataManager;
 import com.jy.medical.greendao.manager.HospitalDataManager;
 import com.jy.medical.greendao.manager.HumanPartsManager;
 import com.jy.medical.greendao.manager.MaimDataManager;
+import com.jy.medical.greendao.manager.MaimGradeDataManager;
 import com.jy.medical.greendao.manager.MedicalDepartmentManager;
 import com.jy.medical.greendao.manager.MedicalVisitManager;
 import com.jy.medical.greendao.manager.NursingDataManager;
@@ -59,6 +60,7 @@ public class DaoUtils {
     private static DeathDataManager deathDataManager;
     private static SupporterDataManager supporterDataManager;
     private static MaimDataManager maimDataManager;
+    private static MaimGradeDataManager maimGradeDataManager;
     public static Context context;
 
     public static void init(Context context) {
@@ -69,12 +71,21 @@ public class DaoUtils {
     /**
      * 单列模式获取Manager对象
      */
+    public static MaimGradeDataManager getMaimGradeDataInstance() {
+        if (maimGradeDataManager == null) {
+            maimGradeDataManager = new MaimGradeDataManager(context);
+        }
+        return maimGradeDataManager;
+    }
+
     public static MaimDataManager getMaimDataInstance() {
         if (maimDataManager == null) {
             maimDataManager = new MaimDataManager(context);
         }
         return maimDataManager;
-    }public static SupporterDataManager getSupporterDataInstance() {
+    }
+
+    public static SupporterDataManager getSupporterDataInstance() {
         if (supporterDataManager == null) {
             supporterDataManager = new SupporterDataManager(context);
         }

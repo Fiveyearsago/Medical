@@ -116,7 +116,7 @@ public class MedicalVisitsActivity extends BaseActivity {
     }
 
     @Override
-    public void initParms(Bundle parms) {
+    public void initParams(Bundle parms) {
         taskNo = parms.getString("taskNo");
     }
 
@@ -284,9 +284,12 @@ public class MedicalVisitsActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.add_hospital:
-                //选择医院
+                //选择医院 flag为1
                 bundle.putString("taskNo", taskNo);
+                bundle.putString("flag", "1");
+                bundle.putString("dealLocalCode", "1");
                 startActivity(SelectHospitalActivity.class, bundle);
+
                 break;
             case R.id.add_nurse:
                 //添加护理人

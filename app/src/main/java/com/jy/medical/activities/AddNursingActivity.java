@@ -37,7 +37,7 @@ public class AddNursingActivity extends BaseActivity {
     }
 
     @Override
-    public void initParms(Bundle parms) {
+    public void initParams(Bundle parms) {
         taskNo = parms.getString("taskNo");
     }
 

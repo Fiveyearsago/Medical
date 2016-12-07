@@ -1,8 +1,7 @@
 package com.jy.medical.activities;
 
-import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -21,10 +20,8 @@ import com.jy.medical.MedicalApplication;
 import com.jy.medical.R;
 import com.jy.medical.adapter.DiagnoseAdapter;
 import com.jy.medical.greendao.entities.Diagnose;
-import com.jy.medical.util.JsonUtil;
 import com.jy.medical.util.PublicString;
 import com.jy.medical.util.ServerApiUtils;
-import com.jy.mobile.dto.DisabilityDescrDTO;
 import com.jy.mobile.dto.MtMedicalInjureItemDTO;
 import com.jy.mobile.request.QtSearchDisabilityDTO;
 import com.jy.mobile.response.SpListDTO;
@@ -58,7 +55,7 @@ public class SelectDiagnoseActivity extends BaseActivity {
     }
 
     @Override
-    public void initParms(Bundle parms) {
+    public void initParams(Bundle parms) {
         kindCode=parms.getString("kindCode");
         name=parms.getString("name");
         taskNo=parms.getString("taskNo");

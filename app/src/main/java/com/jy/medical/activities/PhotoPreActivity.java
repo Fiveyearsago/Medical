@@ -49,7 +49,7 @@ public class PhotoPreActivity extends BaseActivity {
     }
 
     @Override
-    public void initParms(Bundle parms) {
+    public void initParams(Bundle parms) {
         index = parms.getInt("index");
         taskNo = parms.getString("taskNo");
         deleteFlag = parms.getBoolean("deleteFlag");

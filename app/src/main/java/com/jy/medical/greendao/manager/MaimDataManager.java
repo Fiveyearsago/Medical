@@ -47,38 +47,60 @@ public class MaimDataManager extends BaseDao<MaimData> {
     public void insertData(@NotNull List<MaimData> maimDataList) {
         MaimDataDao maimDataDao = daoSession.getMaimDataDao();
         for (int i = 0; i < maimDataList.size(); i++) {
-            if (!isExist(maimDataList.get(i))){
+            if (!isExist(maimDataList.get(i))) {
                 maimDataDao.insert(maimDataList.get(i));
             }
         }
     }
-    public void insertSingleData(MaimData maimData){
+
+    public void insertSingleData(MaimData maimData) {
         MaimDataDao maimDataDao = daoSession.getMaimDataDao();
-        if (!isExist(maimData)){
+        if (!isExist(maimData)) {
             maimDataDao.insert(maimData);
-        }else {
-            MaimData maimData1=getData(maimData.getTaskNo());
+        } else {
+            MaimData maimData1 = getData(maimData.getTaskNo());
             maimData.setId(maimData1.getId());
             maimDataDao.update(maimData);
         }
     }
+
     public long getID(MaimData maimData) {
         return daoSession.getMaimDataDao().getKey(maimData);
     }
-    public List<MaimData> getDataList(String taskNo){
+
+    public List<MaimData> getDataList(String taskNo) {
         MaimDataDao maimDataDao = daoSession.getMaimDataDao();
         QueryBuilder<MaimData> qb = maimDataDao.queryBuilder();
         qb.where(MaimDataDao.Properties.TaskNo.eq(taskNo));
         return qb.list();
     }
-    public MaimData getData(String taskNo){
+
+    public MaimData getData(String taskNo) {
         MaimDataDao maimDataDao = daoSession.getMaimDataDao();
         QueryBuilder<MaimData> qb = maimDataDao.queryBuilder();
         qb.where(MaimDataDao.Properties.TaskNo.eq(taskNo));
-        if (qb.list().size()>0){
+        if (qb.list().size() > 0) {
             return qb.list().get(0);
-        }else {
+        } else {
             return null;
+        }
+    }
+
+    public void updateDepartment(String taskNo, String departmentId, String departmentValue) {
+        MaimDataDao maimDataDao = daoSession.getMaimDataDao();
+        QueryBuilder<MaimData> qb = maimDataDao.queryBuilder();
+        qb.where(MaimDataDao.Properties.TaskNo.eq(taskNo));
+        MaimData maimData;
+        if (qb.list().size() > 0) {
+            maimData = qb.list().get(0);
+        } else {
+            maimData = null;
+        }
+
+        if (maimData != null) {
+            maimData.setApprovalDepartmentKey(departmentId);
+            maimData.setApprovalDepartmentValue(departmentValue);
+            maimDataDao.update(maimData);
         }
     }
 }

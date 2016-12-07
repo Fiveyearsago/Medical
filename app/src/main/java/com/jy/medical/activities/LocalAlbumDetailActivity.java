@@ -135,7 +135,7 @@ public class LocalAlbumDetailActivity extends BaseActivity implements MatrixImag
     }
 
     @Override
-    public void initParms(Bundle parms) {
+    public void initParams(Bundle parms) {
 
     }
 

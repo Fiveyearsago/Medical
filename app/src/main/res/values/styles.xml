@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
@@ -168,5 +168,21 @@
         <item name="android:layout_height">@dimen/dividing_0.5</item>
         <item name="android:background">@color/gray_dividing</item>
     </style>
-
+    <style name="ImageTranslucentTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!--在Android 4.4之前的版本上运行，直接跟随系统主题-->
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="HomeRadioStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:drawablePadding">7dp</item>
+        <item name="android:paddingBottom">12dp</item>
+        <item name="android:paddingTop">7dp</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:background">@drawable/home_radio_bg_selector</item>
+        <item name="android:textColor">@color/minorColor</item>
+        <item name="android:textSize">12dp</item>
+        <item name="android:button">@null</item>
+    </style>
 </resources>

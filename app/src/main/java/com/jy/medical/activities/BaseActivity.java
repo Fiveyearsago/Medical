@@ -46,14 +46,14 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         SMSSDK.initSDK(this, "1792404991e59", "95ce745b999dc842803436b2d50161b2");
 //        MedicalApplication.getInstance().addActivity(this);
 //        SDKInitializer.initialize(getApplicationContext());
-        isDestroy=false;
+        isDestroy = false;
         int layoutId = getLayoutId();
         if (layoutId != 0) {
             setContentView(layoutId);
         }
         Log.d(TAG, "BaseActivity-->onCreate()");
         Bundle bundle = getIntent().getExtras();
-        initParms(bundle);
+        initParams(bundle);
 //        PgyCrashManager.register(this);
 //        PgyUpdateManager.register(this);
         initView();
@@ -80,7 +80,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
      *
      * @param parms
      */
-    public abstract void initParms(Bundle parms);
+    public abstract void initParams(Bundle parms);
 
     /**
      * [初始化控件]
@@ -122,19 +122,31 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     }
 
 
-    public void exit(){
+    public void exit() {
         MedicalApplication.getInstance().exit();
     }
-    public void setThirdNavState(View navView,String textTitle,int leftDrawable,int rightDrawable) {
+
+    public void setThirdNavState(View navView, String textTitle, int leftDrawable, int rightDrawable) {
         ImageView navImage = (ImageView) navView.findViewById(R.id.page_third_head_image);
         ImageView collectImage = (ImageView) navView.findViewById(R.id.page_third_head_collect);
-        TextView textViewTitle= (TextView) navView.findViewById(R.id.page_third_head_text);
+        TextView textViewTitle = (TextView) navView.findViewById(R.id.page_third_head_text);
         navImage.setBackground(getResources().getDrawable(leftDrawable));
         collectImage.setBackground(getResources().getDrawable(rightDrawable));
         textViewTitle.setText(textTitle);
         navImage.setOnClickListener(this);
         collectImage.setOnClickListener(this);
     }
+
+    public void setSegmentState(View navView, boolean flag) {
+        ImageView navImage = (ImageView) navView.findViewById(R.id.page_head_tab_image);
+        ImageView navImage1 = (ImageView) navView.findViewById(R.id.page_head_tab_search);
+        if (flag)
+            navImage1.setVisibility(View.VISIBLE);
+        else navImage1.setVisibility(View.GONE);
+        navImage.setOnClickListener(this);
+        navImage1.setOnClickListener(this);
+    }
+
     public void setNavState(View navView, String titleText) {
         ImageView navImage = (ImageView) navView.findViewById(R.id.page_head_second_image);
         TextView navText = (TextView) navView.findViewById(R.id.page_head_second_text);
@@ -143,17 +155,19 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         navImage.setOnClickListener(this);
         view.setOnClickListener(this);
     }
+
     public void setLocationSearchState(View navView) {
         ImageView navBack = (ImageView) navView.findViewById(R.id.page_head_image);
         TextView cityText = (TextView) navView.findViewById(R.id.page_head_button);
-        CleanableEditText cleanableEditText= (CleanableEditText) navView.findViewById(R.id.page_head_text);
+        CleanableEditText cleanableEditText = (CleanableEditText) navView.findViewById(R.id.page_head_text);
         navBack.setOnClickListener(this);
         cityText.setOnClickListener(this);
         cleanableEditText.setOnClickListener(this);
     }
-    public void setLocationNavState(View navView,boolean flag, String titleText) {
+
+    public void setLocationNavState(View navView, boolean flag, String titleText) {
         ImageView navBack = (ImageView) navView.findViewById(R.id.page_head_image);
-        if (!flag){
+        if (!flag) {
             navBack.setVisibility(View.GONE);
         }
         TextView navText = (TextView) navView.findViewById(R.id.page_head_button);
@@ -161,11 +175,13 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         navBack.setOnClickListener(this);
         navText.setOnClickListener(this);
     }
+
     public void setSearchTitle(View navView, String titleText) {
         TextView navText = (TextView) navView.findViewById(R.id.page_head_search_button);
         navText.setText(titleText);
         navText.setOnClickListener(this);
     }
+
     /**
      * Description 设置Title状态
      * Author songran
@@ -211,10 +227,37 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
             mSystemBarTintManager.setStatusBarTintEnabled(true);
 //            mSystemBarTintManager.setNavigationBarTintEnabled(true);//虚拟键
             mSystemBarTintManager.setTintColor(Color.parseColor("#0F5BC4"));
+//            mSystemBarTintManager.setStatusBarTintDrawable(getResources().getDrawable(R.mipmap.hpme_status_bg));
             ViewGroup rootView = (ViewGroup) ((ViewGroup) this.findViewById(android.R.id.content)).getChildAt(0);
             rootView.setFitsSystemWindows(true);
             rootView.setClipToPadding(true);
         }
+    }
+
+    public void setHomeStatusBarTint() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window window = getWindow();
+            // Translucent status bar
+            window.setFlags(
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            // Translucent navigation bar
+            window.setFlags(
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION,
+                    WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
+                    | WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(Color.TRANSPARENT);
+            window.setNavigationBarColor(Color.TRANSPARENT);
+        }
+
     }
 
     public void setEditTextSelection(EditText editText) {
@@ -222,11 +265,13 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
             editText.setSelection(editText.getText().length());
         }
     }
+
     public void setCleanableEditTextSelection(CleanableEditText editText) {
         if (editText != null) {
             editText.setSelection(editText.getText().length());
         }
     }
+
     public void clearEditTextValue(final EditText editText) {
         editText.setOnTouchListener(new View.OnTouchListener() {
 
@@ -244,7 +289,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
                         - editText.getPaddingRight()
                         - drawable.getIntrinsicWidth()) {
                     editText.setText("");
-                    editText.setCompoundDrawables(null,null,null,null);
+                    editText.setCompoundDrawables(null, null, null, null);
                 }
                 return false;
             }
@@ -255,8 +300,9 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        isDestroy=true;
+        isDestroy = true;
     }
+
     // 获取点击事件
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
@@ -269,10 +315,11 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         }
         return super.dispatchTouchEvent(ev);
     }
+
     // 判定是否需要隐藏
     private boolean isHideInput(View v, MotionEvent ev) {
         if (v != null && (v instanceof EditText)) {
-            int[] l = { 0, 0 };
+            int[] l = {0, 0};
             v.getLocationInWindow(l);
             int left = l[0], top = l[1], bottom = top + v.getHeight(), right = left
                     + v.getWidth();
@@ -285,6 +332,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         }
         return false;
     }
+
     // 隐藏软键盘
     private void HideSoftInput(IBinder token) {
         if (token != null) {

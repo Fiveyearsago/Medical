@@ -186,7 +186,6 @@
                     app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 
-
             </LinearLayout>
 
             <LinearLayout
@@ -315,16 +314,16 @@
 
                     <TextView
                         android:id="@+id/complete_status_text"
-                        android:layout_toRightOf="@+id/complete_status_tag"
-                        android:gravity="right"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="5dp"
                         android:layout_toLeftOf="@+id/complete_status_image"
+                        android:layout_toRightOf="@+id/complete_status_tag"
+                        android:gravity="right"
                         android:hint="必选"
-                        android:textColorHint="@color/hintColor"
                         android:textColor="@color/black"
+                        android:textColorHint="@color/hintColor"
                         android:textSize="@dimen/primary_text_size" />
 
                     <ImageView

@@ -102,7 +102,7 @@ public class FollowDetailActivity extends BaseActivity implements OnItemClickLis
     }
 
     @Override
-    public void initParms(Bundle parms) {
+    public void initParams(Bundle parms) {
         platformData = (PlatformData) parms.getSerializable("info");
         taskType = platformData.getTaskType();
     }

@@ -7,13 +7,25 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.chanven.lib.cptr.recyclerview.RecyclerAdapterWithHF;
+import com.google.gson.Gson;
+import com.jy.ah.bus.data.Response;
 import com.jy.medical.R;
 import com.jy.medical.adapter.LawAdapter;
+import com.jy.medical.greendao.entities.Diagnose;
 import com.jy.medical.greendao.entities.ToolData;
+import com.jy.medical.util.PublicString;
+import com.jy.medical.util.ServerApiUtils;
+import com.jy.mobile.dto.MtMedicalInjureItemDTO;
+import com.jy.mobile.request.QtSearchDisabilityDTO;
+import com.jy.mobile.response.SpListDTO;
+
+import org.xutils.common.Callback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +40,8 @@ public class LawFragment extends Fragment {
     private List<ToolData>list;
     private LawAdapter adapter;
     private RecyclerView recyclerView;
+
+
 
     public static LawFragment newInstance(int page,Context context) {
         mContext=context;
@@ -54,7 +68,7 @@ public class LawFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.law_content,container,false);
-         recyclerView = (RecyclerView) view.findViewById(R.id.law_recyclerView);
+         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(mContext);
         recyclerView.setLayoutManager(layoutManager);

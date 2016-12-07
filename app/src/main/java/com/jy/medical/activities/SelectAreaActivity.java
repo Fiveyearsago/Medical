@@ -61,7 +61,7 @@ public class SelectAreaActivity extends BaseActivity implements ProvinceAdapter.
     }
 
     @Override
-    public void initParms(Bundle parms) {
+    public void initParams(Bundle parms) {
 
     }
 
@@ -94,7 +94,11 @@ public class SelectAreaActivity extends BaseActivity implements ProvinceAdapter.
 
     @Override
     public void widgetClick(View v) {
-
+        switch (v.getId()) {
+            case R.id.page_head_image:
+                finish();
+                break;
+        }
     }
 
     public void getCityData() {

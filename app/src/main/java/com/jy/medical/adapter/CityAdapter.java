@@ -64,6 +64,7 @@ public class CityAdapter extends BaseHeadFootAdapter {
                 SPUtils.put(context,"cityKey",list.get(position).getAid());
                 Intent intent=new Intent();
                 intent.putExtra("cityName",list.get(position).getName());
+                intent.putExtra("cityKey",list.get(position).getAid());
                 ((AppCompatActivity)context).setResult(Activity.RESULT_OK,intent);
                 ((AppCompatActivity) context).finish();
             }

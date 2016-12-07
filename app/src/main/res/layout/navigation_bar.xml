@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/navView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/navView"
     android:background="@color/white"
     android:orientation="vertical">
-<View
-    android:layout_width="match_parent"
-    android:layout_height="1dp"
-    android:background="@color/pageBackground"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/pageBackground" />
+
     <RadioGroup
         android:layout_width="match_parent"
         android:layout_height="49dp"
@@ -19,22 +21,19 @@
             android:id="@+id/radio_btn_platform"
             style="@style/RadioButtonNav"
             android:drawableTop="@drawable/platform_selector"
-            android:text="跟踪平台"
-            />
+            android:text="跟踪平台" />
 
         <RadioButton
             android:id="@+id/radio_btn_tool"
             style="@style/RadioButtonNav"
             android:drawableTop="@drawable/tool_selector"
-            android:text="工具"
-            />
+            android:text="工具" />
 
         <RadioButton
             android:id="@+id/radio_btn_mine"
             style="@style/RadioButtonNav"
             android:drawableTop="@drawable/mine_selector"
-            android:text="我的"
-            />
+            android:text="我的" />
 
     </RadioGroup>
 

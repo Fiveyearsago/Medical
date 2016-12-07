@@ -41,7 +41,7 @@ public class AddContactsActivity extends BaseActivity {
     }
 
     @Override
-    public void initParms(Bundle parms) {
+    public void initParams(Bundle parms) {
         taskNo = parms.getString("taskNo");
     }
 

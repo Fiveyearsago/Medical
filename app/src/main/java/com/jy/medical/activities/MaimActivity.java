@@ -19,13 +19,14 @@ import android.widget.Toast;
 
 import com.jy.medical.MedicalApplication;
 import com.jy.medical.R;
-import com.jy.medical.adapter.ContactEditAdapter;
 import com.jy.medical.adapter.PictureAdapter;
 import com.jy.medical.greendao.entities.MaimData;
 import com.jy.medical.greendao.entities.ContactData;
+import com.jy.medical.greendao.entities.MaimGradeData;
 import com.jy.medical.greendao.entities.TaskPhoto;
 import com.jy.medical.greendao.manager.MaimDataManager;
 import com.jy.medical.greendao.manager.ContactManager;
+import com.jy.medical.greendao.manager.MaimGradeDataManager;
 import com.jy.medical.greendao.manager.TaskPhotoManager;
 import com.jy.medical.greendao.util.DaoUtils;
 import com.jy.medical.util.CommitUtil;
@@ -34,6 +35,7 @@ import com.jy.medical.util.LocalImageHelper;
 import com.jy.medical.util.MultiSelectUtil;
 import com.jy.medical.util.PhotoUtil;
 import com.jy.medical.util.StringUtils;
+import com.jy.medical.util.SwipeMenuUtil;
 import com.jy.medical.util.ToastUtil;
 import com.jy.medical.widget.ClearEditText;
 import com.jy.medical.widget.FilterImageView;
@@ -41,6 +43,9 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 import com.nostra13.universalimageloader.core.imageaware.ImageViewAware;
+import com.yanzhenjie.recyclerview.swipe.Closeable;
+import com.yanzhenjie.recyclerview.swipe.OnSwipeMenuItemClickListener;
+import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -55,17 +60,17 @@ public class MaimActivity extends BaseActivity {
     private PictureAdapter pictureAdapter;
     private List<TaskPhoto> pictureList;
     private List<Bitmap> list;
-    private RecyclerView contactRecycler;
-    private List<ContactData> contactDataList;
-    private ContactEditAdapter adapter;
-    private ContactManager contactManager;
+    private SwipeMenuRecyclerView maimGradeRecycler;
+    private List<MaimGradeData> maimGradeDataList=new ArrayList<>();
+    private SelectedMaimGradeAdapter adapter;
+    private MaimGradeDataManager maimGradeDataManager;
     private TaskPhotoManager taskPhotoManager;
     private String taskNo;
     private List<LocalImageHelper.LocalFile> pictures = new ArrayList<>();//图片路径数组
     private DisplayImageOptions options;
 
-    private TextView completeStatus,approvalDepartmentTV;
-    private ClearEditText remarkEdit,approvalPersonEdit,payCoefficientEdit,describeEdit;
+    private TextView completeStatus, approvalDepartmentTV;
+    private ClearEditText remarkEdit, approvalPersonEdit, payCoefficientEdit, describeEdit;
 
     private Button btnCommit;
     private Button btnSave;
@@ -82,13 +87,14 @@ public class MaimActivity extends BaseActivity {
     }
 
     @Override
-    public void initParms(Bundle parms) {
+    public void initParams(Bundle parms) {
+        if (parms!=null)
         taskNo = parms.getString("taskNo");
     }
 
     @Override
     public void initView() {
-        context=this;
+        context = this;
         setStatusBarTint();
         MedicalApplication.getInstance().addActivity(this);
         setTitleState(findViewById(R.id.title_head), true, "编辑", true, "保存");
@@ -105,7 +111,7 @@ public class MaimActivity extends BaseActivity {
         btnCommit.setOnClickListener(this);
         btnSave.setOnClickListener(this);
 
-        findViewById(R.id.add_contact).setOnClickListener(this);
+        findViewById(R.id.add_maim).setOnClickListener(this);
 
         pictureRecyclerView = (RecyclerView) findViewById(R.id.picture_recyclerView);
         pictureRecyclerView.setHasFixedSize(true);
@@ -115,14 +121,17 @@ public class MaimActivity extends BaseActivity {
         list = new ArrayList<>();
 
         pictureRecyclerView.setLayoutManager(layoutManager);
-        contactRecycler = (RecyclerView) findViewById(R.id.contact_recycler);
-        contactRecycler.setHasFixedSize(true);
-        contactRecycler.setLayoutManager(layoutManager1);
-        contactManager = DaoUtils.getContactInstance();
-        contactDataList = new ArrayList<>();
-        contactDataList = contactManager.selectAllContact(taskNo);
-        adapter = new ContactEditAdapter(this, contactDataList);
-        contactRecycler.setAdapter(adapter);
+        maimGradeRecycler = (SwipeMenuRecyclerView) findViewById(R.id.miam_grade_recycler);
+        maimGradeRecycler.setHasFixedSize(true);
+        maimGradeRecycler.setLayoutManager(layoutManager1);
+        maimGradeRecycler.setSwipeMenuCreator(SwipeMenuUtil.getSwipeMenuEdit(this));
+        maimGradeRecycler.setSwipeMenuItemClickListener(menuItemClickListener);
+
+        maimGradeDataManager = DaoUtils.getMaimGradeDataInstance();
+        maimGradeDataList = new ArrayList<>();
+        maimGradeDataList = maimGradeDataManager.getDataList(taskNo);
+        adapter = new SelectedMaimGradeAdapter(maimGradeDataList,this);
+        maimGradeRecycler.setAdapter(adapter);
 
         options = new DisplayImageOptions.Builder()
                 .cacheInMemory(true)
@@ -164,25 +173,32 @@ public class MaimActivity extends BaseActivity {
                 ToastUtil.showToast(context, "已保存所有信息");
                 finish();
                 break;
+            case R.id.approval_department:
+                Intent intent = new Intent(this, SelectHospitalActivity.class);
+                intent.putExtra("taskNo", taskNo);
+                intent.putExtra("flag", "");
+                intent.putExtra("dealLocalCode", "1");
+                startActivityForResult(intent, 0x11);
+                break;
             case R.id.btn_save:
                 saveData();
                 ToastUtil.showToast(context, "已保存所有信息");
                 finish();
                 break;
-            case R.id.add_contact:
-                //添加联系人
+            case R.id.add_maim:
+                //添加伤残等级
                 Bundle bundle = new Bundle();
                 bundle.putString("taskNo", taskNo);
-                startActivity(AddContactsActivity.class, bundle);
+                startActivity(MaimGradeActivity.class, bundle);
                 break;
             case R.id.btn_commit:
                 saveData();
                 CommitUtil.commitBaseInfo(context, taskNo, new CommitUtil.CommitCallBack() {
                     @Override
                     public void commitSuccess() {
-                        Intent intent=new Intent();
-                        intent.putExtra("commitFlag","1");
-                        setResult(RESULT_OK,intent);
+                        Intent intent = new Intent();
+                        intent.putExtra("commitFlag", "1");
+                        setResult(RESULT_OK, intent);
                         finish();
                     }
 
@@ -209,27 +225,31 @@ public class MaimActivity extends BaseActivity {
         String payCoefficient = payCoefficientEdit.getText().toString();
         String describe = describeEdit.getText().toString();
         String remark = remarkEdit.getText().toString();
-        String completeStatusText ="";
-        if (completeStatus.getText().toString().equals("已完成")){
-            completeStatusText="0";
-        }else if (completeStatus.getText().toString().equals("无法完成")){
-            completeStatusText="1";
-        }        MaimData maimData = new MaimData(taskNo, approvalDepartmentKey,approvalDepartmentValue, approvalPerson, payCoefficient,describe,remark, completeStatusText,  "");
+        String completeStatusText = "";
+        if (completeStatus.getText().toString().equals("已完成")) {
+            completeStatusText = "0";
+        } else if (completeStatus.getText().toString().equals("无法完成")) {
+            completeStatusText = "1";
+        }
+        MaimData maimData = new MaimData(taskNo, approvalDepartmentKey, approvalDepartmentValue, approvalPerson, payCoefficient, describe, remark, completeStatusText, "");
         maimDataManager.insertSingleData(maimData);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        setContactData();
+//        setContactData();
+        setMaimGradeData();
         setPhotoData();
 
     }
 
-    private void setContactData() {
-        contactDataList = contactManager.selectAllContact(taskNo);
-        adapter = new ContactEditAdapter(this, contactDataList);
-        contactRecycler.setAdapter(adapter);
+    private void setMaimGradeData() {
+        maimGradeDataList = maimGradeDataManager.getDataList(taskNo);
+        adapter.setDta(maimGradeDataList);
+        adapter.notifyDataSetChanged();
+//        adapter = new SelectedMaimGradeAdapter( maimGradeDataList,this);
+//        maimGradeRecycler.setAdapter(adapter);
     }
 
     private void initOtherData() {
@@ -248,11 +268,13 @@ public class MaimActivity extends BaseActivity {
     }
 
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
+                case 0x11:
+                    approvalDepartmentTV.setText(data.getStringExtra("hospitalName"));
+                    break;
                 case ImageUtils.REQUEST_CODE_GETIMAGE_BYCAMERA:
                     String cameraPath = LocalImageHelper.getInstance().getCameraImgPath();
                     if (StringUtils.isEmpty(cameraPath)) {
@@ -304,4 +326,21 @@ public class MaimActivity extends BaseActivity {
             }
         }
     }
+        /**
+         * 菜单点击监听。
+         */
+        private OnSwipeMenuItemClickListener menuItemClickListener = new OnSwipeMenuItemClickListener() {
+            @Override
+            public void onItemClick(Closeable closeable, int adapterPosition, int menuPosition, int direction) {
+                closeable.smoothCloseMenu();// 关闭被点击的菜单。
+
+                if (direction == SwipeMenuRecyclerView.RIGHT_DIRECTION) {
+                    maimGradeDataManager.deleteSingleData(maimGradeDataList.get(adapterPosition));
+                    maimGradeDataList.remove(adapterPosition);
+                    adapter.notifyDataSetChanged();
+                } else if (direction == SwipeMenuRecyclerView.LEFT_DIRECTION) {
+                }
+            }
+        };
+
 }

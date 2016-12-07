@@ -44,7 +44,7 @@ public class SelectCityActivity extends BaseActivity implements GetLocation.Loca
     }
 
     @Override
-    public void initParms(Bundle parms) {
+    public void initParams(Bundle parms) {
 
     }
 

@@ -42,7 +42,7 @@ public class SelectDepartmentsActivity extends BaseActivity implements Departmen
     }
 
     @Override
-    public void initParms(Bundle parms) {
+    public void initParams(Bundle parms) {
         taskNo=parms.getString("taskNo");
         hospitalId=parms.getString("hospitalId");
         hospitalName=parms.getString("hospitalName");

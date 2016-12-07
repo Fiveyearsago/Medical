@@ -25,76 +25,10 @@ public class ContactEditAdapter extends SwipeMenuAdapter<ContactEditViewHolder> 
 
     private Context context;
     private List<ContactData> list;
-    private ContactManager contactManager;
-    public com.jy.medical.inter.OnItemClickListener mOnItemClickListener;
     public ContactEditAdapter(Context context, List<ContactData> list) {
         this.context = context;
         this.list = list;
     }
-
-    public void setOnItemClickListener(com.jy.medical.inter.OnItemClickListener onItemClickListener) {
-        this.mOnItemClickListener = onItemClickListener;
-    }
-//    @Override
-//    protected void onBindHeaderView(View headerView) {
-//        headerView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//            }
-//        });
-//    }
-
-//    @Override
-//    protected void onBindFooterView(View footerView) {
-//    }
-
-
-//    @Override
-//    protected int getItemNum() {
-//        return list.size();
-//    }
-
-
-//    @Override
-//    protected void onBindView(RecyclerView.ViewHolder holder, final int position) {
-//        final ContactEditViewHolder viewHolder = (ContactEditViewHolder) holder;
-//        final ContactData contactData=list.get(position);
-//        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//            }
-//        });
-//        viewHolder.name.setText(contactData.getName());
-//        viewHolder.phone.setText(contactData.getPhoneNum());
-//        viewHolder.deleteImage.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                //删除联系人
-//                AlertView mAlertView = new AlertView("提示", "是否删除联系人？", "否", new String[]{"是"}, null, context, AlertView.Style.Alert, new OnItemClickListener() {
-//                    @Override
-//                    public void onItemClick(Object o, int position1) {
-//                        if (position1==0){
-//                            //删除联系人
-//                            contactManager = DaoUtils.getContactInstance();
-//                            Long id=contactManager.getID(list.get(position));
-//                            contactManager.deleteById(id);
-//                            list.remove(position);
-//                            notifyDataSetChanged();
-//
-//                        }
-//                    }
-//                }).setCancelable(true).setOnDismissListener(null);
-//                mAlertView.show();
-//            }
-//        });
-//    }
-
-
-//    @Override
-//    public ContactEditViewHolder onCreateHolder(ViewGroup parent, int viewType) {
-//        View view = LayoutInflater.from(context).inflate(R.layout.item_edit_contact, null);
-//        return new ContactEditViewHolder(view);
-//    }
 
     @Override
     public View onCreateContentView(ViewGroup parent, int viewType) {

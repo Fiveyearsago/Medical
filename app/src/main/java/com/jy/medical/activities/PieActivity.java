@@ -47,7 +47,7 @@ public class PieActivity extends BaseActivity implements OnChartValueSelectedLis
     }
 
     @Override
-    public void initParms(Bundle parms) {
+    public void initParams(Bundle parms) {
 
     }
 

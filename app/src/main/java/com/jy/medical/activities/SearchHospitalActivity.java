@@ -56,6 +56,7 @@ public class SearchHospitalActivity extends BaseActivity implements TextView.OnE
     Handler handler = new Handler();
     private int page = 0;
     private String taskNo;
+    private String flag="";
 
     @Override
     public void initData() {
@@ -68,8 +69,10 @@ public class SearchHospitalActivity extends BaseActivity implements TextView.OnE
     }
 
     @Override
-    public void initParms(Bundle parms) {
+    public void initParams(Bundle parms) {
+
         taskNo=parms.getString("taskNo");
+        flag=parms.getString("flag");
     }
 
     @Override
@@ -94,7 +97,7 @@ public class SearchHospitalActivity extends BaseActivity implements TextView.OnE
     }
 
     private void initRecyclerView() {
-        hospitalAdapter= new HospitalAdapter(this,hospitalDatas,taskNo);
+        hospitalAdapter= new HospitalAdapter(this,hospitalDatas,taskNo,flag);
         mAdapter = new RecyclerAdapterWithHF(hospitalAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mAdapter);
@@ -118,7 +121,7 @@ public class SearchHospitalActivity extends BaseActivity implements TextView.OnE
                         mAdapter.notifyDataSetChanged();
 //                        ptrClassicFrameLayout.refreshComplete();
                         ptrClassicFrameLayout.setLoadMoreEnable(true);
-                        ptrClassicFrameLayout.setPullToRefresh(false);
+                        ptrClassicFrameLayout.setPullToRefresh(true);
                     }
                 }, 1500);
             }
@@ -213,7 +216,7 @@ public class SearchHospitalActivity extends BaseActivity implements TextView.OnE
         HospitalDataManager hospitalDataManager=DaoUtils.getHospitalInstance();
         hospitalDatas.clear();
         hospitalDatas=hospitalDataManager.getData();
-        hospitalAdapter = new HospitalAdapter(this, hospitalDatas,taskNo);
+        hospitalAdapter = new HospitalAdapter(this, hospitalDatas,taskNo,flag);
         mAdapter = new RecyclerAdapterWithHF(hospitalAdapter);
         mRecyclerView.setAdapter(mAdapter);
     }

@@ -212,6 +212,7 @@
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.MaimActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
@@ -219,8 +220,15 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
+            android:name=".activities.MaimGradeActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
             android:name=".activities.PieActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
+        <activity android:name=".activities.HomeActivity"
+            ></activity>
     </application>
 
 </manifest>

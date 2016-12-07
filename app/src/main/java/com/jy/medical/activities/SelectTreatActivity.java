@@ -31,7 +31,7 @@ public class SelectTreatActivity extends BaseActivity {
     }
 
     @Override
-    public void initParms(Bundle parms) {
+    public void initParams(Bundle parms) {
         taskNo=parms.getString("taskNo");
         diagnoseId=parms.getString("diagnoseId");
         diagnoseName=parms.getString("diagnoseName");

@@ -30,6 +30,7 @@ import com.jy.medical.util.JsonUtil;
 import com.jy.medical.util.PublicString;
 import com.jy.medical.util.SPUtils;
 import com.jy.medical.util.ServerApiUtils;
+import com.jy.medical.util.ToastUtil;
 import com.jy.mobile.dto.DictKEYValueDTO;
 import com.jy.mobile.dto.HosptialDTO;
 import com.jy.mobile.request.QTSearchCityOrCateInjureDTO;
@@ -41,16 +42,18 @@ import org.xutils.common.Callback;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SelectHospitalActivity extends BaseActivity implements  PtrHandler{
+public class SelectHospitalActivity extends BaseActivity {
     private PtrClassicFrameLayout ptrClassicFrameLayout;
     private RecyclerView mRecyclerView;
     private List<HospitalData>hospitalDatas;
     private HospitalAdapter hospitalAdapter;
     private RecyclerAdapterWithHF mAdapter;
     Handler handler = new Handler();
-    private int page = 0;
+    private int page = 1;
     private String taskNo;
     private TextView cityText;
+    private String flag="";
+    private String dealLocalCode="";
 
     @Override
     public void initData() {
@@ -63,12 +66,13 @@ public class SelectHospitalActivity extends BaseActivity implements  PtrHandler{
     }
 
     @Override
-    public void initParms(Bundle parms) {
+    public void initParams(Bundle parms) {
         taskNo=parms.getString("taskNo");
+        flag=parms.getString("flag");
     }
     @Override
     public void initView() {
-        getHospitalData();
+
         setStatusBarTint();
         MedicalApplication.getInstance().addActivity(this);
         setLocationSearchState(findViewById(R.id.title_head));
@@ -78,38 +82,38 @@ public class SelectHospitalActivity extends BaseActivity implements  PtrHandler{
         ptrClassicFrameLayout= (PtrClassicFrameLayout) findViewById(R.id.hospital_recyclerView_frame);
         mRecyclerView= (RecyclerView) findViewById(R.id.hospital_recyclerView);
         hospitalDatas=new ArrayList<>();
+        dealLocalCode=SPUtils.get(this,"cityKey","").toString();
         initRecyclerView();
+//        getHospitalData(true);
     }
     private void initRecyclerView() {
 
-        HospitalDataManager hospitalDataManager= DaoUtils.getHospitalInstance();
-        hospitalDatas=hospitalDataManager.getData();
-        hospitalAdapter= new HospitalAdapter(this,hospitalDatas,taskNo);
+//        HospitalDataManager hospitalDataManager= DaoUtils.getHospitalInstance();
+//        hospitalDatas=hospitalDataManager.getData();
+        hospitalAdapter= new HospitalAdapter(this,hospitalDatas,taskNo,flag);
         mAdapter = new RecyclerAdapterWithHF(hospitalAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mAdapter);
         ptrClassicFrameLayout.setLoadMoreEnable(true);
-//        ptrClassicFrameLayout.postDelayed(new Runnable() {
-//
-//            @Override
-//            public void run() {
-//                ptrClassicFrameLayout.autoRefresh(true);
-//            }
-//        }, 150);
+        ptrClassicFrameLayout.setPullToRefresh(true);
+        ptrClassicFrameLayout.postDelayed(new Runnable() {
 
-        ptrClassicFrameLayout.setPtrHandler(new PtrNoRefreshHandler() {
+            @Override
+            public void run() {
+                ptrClassicFrameLayout.autoRefresh(true);
+            }
+        }, 150);
+        ptrClassicFrameLayout.setPtrHandler(new PtrDefaultHandler() {
 
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        page = 0;
+                        page = 1;
                         //刷新数据源
-                        //hospitalDatas.clear();
-                        mAdapter.notifyDataSetChanged();
-//                        ptrClassicFrameLayout.refreshComplete();
-                        ptrClassicFrameLayout.setLoadMoreEnable(true);
+                        hospitalDatas.clear();
+                        getHospitalData(true);
                     }
                 }, 1500);
             }
@@ -124,17 +128,14 @@ public class SelectHospitalActivity extends BaseActivity implements  PtrHandler{
                     public void run() {
                         //加载下页数据
                         //TODO
-                        mAdapter.notifyDataSetChanged();
-                        ptrClassicFrameLayout.loadMoreComplete(true);
                         page++;
-                        Toast.makeText(SelectHospitalActivity.this, "已加载完成", Toast.LENGTH_SHORT).show();
+                        getHospitalData(false);
+
                     }
                 }, 1000);
             }
         });
     }
-
-
     @Override
     public void widgetClick(View v) {
         switch (v.getId()) {
@@ -148,6 +149,7 @@ public class SelectHospitalActivity extends BaseActivity implements  PtrHandler{
             case R.id.page_head_text:
                 Bundle bundle=new Bundle();
                 bundle.putString("taskNo",taskNo);
+                bundle.putString("flag",flag);
                 startActivity(SearchHospitalActivity.class,bundle);
                 break;
             default:
@@ -155,45 +157,32 @@ public class SelectHospitalActivity extends BaseActivity implements  PtrHandler{
         }
     }
 
-    public void getHospitalData() {
-        QtSearchHosptialDTO qtSearchHosptialDTO = new QtSearchHosptialDTO();
-        qtSearchHosptialDTO.setDealLocalCode("F4896B94148240FC9EFCDB9B5E2A17EB");
-        qtSearchHosptialDTO.setHospitalName("");
-        qtSearchHosptialDTO.setPageNo(1);
-        qtSearchHosptialDTO.setPageSize(20);
-        qtSearchHosptialDTO.setFlag("1");
-        Gson gson = new Gson();
-        String data = gson.toJson(qtSearchHosptialDTO);
-        ServerApiUtils.sendToServer(data, "002016", PublicString.URL_IFC, new Callback.CommonCallback<String>() {
+    public void getHospitalData(final boolean refreshFlag) {
+        Log.i("pageNo",page+"");
+        ServerApiUtils.requestHospitalData(dealLocalCode, "", page, 20, flag, new ServerApiUtils.RCallBack() {
             @Override
-            public void onSuccess(String result) {
-                Log.i("result", result);
-                Gson responseGson = new Gson();
-                Response response = responseGson.fromJson(result, Response.class);
-                if (response != null && "1".equals(response.getResponseCode())) {
-                    String data = response.getData();
-                    Log.i("ResponseCode", response.getResponseCode());
-                    SpListDTO spListDTO = responseGson.fromJson(data, SpListDTO.class);
-                    List<HosptialDTO> hosptialList = spListDTO.getHosptialList();
-                    List<DictKEYValueDTO> dictList = spListDTO.getDictList();
-                    JsonUtil.saveHospitalData(hosptialList, dictList);
+            public void getDataSuccess(List<HospitalData> hospitals,int pageTotal) {
+                if (0==hospitals.size()||pageTotal==hospitalDatas.size()){
+                    ptrClassicFrameLayout.loadMoreComplete(true);
+                    Toast.makeText(SelectHospitalActivity.this, "无更多数据", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                hospitalDatas.addAll(hospitals);
+                hospitalAdapter.setData(hospitalDatas);
+                hospitalAdapter.notifyDataSetChanged();
+                mAdapter.notifyDataSetChanged();
+                if (refreshFlag) {
+                    ptrClassicFrameLayout.refreshComplete();
+                } else {
+                    ptrClassicFrameLayout.loadMoreComplete(true);
                 }
             }
 
             @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
+            public void getDataFailed() {
 
             }
 
-            @Override
-            public void onCancelled(CancelledException cex) {
-
-            }
-
-            @Override
-            public void onFinished() {
-
-            }
         });
     }
 
@@ -204,18 +193,13 @@ public class SelectHospitalActivity extends BaseActivity implements  PtrHandler{
             switch (requestCode){
                 case 0x11:
                     cityText.setText(data.getStringExtra("cityName"));
+                    dealLocalCode=data.getStringExtra("cityKey");
+                    page=1;
+                    hospitalDatas.clear();
+                    getHospitalData(true);
                     break;
             }
         }
     }
 
-    @Override
-    public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
-        return false;
-    }
-
-    @Override
-    public void onRefreshBegin(PtrFrameLayout frame) {
-
-    }
 }
