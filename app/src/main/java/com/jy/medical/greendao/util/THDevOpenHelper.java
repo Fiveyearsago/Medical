@@ -62,9 +62,9 @@ public class THDevOpenHelper extends DaoMaster.OpenHelper {
             case 10:
                 MigrationHelper.migrate(db,  MaimGradeDataDao.class);
                 break;
-//            case 16:
-//                MigrationHelper.migrate(db, SelectedHospitalDao.class);
-//                break;
+            case 11:
+                MigrationHelper.migrate(db, TaskBeanDataDao.class);
+                break;
 //            case 17:
 //                MigrationHelper.migrate(db, HumanPartsDao.class, CategoryDataDao.class);
 //                break;

@@ -8,7 +8,7 @@
         android:layout_height="44dp">
 
         <ImageView
-            android:id="@+id/page_head_tab_image"
+            android:id="@+id/page_head_home_image"
             android:layout_width="44dp"
             android:layout_height="44dp"
             android:layout_centerVertical="true"
@@ -31,7 +31,8 @@
             app:tl_textsize="15dp" />
 
         <ImageView
-            android:id="@+id/page_head_tab_search"
+            android:id="@+id/page_head_home_search"
+            android:visibility="invisible"
             android:layout_width="44dp"
             android:layout_height="44dp"
             android:layout_alignParentRight="true"

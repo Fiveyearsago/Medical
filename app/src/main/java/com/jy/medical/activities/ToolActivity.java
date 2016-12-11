@@ -85,7 +85,8 @@ public class ToolActivity extends BaseActivity {
                 startActivity(MineActivity.class);
                 break;
             case R.id.radio_btn_platform:
-                startActivity(PlatformActivity.class);
+//                startActivity(PlatformActivity.class);
+                startActivity(HomeActivity.class);
                 break;
             case R.id.radio_btn_law:
                 startActivity(LawActivity.class);

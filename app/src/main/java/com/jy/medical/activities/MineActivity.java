@@ -58,7 +58,8 @@ public class MineActivity extends BaseActivity {
                 startActivity(ToolActivity.class);
                 break;
             case R.id.radio_btn_platform:
-                startActivity(PlatformActivity.class);
+//                startActivity(PlatformActivity.class);
+                startActivity(HomeActivity.class);
                 break;
             case R.id.layout_mine_suggest:
                 startActivity(FeedBackActivity.class);

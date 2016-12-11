@@ -71,8 +71,8 @@ public class FollowDetailActivity extends BaseActivity implements OnItemClickLis
     private TextView textReport;
     private ImageButton imagePhone;
     private AlertView mAlertView;
-    private String taskType="";
-    private String commitFlag="";
+    private String taskType = "";
+    private String commitFlag = "";
     private MedicalVisitManager medicalVisitManager = DaoUtils.getMedicalVisitInstance();
     private EarningDataManager earningDataManager = DaoUtils.getEarningDataInstance();
     private DeathDataManager deathDataManager = DaoUtils.getDeathDataInstance();
@@ -81,18 +81,15 @@ public class FollowDetailActivity extends BaseActivity implements OnItemClickLis
     private View layoutBottom;
     private Context context;
     private ImageView taskTypeImage;
+
     @Override
     public void initData() {
-        context=this;
+        context = this;
         textName.setText(platformData.getPeopleName());
         textTime.setText(platformData.getTime());
         textReport.setText(platformData.getReportNum());
 
-        try {
-            dayNum = TimeUtil.getGapCount(platformData.getTime());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        dayNum = TimeUtil.getGapCount(platformData.getTime());
         setTaskTimeText(dayNum);
     }
 
@@ -112,7 +109,7 @@ public class FollowDetailActivity extends BaseActivity implements OnItemClickLis
         setStatusBarTint();
         setTitleState(findViewById(R.id.title_head), true, "跟踪详情", false, "");
         findViewById(R.id.task_commit_btn).setOnClickListener(this);
-        taskTypeImage= (ImageView) findViewById(R.id.task_state_image);
+        taskTypeImage = (ImageView) findViewById(R.id.task_state_image);
         layoutBottom = findViewById(R.id.bottom_layout);
         textName = (TextView) findViewById(R.id.follow_detail_name);
         textTime = (TextView) findViewById(R.id.follow_detail_time_text);
@@ -268,8 +265,8 @@ public class FollowDetailActivity extends BaseActivity implements OnItemClickLis
                 CommitUtil.commitMedical(this, platformData.getTaskNo(), new CommitUtil.CommitCallBack() {
                     @Override
                     public void commitSuccess() {
-                        Toast toast= Toast.makeText(context, "已成功提交", Toast.LENGTH_SHORT);
-                        toast.setGravity(Gravity.CENTER,0,0);
+                        Toast toast = Toast.makeText(context, "已成功提交", Toast.LENGTH_SHORT);
+                        toast.setGravity(Gravity.CENTER, 0, 0);
                         toast.show();
                         new Handler().postDelayed(new Runnable() {
                             @Override
@@ -277,12 +274,12 @@ public class FollowDetailActivity extends BaseActivity implements OnItemClickLis
                                 setResult(RESULT_OK);
                                 finish();
                             }
-                        },1000);
+                        }, 1000);
                     }
 
                     @Override
                     public void commitFailed() {
-                        Toast.makeText(context,"提交失败",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "提交失败", Toast.LENGTH_SHORT).show();
                     }
                 });
                 break;
@@ -310,8 +307,8 @@ public class FollowDetailActivity extends BaseActivity implements OnItemClickLis
                 CommitUtil.commitBaseInfo(this, platformData.getTaskNo(), new CommitUtil.CommitCallBack() {
                     @Override
                     public void commitSuccess() {
-                        Toast toast= Toast.makeText(context, "已成功提交", Toast.LENGTH_SHORT);
-                        toast.setGravity(Gravity.CENTER,0,0);
+                        Toast toast = Toast.makeText(context, "已成功提交", Toast.LENGTH_SHORT);
+                        toast.setGravity(Gravity.CENTER, 0, 0);
                         toast.show();
                         new Handler().postDelayed(new Runnable() {
                             @Override
@@ -319,12 +316,12 @@ public class FollowDetailActivity extends BaseActivity implements OnItemClickLis
                                 setResult(RESULT_OK);
                                 finish();
                             }
-                        },1000);
+                        }, 1000);
                     }
 
                     @Override
                     public void commitFailed() {
-                        Toast.makeText(context,"提交失败",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "提交失败", Toast.LENGTH_SHORT).show();
                     }
                 });
                 break;
@@ -371,10 +368,10 @@ public class FollowDetailActivity extends BaseActivity implements OnItemClickLis
 //        } else {
 //            layoutBottom.setVisibility(View.VISIBLE);
 //        }
-        if (commitFlag.equals("1")){
+        if (commitFlag.equals("1")) {
             layoutBottom.setVisibility(View.GONE);
             setTaskTypeImage();
-        }else {
+        } else {
             layoutBottom.setVisibility(View.VISIBLE);
         }
 
@@ -386,15 +383,16 @@ public class FollowDetailActivity extends BaseActivity implements OnItemClickLis
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode==RESULT_OK){
-            switch (requestCode){
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
                 case 0x09:
                     if (data.getStringExtra("commitFlag").equals("1"))
-                    commitFlag="1";
+                        commitFlag = "1";
                     break;
             }
         }
     }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {

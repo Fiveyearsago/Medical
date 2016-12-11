@@ -35,6 +35,7 @@ import com.jy.medical.greendao.entities.ContactData;
 import com.jy.medical.greendao.entities.TaskPhoto;
 import com.jy.medical.greendao.manager.BaseInfoDataManager;
 import com.jy.medical.greendao.manager.ContactManager;
+import com.jy.medical.greendao.manager.TaskManager;
 import com.jy.medical.greendao.manager.TaskPhotoManager;
 import com.jy.medical.greendao.util.DaoUtils;
 import com.jy.medical.util.CommitUtil;
@@ -240,6 +241,8 @@ public class FollowEditActivity extends BaseActivity {
             completeStatusText="1";
         }        BaseInfoData baseInfoData = new BaseInfoData(taskNo, address, time, detailInfo, remark, completeStatusText, "");
         baseInfoDataManager.insertSingleData(baseInfoData);
+        TaskManager taskManager=DaoUtils.getTaskInstance();
+        taskManager.updateIsDongingFlag(taskNo,"1");
     }
 
     @Override

@@ -26,6 +26,7 @@ import com.jy.medical.greendao.entities.ContactData;
 import com.jy.medical.greendao.entities.TaskPhoto;
 import com.jy.medical.greendao.manager.SupporterDataManager;
 import com.jy.medical.greendao.manager.ContactManager;
+import com.jy.medical.greendao.manager.TaskManager;
 import com.jy.medical.greendao.manager.TaskPhotoManager;
 import com.jy.medical.greendao.util.DaoUtils;
 import com.jy.medical.util.CommitUtil;
@@ -208,6 +209,8 @@ public class SupporterActivity extends BaseActivity {
             completeStatusText="1";
         }        SupporterData supporterData = new SupporterData(taskNo, payCoefficient, maintenanceFee,  remark, completeStatusText, "");
         supporterDataManager.insertSingleData(supporterData);
+        TaskManager taskManager=DaoUtils.getTaskInstance();
+        taskManager.updateIsDongingFlag(taskNo,"1");
     }
 
     @Override

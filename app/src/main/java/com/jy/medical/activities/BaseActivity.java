@@ -26,6 +26,7 @@ import com.baidu.mapapi.SDKInitializer;
 import com.jy.medical.MedicalApplication;
 import com.jy.medical.R;
 import com.jy.medical.widget.CleanableEditText;
+import com.jy.medical.widget.ClearEditText;
 import com.pgyersdk.crash.PgyCrashManager;
 import com.pgyersdk.update.PgyUpdateManager;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
@@ -125,7 +126,16 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     public void exit() {
         MedicalApplication.getInstance().exit();
     }
-
+    public void setAllPlatformNavState(View navView, String textTitle) {
+        ImageView navImage = (ImageView) navView.findViewById(R.id.page_third_head_image);
+        ImageView searchImage = (ImageView) navView.findViewById(R.id.page_third_head_collect);
+        ImageView filterImage = (ImageView) navView.findViewById(R.id.page_head_home_filter);
+        TextView textViewTitle = (TextView) navView.findViewById(R.id.page_third_head_text);
+        textViewTitle.setText(textTitle);
+        navImage.setOnClickListener(this);
+        filterImage.setOnClickListener(this);
+        searchImage.setOnClickListener(this);
+    }
     public void setThirdNavState(View navView, String textTitle, int leftDrawable, int rightDrawable) {
         ImageView navImage = (ImageView) navView.findViewById(R.id.page_third_head_image);
         ImageView collectImage = (ImageView) navView.findViewById(R.id.page_third_head_collect);
@@ -137,12 +147,9 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         collectImage.setOnClickListener(this);
     }
 
-    public void setSegmentState(View navView, boolean flag) {
-        ImageView navImage = (ImageView) navView.findViewById(R.id.page_head_tab_image);
-        ImageView navImage1 = (ImageView) navView.findViewById(R.id.page_head_tab_search);
-        if (flag)
-            navImage1.setVisibility(View.VISIBLE);
-        else navImage1.setVisibility(View.GONE);
+    public void setSegmentState(View navView) {
+        ImageView navImage = (ImageView) navView.findViewById(R.id.page_head_home_image);
+        ImageView navImage1 = (ImageView) navView.findViewById(R.id.page_head_home_search);
         navImage.setOnClickListener(this);
         navImage1.setOnClickListener(this);
     }
@@ -266,7 +273,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         }
     }
 
-    public void setCleanableEditTextSelection(CleanableEditText editText) {
+    public void setCleanableEditTextSelection(ClearEditText editText) {
         if (editText != null) {
             editText.setSelection(editText.getText().length());
         }

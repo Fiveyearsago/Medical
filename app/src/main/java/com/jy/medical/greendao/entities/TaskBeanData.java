@@ -21,9 +21,10 @@ public class TaskBeanData {
     private String injureId;
     private String dispatchDate;
     private String commitFlag;
-    @Generated(hash = 5797976)
-    public TaskBeanData(Long id, String taskNo, String claimId, String taskType, String taskState, String taskName, String injureName, String injureId, String dispatchDate,
-            String commitFlag) {
+    private String isDoingFlag;
+    @Generated(hash = 705498071)
+    public TaskBeanData(Long id, String taskNo, String claimId, String taskType, String taskState, String taskName, String injureName, String injureId, String dispatchDate, String commitFlag,
+            String isDoingFlag) {
         this.id = id;
         this.taskNo = taskNo;
         this.claimId = claimId;
@@ -34,11 +35,12 @@ public class TaskBeanData {
         this.injureId = injureId;
         this.dispatchDate = dispatchDate;
         this.commitFlag = commitFlag;
+        this.isDoingFlag = isDoingFlag;
     }
 
 
 
-    public TaskBeanData(String taskNo, String claimId, String taskType, String taskState, String taskName, String injureName, String injureId, String dispatchDate, String commitFlag) {
+    public TaskBeanData(String taskNo, String claimId, String taskType, String taskState, String taskName, String injureName, String injureId, String dispatchDate, String commitFlag,String isDoingFlag) {
         this.taskNo = taskNo;
         this.claimId = claimId;
         this.taskType = taskType;
@@ -48,6 +50,7 @@ public class TaskBeanData {
         this.injureId = injureId;
         this.dispatchDate = dispatchDate;
         this.commitFlag = commitFlag;
+        this.isDoingFlag = isDoingFlag;
     }
 
     @Generated(hash = 740133766)
@@ -134,5 +137,17 @@ public class TaskBeanData {
 
     public void setTaskNo(String taskNo) {
         this.taskNo = taskNo;
+    }
+
+
+
+    public String getIsDoingFlag() {
+        return this.isDoingFlag;
+    }
+
+
+
+    public void setIsDoingFlag(String isDoingFlag) {
+        this.isDoingFlag = isDoingFlag;
     }
 }

@@ -81,7 +81,7 @@ public class DetailActivity extends BaseActivity implements OnItemClickListener,
     private ImageView taskTypeImage;
     private FloatingActionButton floatingActionButton;
     private String taskNo;
-
+    private TextView taskTypeTV;
     @Override
     public void initData() {
         context = this;
@@ -89,11 +89,9 @@ public class DetailActivity extends BaseActivity implements OnItemClickListener,
         textTime.setText(platformData.getTime());
 //        textReport.setText(platformData.getReportNum());
 
-        try {
+
             dayNum = TimeUtil.getGapCount(platformData.getTime());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+
         setTaskTimeText(dayNum);
     }
 
@@ -115,6 +113,8 @@ public class DetailActivity extends BaseActivity implements OnItemClickListener,
         setTitleState(findViewById(R.id.title_head), true, "跟踪详情", false, "");
         findViewById(R.id.task_commit_btn).setOnClickListener(this);
         taskTypeImage = (ImageView) findViewById(R.id.task_state_image);
+        taskTypeTV= (TextView) findViewById(R.id.task_type);
+        setTaskTypeText();
         layoutBottom = findViewById(R.id.bottom_layout);
         textName = (TextView) findViewById(R.id.follow_detail_name);
         textTime = (TextView) findViewById(R.id.follow_detail_time_text);
@@ -246,6 +246,41 @@ public class DetailActivity extends BaseActivity implements OnItemClickListener,
         });
         viewPager.setCurrentItem(0);
 
+    }
+
+    private void setTaskTypeText() {
+        switch (taskType){
+            case "01":
+                taskTypeTV.setText("医");
+                break;
+            case "02":
+                taskTypeTV.setText("薪");
+                break;
+            case "03":
+                taskTypeTV.setText("误");
+                break;
+            case "04":
+                taskTypeTV.setText("籍");
+                break;
+            case "05":
+                taskTypeTV.setText("扶");
+                break;
+            case "06":
+                taskTypeTV.setText("死");
+                break;
+            case "07":
+                taskTypeTV.setText("医");
+                break;
+            case "08":
+                taskTypeTV.setText("残");
+                break;
+            case "09":
+                taskTypeTV.setText("基");
+                break;
+            case "10":
+                taskTypeTV.setText("处");
+                break;
+        }
     }
 
     @Override

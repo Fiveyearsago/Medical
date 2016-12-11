@@ -29,6 +29,6 @@ public class PlatformViewHolder extends RecyclerView.ViewHolder {
         platformReportNum = (TextView) itemView.findViewById(R.id.item_platform_report_num);
         platformTimeOutNum = (TextView) itemView.findViewById(R.id.item_time_out_num);
         taskType = (TextView) itemView.findViewById(R.id.item_task_type);
-        viewLayout =  itemView.findViewById(R.id.time_out_layout);
+        viewLayout = itemView.findViewById(R.id.time_out_layout);
     }
 }

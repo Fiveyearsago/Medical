@@ -27,6 +27,7 @@ import com.jy.medical.greendao.entities.TaskPhoto;
 import com.jy.medical.greendao.manager.MaimDataManager;
 import com.jy.medical.greendao.manager.ContactManager;
 import com.jy.medical.greendao.manager.MaimGradeDataManager;
+import com.jy.medical.greendao.manager.TaskManager;
 import com.jy.medical.greendao.manager.TaskPhotoManager;
 import com.jy.medical.greendao.util.DaoUtils;
 import com.jy.medical.util.CommitUtil;
@@ -233,6 +234,8 @@ public class MaimActivity extends BaseActivity {
         }
         MaimData maimData = new MaimData(taskNo, approvalDepartmentKey, approvalDepartmentValue, approvalPerson, payCoefficient, describe, remark, completeStatusText, "");
         maimDataManager.insertSingleData(maimData);
+        TaskManager taskManager=DaoUtils.getTaskInstance();
+        taskManager.updateIsDongingFlag(taskNo,"1");
     }
 
     @Override

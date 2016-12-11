@@ -41,6 +41,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
+                    android:gravity="center_vertical"
                     android:layout_height="wrap_content">
 
                     <TextView
@@ -74,26 +75,28 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:orientation="horizontal"
-                    android:visibility="gone">
+                    android:visibility="visible">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="超"
                         android:textColor="@color/minorColor"
+                        android:visibility="gone"
                         android:textSize="12dp" />
 
                     <TextView
                         android:id="@+id/item_time_out_num"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="1"
-                        android:textColor="@color/colorTimeout"
-                        android:textSize="17dp" />
+                        android:text=""
+                        android:textColor="@color/minorColor"
+                        android:textSize="12dp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:visibility="gone"
                         android:text="天"
                         android:textColor="@color/minorColor"
                         android:textSize="12dp" />

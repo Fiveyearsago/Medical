@@ -31,6 +31,7 @@ import com.jy.medical.greendao.entities.EarningData;
 import com.jy.medical.greendao.entities.TaskPhoto;
 import com.jy.medical.greendao.manager.ContactManager;
 import com.jy.medical.greendao.manager.EarningDataManager;
+import com.jy.medical.greendao.manager.TaskManager;
 import com.jy.medical.greendao.manager.TaskPhotoManager;
 import com.jy.medical.greendao.util.DaoUtils;
 import com.jy.medical.util.CommitUtil;
@@ -331,7 +332,8 @@ public class EarningActivity extends BaseActivity {
         monthlyIncomeValue = monthlyIncome.getText().toString();
         EarningData earningData = new EarningData(taskNo, jobStatusKey, jobStatusValue, remark, completeStatusKey, completeStatusValue, industryKey1, industryValue, companyNameValue, companyAddressValue, entryTimeValue, leaveTimeValue, agreementKey, agreementValue, socialKey, socialValue, incomeFormKey, incomeFormValue, monthlyIncomeValue, "");
         earningDataManager.insertSingleData(earningData);
-
+        TaskManager taskManager=DaoUtils.getTaskInstance();
+        taskManager.updateIsDongingFlag(taskNo,"1");
     }
 
     @Override

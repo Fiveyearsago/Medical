@@ -3,9 +3,14 @@
     <color name="colorPrimary">#3282F0</color>
     <color name="colorPrimaryDark">#0F5BC4</color>
     <color name="colorAccent">#3282F0</color>
+
+    <color name="textDoing">#00FFFF</color>
+    <color name="textTimeOut">#FF3E00</color>
+    <color name="textFinished">#F2F200</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
     <color name="pageBackground">#EEEEEE</color>
+    <color name="lineColorGray">#EEEEEE</color>
     <color name="pageHeadBackground">#3282F0</color>
     <color name="lineColor">#DDDDDD</color>
     <color name="hintColor">#BBBBBB</color>

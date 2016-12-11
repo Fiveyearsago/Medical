@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/radio_layout"
+    android:orientation="vertical">
+
+    <RadioGroup
+        android:id="@+id/home_radioGroup1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radioButton1"
+            style="@style/HomeRadioStyle"
+            android:drawableTop="@mipmap/base_info"
+            android:text="伤者基本信息" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/lineColor" />
+
+        <RadioButton
+            android:id="@+id/radioButton2"
+            style="@style/HomeRadioStyle"
+            android:drawableTop="@mipmap/accident"
+            android:text="事故现场" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/lineColor" />
+
+        <RadioButton
+            android:id="@+id/radioButton3"
+            style="@style/HomeRadioStyle"
+            android:drawableTop="@mipmap/medical"
+            android:text="医疗探视" />
+
+    </RadioGroup>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/lineColor" />
+    <RadioGroup
+        android:id="@+id/home_radioGroup2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radioButton4"
+            style="@style/HomeRadioStyle"
+            android:drawableTop="@mipmap/earning"
+            android:text="收入情况" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/lineColor" />
+
+        <RadioButton
+            android:id="@+id/radioButton5"
+            style="@style/HomeRadioStyle"
+            android:drawableTop="@mipmap/delay_work"
+            android:text="误工情况" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/lineColor" />
+
+        <RadioButton
+            android:id="@+id/radioButton6"
+            style="@style/HomeRadioStyle"
+            android:drawableTop="@mipmap/houseregister"
+            android:text="户籍居住" />
+
+    </RadioGroup>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/lineColor" />
+    <RadioGroup
+        android:id="@+id/home_radioGroup3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radioButton7"
+            style="@style/HomeRadioStyle"
+            android:drawableTop="@mipmap/raised"
+            android:text="被扶养人" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/lineColor" />
+
+        <RadioButton
+            android:id="@+id/radioButton8"
+            style="@style/HomeRadioStyle"
+            android:drawableTop="@mipmap/disability"
+            android:text="伤残鉴定" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/lineColor" />
+
+        <RadioButton
+            android:id="@+id/radioButton9"
+            style="@style/HomeRadioStyle"
+            android:drawableTop="@mipmap/home_death"
+            android:text="死亡信息" />
+
+    </RadioGroup>
+
+</LinearLayout>

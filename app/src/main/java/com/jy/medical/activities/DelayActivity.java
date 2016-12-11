@@ -31,6 +31,7 @@ import com.jy.medical.greendao.entities.DelayData;
 import com.jy.medical.greendao.entities.TaskPhoto;
 import com.jy.medical.greendao.manager.ContactManager;
 import com.jy.medical.greendao.manager.DelayDataManager;
+import com.jy.medical.greendao.manager.TaskManager;
 import com.jy.medical.greendao.manager.TaskPhotoManager;
 import com.jy.medical.greendao.util.DaoUtils;
 import com.jy.medical.util.CommitUtil;
@@ -334,6 +335,8 @@ public class DelayActivity extends BaseActivity {
         monthlyIncomeValue = monthlyIncomeEdit.getText().toString();
         DelayData DelayData = new DelayData(taskNo, jobStatusKey, jobStatusValue, remark, completeStatusKey, completeStatusValue, industryKey1, industryValue, companyNameValue, companyAddressValue, entryTimeValue, leaveTimeValue, agreementKey, agreementValue, socialKey, socialValue, incomeFormKey, incomeFormValue, monthlyIncomeValue, "",restDays,moneyReduce);
         DelayDataManager.insertSingleData(DelayData);
+        TaskManager taskManager=DaoUtils.getTaskInstance();
+        taskManager.updateIsDongingFlag(taskNo,"1");
 
     }
 

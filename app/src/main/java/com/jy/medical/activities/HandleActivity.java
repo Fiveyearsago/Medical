@@ -31,6 +31,7 @@ import com.jy.medical.greendao.entities.ContactData;
 import com.jy.medical.greendao.entities.TaskPhoto;
 import com.jy.medical.greendao.manager.HandleDataManager;
 import com.jy.medical.greendao.manager.ContactManager;
+import com.jy.medical.greendao.manager.TaskManager;
 import com.jy.medical.greendao.manager.TaskPhotoManager;
 import com.jy.medical.greendao.util.DaoUtils;
 import com.jy.medical.util.CommitUtil;
@@ -241,6 +242,8 @@ public class HandleActivity extends BaseActivity {
         }
         HandleData handleData = new HandleData(taskNo, handleName, time, handleResult, remark, completeStatusText, "");
         handleDataManager.insertSingleData(handleData);
+        TaskManager taskManager=DaoUtils.getTaskInstance();
+        taskManager.updateIsDongingFlag(taskNo,"1");
     }
 
     @Override

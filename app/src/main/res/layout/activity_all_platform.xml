@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <include layout="@layout/page_head_location" />
+        <include layout="@layout/page_hade_all_platform" />
 
         <com.flyco.tablayout.SlidingTabLayout
             android:id="@+id/tabLayout_allPlatform"

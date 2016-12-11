@@ -2,8 +2,14 @@ package com.jy.medical.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.AbsoluteSizeSpan;
+import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +39,7 @@ public class PlatformAdapter extends BaseHeadFootAdapter {
         this.list = list;
     }
 
-    public void setData(List<PlatformData> list){
+    public void setData(List<PlatformData> list) {
         this.list = list;
     }
 
@@ -60,7 +66,7 @@ public class PlatformAdapter extends BaseHeadFootAdapter {
 
     @Override
     protected void onBindView(RecyclerView.ViewHolder holder, final int position) {
-        final PlatformViewHolder viewHolder = (PlatformViewHolder) holder;
+        PlatformViewHolder viewHolder = (PlatformViewHolder) holder;
         final PlatformData platformData = list.get(position);
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,30 +74,66 @@ public class PlatformAdapter extends BaseHeadFootAdapter {
 //                Intent intent = new Intent(context, FollowDetailActivity.class);
                 Intent intent = new Intent(context, DetailActivity.class);
                 intent.putExtra("info", platformData);
-                ((AppCompatActivity)context).startActivityForResult(intent,0x11);
+                ((AppCompatActivity) context).startActivityForResult(intent, 0x11);
 
             }
         });
 
-        try {
-            int gapNum = TimeUtil.getGapCount(platformData.getTime());
-            if (TimeUtil.getGapCount(platformData.getTime()) > 0&&!platformData.getCommitFlag().equals("1")) {
-                viewHolder.platformTimeOutNum.setText(gapNum + "");
-                viewHolder.viewLayout.setVisibility(View.VISIBLE);
-                viewHolder.platformTag.setText("超时");
-                viewHolder.platformTag.setTextColor(context.getResources().getColor(R.color.colorTimeout));
-                viewHolder.platformTag.setBackground(context.getResources().getDrawable(R.drawable.platform_timeout));
 
-            } else {
-                viewHolder.platformTag.setText("完成");
-                viewHolder.viewLayout.setVisibility(View.GONE);
-                viewHolder.platformTag.setTextColor(context.getResources().getColor(R.color.colorFinished));
-                viewHolder.platformTag.setBackground(context.getResources().getDrawable(R.drawable.platform_finished));
+        int gapNum = TimeUtil.getGapCount(platformData.getTime());
+        Log.i("gapNum",gapNum+"天后超时"+platformData.getTime());
+        if (gapNum < 0 && !platformData.getCommitFlag().equals("1")) {
 
+            String string="超时"+(-gapNum)+"天";
+            Log.i("gapNum","超时"+gapNum+"天");
+            SpannableStringBuilder style=new SpannableStringBuilder(string);
+            style.setSpan(new ForegroundColorSpan(context.getResources().getColor(R.color.colorTimeout)),2,2+(-gapNum+"").length(), Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
+            AbsoluteSizeSpan absoluteSizeSpan = new AbsoluteSizeSpan(60);
+            style.setSpan(absoluteSizeSpan, 2,2+(-gapNum+"").length(), Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
+//            viewHolder.platformTimeOutNum.setText(gapNum + "");
+            viewHolder.platformTimeOutNum.setText(style);
+            viewHolder.viewLayout.setVisibility(View.VISIBLE);
+            if (platformData.getIsDoingFlag()!=null&&platformData.getIsDoingFlag().equals("1")) {
+                viewHolder.platformTag.setText("进行中");
+                viewHolder.platformTag.setTextColor(context.getResources().getColor(R.color.white));
+                viewHolder.platformTag.setBackground(context.getResources().getDrawable(R.drawable.platform_doing));
+            }else{
+                viewHolder.platformTag.setText("待办");
+                viewHolder.platformTag.setTextColor(context.getResources().getColor(R.color.white));
+                viewHolder.platformTag.setBackground(context.getResources().getDrawable(R.drawable.platform_undo));
             }
-        } catch (ParseException e) {
-            e.printStackTrace();
+//            viewHolder.platformTag.setText("已超时");
+//            viewHolder.platformTag.setTextColor(context.getResources().getColor(R.color.colorTimeout));
+//            viewHolder.platformTag.setBackground(context.getResources().getDrawable(R.drawable.platform_timeout));
+
+        } else if (gapNum >= 0 && !platformData.getCommitFlag().equals("1")) {
+            gapNum++;
+            String string=gapNum+"天后超时";
+            SpannableStringBuilder style=new SpannableStringBuilder(string);
+            style.setSpan(new ForegroundColorSpan(context.getResources().getColor(R.color.colorYellow)),0,(gapNum+"").length(), Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
+            AbsoluteSizeSpan absoluteSizeSpan = new AbsoluteSizeSpan(60);
+            style.setSpan(absoluteSizeSpan, 0, (gapNum+"").length(), Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
+            viewHolder.platformTimeOutNum.setText(style);
+            viewHolder.viewLayout.setVisibility(View.VISIBLE);
+
+            if (platformData.getIsDoingFlag()!=null&&platformData.getIsDoingFlag().equals("1")) {
+                viewHolder.platformTag.setText("进行中");
+                viewHolder.platformTag.setTextColor(context.getResources().getColor(R.color.white));
+                viewHolder.platformTag.setBackground(context.getResources().getDrawable(R.drawable.platform_doing));
+            }else{
+                viewHolder.platformTag.setText("待办");
+                viewHolder.platformTag.setTextColor(context.getResources().getColor(R.color.white));
+                viewHolder.platformTag.setBackground(context.getResources().getDrawable(R.drawable.platform_undo));
+            }
+
+        } else if (platformData.getCommitFlag().equals("1")) {
+            viewHolder.platformTag.setText("已完成");
+            viewHolder.viewLayout.setVisibility(View.GONE);
+            viewHolder.platformTag.setTextColor(context.getResources().getColor(R.color.colorFinished));
+            viewHolder.platformTag.setBackground(context.getResources().getDrawable(R.drawable.platform_finished));
+
         }
+
         switch (platformData.getTag()) {
             case "0":
                 break;
@@ -135,7 +177,6 @@ public class PlatformAdapter extends BaseHeadFootAdapter {
                 viewHolder.taskType.setText("处");
                 break;
         }
-
     }
 
     @Override

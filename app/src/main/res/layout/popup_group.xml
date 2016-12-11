@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/radio_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:paddingBottom="10dp">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/popup_check1"
+            style="@style/PopupCheckStyle"
+            android:drawableTop="@drawable/popup_all_selector"
+            android:text="全部任务" />
+
+
+        <TextView
+            android:id="@+id/popup_check2"
+            style="@style/PopupCheckStyle"
+            android:drawableTop="@drawable/popup_base_selector"
+            android:text="伤者基本信息" />
+
+
+        <TextView
+            android:id="@+id/popup_check3"
+            style="@style/PopupCheckStyle"
+            android:drawableTop="@drawable/popup_accident_selector"
+            android:text="事故现场" />
+
+
+        <TextView
+            android:id="@+id/popup_check4"
+            style="@style/PopupCheckStyle"
+            android:drawableTop="@drawable/popup_medical_selector"
+            android:text="医疗探视" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/popup_check5"
+            style="@style/PopupCheckStyle"
+            android:drawableTop="@drawable/popup_earning_selector"
+            android:text="收入情况" />
+
+        <TextView
+            android:id="@+id/popup_check6"
+            style="@style/PopupCheckStyle"
+            android:drawableTop="@drawable/popup_delay_selector"
+            android:text="误工情况" />
+
+
+        <TextView
+            android:id="@+id/popup_check7"
+            style="@style/PopupCheckStyle"
+            android:drawableTop="@drawable/popup_household_selector"
+            android:text="户籍居住" />
+
+        <TextView
+            android:id="@+id/popup_check8"
+            style="@style/PopupCheckStyle"
+            android:drawableTop="@drawable/popup_raise_selector"
+            android:text="被扶养人" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <TextView
+            android:id="@+id/popup_check9"
+            style="@style/PopupCheckStyle"
+            android:drawableTop="@drawable/popup_maim_selector"
+            android:text="伤残鉴定" />
+
+
+        <TextView
+            android:id="@+id/popup_check10"
+            style="@style/PopupCheckStyle"
+            android:drawableTop="@drawable/popup_death_selector"
+            android:text="死亡信息" />
+        <TextView
+            style="@style/PopupCheckStyle"
+            android:visibility="invisible"
+            android:text="伤残鉴定" />
+
+
+        <TextView
+            style="@style/PopupCheckStyle"
+            android:visibility="invisible"
+            android:text="死亡信息" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

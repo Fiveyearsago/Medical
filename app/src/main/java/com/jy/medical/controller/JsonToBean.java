@@ -56,7 +56,7 @@ public class JsonToBean {
 
                     taskList.add(new TaskBeanData(taskNo, claimId, taskType,
                             taskState, taskName, injureName, injureId,
-                            dispatchDate,"0"));
+                            dispatchDate,"0",""));
 
                 }
                 taskManager.insertData(taskList);

@@ -26,6 +26,7 @@ import com.jy.medical.greendao.entities.ContactData;
 import com.jy.medical.greendao.entities.TaskPhoto;
 import com.jy.medical.greendao.manager.DeathDataManager;
 import com.jy.medical.greendao.manager.ContactManager;
+import com.jy.medical.greendao.manager.TaskManager;
 import com.jy.medical.greendao.manager.TaskPhotoManager;
 import com.jy.medical.greendao.util.DaoUtils;
 import com.jy.medical.util.CommitUtil;
@@ -47,7 +48,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DeathActivity extends BaseActivity {
+public class DeathActivity extends BaseActivity implements View.OnFocusChangeListener {
 
     private RecyclerView pictureRecyclerView;
     private PictureAdapter pictureAdapter;
@@ -92,6 +93,7 @@ public class DeathActivity extends BaseActivity {
         addressEdit = (ClearEditText) findViewById(R.id.death_address);
         participationEdit = (ClearEditText) findViewById(R.id.death_participation);
         remarkEdit = (ClearEditText) findViewById(R.id.remark_edit);
+        addressEdit.setOnFocusChangeListener(this);
         btnCommit = (Button) findViewById(R.id.btn_commit);
         btnSave = (Button) findViewById(R.id.btn_save);
 
@@ -116,7 +118,9 @@ public class DeathActivity extends BaseActivity {
                 .showImageOnLoading(R.mipmap.dangkr_no_picture_small)
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .displayer(new SimpleBitmapDisplayer()).build();
+
         initOtherData();
+
     }
 
     private void setPhotoData() {
@@ -219,6 +223,8 @@ public class DeathActivity extends BaseActivity {
         }
         DeathData deathData = new DeathData(taskNo, deathReason, participation, address, time, remark, completeStatusText, "");
         deathDataManager.insertSingleData(deathData);
+        TaskManager taskManager=DaoUtils.getTaskInstance();
+        taskManager.updateIsDongingFlag(taskNo,"1");
     }
 
     @Override
@@ -306,6 +312,21 @@ public class DeathActivity extends BaseActivity {
                 default:
                     break;
             }
+        }
+    }
+
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+        switch (v.getId()){
+            case R.id.death_address:
+                setCleanableEditTextSelection(addressEdit);
+                break;
+            case R.id.death_participation:
+                setCleanableEditTextSelection(participationEdit);
+                break;
+            case R.id.remark_edit:
+                setCleanableEditTextSelection(remarkEdit);
+                break;
         }
     }
 }

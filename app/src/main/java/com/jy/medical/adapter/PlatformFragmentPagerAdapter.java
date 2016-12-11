@@ -8,21 +8,26 @@ import android.support.v4.app.FragmentPagerAdapter;
 import com.jy.medical.fragment.LawFragment;
 import com.jy.medical.fragment.PlatformFragment;
 
+import java.util.List;
+
 /**
  * Created by songran on 16/10/8.
  */
 
 public class PlatformFragmentPagerAdapter extends FragmentPagerAdapter {
-    private String[] titles = new String[]{"全部","待办","进行中","超时","未完成"};
+    private String[] titles;
     private Context context;
-    public PlatformFragmentPagerAdapter(FragmentManager fm, Context context) {
+    private List<PlatformFragment>platformFragmentList;
+    public PlatformFragmentPagerAdapter(FragmentManager fm, Context context,String[] titles, List<PlatformFragment>platformFragmentList) {
         super(fm);
         this.context=context;
+        this.titles=titles;
+        this.platformFragmentList=platformFragmentList;
     }
 
     @Override
     public Fragment getItem(int position) {
-        return PlatformFragment.newInstance(position + 1,context);
+        return platformFragmentList.get(position);
     }
 
     @Override

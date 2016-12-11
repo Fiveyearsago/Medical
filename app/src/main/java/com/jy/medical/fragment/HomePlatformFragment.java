@@ -5,13 +5,18 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -19,6 +24,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.jy.ah.bus.data.Response;
 import com.jy.medical.R;
+import com.jy.medical.activities.HomeActivity;
 import com.jy.medical.adapter.PlatformAdapter;
 import com.jy.medical.controller.JsonToBean;
 import com.jy.medical.greendao.entities.PlatformData;
@@ -55,6 +61,8 @@ public class HomePlatformFragment extends Fragment implements View.OnClickListen
     private List<RadioButton> radioList;
     private RadioGroup radioGroup;
     private ClaimManager claimManager = DaoUtils.getClaimInstance();
+    private String mTaskType="";
+    private int  days=0;
 
 
     public static HomePlatformFragment newInstance(int page, Context context) {
@@ -81,6 +89,7 @@ public class HomePlatformFragment extends Fragment implements View.OnClickListen
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home_platform,container,false);
+//        requestData();
         initDateData(view);
         View navView = view.findViewById(R.id.navView);
         platformRecycler = (RecyclerView) view.findViewById(R.id.platform_recycler);
@@ -88,11 +97,11 @@ public class HomePlatformFragment extends Fragment implements View.OnClickListen
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(mContext);
         platformRecycler.setLayoutManager(layoutManager);
         list = new ArrayList<>();
-
-        list = claimManager.selectAllData();
+//        list = claimManager.selectAllData();
         adapter = new PlatformAdapter(mContext, list);
         platformRecycler.setAdapter(adapter);
-        requestData();
+        radioList.get(3).setChecked(true);
+
         return view;
     }
     public void initDateData(View contentView) {
@@ -100,7 +109,6 @@ public class HomePlatformFragment extends Fragment implements View.OnClickListen
         View viewLayout = contentView.findViewById(R.id.date_layout);
         View view = viewLayout.findViewById(R.id.platform_radioGroup);
         radioGroup = (RadioGroup) viewLayout.findViewById(R.id.platform_radioGroup);
-
         radioList.add((RadioButton) view.findViewById(R.id.radio1));
         radioList.add((RadioButton) view.findViewById(R.id.radio2));
         radioList.add((RadioButton) view.findViewById(R.id.radio3));
@@ -108,11 +116,34 @@ public class HomePlatformFragment extends Fragment implements View.OnClickListen
         radioList.add((RadioButton) view.findViewById(R.id.radio5));
         radioList.add((RadioButton) view.findViewById(R.id.radio6));
         radioList.add((RadioButton) view.findViewById(R.id.radio7));
-        radioGroup.check(radioList.get(3).getId());
+//        radioGroup.check(radioList.get(3).getId());
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 Log.i("checkedId", checkedId + "");
+                switch (checkedId){
+                    case R.id.radio1:
+                        setFilterData(mTaskType);
+                        break;
+                    case R.id.radio2:
+                        setFilterData(mTaskType);
+                        break;
+                    case R.id.radio3:
+                        setFilterData(mTaskType);
+                        break;
+                    case R.id.radio4:
+                        setFilterData(mTaskType);
+                        break;
+                    case R.id.radio5:
+                        setFilterData(mTaskType);
+                        break;
+                    case R.id.radio6:
+                        setFilterData(mTaskType);
+                        break;
+                    case R.id.radio7:
+                        setFilterData(mTaskType);
+                        break;
+                }
             }
         });
 
@@ -131,6 +162,7 @@ public class HomePlatformFragment extends Fragment implements View.OnClickListen
             radioList.get(i + 3).setText(calendar.get(Calendar.DAY_OF_MONTH) + "");
         }
         radioList.get(3).setText("今");
+
     }
     private void requestData() {
         QtRecieveTaskDTO qtRecieveTaskDTO = new QtRecieveTaskDTO();
@@ -173,5 +205,24 @@ public class HomePlatformFragment extends Fragment implements View.OnClickListen
     @Override
     public void onClick(View v) {
 
+    }
+
+    public void setData(String taskType){
+        mTaskType=taskType;
+        list = claimManager.selectAllData(taskType);
+        adapter.setData(list);
+        adapter.notifyDataSetChanged();
+    }
+
+    public void setFilterData(String taskType){
+        for (int i = 0; i <radioList.size() ; i++) {
+            if (radioList.get(i).isChecked()){
+                days=i-3;
+            }
+        }
+
+        list = claimManager.selectDayData(taskType,days);
+        adapter.setData(list);
+        adapter.notifyDataSetChanged();
     }
 }

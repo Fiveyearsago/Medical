@@ -40,6 +40,7 @@ import com.jy.medical.greendao.manager.MedicalVisitManager;
 import com.jy.medical.greendao.manager.NursingDataManager;
 import com.jy.medical.greendao.manager.SelectedDiagnoseManager;
 import com.jy.medical.greendao.manager.SelectedHospitalManager;
+import com.jy.medical.greendao.manager.TaskManager;
 import com.jy.medical.greendao.manager.TaskPhotoManager;
 import com.jy.medical.greendao.util.DaoUtils;
 import com.jy.medical.inter.OnItemClickListener;
@@ -416,6 +417,8 @@ public class MedicalVisitsActivity extends BaseActivity {
         String nursingRemark = nursingRemarkEdit.getText().toString();
         String completeText = completeStatus.getText().toString().equals("已完成") ? "0" : "1";
         medicalVisitManager.insertSingleData(new MedicalVisit(taskNo, nursingFee, nursingRemark, completeText,""));
+        TaskManager taskManager=DaoUtils.getTaskInstance();
+        taskManager.updateIsDongingFlag(taskNo,"1");
     }
 
     /**

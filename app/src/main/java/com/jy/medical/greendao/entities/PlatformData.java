@@ -17,8 +17,9 @@ public class PlatformData implements Serializable {
     private String phoneNum;
     private String taskType;
     private String commitFlag;
+    private String isDoingFlag;
 
-    public PlatformData(String claimId, String taskNo,String taskType, String peopleName, String time, String tag, String reportNum,  String phoneNum, String commitFlag) {
+    public PlatformData(String claimId, String taskNo,String taskType, String peopleName, String time, String tag, String reportNum,  String phoneNum, String commitFlag,String isDoingFlag) {
         this.peopleName = peopleName;
         this.time = time;
         this.tag = tag;
@@ -28,6 +29,15 @@ public class PlatformData implements Serializable {
         this.phoneNum = phoneNum;
         this.taskType = taskType;
         this.commitFlag = commitFlag;
+        this.isDoingFlag = isDoingFlag;
+    }
+
+    public String getIsDoingFlag() {
+        return isDoingFlag;
+    }
+
+    public void setIsDoingFlag(String isDoingFlag) {
+        this.isDoingFlag = isDoingFlag;
     }
 
     public String getCommitFlag() {
