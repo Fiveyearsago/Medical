@@ -52,10 +52,12 @@ public class BaseInfoFragment extends Fragment {
     private ContactManager contactManager = DaoUtils.getContactInstance();
     private BaseInfoDataManager baseInfoDataManager = DaoUtils.getBaseInfoDataInstance();
     private TextView textAddress, textTime, textDetail, textRemark, textComplete;
-    private View layoutAddress, layoutTime, layoutContact, layoutDetail, layoutPhoto, layoutRemark, layoutComplete, layoutEmpty;
-
-    private int count = 0;
-    private ImageView baseEdit;
+    private View layoutAddress, layoutTime, layoutDetail, layoutRemark, layoutComplete;
+    private View layoutAddressInfo, layoutContact, layoutPhoto, layoutOther, layoutEmpty;
+    private int countAddress = 0;
+    private int countContact = 0;
+    private int countPhoto = 0;
+    private int countOther = 0;
 
     public static BaseInfoFragment newInstance(Context context) {
         mContext = context;
@@ -79,6 +81,9 @@ public class BaseInfoFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_baseinfo, container, false);
+
+        layoutOther = view.findViewById(R.id.other_data_layout);
+        layoutAddressInfo = view.findViewById(R.id.layout_address_info);
         layoutAddress = view.findViewById(R.id.layout_address);
         layoutTime = view.findViewById(R.id.layout_time);
         layoutContact = view.findViewById(R.id.layout_contact);
@@ -92,21 +97,12 @@ public class BaseInfoFragment extends Fragment {
         textDetail = (TextView) view.findViewById(R.id.detail_info);
         textRemark = (TextView) view.findViewById(R.id.remark);
         textComplete = (TextView) view.findViewById(R.id.complete_status);
-        baseEdit= (ImageView) view.findViewById(R.id.base_edit);
-        baseEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), FollowEditActivity.class);
-                intent.putExtra("taskNo", taskNo);
-                ((AppCompatActivity)mContext).startActivityForResult(intent,0x09);
-            }
-        });
         pictureRecyclerView = (RecyclerView) view.findViewById(R.id.picture_recyclerView);
         pictureRecyclerView.setHasFixedSize(true);
         pictureRecyclerView.setLayoutManager(new GridLayoutManager(mContext, 4));
         pictureList = new ArrayList<>();
         list = new ArrayList<>();
-        contactRecycler = (RecyclerView) view.findViewById(R.id.contact_recycler);
+        contactRecycler = (RecyclerView) view.findViewById(R.id.contact_recyclerView);
         contactRecycler.setHasFixedSize(true);
         contactRecycler.setLayoutManager(new LinearLayoutManager(mContext));
         contactManager = DaoUtils.getContactInstance();
@@ -117,12 +113,24 @@ public class BaseInfoFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        count = 0;
+        countAddress = 0;
+        countContact = 0;
+        countPhoto = 0;
+        countOther = 0;
         initOtherData();
         setPhotoData();
         setContactData();
-
-        if (count == 7) {
+        if (countAddress == 3) {
+            layoutAddressInfo.setVisibility(View.GONE);
+        } else {
+            layoutAddressInfo.setVisibility(View.VISIBLE);
+        }
+        if (countOther == 2) {
+            layoutOther.setVisibility(View.GONE);
+        } else {
+            layoutOther.setVisibility(View.VISIBLE);
+        }
+        if (countAddress + countContact + countPhoto + countOther == 7) {
             layoutEmpty.setVisibility(View.VISIBLE);
         } else {
             layoutEmpty.setVisibility(View.GONE);
@@ -137,7 +145,8 @@ public class BaseInfoFragment extends Fragment {
             layoutDetail.setVisibility(View.GONE);
             layoutRemark.setVisibility(View.GONE);
             layoutComplete.setVisibility(View.GONE);
-            count = 5;
+            countAddress = 3;
+            countOther = 2;
             return;
         }
         textAddress.setText(baseInfoData.getAddress());
@@ -151,38 +160,33 @@ public class BaseInfoFragment extends Fragment {
 
         if (baseInfoData.getAddress().equals("")) {
             layoutAddress.setVisibility(View.GONE);
-            count++;
+            countAddress++;
         } else {
             layoutAddress.setVisibility(View.VISIBLE);
         }
         if (baseInfoData.getTime().equals("")) {
             layoutTime.setVisibility(View.GONE);
-            count++;
+            countAddress++;
         } else {
             layoutTime.setVisibility(View.VISIBLE);
         }
         if (baseInfoData.getDetailInfo().equals("")) {
             layoutDetail.setVisibility(View.GONE);
-            count++;
+            countAddress++;
         } else {
             layoutDetail.setVisibility(View.VISIBLE);
         }
         if (baseInfoData.getRemark().equals("")) {
             layoutRemark.setVisibility(View.GONE);
-            count++;
+            countOther++;
         } else {
             layoutRemark.setVisibility(View.VISIBLE);
         }
         if (baseInfoData.getCompleteStatus().equals("")) {
             layoutComplete.setVisibility(View.GONE);
-            count++;
+            countOther++;
         } else {
             layoutComplete.setVisibility(View.VISIBLE);
-        }
-        if (baseInfoData.getCommitFlag().equals("1")){
-            baseEdit.setVisibility(View.GONE);
-        }else {
-            baseEdit.setVisibility(View.VISIBLE);
         }
     }
 
@@ -192,8 +196,8 @@ public class BaseInfoFragment extends Fragment {
         contactRecycler.setAdapter(adapter);
         if (contactDataList.size() == 0) {
             layoutContact.setVisibility(View.GONE);
-            count++;
-        }else {
+            countContact++;
+        } else {
             layoutContact.setVisibility(View.VISIBLE);
         }
     }
@@ -204,16 +208,17 @@ public class BaseInfoFragment extends Fragment {
         taskPhotoManager = DaoUtils.getTaskPhotoInstance();
         pictureList = taskPhotoManager.selectAllPhoto(taskNo);
         for (int i = 0; i < pictureList.size(); i++) {
-            Bitmap bmp = PhotoUtil.convertToBitmap(pictureList.get(i).getPhotoPath(), 75, 75);
+//            Bitmap bmp = PhotoUtil.convertToBitmap(pictureList.get(i).getPhotoPath(), 150, 150);
+            Bitmap bmp = PhotoUtil.getNativeImage(pictureList.get(i).getPhotoPath());
             list.add(bmp);
         }
-        pictureAdapter = new PictureAdapter(mContext, list, taskNo, false,false);
+        pictureAdapter = new PictureAdapter(mContext, list, taskNo, false, false);
         pictureAdapter.notifyDataSetChanged();
         pictureRecyclerView.setAdapter(pictureAdapter);
         if (pictureList.size() == 0) {
             layoutPhoto.setVisibility(View.GONE);
-            count++;
-        }else {
+            countPhoto++;
+        } else {
             layoutPhoto.setVisibility(View.VISIBLE);
         }
     }

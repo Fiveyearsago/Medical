@@ -197,14 +197,14 @@
                 android:paddingLeft="@dimen/primary_text_size"
                 android:paddingRight="@dimen/primary_text_size">
 
-                <RelativeLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="44dp">
+                    android:layout_height="44dp"
+                    android:gravity="center_vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
                         android:text="已发生医疗费"
                         android:textColor="@color/navigateColor"
                         android:textSize="@dimen/primary_text_size" />
@@ -212,19 +212,20 @@
 
                     <com.jy.medical.widget.ClearEditText
                         android:id="@+id/nursing_fee"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="match_parent"
                         android:background="@null"
                         android:drawablePadding="10dp"
                         android:drawableRight="@mipmap/clear"
-                        android:gravity="right"
+                        android:gravity="right|center_vertical"
                         android:hint="必填"
+                        android:layout_marginRight="@dimen/primary_margin"
+                        android:inputType="numberDecimal"
                         android:textColor="@color/black"
                         android:textColorHint="@color/hintColor"
                         android:textSize="@dimen/primary_text_size" />
-                </RelativeLayout>
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
@@ -281,13 +282,13 @@
                 <com.jy.medical.widget.ClearEditText
                     android:id="@+id/nursing_remark"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="5dp"
+                    android:layout_height="102dp"
+                    android:paddingBottom="10dp"
                     android:background="@null"
                     android:drawableRight="@mipmap/clear"
                     android:gravity="top"
-                    android:maxLines="2"
+                    android:hint="必填"
+                    android:maxLines="5"
                     android:textColor="@color/black"
                     android:textColorHint="@color/hintColor"
                     android:textSize="@dimen/primary_text_size" />

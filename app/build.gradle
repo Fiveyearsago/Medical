@@ -40,7 +40,7 @@ android {
         }
     }
     greendao {
-        schemaVersion 11
+        schemaVersion 14
         daoPackage 'com.jy.medical.greendao.gen'
         targetGenDir 'src/main/java'
     }
@@ -84,4 +84,5 @@ dependencies {
     compile 'com.github.PhilJay:MPAndroidChart:v3.0.1'
     compile 'com.github.lecho:hellocharts-android:v1.5.8'
     //    compile 'org.quanqi:mpandroidchart:3.0.1'
+    compile 'com.android.support:percent:24.0.0'
 }

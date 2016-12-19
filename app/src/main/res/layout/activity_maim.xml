@@ -16,12 +16,55 @@
     </LinearLayout>
 
 
+    <RelativeLayout
+        android:id="@+id/bottom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:paddingLeft="@dimen/primary_margin"
+            android:paddingRight="@dimen/primary_margin">
+
+            <Button
+                android:id="@+id/btn_commit"
+                android:layout_width="0dp"
+                android:layout_height="39dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_green_selector"
+                android:text="提交"
+                android:textColor="@drawable/btn_press_selector"
+                android:textSize="@dimen/primary_text_size" />
+
+            <Button
+                android:id="@+id/btn_save"
+                android:layout_width="0dp"
+                android:layout_height="39dp"
+                android:layout_marginLeft="@dimen/primary_text_size"
+                android:layout_toRightOf="@+id/btn_commit"
+                android:layout_weight="1"
+                android:background="@drawable/btn_blue_selector"
+                android:text="保存"
+                android:textColor="@drawable/btn_press_selector"
+                android:textSize="@dimen/primary_text_size" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/bottom_layout"
-        android:layout_below="@+id/head_layout"
-        android:layout_marginBottom="10dp">
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/head_layout">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -60,11 +103,11 @@
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="5dp"
                         android:layout_weight="1"
+                        android:ellipsize="end"
                         android:gravity="center_vertical|right"
                         android:hint="必选"
-                        android:text=""
                         android:maxLines="1"
-                        android:ellipsize="end"
+                        android:text=""
                         android:textColor="@color/black"
                         android:textColorHint="@color/hintColor"
                         android:textSize="@dimen/primary_text_size" />
@@ -76,14 +119,16 @@
                         android:background="@mipmap/more"
                         android:scaleType="fitXY" />
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/lineColor" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:gravity="center_vertical"
-                    android:layout_height="44dp">
+                    android:layout_height="44dp"
+                    android:gravity="center_vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -97,19 +142,20 @@
                     <com.jy.medical.widget.ClearEditText
                         android:id="@+id/approval_person"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="match_parent"
+                        android:layout_marginRight="15dp"
+                        android:layout_weight="1"
                         android:background="@null"
                         android:drawablePadding="10dp"
                         android:drawableRight="@mipmap/clear"
                         android:gravity="right|center_vertical"
                         android:hint="必填"
                         android:inputType="numberSigned"
-                        android:layout_marginRight="15dp"
                         android:textColor="@color/black"
                         android:textColorHint="@color/hintColor"
                         android:textSize="@dimen/primary_text_size" />
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
@@ -117,8 +163,8 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:gravity="center_vertical"
-                    android:layout_height="44dp">
+                    android:layout_height="44dp"
+                    android:gravity="center_vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -132,18 +178,19 @@
                     <com.jy.medical.widget.ClearEditText
                         android:id="@+id/pay_coefficient"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="match_parent"
+                        android:layout_marginRight="4dp"
+                        android:layout_weight="1"
                         android:background="@null"
                         android:drawablePadding="10dp"
                         android:drawableRight="@mipmap/clear"
                         android:gravity="right|center_vertical"
                         android:hint="必填"
-                        android:inputType="numberSigned"
-                        android:layout_marginRight="15dp"
+                        android:inputType="numberDecimal"
                         android:textColor="@color/black"
                         android:textColorHint="@color/hintColor"
                         android:textSize="@dimen/primary_text_size" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -184,12 +231,11 @@
                     android:maxLines="5"
                     android:textColor="@color/black"
                     android:textColorHint="@color/hintColor"
-                    android:textSize="@dimen/primary_text_size"  />
+                    android:textSize="@dimen/primary_text_size" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_marginTop="10dp"
                     android:background="@color/lineColor" />
 
                 <RelativeLayout
@@ -295,8 +341,8 @@
                         android:layout_weight="1"
                         android:gravity="center_vertical|right"
                         android:hint="必选"
-                        android:textColorHint="@color/hintColor"
                         android:textColor="@color/black"
+                        android:textColorHint="@color/hintColor"
                         android:textSize="@dimen/primary_text_size" />
 
                     <ImageView
@@ -334,6 +380,7 @@
                     android:gravity="top"
                     android:hint="必填"
                     android:maxLines="5"
+                    android:paddingBottom="10dp"
                     android:textColor="@color/black"
                     android:textColorHint="@color/hintColor"
                     android:textSize="@dimen/primary_text_size" />
@@ -341,47 +388,4 @@
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
-
-    <RelativeLayout
-        android:id="@+id/bottom_layout"
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:background="@color/white"
-        android:gravity="center_vertical"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:paddingLeft="@dimen/primary_margin"
-            android:paddingRight="@dimen/primary_margin">
-
-            <Button
-                android:id="@+id/btn_commit"
-                android:layout_width="0dp"
-                android:layout_height="39dp"
-                android:layout_weight="1"
-                android:background="@drawable/btn_green_selector"
-                android:text="提交"
-                android:textColor="@drawable/btn_press_selector"
-                android:textSize="@dimen/primary_text_size" />
-
-            <Button
-                android:id="@+id/btn_save"
-                android:layout_width="0dp"
-                android:layout_height="39dp"
-                android:layout_marginLeft="@dimen/primary_text_size"
-                android:layout_toRightOf="@+id/btn_commit"
-                android:layout_weight="1"
-                android:background="@drawable/btn_blue_selector"
-                android:text="保存"
-                android:textColor="@drawable/btn_press_selector"
-                android:textSize="@dimen/primary_text_size" />
-        </LinearLayout>
-
-    </RelativeLayout>
 </RelativeLayout>

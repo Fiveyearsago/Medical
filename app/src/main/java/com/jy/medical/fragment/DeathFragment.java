@@ -45,9 +45,11 @@ public class DeathFragment extends Fragment {
     private String taskNo;
     private DeathDataManager deathDataManager = DaoUtils.getDeathDataInstance();
     private TextView textReason, textAddress, textTime, textParticipation, textRemark, textComplete;
-    private View layoutAddress, layoutTime, layoutReason, layoutParticipation, layoutPhoto, layoutRemark, layoutComplete, layoutEmpty;
-
-    private int count = 0;
+    private View layoutAddress, layoutTime, layoutReason, layoutParticipation , layoutRemark, layoutComplete, layoutEmpty;
+    private View deathLayout,otherLayout,otherDataBlank,layoutPhotoBlank,layoutPhoto;
+    private int countDeath = 0;
+    private int countOther = 0;
+    private int countMovie = 0;
     private ImageView deathEdit;
 
     public static DeathFragment newInstance(Context context) {
@@ -71,7 +73,11 @@ public class DeathFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_death, container, false);
+        View view = inflater.inflate(R.layout.fragment_death2, container, false);
+        otherDataBlank = view.findViewById(R.id.other_data_layout_blank);
+        layoutPhotoBlank = view.findViewById(R.id.layout_photo_blank);
+        deathLayout = view.findViewById(R.id.death_data_layout);
+        otherLayout = view.findViewById(R.id.other_data_layout);
         layoutAddress = view.findViewById(R.id.layout_address);
         layoutTime = view.findViewById(R.id.layout_time);
         layoutReason = view.findViewById(R.id.layout_reason);
@@ -106,11 +112,32 @@ public class DeathFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        count = 0;
+        countDeath = 0;
+        countOther = 0;
+        countMovie = 0;
         initOtherData();
         setPhotoData();
+        if (countDeath == 4) {
+            deathLayout.setVisibility(View.GONE);
+        } else {
+            deathLayout.setVisibility(View.VISIBLE);
+        }
 
-        if (count == 7) {
+        if (countMovie == 1) {
+            layoutPhotoBlank.setVisibility(View.GONE);
+            layoutPhoto.setVisibility(View.GONE);
+        } else {
+            layoutPhotoBlank.setVisibility(View.VISIBLE);
+            layoutPhoto.setVisibility(View.VISIBLE);
+        }
+        if (countOther == 2) {
+            otherDataBlank.setVisibility(View.GONE);
+            otherLayout.setVisibility(View.GONE);
+        } else {
+            otherDataBlank.setVisibility(View.VISIBLE);
+            otherLayout.setVisibility(View.VISIBLE);
+        }
+        if (countDeath+countOther+countMovie == 7) {
             layoutEmpty.setVisibility(View.VISIBLE);
         } else {
             layoutEmpty.setVisibility(View.GONE);
@@ -126,12 +153,13 @@ public class DeathFragment extends Fragment {
             layoutParticipation.setVisibility(View.GONE);
             layoutRemark.setVisibility(View.GONE);
             layoutComplete.setVisibility(View.GONE);
-            count = 6;
+            countDeath = 4;
+            countOther = 2;
             return;
         }
         textAddress.setText(deathData.getDeathAddress());
         textTime.setText(deathData.getDeathTime());
-        textParticipation.setText(deathData.getParticipation());
+        textParticipation.setText(deathData.getParticipation()+"%");
         textRemark.setText(deathData.getRemark());
         if (deathData.getDeathReason().equals("0"))
             textReason.setText("损伤导致");
@@ -147,44 +175,39 @@ public class DeathFragment extends Fragment {
 
         if (deathData.getDeathReason().equals("")) {
             layoutReason.setVisibility(View.GONE);
-            count++;
+            countDeath++;
         } else {
             layoutReason.setVisibility(View.VISIBLE);
         }
         if (deathData.getDeathAddress().equals("")) {
             layoutAddress.setVisibility(View.GONE);
-            count++;
+            countDeath++;
         } else {
             layoutAddress.setVisibility(View.VISIBLE);
         }
         if (deathData.getDeathTime().equals("")) {
             layoutTime.setVisibility(View.GONE);
-            count++;
+            countDeath++;
         } else {
             layoutTime.setVisibility(View.VISIBLE);
         }
         if (deathData.getParticipation().equals("")) {
             layoutParticipation.setVisibility(View.GONE);
-            count++;
+            countDeath++;
         } else {
             layoutParticipation.setVisibility(View.VISIBLE);
         }
         if (deathData.getRemark().equals("")) {
             layoutRemark.setVisibility(View.GONE);
-            count++;
+            countOther++;
         } else {
             layoutRemark.setVisibility(View.VISIBLE);
         }
         if (deathData.getCompleteStatus().equals("")) {
             layoutComplete.setVisibility(View.GONE);
-            count++;
+            countOther++;
         } else {
             layoutComplete.setVisibility(View.VISIBLE);
-        }
-        if (deathData.getCommitFlag().equals("1")) {
-            deathEdit.setVisibility(View.GONE);
-        } else {
-            deathEdit.setVisibility(View.VISIBLE);
         }
     }
 
@@ -195,7 +218,9 @@ public class DeathFragment extends Fragment {
         taskPhotoManager = DaoUtils.getTaskPhotoInstance();
         pictureList = taskPhotoManager.selectAllPhoto(taskNo);
         for (int i = 0; i < pictureList.size(); i++) {
-            Bitmap bmp = PhotoUtil.convertToBitmap(pictureList.get(i).getPhotoPath(), 75, 75);
+//            Bitmap bmp = PhotoUtil.convertToBitmap(pictureList.get(i).getPhotoPath(), 75, 75);
+            Bitmap bmp = PhotoUtil.getNativeImage(pictureList.get(i).getPhotoPath());
+
             list.add(bmp);
         }
         pictureAdapter = new PictureAdapter(mContext, list, taskNo, false, false);
@@ -203,7 +228,7 @@ public class DeathFragment extends Fragment {
         pictureRecyclerView.setAdapter(pictureAdapter);
         if (pictureList.size() == 0) {
             layoutPhoto.setVisibility(View.GONE);
-            count++;
+            countMovie++;
         } else {
             layoutPhoto.setVisibility(View.VISIBLE);
         }

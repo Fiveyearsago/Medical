@@ -47,6 +47,7 @@ import com.jy.medical.inter.OnItemClickListener;
 import com.jy.medical.util.CommitUtil;
 import com.jy.medical.util.ImageUtils;
 import com.jy.medical.util.LocalImageHelper;
+import com.jy.medical.util.MultiSelectUtil;
 import com.jy.medical.util.PhotoUtil;
 import com.jy.medical.util.PublicString;
 import com.jy.medical.util.ServerApiUtils;
@@ -151,7 +152,6 @@ public class MedicalVisitsActivity extends BaseActivity {
         hospitalRecyclerView.setSwipeMenuCreator(SwipeMenuUtil.getSwipeMenuEdit(this));
         hospitalRecyclerView.setSwipeMenuItemClickListener(menuItemClickListener);
         selectedHospitalAdapter = new SelectedHospitalAdapter(selectedHospitals, this);
-        selectedHospitalAdapter.setOnItemClickListener(onItemClickListener);
         hospitalRecyclerView.setAdapter(selectedHospitalAdapter);
 
         diagnoseRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -160,7 +160,6 @@ public class MedicalVisitsActivity extends BaseActivity {
         diagnoseRecyclerView.setSwipeMenuCreator(SwipeMenuUtil.getSwipeMenuEdit(this));
         diagnoseRecyclerView.setSwipeMenuItemClickListener(menuItemClickListener1);
         selectedDiagnoseAdapter = new SelectedDiagnoseAdapter(selectedDiagnoseList, this);
-        selectedDiagnoseAdapter.setOnItemClickListener(onItemClickListener1);
         diagnoseRecyclerView.setAdapter(selectedDiagnoseAdapter);
 
         nursingRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -169,7 +168,6 @@ public class MedicalVisitsActivity extends BaseActivity {
         nursingRecyclerView.setSwipeMenuCreator(SwipeMenuUtil.getSwipeMenuDelete(this));
         nursingRecyclerView.setSwipeMenuItemClickListener(menuItemClickListener2);
         selectedNursingAdapter = new SelectedNursingAdapter(nursingDataList, this);
-//        selectedNursingAdapter.setOnItemClickListener(onItemClickListener1);
         diagnoseRecyclerView.setAdapter(selectedNursingAdapter);
 
         pictureRecyclerView = (RecyclerView) findViewById(R.id.picture_recyclerView);
@@ -195,7 +193,9 @@ public class MedicalVisitsActivity extends BaseActivity {
         for (int i = 0; i < pictureList.size(); i++) {
             if (pictureList.get(i).getPhotoPath()==null||pictureList.get(i).getPhotoPath().equals(""))
                 break;
-            Bitmap bmp = PhotoUtil.convertToBitmap(pictureList.get(i).getPhotoPath(),75,75);
+//            Bitmap bmp = PhotoUtil.convertToBitmap(pictureList.get(i).getPhotoPath(),75,75);
+            Bitmap bmp = PhotoUtil.getNativeImage(pictureList.get(i).getPhotoPath());
+
             list.add(bmp);
         }
         Resources res = getResources();
@@ -208,14 +208,14 @@ public class MedicalVisitsActivity extends BaseActivity {
     public void initHospitalData() {
         selectedHospitals = selectedHospitalManager.getDataList(taskNo);
         selectedHospitalAdapter = new SelectedHospitalAdapter(selectedHospitals, this);
-        selectedHospitalAdapter.setOnItemClickListener(onItemClickListener);
+//        selectedHospitalAdapter.setOnItemClickListener(onItemClickListener);
         hospitalRecyclerView.setAdapter(selectedHospitalAdapter);
     }
 
     public void initDiagnoseData() {
         selectedDiagnoseList = selectedDiagnoseManager.getDataList(taskNo);
         selectedDiagnoseAdapter = new SelectedDiagnoseAdapter(selectedDiagnoseList, this);
-        selectedDiagnoseAdapter.setOnItemClickListener(onItemClickListener1);
+//        selectedDiagnoseAdapter.setOnItemClickListener(onItemClickListener1);
         diagnoseRecyclerView.setAdapter(selectedDiagnoseAdapter);
     }
 
@@ -302,8 +302,8 @@ public class MedicalVisitsActivity extends BaseActivity {
                 break;
             case R.id.complete_status_text:
                 //选择完成情况
-                Intent intent = new Intent(this, SelectCompleteActivity.class);
-                startActivityForResult(intent, 0x11);
+                MultiSelectUtil.selectStatus(mContext, completeStatus, new String[]{"已完成", "无法完成"}, "选择完成情况");
+
                 break;
         }
     }
@@ -472,28 +472,12 @@ public class MedicalVisitsActivity extends BaseActivity {
             }
         }
     };
-    private OnItemClickListener onItemClickListener = new OnItemClickListener() {
-        @Override
-        public void onItemClick(int position) {
-            Toast.makeText(mContext, "我是第" + position + "条。", Toast.LENGTH_SHORT).show();
-        }
-    };
-    private OnItemClickListener onItemClickListener1 = new OnItemClickListener() {
-        @Override
-        public void onItemClick(int position) {
-            Toast.makeText(mContext, "我是第" + position + "条。", Toast.LENGTH_SHORT).show();
-        }
-    };
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
-                case 0x11:
-                    completeStatus.setText(data.getStringExtra("status"));
-                    saveData();
-                    break;
                 case ImageUtils.REQUEST_CODE_GETIMAGE_BYCAMERA:
                     String cameraPath = LocalImageHelper.getInstance().getCameraImgPath();
                     if (StringUtils.isEmpty(cameraPath)) {

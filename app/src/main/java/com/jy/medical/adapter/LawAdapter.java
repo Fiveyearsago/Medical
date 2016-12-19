@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import com.jy.medical.R;
 import com.jy.medical.activities.LawDetailActivity;
 import com.jy.medical.adapter.viewholder.LawViewHolder;
+import com.jy.medical.greendao.entities.LawData;
 import com.jy.medical.greendao.entities.ToolData;
 
 import java.util.List;
@@ -21,9 +22,9 @@ import java.util.List;
 
 public class LawAdapter extends BaseHeadFootAdapter {
     private Context context;
-    private List<ToolData> list;
+    private List<LawData> list;
 
-    public LawAdapter(Context context, List<ToolData> list) {
+    public LawAdapter(Context context, List<LawData> list) {
         this.context = context;
         this.list = list;
     }
@@ -54,14 +55,17 @@ public class LawAdapter extends BaseHeadFootAdapter {
                 context.startActivity(new Intent(context, LawDetailActivity.class));
             }
         });
-        viewHolder.lawText.setText(list.get(position).getToolText());
-        viewHolder.lawOrganization.setText(list.get(position).getToolKind());
-        viewHolder.lawTime.setText(list.get(position).getToolTime());
+        viewHolder.lawText.setText(list.get(position).getLawFullName());
+        viewHolder.lawOrganization.setText(list.get(position).getLawShortName());
+        viewHolder.lawTime.setText(list.get(position).getCreateDate());
     }
 
     @Override
     protected LawViewHolder onCreateHolder(ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(context).inflate(R.layout.item_law,null);
         return new LawViewHolder(view);
+    }
+    public void setData(List<LawData> list){
+        this.list=list;
     }
 }

@@ -96,5 +96,15 @@ public class TaskManager extends BaseDao<TaskBeanData> {
             taskBeanDataDao.update(taskBeanData);
         }
     }
+    public String getCommitFlag(String taskNo){
+        TaskBeanDataDao taskBeanDataDao = daoSession.getTaskBeanDataDao();
+        QueryBuilder<TaskBeanData> qb = taskBeanDataDao.queryBuilder();
+        qb.where(TaskBeanDataDao.Properties.TaskNo.eq(taskNo));
+        if (qb.list().size()>0) {
+            TaskBeanData taskBeanData= qb.list().get(0);
+            return taskBeanData.getCommitFlag();
+        }
+        return "";
+    }
 
 }

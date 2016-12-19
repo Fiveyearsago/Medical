@@ -51,10 +51,12 @@ public class HandleFragment extends Fragment {
     private ContactManager contactManager = DaoUtils.getContactInstance();
     private HandleDataManager handleDataManager = DaoUtils.getHandleDataInstance();
     private TextView textName, textTime, textResult, textRemark, textComplete;
-    private View layoutName, layoutTime, layoutContact, layoutResult, layoutPhoto, layoutRemark, layoutComplete, layoutEmpty;
-
-    private int count = 0;
-    private ImageView handleEdit;
+    private View layoutName, layoutTime, layoutResult, layoutRemark, layoutComplete;
+    private View layoutPersonInfo, layoutContact, layoutPhoto, layoutOther, layoutEmpty;
+    private int countPerson = 0;
+    private int countContact = 0;
+    private int countPhoto = 0;
+    private int countOther = 0;
 
     public static HandleFragment newInstance(Context context) {
         mContext = context;
@@ -78,6 +80,8 @@ public class HandleFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_handle, container, false);
+        layoutPersonInfo = view.findViewById(R.id.layout_person_info);
+        layoutOther = view.findViewById(R.id.other_data_layout);
         layoutName = view.findViewById(R.id.layout_name);
         layoutTime = view.findViewById(R.id.layout_time);
         layoutContact = view.findViewById(R.id.layout_contact);
@@ -91,21 +95,12 @@ public class HandleFragment extends Fragment {
         textResult = (TextView) view.findViewById(R.id.handle_result);
         textRemark = (TextView) view.findViewById(R.id.remark);
         textComplete = (TextView) view.findViewById(R.id.complete_status);
-        handleEdit= (ImageView) view.findViewById(R.id.handle_edit);
-        handleEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), HandleActivity.class);
-                intent.putExtra("taskNo", taskNo);
-                startActivity(intent);
-            }
-        });
         pictureRecyclerView = (RecyclerView) view.findViewById(R.id.picture_recyclerView);
         pictureRecyclerView.setHasFixedSize(true);
         pictureRecyclerView.setLayoutManager(new GridLayoutManager(mContext, 4));
         pictureList = new ArrayList<>();
         list = new ArrayList<>();
-        contactRecycler = (RecyclerView) view.findViewById(R.id.contact_recycler);
+        contactRecycler = (RecyclerView) view.findViewById(R.id.contact_recyclerView);
         contactRecycler.setHasFixedSize(true);
         contactRecycler.setLayoutManager(new LinearLayoutManager(mContext));
         contactManager = DaoUtils.getContactInstance();
@@ -116,12 +111,24 @@ public class HandleFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        count = 0;
+        countPerson = 0;
+        countContact = 0;
+        countPhoto = 0;
+        countOther = 0;
         initOtherData();
         setPhotoData();
         setContactData();
-
-        if (count == 7) {
+        if (countPerson == 3) {
+            layoutPersonInfo.setVisibility(View.GONE);
+        } else {
+            layoutPersonInfo.setVisibility(View.VISIBLE);
+        }
+        if (countOther == 2) {
+            layoutOther.setVisibility(View.GONE);
+        } else {
+            layoutOther.setVisibility(View.VISIBLE);
+        }
+        if (countPerson+countContact+countPhoto+countOther == 7) {
             layoutEmpty.setVisibility(View.VISIBLE);
         } else {
             layoutEmpty.setVisibility(View.GONE);
@@ -136,7 +143,8 @@ public class HandleFragment extends Fragment {
             layoutResult.setVisibility(View.GONE);
             layoutRemark.setVisibility(View.GONE);
             layoutComplete.setVisibility(View.GONE);
-            count = 5;
+            countPerson = 3;
+            countOther = 2;
             return;
         }
         textName.setText(handleData.getHandleName());
@@ -150,38 +158,33 @@ public class HandleFragment extends Fragment {
 
         if (handleData.getHandleName().equals("")) {
             layoutName.setVisibility(View.GONE);
-            count++;
+            countPerson++;
         } else {
             layoutName.setVisibility(View.VISIBLE);
         }
         if (handleData.getHandleTime().equals("")) {
             layoutTime.setVisibility(View.GONE);
-            count++;
+            countPerson++;
         } else {
             layoutTime.setVisibility(View.VISIBLE);
         }
         if (handleData.getHandleResult().equals("")) {
             layoutResult.setVisibility(View.GONE);
-            count++;
+            countPerson++;
         } else {
             layoutResult.setVisibility(View.VISIBLE);
         }
         if (handleData.getRemark().equals("")) {
             layoutRemark.setVisibility(View.GONE);
-            count++;
+            countOther++;
         } else {
             layoutRemark.setVisibility(View.VISIBLE);
         }
         if (handleData.getCompleteStatus().equals("")) {
             layoutComplete.setVisibility(View.GONE);
-            count++;
+            countOther++;
         } else {
             layoutComplete.setVisibility(View.VISIBLE);
-        }
-        if (handleData.getCommitFlag().equals("1")){
-            handleEdit.setVisibility(View.GONE);
-        }else {
-            handleEdit.setVisibility(View.VISIBLE);
         }
     }
 
@@ -191,8 +194,8 @@ public class HandleFragment extends Fragment {
         contactRecycler.setAdapter(adapter);
         if (contactDataList.size() == 0) {
             layoutContact.setVisibility(View.GONE);
-            count++;
-        }else {
+            countContact++;
+        } else {
             layoutContact.setVisibility(View.VISIBLE);
         }
     }
@@ -203,16 +206,18 @@ public class HandleFragment extends Fragment {
         taskPhotoManager = DaoUtils.getTaskPhotoInstance();
         pictureList = taskPhotoManager.selectAllPhoto(taskNo);
         for (int i = 0; i < pictureList.size(); i++) {
-            Bitmap bmp = PhotoUtil.convertToBitmap(pictureList.get(i).getPhotoPath(), 75, 75);
+//            Bitmap bmp = PhotoUtil.convertToBitmap(pictureList.get(i).getPhotoPath(), 75, 75);
+            Bitmap bmp = PhotoUtil.getNativeImage(pictureList.get(i).getPhotoPath());
+
             list.add(bmp);
         }
-        pictureAdapter = new PictureAdapter(mContext, list, taskNo, false,false);
+        pictureAdapter = new PictureAdapter(mContext, list, taskNo, false, false);
         pictureAdapter.notifyDataSetChanged();
         pictureRecyclerView.setAdapter(pictureAdapter);
         if (pictureList.size() == 0) {
             layoutPhoto.setVisibility(View.GONE);
-            count++;
-        }else {
+            countPhoto++;
+        } else {
             layoutPhoto.setVisibility(View.VISIBLE);
         }
     }

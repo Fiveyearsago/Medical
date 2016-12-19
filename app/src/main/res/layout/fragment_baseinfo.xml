@@ -1,325 +1,447 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginTop="@dimen/minor_margin"
-    android:background="@color/white"
-    android:orientation="vertical"
-    android:paddingLeft="8dp"
-    android:paddingRight="8dp">
+    android:orientation="vertical">
 
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/white">
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <RelativeLayout
+            <LinearLayout
+                android:id="@+id/layout_address_info"
                 android:layout_width="match_parent"
-                android:layout_height="39dp"
-                android:background="@color/white">
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
 
-                <TextView
-                    android:id="@+id/tool_title_text"
-                    android:layout_width="3dp"
-                    android:layout_height="18dp"
-                    android:layout_centerVertical="true"
-                    android:background="@color/colorPrimary" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="5dp"
-                    android:layout_toRightOf="@+id/tool_title_text"
-                    android:text="事故基本信息"
-                    android:textSize="@dimen/primary_text_size" />
-
-                <ImageView
-                    android:id="@+id/base_edit"
-                    android:layout_width="39dp"
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="39dp"
-                    android:layout_alignParentRight="true"
-                    android:padding="8dp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/edit_selector" />
-            </RelativeLayout>
 
-            <LinearLayout
-                android:id="@+id/layout_address"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                    android:background="@color/white">
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/lineColor" />
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="44dp"
-                    android:gravity="center_vertical">
+                    <TextView
+                        android:id="@+id/tool_title_text"
+                        android:layout_width="3dp"
+                        android:layout_height="18dp"
+                        android:layout_centerVertical="true"
+                        android:background="@color/colorPrimary" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:text="事故地址"
-                        android:textColor="@color/navigateColor"
+                        android:layout_marginLeft="5dp"
+                        android:layout_toRightOf="@+id/tool_title_text"
+                        android:text="事故基本信息"
+                        android:textColor="@color/colorPrimary"
                         android:textSize="@dimen/primary_text_size" />
 
+                    <ImageView
+                        android:id="@+id/base_edit"
+                        android:layout_width="39dp"
+                        android:layout_height="39dp"
+                        android:layout_alignParentRight="true"
+                        android:padding="8dp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/edit_selector"
+                        android:visibility="gone" />
                 </RelativeLayout>
 
-                <TextView
-                    android:id="@+id/accident_address"
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/lineColor" />
+
+                <LinearLayout
+                    android:id="@+id/layout_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="5dp"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/primary_text_size" />
-            </LinearLayout>
+                    android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/layout_time"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@color/lineColor" />
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="44dp"
-                    android:gravity="center_vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:text="事故时间"
-                        android:textColor="@color/navigateColor"
-                        android:textSize="@dimen/primary_text_size" />
+                        android:minHeight="44dp"
+                        android:paddingBottom="10dp"
+                        android:paddingTop="12dp">
 
-                    <TextView
-                        android:id="@+id/accident_time"
-                        android:layout_width="wrap_content"
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="事故地址:"
+                            android:textColor="@color/minorColor"
+                            android:textSize="@dimen/primary_text_size" />
+
+                        <TextView
+                            android:id="@+id/accident_address"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_weight="1"
+                            android:lineSpacingExtra="3dp"
+                            android:text="行业"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/primary_text_size" />
+                    </LinearLayout>
+
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/lineColor" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="44dp"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="事故时间:"
+                            android:textColor="@color/minorColor"
+                            android:textSize="@dimen/primary_text_size" />
+
+                        <TextView
+                            android:id="@+id/accident_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="5dp"
+                            android:text="2016"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/hintColor"
+                            android:textSize="@dimen/primary_text_size" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/lineColor" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout_detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="5dp"
-                        android:text=""
-                        android:textColor="@color/black"
-                        android:textColorHint="@color/hintColor"
-                        android:textSize="@dimen/primary_text_size" />
+                        android:minHeight="44dp"
+                        android:paddingBottom="10dp"
+                        android:paddingTop="12dp">
 
-                </RelativeLayout>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="详细信息:"
+                            android:textColor="@color/minorColor"
+                            android:textSize="@dimen/primary_text_size" />
+
+                        <TextView
+                            android:id="@+id/detail_info"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_weight="1"
+                            android:lineSpacingExtra="3dp"
+                            android:text="行业"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/primary_text_size" />
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/layout_contact"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:background="@color/pageBackground">
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/lineColor" />
+                <LinearLayout
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="44dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:text="联系人"
-                        android:textColor="@color/navigateColor"
-                        android:textSize="@dimen/primary_text_size" />
-
-                </RelativeLayout>
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/contact_recycler"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/layout_detail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/lineColor" />
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="44dp"
-                    android:gravity="center_vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="详细信息"
-                        android:textColor="@color/navigateColor"
-                        android:textSize="@dimen/primary_text_size" />
-                </RelativeLayout>
-
-                <TextView
-                    android:id="@+id/detail_info"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="5dp"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/primary_text_size" />
+                    android:layout_marginTop="10dp"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp">
+
+                    <LinearLayout
+                        android:id="@+id/layout_contact_tab"
+                        android:layout_width="match_parent"
+                        android:layout_height="39dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="3dp"
+                            android:layout_height="18dp"
+                            android:background="@color/colorPrimary" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:text="联系人"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/primary_text_size" />
+
+                    </LinearLayout>
+
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/contact_recyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/layout_photo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:background="@color/pageBackground">
 
-                <View
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:background="@color/lineColor" />
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp">
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="44dp"
-                    android:gravity="center_vertical">
 
-                    <TextView
-                        android:id="@+id/movie_info"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="39dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="3dp"
+                            android:layout_height="18dp"
+                            android:background="@color/colorPrimary" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:text="影像资料"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/primary_text_size" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/lineColor" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/picture_recyclerView"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="影像资料"
-                        android:textColor="@color/navigateColor"
-                        android:textSize="@dimen/primary_text_size" />
-
-                </RelativeLayout>
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/picture_recyclerView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                        android:layout_marginTop="10dp" />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/layout_remark"
+                android:id="@+id/other_data_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:background="@color/pageBackground">
 
-                <View
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/lineColor" />
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp">
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="44dp"
-                    android:gravity="center_vertical">
+                    <LinearLayout
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="备注信息"
-                        android:textColor="@color/navigateColor"
-                        android:textSize="@dimen/primary_text_size" />
-                </RelativeLayout>
+                        android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/remark"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="5dp"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/primary_text_size" />
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="39dp">
+
+                            <TextView
+                                android:id="@+id/other_title_text"
+                                android:layout_width="3dp"
+                                android:layout_height="18dp"
+                                android:layout_centerVertical="true"
+                                android:background="@color/colorPrimary" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="5dp"
+                                android:layout_toRightOf="@+id/other_title_text"
+                                android:text="其他信息"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="@dimen/primary_text_size" />
+
+                        </RelativeLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:background="@color/lineColor" />
+                    </LinearLayout>
+
+                    <LinearLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+
+                        <LinearLayout
+                            android:id="@+id/layout_complete"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+
+                                android:layout_width="match_parent"
+                                android:layout_height="44dp"
+                                android:gravity="center_vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerVertical="true"
+                                    android:text="完成情况:"
+                                    android:textColor="@color/minorColor"
+                                    android:textSize="@dimen/primary_text_size" />
+
+                                <TextView
+                                    android:id="@+id/complete_status"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_marginRight="5dp"
+                                    android:text="必选"
+                                    android:textColor="@color/black"
+                                    android:textSize="@dimen/primary_text_size" />
+
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="0.5dp"
+                                android:background="@color/lineColor" />
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:id="@+id/layout_remark"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:minHeight="44dp"
+                                android:paddingBottom="10dp"
+                                android:paddingTop="12dp">
+
+                                <TextView
+                                    android:id="@+id/remark_tab"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="备注信息:"
+                                    android:textColor="@color/minorColor"
+                                    android:textSize="@dimen/primary_text_size" />
+
+                                <TextView
+                                    android:id="@+id/remark"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="5dp"
+                                    android:layout_weight="1"
+                                    android:lineSpacingExtra="3dp"
+                                    android:textColor="@color/black"
+                                    android:textSize="@dimen/primary_text_size" />
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/layout_complete"
+                android:id="@+id/layout_empty"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@color/white"
                 android:orientation="vertical">
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/lineColor" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="44dp"
-                    android:gravity="center_vertical">
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="50dp"
+                    android:layout_marginTop="30dp">
+
+                    <ImageView
+                        android:layout_width="267dp"
+                        android:layout_height="267dp"
+                        android:layout_centerHorizontal="true"
+                        android:background="@mipmap/blank_detail" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:text="完成情况"
-                        android:textColor="@color/navigateColor"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:text="您还没有记录任何信息..."
+                        android:textColor="@color/minorColor"
                         android:textSize="@dimen/primary_text_size" />
-
-                    <TextView
-                        android:id="@+id/complete_status"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="5dp"
-                        android:hint="必选"
-                        android:textColorHint="@color/hintColor"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/primary_text_size" />
-
                 </RelativeLayout>
-            </LinearLayout>
-        <LinearLayout
-            android:id="@+id/layout_empty"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/lineColor" />
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="82dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/primary_text_size"
-                    android:layout_centerInParent="true"
-                    android:textColor="@color/minorColor"
-                    android:text="您还没有记录任何信息"/>
-            </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

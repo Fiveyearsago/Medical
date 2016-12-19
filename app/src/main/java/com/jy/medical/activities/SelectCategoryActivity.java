@@ -19,6 +19,8 @@ public class SelectCategoryActivity extends BaseActivity {
     private RecyclerView recyclerView;
     private List<CategoryData>categoryDataList;
     private CategoryAdapter categoryAdapter;
+    private String kindCode="";
+    private String requestKind="";
 
     @Override
     public void initData() {
@@ -32,7 +34,10 @@ public class SelectCategoryActivity extends BaseActivity {
 
     @Override
     public void initParams(Bundle parms) {
-
+        if (parms!=null){
+            kindCode=parms.getString("kindCode");
+            requestKind=parms.getString("requestKind")==null?"":parms.getString("requestKind");
+        }
     }
 
     @Override
@@ -43,8 +48,8 @@ public class SelectCategoryActivity extends BaseActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         categoryDataList=new ArrayList<>();
         CategoryDataManager categoryDataManager= DaoUtils.getCategoryDataInstance();
-        categoryDataList=categoryDataManager.getDataList("D110");
-        categoryAdapter=new CategoryAdapter(this,categoryDataList);
+        categoryDataList=categoryDataManager.getDataList(kindCode);
+        categoryAdapter=new CategoryAdapter(this,categoryDataList,requestKind);
         recyclerView.setAdapter(categoryAdapter);
     }
 

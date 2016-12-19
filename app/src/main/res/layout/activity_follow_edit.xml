@@ -11,286 +11,21 @@
         android:id="@+id/head_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <include layout="@layout/page_head" />
     </LinearLayout>
 
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/bottom_layout"
-        android:layout_below="@+id/head_layout"
-        android:layout_marginBottom="10dp"
-       >
-
-        <LinearLayout
-            android:background="@color/white"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:paddingLeft="@dimen/primary_text_size"
-            android:paddingRight="@dimen/primary_text_size">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:gravity="center_vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="事故地址"
-                    android:textColor="@color/navigateColor"
-                    android:textSize="@dimen/primary_text_size" />
-
-                <ImageButton
-                    android:id="@+id/follow_edit_location"
-                    android:layout_width="16dp"
-                    android:layout_height="21dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:background="@drawable/btn_location_selector"
-                    android:scaleType="fitXY" />
-            </RelativeLayout>
-
-            <com.jy.medical.widget.ClearEditText
-                android:id="@+id/address_edit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="5dp"
-                android:background="@null"
-                android:drawableRight="@mipmap/clear"
-                android:ellipsize="end"
-                android:gravity="top"
-                android:hint="必填"
-                android:textColor="@color/black"
-                android:textColorHint="@color/hintColor"
-                android:textSize="@dimen/primary_text_size" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="10dp"
-                android:background="@color/lineColor" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:gravity="center_vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="事故时间"
-                    android:textColor="@color/navigateColor"
-                    android:textSize="@dimen/primary_text_size" />
-
-                <TextView
-                    android:id="@+id/follow_edit_accident_time"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical|right"
-                    android:layout_marginRight="5dp"
-                    android:hint="必选"
-                    android:text=""
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/hintColor"
-                    android:textSize="@dimen/primary_text_size" />
-
-                <ImageView
-                    android:id="@+id/accident_time_image"
-                    android:layout_width="10dp"
-                    android:layout_height="16dp"
-                    android:background="@mipmap/more"
-                    android:scaleType="fitXY" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/lineColor" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="44dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-
-                    android:text="联系人"
-                    android:textColor="@color/navigateColor"
-                    android:textSize="@dimen/primary_text_size" />
-                <ImageView
-                    android:id="@+id/add_contact"
-                    android:layout_width="34dp"
-                    android:layout_height="34dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:cropToPadding="true"
-                    android:padding="10dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/add_contact_selector" />
-
-            </RelativeLayout>
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/contact_recycler"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/lineColor" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:gravity="center_vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="事故详细信息"
-                    android:textColor="@color/navigateColor"
-                    android:textSize="@dimen/primary_text_size" />
-            </RelativeLayout>
-
-            <com.jy.medical.widget.ClearEditText
-                android:id="@+id/detail_info_edit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="5dp"
-                android:background="@null"
-                android:drawableRight="@mipmap/clear"
-                android:ellipsize="end"
-                android:gravity="top"
-                android:hint="必填"
-                android:textColor="@color/black"
-                android:textColorHint="@color/hintColor"
-                android:textSize="@dimen/primary_text_size" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="10dp"
-                android:background="@color/lineColor" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:gravity="center_vertical">
-
-                <TextView
-                    android:id="@+id/movie_info"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="影像资料"
-                    android:textColor="@color/navigateColor"
-                    android:textSize="@dimen/primary_text_size" />
-
-                <TextView
-
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_toRightOf="@+id/movie_info"
-                    android:text="(必填)"
-                    android:textColor="@color/minorColor"
-                    android:textSize="@dimen/primary_text_size" />
-            </RelativeLayout>
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/picture_recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/lineColor" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:gravity="center_vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="备注信息"
-                    android:textColor="@color/navigateColor"
-                    android:textSize="@dimen/primary_text_size" />
-            </RelativeLayout>
-
-            <com.jy.medical.widget.ClearEditText
-                android:id="@+id/remark_edit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="5dp"
-                android:background="@null"
-                android:drawableRight="@mipmap/clear"
-                android:gravity="top"
-                android:textColor="@color/black"
-                android:textColorHint="@color/hintColor"
-                android:textSize="@dimen/primary_text_size" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="10dp"
-                android:background="@color/lineColor" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:gravity="center_vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="完成情况"
-                    android:textColor="@color/navigateColor"
-                    android:textSize="@dimen/primary_text_size" />
-
-                <TextView
-                    android:id="@+id/complete_status"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"
-                    android:layout_marginRight="5dp"
-                    android:gravity="center_vertical|right"
-                    android:text="必选"
-                    android:textColor="@color/hintColor"
-                    android:textSize="@dimen/primary_text_size" />
-
-                <ImageView
-                    android:id="@+id/complete_status_image"
-                    android:layout_width="10dp"
-                    android:layout_height="16dp"
-                    android:background="@mipmap/more"
-                    android:scaleType="fitXY" />
-            </LinearLayout>
-        </LinearLayout>
-
-    </ScrollView>
 
     <RelativeLayout
         android:id="@+id/bottom_layout"
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:background="@color/white"
-        android:gravity="center_vertical"
-        android:orientation="vertical"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -322,4 +57,292 @@
                 android:textSize="@dimen/primary_text_size" />
         </LinearLayout>
     </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/head_layout">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/primary_text_size"
+                android:paddingRight="@dimen/primary_text_size">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="事故地址"
+                        android:textColor="@color/navigateColor"
+                        android:textSize="@dimen/primary_text_size" />
+
+                    <ImageButton
+                        android:id="@+id/follow_edit_location"
+                        android:layout_width="16dp"
+                        android:layout_height="21dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/btn_location_selector"
+                        android:scaleType="fitXY" />
+                </RelativeLayout>
+
+                <com.jy.medical.widget.ClearEditText
+                    android:id="@+id/address_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="65dp"
+                    android:background="@null"
+                    android:drawableRight="@mipmap/clear"
+                    android:ellipsize="end"
+                    android:gravity="top"
+                    android:maxLines="3"
+                    android:hint="必填"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/hintColor"
+                    android:textSize="@dimen/primary_text_size" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/lineColor" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="事故时间"
+                        android:textColor="@color/navigateColor"
+                        android:textSize="@dimen/primary_text_size" />
+
+                    <TextView
+                        android:id="@+id/follow_edit_accident_time"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical|right"
+                        android:hint="必选"
+                        android:text=""
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/hintColor"
+                        android:textSize="@dimen/primary_text_size" />
+
+                    <ImageView
+                        android:id="@+id/accident_time_image"
+                        android:layout_width="10dp"
+                        android:layout_height="16dp"
+                        android:background="@mipmap/more"
+                        android:scaleType="fitXY" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/lineColor" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="事故详细信息"
+                        android:textColor="@color/navigateColor"
+                        android:textSize="@dimen/primary_text_size" />
+                </RelativeLayout>
+
+                <com.jy.medical.widget.ClearEditText
+                    android:id="@+id/detail_info_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="102dp"
+                    android:background="@null"
+                    android:drawableRight="@mipmap/clear"
+                    android:gravity="top"
+                    android:hint="必填"
+                    android:maxLines="5"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/hintColor"
+                    android:textSize="@dimen/primary_text_size" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/lineColor" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/movie_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="影像资料"
+                        android:textColor="@color/navigateColor"
+                        android:textSize="@dimen/primary_text_size" />
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_toRightOf="@+id/movie_info"
+                        android:text="(必填)"
+                        android:textColor="@color/minorColor"
+                        android:textSize="@dimen/primary_text_size" />
+                </RelativeLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/picture_recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/pageBackground" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/primary_text_size"
+                android:paddingRight="@dimen/primary_text_size">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+
+                        android:text="联系人"
+                        android:textColor="@color/navigateColor"
+                        android:textSize="@dimen/primary_text_size" />
+
+                    <ImageView
+                        android:id="@+id/add_contact"
+                        android:layout_width="34dp"
+                        android:layout_height="34dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:cropToPadding="true"
+                        android:padding="10dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/add_contact_selector" />
+
+                </RelativeLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/contact_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/pageBackground" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/primary_text_size"
+                android:paddingRight="@dimen/primary_text_size">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="完成情况"
+                        android:textColor="@color/navigateColor"
+                        android:textSize="@dimen/primary_text_size" />
+
+                    <TextView
+                        android:id="@+id/complete_status"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical|right"
+                        android:hint="必选"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/hintColor"
+                        android:textSize="@dimen/primary_text_size" />
+
+                    <ImageView
+                        android:id="@+id/complete_status_image"
+                        android:layout_width="10dp"
+                        android:layout_height="16dp"
+                        android:background="@mipmap/more"
+                        android:scaleType="fitXY" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/lineColor" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="备注信息"
+                        android:textColor="@color/navigateColor"
+                        android:textSize="@dimen/primary_text_size" />
+                </RelativeLayout>
+
+                <com.jy.medical.widget.ClearEditText
+                    android:id="@+id/remark_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="102dp"
+                    android:background="@null"
+                    android:drawableRight="@mipmap/clear"
+                    android:gravity="top"
+                    android:hint="必填"
+                    android:maxLines="5"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/hintColor"
+                    android:textSize="@dimen/primary_text_size" />
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
 </RelativeLayout>

@@ -19,13 +19,15 @@ import android.widget.Toast;
 
 import com.jy.medical.MedicalApplication;
 import com.jy.medical.R;
-import com.jy.medical.adapter.ContactEditAdapter;
+import com.jy.medical.adapter.SelectedSupporterAdapter;
+import com.jy.medical.adapter.SupporterAdapter;
 import com.jy.medical.adapter.PictureAdapter;
 import com.jy.medical.greendao.entities.SupporterData;
-import com.jy.medical.greendao.entities.ContactData;
+import com.jy.medical.greendao.entities.SupporterPerson;
 import com.jy.medical.greendao.entities.TaskPhoto;
 import com.jy.medical.greendao.manager.SupporterDataManager;
 import com.jy.medical.greendao.manager.ContactManager;
+import com.jy.medical.greendao.manager.SupporterPersonManager;
 import com.jy.medical.greendao.manager.TaskManager;
 import com.jy.medical.greendao.manager.TaskPhotoManager;
 import com.jy.medical.greendao.util.DaoUtils;
@@ -61,10 +63,9 @@ public class SupporterActivity extends BaseActivity {
     private Context context;
 
     private RecyclerView supporterRecycler;
-    private List<ContactData> contactDataList;
-    private ContactEditAdapter adapter;
-    private ContactManager contactManager;
-
+    private List<SupporterPerson> supporterPersonList;
+    private SelectedSupporterAdapter adapter;
+    private SupporterPersonManager supporterPersonManager=DaoUtils.getSupporterPersonInstance();
 
     private TextView completeStatus;
     private ClearEditText payCoefficientEdit;
@@ -94,12 +95,14 @@ public class SupporterActivity extends BaseActivity {
         setStatusBarTint();
         MedicalApplication.getInstance().addActivity(this);
         setTitleState(findViewById(R.id.title_head), true, "编辑", true, "保存");
+
         completeStatus = (TextView) findViewById(R.id.complete_status);
         payCoefficientEdit = (ClearEditText) findViewById(R.id.pay_coefficient);
         maintenanceFeeEdit = (ClearEditText) findViewById(R.id.maintenance_fee);
         remarkEdit = (ClearEditText) findViewById(R.id.remark_edit);
         btnCommit = (Button) findViewById(R.id.supporter_commit);
         btnSave = (Button) findViewById(R.id.supporter_save);
+        findViewById(R.id.add_supporter).setOnClickListener(this);
         btnCommit.setOnClickListener(this);
         btnSave.setOnClickListener(this);
         completeStatus.setOnClickListener(this);
@@ -114,10 +117,9 @@ public class SupporterActivity extends BaseActivity {
         supporterRecycler = (RecyclerView) findViewById(R.id.supporter_recycler);
         supporterRecycler.setHasFixedSize(true);
         supporterRecycler.setLayoutManager(layoutManager1);
-        contactManager = DaoUtils.getContactInstance();
-        contactDataList = new ArrayList<>();
-        contactDataList = contactManager.selectAllContact(taskNo);
-        adapter = new ContactEditAdapter(this, contactDataList);
+        supporterPersonList = new ArrayList<>();
+        supporterPersonList = supporterPersonManager.selectAllContact(taskNo);
+        adapter = new SelectedSupporterAdapter(this, supporterPersonList);
         supporterRecycler.setAdapter(adapter);
 
         options = new DisplayImageOptions.Builder()
@@ -137,7 +139,9 @@ public class SupporterActivity extends BaseActivity {
         taskPhotoManager = DaoUtils.getTaskPhotoInstance();
         pictureList = taskPhotoManager.selectAllPhoto(taskNo);
         for (int i = 0; i < pictureList.size(); i++) {
-            Bitmap bmp = PhotoUtil.convertToBitmap(pictureList.get(i).getPhotoPath(), 75, 75);
+//            Bitmap bmp = PhotoUtil.convertToBitmap(pictureList.get(i).getPhotoPath(), 75, 75);
+            Bitmap bmp = PhotoUtil.getNativeImage(pictureList.get(i).getPhotoPath());
+
             list.add(bmp);
         }
         Resources res = getResources();
@@ -165,11 +169,11 @@ public class SupporterActivity extends BaseActivity {
                 ToastUtil.showToast(context, "已保存所有信息");
                 finish();
                 break;
-            case R.id.add_contact:
+            case R.id.add_supporter:
                 //添加联系人
                 Bundle bundle = new Bundle();
                 bundle.putString("taskNo", taskNo);
-                startActivity(AddContactsActivity.class, bundle);
+                startActivity(AddSupportActivity.class, bundle);
                 break;
             case R.id.supporter_commit:
                 saveData();
@@ -216,14 +220,14 @@ public class SupporterActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-//        setContactData();
+        setSupporterData();
         setPhotoData();
 
     }
 
-    private void setContactData() {
-        contactDataList = contactManager.selectAllContact(taskNo);
-        adapter = new ContactEditAdapter(this, contactDataList);
+    private void setSupporterData() {
+        supporterPersonList = supporterPersonManager.selectAllContact(taskNo);
+        adapter = new SelectedSupporterAdapter(this, supporterPersonList);
         supporterRecycler.setAdapter(adapter);
     }
 

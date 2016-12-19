@@ -55,6 +55,7 @@ public class AddDiagnoseActivity extends BaseActivity {
 
     @Override
     public void initParams(Bundle parms) {
+        if (parms!=null)
         taskNo=parms.getString("taskNo");
     }
 
@@ -101,7 +102,7 @@ public class AddDiagnoseActivity extends BaseActivity {
 
             @Override
             public void onPageSelected(int position) {
-                viewPager.resetHeight(position);
+//                viewPager.resetHeight(position);
                 segmentTabLayout.setCurrentTab(position);
             }
 

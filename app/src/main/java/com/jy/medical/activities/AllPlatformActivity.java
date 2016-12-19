@@ -29,15 +29,16 @@ public class AllPlatformActivity extends BaseActivity{
     private ViewPager viewPager;
     private PlatformFragmentPagerAdapter adapter;
     private List<PlatformFragment> platformFragmentList = new ArrayList<>();
-    private static PlatformFragment fragmentAll;
-    private static PlatformFragment fragmentDoing;
-    private static PlatformFragment fragmentTimeout;
-    private static PlatformFragment fragmentFinished;
+    private  PlatformFragment fragmentAll;
+    private  PlatformFragment fragmentDoing;
+    private  PlatformFragment fragmentTimeout;
+    private  PlatformFragment fragmentFinished;
     private String taskType = "";
     private ClaimManager claimManager = DaoUtils.getClaimInstance();
     private PopupWindow popupWindow;
     private TextView checkBox1, checkBox2, checkBox3, checkBox4, checkBox5, checkBox6, checkBox7, checkBox8, checkBox9, checkBox10;
     private View navView;
+    private int mPosition=-1;
 
     @Override
     public void initData() {
@@ -52,6 +53,10 @@ public class AllPlatformActivity extends BaseActivity{
     @Override
     public void initParams(Bundle parms) {
         taskType = parms.getString("taskType");
+        if (parms.getInt("position")!=-1){
+            mPosition=parms.getInt("position");
+        }
+        initFragment();
     }
 
     @Override
@@ -63,12 +68,18 @@ public class AllPlatformActivity extends BaseActivity{
         slidingTabLayout = (SlidingTabLayout) findViewById(R.id.tabLayout_allPlatform);
         viewPager = (ViewPager) findViewById(R.id.viewPager_allPlatform);
         String[] titles = new String[]{"全部", "未超时", "已超时", "已完成"};
-        initFragment();
+
         adapter = new PlatformFragmentPagerAdapter(getSupportFragmentManager(),
                 this, titles, platformFragmentList);
-        viewPager.setAdapter(adapter);
+
         viewPager.setOffscreenPageLimit(4);
+        viewPager.setAdapter(adapter);
         slidingTabLayout.setViewPager(viewPager, titles);
+        if (mPosition!=-1){
+//            initFragment();
+            slidingTabLayout.setCurrentTab(mPosition);
+            mPosition=-1;
+        }
         slidingTabLayout.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelect(int position) {
@@ -97,7 +108,8 @@ public class AllPlatformActivity extends BaseActivity{
 
             }
         });
-        viewPager.setCurrentItem(0);
+
+
     }
 
 
@@ -139,7 +151,6 @@ public class AllPlatformActivity extends BaseActivity{
                 break;
             case R.id.popup_check1:
                 //全部
-                taskType="";
                 filterData("");
                 break;
             case R.id.popup_check2:
@@ -179,6 +190,12 @@ public class AllPlatformActivity extends BaseActivity{
                 filterData("06");
                 break;
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
     }
 
     public void initPopupWindow() {
@@ -235,12 +252,10 @@ public class AllPlatformActivity extends BaseActivity{
         if (popupWindow.isShowing())
             popupWindow.dismiss();
         int position = viewPager.getCurrentItem();
-        switch (position) {
-            case 0:
-
-                break;
-        }
         platformFragmentList.get(position).setFilterData(taskType,position);
+    }
+    public void filterData(int position) {
+        viewPager.setCurrentItem(position);
     }
 
     public void setWindowBackground(float alpha) {

@@ -142,6 +142,11 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
+            android:name=".activities.AddSupportActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
             android:name=".activities.SelectAddressActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -169,6 +174,7 @@
         <activity android:name=".activities.SelectDepartmentsActivity" />
         <activity
             android:name=".activities.AddNursingActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.AddDiagnoseActivity"
@@ -235,7 +241,8 @@
             android:name=".activities.HomeActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
-            android:theme="@style/noAnimationTheme"></activity>
+            android:theme="@style/noAnimationTheme" />
+        <activity android:name=".activities.DemoActivity"></activity>
     </application>
 
 </manifest>

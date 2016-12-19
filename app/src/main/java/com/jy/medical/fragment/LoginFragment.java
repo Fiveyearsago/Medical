@@ -15,6 +15,8 @@ import android.widget.Button;
 import com.google.gson.Gson;
 import com.jy.ah.bus.data.Response;
 import com.jy.medical.R;
+import com.jy.medical.activities.AddDiagnoseActivity;
+import com.jy.medical.activities.DemoActivity;
 import com.jy.medical.activities.HomeActivity;
 import com.jy.medical.activities.PieActivity;
 import com.jy.medical.activities.PlatformActivity;
@@ -71,6 +73,8 @@ public class LoginFragment extends Fragment {
 //                requestServer();
 //                startActivity(new Intent(mContext, PlatformActivity.class));
                 startActivity(new Intent(mContext, HomeActivity.class));
+//                startActivity(new Intent(mContext, AddDiagnoseActivity.class));
+//                startActivity(new Intent(mContext, DemoActivity.class));
 //                startActivity(new Intent(mContext, SelectHospitalActivity.class));
             }
         });

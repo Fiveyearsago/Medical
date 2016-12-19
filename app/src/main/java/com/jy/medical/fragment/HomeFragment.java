@@ -42,7 +42,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private PieChartData data;
     private PieChartView chart;
     private TextView radioButton1, radioButton2, radioButton3, radioButton4, radioButton5, radioButton6, radioButton7, radioButton8, radioButton9;
-    private View viewAll, viewDoing, viewComplete;
+    private View viewAll, viewDoing, viewComplete, viewTimeOut;
     private static HomeFragment homeFragment;
 
     public static HomeFragment newInstance(int page, Context context) {
@@ -69,8 +69,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         View viewGroup = view.findViewById(R.id.radio_layout);
         viewAll = view.findViewById(R.id.view_all_platform);
         viewDoing = view.findViewById(R.id.view_doing_platform);
+        viewComplete = view.findViewById(R.id.view_complete_platform);
+        viewTimeOut = view.findViewById(R.id.view_timeout_platform);
         viewAll = view.findViewById(R.id.view_all_platform);
         viewAll.setOnClickListener(this);
+        viewDoing.setOnClickListener(this);
+        viewComplete.setOnClickListener(this);
+        viewTimeOut.setOnClickListener(this);
         radioButton1 = (TextView) viewGroup.findViewById(R.id.radioButton1);
         radioButton2 = (TextView) viewGroup.findViewById(R.id.radioButton2);
         radioButton3 = (TextView) viewGroup.findViewById(R.id.radioButton3);
@@ -91,7 +96,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         radioButton9.setOnClickListener(this);
         chart = (PieChartView) view.findViewById(R.id.chart);
         chart.setOnValueTouchListener(new ValueTouchListener());
-
+//        chart.setOnClickListener(this);
         generateData();
 
         return view;
@@ -125,10 +130,16 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.view_all_platform:
-                jumpToAllPlatform("");
+                jumpToAllPlatform(0);
                 break;
             case R.id.view_doing_platform:
-                jumpToAllPlatform("");
+                jumpToAllPlatform(1);
+                break;
+            case R.id.view_complete_platform:
+                jumpToAllPlatform(3);
+                break;
+            case R.id.view_timeout_platform:
+                jumpToAllPlatform(2);
                 break;
             case R.id.radioButton1:
                 jumpToAllPlatform("09");
@@ -157,7 +168,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
             case R.id.radioButton9:
                 jumpToAllPlatform("06");
                 break;
-
+            case R.id.chart:
+                jumpToAllPlatform("");
+                break;
 
         }
     }
@@ -165,6 +178,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     public void jumpToAllPlatform(String taskType) {
         Intent intent = new Intent(mContext, AllPlatformActivity.class);
         intent.putExtra("taskType", taskType);
+        startActivity(intent);
+    }
+
+    public void jumpToAllPlatform(int position) {
+        Intent intent = new Intent(mContext, AllPlatformActivity.class);
+        intent.putExtra("taskType", "");
+        intent.putExtra("position", position);
         startActivity(intent);
     }
 

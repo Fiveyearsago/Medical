@@ -62,10 +62,10 @@ public class MedicalVisitFragment extends Fragment {
     private NursingDataManager nursingDataManager = DaoUtils.getNursingDataInstance();
     private String taskNo;
     private static Context mContext;
-    private View layoutHospital, layoutDiagnose, layoutNursing, layoutFee, layoutPhoto, layoutRemark, layoutComplete, layoutEmpty;
+    private View layoutHospital, layoutDiagnose, layoutNursing, layoutFee, layoutPhoto, layoutRemark, layoutComplete, layoutOther,layoutEmpty;
     private TextView textFee, textRemark, textComplete;
     private int count = 0;
-    private ImageView medicalEdit;
+    private int countOther = 0;
     public static MedicalVisitFragment newInstance(Context context) {
         mContext = context;
         if (followRecordFragment == null)
@@ -88,15 +88,7 @@ public class MedicalVisitFragment extends Fragment {
                              Bundle savedInstanceState) {
         final Bundle data = getArguments();//获得从activity中传递过来的值
         View view = inflater.inflate(R.layout.fragment_medical_visit, container, false);
-        medicalEdit= (ImageView) view.findViewById(R.id.medical_edit);
-        medicalEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), MedicalVisitsActivity.class);
-                intent.putExtra("taskNo", data.getString("taskNo"));
-                startActivity(intent);
-            }
-        });
+        layoutOther = view.findViewById(R.id.other_data_layout);
         layoutHospital = view.findViewById(R.id.layout_hospital);
         layoutDiagnose = view.findViewById(R.id.layout_diagnose);
         layoutNursing = view.findViewById(R.id.layout_nursing);
@@ -131,11 +123,17 @@ public class MedicalVisitFragment extends Fragment {
     public void onResume() {
         super.onResume();
         count=0;
+        countOther=0;
         initOtherData();
         setPhotoData();
         initHospitalData();
         initDiagnoseData();
         initNursingData();
+        if (countOther == 2) {
+            layoutOther.setVisibility(View.GONE);
+        } else {
+            layoutOther.setVisibility(View.VISIBLE);
+        }
         if (count == 7) {
             layoutEmpty.setVisibility(View.VISIBLE);
         } else {
@@ -186,9 +184,10 @@ public class MedicalVisitFragment extends Fragment {
             layoutRemark.setVisibility(View.GONE);
             layoutComplete.setVisibility(View.GONE);
             count = 3;
+            countOther=2;
             return;
         }
-        textFee.setText(medicalVisit.getMedicalFee());
+        textFee.setText("￥"+medicalVisit.getMedicalFee());
         textRemark.setText(medicalVisit.getRemark());
         if (medicalVisit.getCompleteStatus().equals("0"))
             textComplete.setText("已完成");
@@ -213,11 +212,6 @@ public class MedicalVisitFragment extends Fragment {
         } else {
             layoutComplete.setVisibility(View.VISIBLE);
         }
-        if (medicalVisit.getCommitFlag().equals("1")){
-            medicalEdit.setVisibility(View.GONE);
-        }else {
-            medicalEdit.setVisibility(View.VISIBLE);
-        }
     }
     private void setPhotoData() {
         pictureList.clear();
@@ -225,7 +219,9 @@ public class MedicalVisitFragment extends Fragment {
         taskPhotoManager = DaoUtils.getTaskPhotoInstance();
         pictureList = taskPhotoManager.selectAllPhoto(taskNo);
         for (int i = 0; i < pictureList.size(); i++) {
-            Bitmap bmp = PhotoUtil.convertToBitmap(pictureList.get(i).getPhotoPath(), 75, 75);
+//            Bitmap bmp = PhotoUtil.convertToBitmap(pictureList.get(i).getPhotoPath(), 75, 75);
+            Bitmap bmp = PhotoUtil.getNativeImage(pictureList.get(i).getPhotoPath());
+
             list.add(bmp);
         }
         pictureAdapter = new PictureAdapter(mContext, list, taskNo, false,false);

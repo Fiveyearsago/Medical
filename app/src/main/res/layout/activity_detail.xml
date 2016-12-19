@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_follow_detail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@color/pageBackground"
     tools:context="com.jy.medical.activities.DetailActivity">
 
@@ -16,79 +17,42 @@
         <include layout="@layout/page_head" />
     </LinearLayout>
 
-    <RelativeLayout
-        android:id="@+id/bottom_layout"
-        android:layout_width="match_parent"
-        android:layout_height="54dp"
-        android:layout_alignParentBottom="true"
-        android:background="@color/white"
-        android:paddingBottom="5dp"
-        android:paddingLeft="@dimen/primary_margin"
-        android:paddingRight="@dimen/primary_margin"
-        android:paddingTop="5dp">
 
-        <TextView
-            android:id="@+id/task_time_tag"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:text="3天后超时" />
-
-        <Button
-            android:id="@+id/task_commit_btn"
-            android:layout_width="165dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:background="@drawable/btn_green_selector"
-            android:text="提交"
-            android:textColor="@drawable/btn_press_selector"
-            android:textSize="@dimen/primary_text_size" />
-    </RelativeLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:layout_above="@+id/bottom_layout"
         android:layout_below="@+id/head_layout">
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/floating_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:clickable="true"
+            android:layout_marginBottom="21dp"
+            android:layout_marginRight="20dp"
+            android:src="@mipmap/floating_editor"
+            app:backgroundTint="@color/colorPrimary"
+            app:borderWidth="0dp"
+            app:elevation="6dp"
+            app:fabSize="normal"
+            app:pressedTranslationZ="12dp"
+            app:rippleColor="#1062D1" />
+
 
         <ScrollView
             android:id="@+id/scrollView"
+            android:background="@color/pageBackground"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginBottom="10dp">
 
-            <RelativeLayout
-
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_below="@+id/contact_layout"
-                    android:orientation="vertical">
-
-                    <com.flyco.tablayout.SlidingTabLayout
-                        android:id="@+id/segmentTabLayout"
-                        android:layout_width="match_parent"
-                        android:layout_height="38dp"
-                        android:background="@color/white"
-                        app:tl_bar_color="@color/white"
-                        app:tl_indicator_color="@color/colorPrimary"
-                        app:tl_tab_space_equal="true"
-                        app:tl_textSelectColor="@color/colorPrimary"
-                        app:tl_textUnselectColor="@color/navigateColor"
-                        app:tl_textsize="15dp" />
-
-                    <com.jy.medical.widget.CustomViewpager
-                        android:id="@+id/xViewPager"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="9dp" />
-                </LinearLayout>
-
-
                 <LinearLayout
                     android:id="@+id/contact_layout"
                     android:layout_width="match_parent"
@@ -174,24 +138,65 @@
                         </LinearLayout>
                     </RelativeLayout>
                 </LinearLayout>
-            </RelativeLayout>
-        </ScrollView>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/pageBackground"
+                    android:orientation="vertical">
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/floating_button"
+                    <com.flyco.tablayout.SlidingTabLayout
+                        android:id="@+id/segmentTabLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="38dp"
+                        android:background="@color/white"
+                        app:tl_bar_color="@color/white"
+                        app:tl_indicator_color="@color/colorPrimary"
+                        app:tl_tab_space_equal="true"
+                        app:tl_textSelectColor="@color/colorPrimary"
+                        app:tl_textUnselectColor="@color/navigateColor"
+                        app:tl_textsize="15dp" />
+
+
+                </LinearLayout>
+
+                <com.jy.medical.widget.CustomViewpager
+                    android:id="@+id/xViewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp" />
+
+            </LinearLayout>
+        </ScrollView>
+    </FrameLayout>
+    <RelativeLayout
+        android:id="@+id/bottom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:layout_alignParentBottom="true"
+
+        android:background="@color/white"
+        android:paddingBottom="5dp"
+        android:paddingLeft="@dimen/primary_margin"
+        android:paddingRight="@dimen/primary_margin"
+
+        android:paddingTop="5dp">
+
+        <TextView
+            android:id="@+id/task_time_tag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
-            android:clickable="true"
-            android:layout_marginBottom="21dp"
-            android:layout_marginRight="20dp"
-            android:src="@mipmap/floating_editor"
-            app:backgroundTint="@color/colorPrimary"
-            app:borderWidth="0dp"
-            app:elevation="6dp"
-            app:fabSize="normal"
-            app:pressedTranslationZ="12dp"
-            app:rippleColor="#1062D1" />
-    </FrameLayout>
+            android:layout_centerVertical="true"
+            android:text="3天后超时" />
 
-</RelativeLayout>
+        <Button
+            android:id="@+id/task_commit_btn"
+            android:layout_width="165dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/btn_green_selector"
+            android:text="提交"
+            android:textColor="@drawable/btn_press_selector"
+            android:textSize="@dimen/primary_text_size" />
+    </RelativeLayout>
+</LinearLayout>

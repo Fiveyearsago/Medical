@@ -32,15 +32,17 @@ public class PlatformFragment extends Fragment {
     private PlatformAdapter adapter;
     private RecyclerView recyclerView;
     private static PlatformFragment platformFragment;
-    private String taskType="";
-    private int taskFlag=0;
+    private String taskType = "";
+    private int taskFlag = 0;
     private ClaimManager claimManager = DaoUtils.getClaimInstance();
     private static int mPage;
     private List<RadioButton> radioList = new ArrayList<>();
     private RadioGroup radioGroup;
     private View radioGroupLayout;
-    private String[] texts1=new String[]{"全部","3天后超时","5天后超时","7天后超时","30天后超时"};
-    private String[] texts2=new String[]{"全部","已超时3天","已超时5天","已超时7天","已超时30天"};
+    private String[] texts1 = new String[]{"全部", "3天后超时", "5天后超时", "7天后超时", "30天后超时"};
+    private String[] texts2 = new String[]{"全部", "已超时3天", "已超时5天", "已超时7天", "已超时30天"};
+    private View rootView;
+
     public static PlatformFragment newInstance(int page, Context context) {
         mContext = context;
         mPage = page;
@@ -65,15 +67,15 @@ public class PlatformFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.platform_content, container, false);
-        radioGroupLayout =view.findViewById(R.id.platform_radioGroup_layout);
+        rootView = inflater.inflate(R.layout.platform_content, null);
+        radioGroupLayout = rootView.findViewById(R.id.platform_radioGroup_layout);
 
-        radioGroup = (RadioGroup) view.findViewById(R.id.platform_radioGroup);
-        radioList.add((RadioButton) view.findViewById(R.id.radio1));
-        radioList.add((RadioButton) view.findViewById(R.id.radio2));
-        radioList.add((RadioButton) view.findViewById(R.id.radio3));
-        radioList.add((RadioButton) view.findViewById(R.id.radio4));
-        radioList.add((RadioButton) view.findViewById(R.id.radio5));
+        radioGroup = (RadioGroup) radioGroupLayout.findViewById(R.id.platform_radioGroup);
+        radioList.add((RadioButton) rootView.findViewById(R.id.radio1));
+        radioList.add((RadioButton) rootView.findViewById(R.id.radio2));
+        radioList.add((RadioButton) rootView.findViewById(R.id.radio3));
+        radioList.add((RadioButton) rootView.findViewById(R.id.radio4));
+        radioList.add((RadioButton) rootView.findViewById(R.id.radio5));
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -96,7 +98,7 @@ public class PlatformFragment extends Fragment {
                 }
             }
         });
-        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(mContext);
         recyclerView.setLayoutManager(layoutManager);
@@ -104,7 +106,8 @@ public class PlatformFragment extends Fragment {
         adapter = new PlatformAdapter(mContext, list);
         recyclerView.setAdapter(adapter);
         radioList.get(0).setChecked(true);
-        return view;
+        setFilterData(taskType, 0);
+        return rootView;
     }
 
     @Override
@@ -114,16 +117,17 @@ public class PlatformFragment extends Fragment {
 
 
     public void setFilterData(String taskType, int taskFlag) {
-        this.taskType=taskType;
-        this.taskFlag=taskFlag;
-        switch (taskFlag){
+        this.taskType = taskType;
+        this.taskFlag = taskFlag;
+        switch (taskFlag) {
             case 0:
                 radioGroupLayout.setVisibility(View.GONE);
                 list = claimManager.selectAllData(taskType, taskFlag);
                 break;
             case 1:
                 setRadioGroupText1();
-                radioGroupLayout.setVisibility(View.VISIBLE);
+                if (radioGroupLayout != null)
+                    radioGroupLayout.setVisibility(View.VISIBLE);
                 setTaskTypeData(taskType);
                 break;
             case 2:
@@ -137,21 +141,20 @@ public class PlatformFragment extends Fragment {
                 list = claimManager.selectAllData(taskType, taskFlag);
                 break;
         }
-
-
         adapter.setData(list);
         adapter.notifyDataSetChanged();
     }
+
     public void setTaskTypeData(String taskType) {
-        int position=0;
-        for (int i = 0; i <radioList.size() ; i++) {
-            if(radioGroup.getCheckedRadioButtonId()==radioList.get(i).getId())
-                position=i;
+        int position = 0;
+        for (int i = 0; i < radioList.size(); i++) {
+            if (radioGroup.getCheckedRadioButtonId() == radioList.get(i).getId())
+                position = i;
         }
-        if (taskFlag==2)
-        list = claimManager.selectTaskTypeData2(taskType,position);
-        if (taskFlag==1)
-            list = claimManager.selectTaskTypeData1(taskType,position);
+        if (taskFlag == 2)
+            list = claimManager.selectTaskTypeData2(taskType, position);
+        if (taskFlag == 1)
+            list = claimManager.selectTaskTypeData1(taskType, position);
         adapter.setData(list);
         adapter.notifyDataSetChanged();
     }
@@ -161,9 +164,18 @@ public class PlatformFragment extends Fragment {
             radioList.get(i).setText(texts1[i]);
         }
     }
+
     private void setRadioGroupText2() {
         for (int i = 0; i < radioList.size(); i++) {
             radioList.get(i).setText(texts2[i]);
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (null != rootView) {
+            ((ViewGroup) rootView.getParent()).removeView(rootView);
         }
     }
 }

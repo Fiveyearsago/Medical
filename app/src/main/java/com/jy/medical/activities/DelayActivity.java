@@ -284,6 +284,7 @@ public class DelayActivity extends BaseActivity {
     private void selectIndustry() {
         //选择行业
         Intent intent = new Intent(context, SelectCategoryActivity.class);
+        intent.putExtra("kindCode","D117");
         this.startActivityForResult(intent, 0x12);
     }
 

@@ -29,22 +29,31 @@ import com.jy.medical.R;
 import com.jy.medical.adapter.BaseFragmentPagerAdapter;
 import com.jy.medical.fragment.BaseInfoFragment;
 import com.jy.medical.fragment.DeathFragment;
+import com.jy.medical.fragment.DelayFragment;
 import com.jy.medical.fragment.EarningFragment;
+import com.jy.medical.fragment.EarningFragment1;
 import com.jy.medical.fragment.FollowDetailFragment;
 import com.jy.medical.fragment.HandleFragment;
+import com.jy.medical.fragment.HouseholdFragment;
+import com.jy.medical.fragment.MaimFragment;
 import com.jy.medical.fragment.MedicalVisitFragment;
 import com.jy.medical.fragment.SupporterFragment;
 import com.jy.medical.greendao.entities.BaseInfoData;
 import com.jy.medical.greendao.entities.DeathData;
 import com.jy.medical.greendao.entities.EarningData;
 import com.jy.medical.greendao.entities.HandleData;
+import com.jy.medical.greendao.entities.MaimData;
 import com.jy.medical.greendao.entities.MedicalVisit;
 import com.jy.medical.greendao.entities.PlatformData;
+import com.jy.medical.greendao.entities.SupporterData;
 import com.jy.medical.greendao.manager.BaseInfoDataManager;
 import com.jy.medical.greendao.manager.DeathDataManager;
 import com.jy.medical.greendao.manager.EarningDataManager;
 import com.jy.medical.greendao.manager.HandleDataManager;
+import com.jy.medical.greendao.manager.MaimDataManager;
 import com.jy.medical.greendao.manager.MedicalVisitManager;
+import com.jy.medical.greendao.manager.SupporterDataManager;
+import com.jy.medical.greendao.manager.TaskManager;
 import com.jy.medical.greendao.util.DaoUtils;
 import com.jy.medical.util.CommitUtil;
 import com.jy.medical.util.TimeUtil;
@@ -66,7 +75,7 @@ public class DetailActivity extends BaseActivity implements OnItemClickListener,
     private PlatformData platformData;
     private TextView textName;
     private TextView textTime;
-//    private TextView textReport;
+    //    private TextView textReport;
     private ImageButton imagePhone;
     private AlertView mAlertView;
     private String taskType = "";
@@ -76,22 +85,22 @@ public class DetailActivity extends BaseActivity implements OnItemClickListener,
     private DeathDataManager deathDataManager = DaoUtils.getDeathDataInstance();
     private BaseInfoDataManager baseInfoDataManager = DaoUtils.getBaseInfoDataInstance();
     private HandleDataManager handleDataManager = DaoUtils.getHandleDataInstance();
+    private SupporterDataManager supporterDataManager = DaoUtils.getSupporterDataInstance();
+    private MaimDataManager maimDataManager = DaoUtils.getMaimDataInstance();
     private View layoutBottom;
     private Context context;
     private ImageView taskTypeImage;
     private FloatingActionButton floatingActionButton;
     private String taskNo;
     private TextView taskTypeTV;
+
     @Override
     public void initData() {
         context = this;
         textName.setText(platformData.getPeopleName());
-        textTime.setText(platformData.getTime());
+        textTime.setText(TimeUtil.getTimeNoSecondsString(platformData.getTime()));
 //        textReport.setText(platformData.getReportNum());
-
-
-            dayNum = TimeUtil.getGapCount(platformData.getTime());
-
+        dayNum = TimeUtil.getGapCount(platformData.getTime());
         setTaskTimeText(dayNum);
     }
 
@@ -105,6 +114,8 @@ public class DetailActivity extends BaseActivity implements OnItemClickListener,
         platformData = (PlatformData) parms.getSerializable("info");
         taskType = platformData.getTaskType();
         taskNo = platformData.getTaskNo();
+        TaskManager taskManager = DaoUtils.getTaskInstance();
+        commitFlag = taskManager.getCommitFlag(taskNo);
     }
 
     @Override
@@ -113,7 +124,7 @@ public class DetailActivity extends BaseActivity implements OnItemClickListener,
         setTitleState(findViewById(R.id.title_head), true, "跟踪详情", false, "");
         findViewById(R.id.task_commit_btn).setOnClickListener(this);
         taskTypeImage = (ImageView) findViewById(R.id.task_state_image);
-        taskTypeTV= (TextView) findViewById(R.id.task_type);
+        taskTypeTV = (TextView) findViewById(R.id.task_type);
         setTaskTypeText();
         layoutBottom = findViewById(R.id.bottom_layout);
         textName = (TextView) findViewById(R.id.follow_detail_name);
@@ -132,11 +143,14 @@ public class DetailActivity extends BaseActivity implements OnItemClickListener,
         bundle.putString("taskNo", taskNo);
         FollowDetailFragment followDetailFragment = FollowDetailFragment.newInstance();
         MedicalVisitFragment medicalVisitFragment = MedicalVisitFragment.newInstance(this);
-        EarningFragment earningFragment = EarningFragment.newInstance(this);
+        EarningFragment1 earningFragment = EarningFragment1.newInstance(this);
         DeathFragment deathFragment = DeathFragment.newInstance(this);
         BaseInfoFragment baseInfoFragment = BaseInfoFragment.newInstance(this);
         HandleFragment handleFragment = HandleFragment.newInstance(this);
         SupporterFragment supporterFragment = SupporterFragment.newInstance(this);
+        DelayFragment delayFragment = DelayFragment.newInstance(this);
+        MaimFragment maimFragment = MaimFragment.newInstance(this);
+        HouseholdFragment householdFragment = HouseholdFragment.newInstance(this);
         switch (taskType) {
             case "01":
                 //医疗探视
@@ -144,8 +158,6 @@ public class DetailActivity extends BaseActivity implements OnItemClickListener,
                 medicalVisitFragment.setArguments(bundle);
                 fragmentList.add(medicalVisitFragment);
                 fragmentList.add(followDetailFragment);
-                MedicalVisit medicalVisit = medicalVisitManager.getData(taskNo);
-                commitFlag = (medicalVisit == null) ? "" : medicalVisit.getCommitFlag();
                 break;
             case "02":
                 //收入情况
@@ -153,8 +165,20 @@ public class DetailActivity extends BaseActivity implements OnItemClickListener,
                 earningFragment.setArguments(bundle);
                 fragmentList.add(earningFragment);
                 fragmentList.add(followDetailFragment);
-                EarningData earningData = earningDataManager.getData(taskNo);
-                commitFlag = (earningData == null) ? "" : earningData.getCommitFlag();
+                break;
+            case "03":
+                //误入情况
+                followDetailFragment.setArguments(bundle);
+                delayFragment.setArguments(bundle);
+                fragmentList.add(delayFragment);
+                fragmentList.add(followDetailFragment);
+                break;
+            case "04":
+                //误入情况
+                followDetailFragment.setArguments(bundle);
+                householdFragment.setArguments(bundle);
+                fragmentList.add(householdFragment);
+                fragmentList.add(followDetailFragment);
                 break;
             case "05":
                 //收入情况
@@ -162,26 +186,20 @@ public class DetailActivity extends BaseActivity implements OnItemClickListener,
                 supporterFragment.setArguments(bundle);
                 fragmentList.add(supporterFragment);
                 fragmentList.add(followDetailFragment);
-                EarningData earningData1 = earningDataManager.getData(taskNo);
-                commitFlag = (earningData1 == null) ? "" : earningData1.getCommitFlag();
                 break;
             case "06":
-                //抚养人情况
+                //死亡信息
                 followDetailFragment.setArguments(bundle);
                 deathFragment.setArguments(bundle);
                 fragmentList.add(deathFragment);
                 fragmentList.add(followDetailFragment);
-                DeathData deathData = deathDataManager.getData(taskNo);
-                commitFlag = (deathData == null) ? "" : deathData.getCommitFlag();
                 break;
             case "08":
-                //抚养人情况
+                //伤残
                 followDetailFragment.setArguments(bundle);
-                deathFragment.setArguments(bundle);
-                fragmentList.add(deathFragment);
+                maimFragment.setArguments(bundle);
+                fragmentList.add(maimFragment);
                 fragmentList.add(followDetailFragment);
-                DeathData deathData1 = deathDataManager.getData(taskNo);
-                commitFlag = (deathData1 == null) ? "" : deathData1.getCommitFlag();
                 break;
             case "09":
                 //事故基本情况
@@ -189,8 +207,6 @@ public class DetailActivity extends BaseActivity implements OnItemClickListener,
                 followDetailFragment.setArguments(bundle);
                 fragmentList.add(baseInfoFragment);
                 fragmentList.add(followDetailFragment);
-                BaseInfoData baseInfoData = baseInfoDataManager.getData(taskNo);
-                commitFlag = (baseInfoData == null) ? "" : baseInfoData.getCommitFlag();
                 break;
             case "10":
                 //事故处理情况
@@ -198,8 +214,6 @@ public class DetailActivity extends BaseActivity implements OnItemClickListener,
                 followDetailFragment.setArguments(bundle);
                 fragmentList.add(handleFragment);
                 fragmentList.add(followDetailFragment);
-                HandleData handleData = handleDataManager.getData(taskNo);
-                commitFlag = (handleData == null) ? "" : handleData.getCommitFlag();
                 break;
             default:
                 followDetailFragment.setArguments(bundle);
@@ -235,6 +249,11 @@ public class DetailActivity extends BaseActivity implements OnItemClickListener,
 
             @Override
             public void onPageSelected(int position) {
+                if (position == 0 && !commitFlag.equals("1")) {
+                    floatingActionButton.setVisibility(View.VISIBLE);
+                } else if (position == 1) {
+                    floatingActionButton.setVisibility(View.GONE);
+                }
                 viewPager.resetHeight(position);
                 segmentTabLayout.setCurrentTab(position);
             }
@@ -249,7 +268,7 @@ public class DetailActivity extends BaseActivity implements OnItemClickListener,
     }
 
     private void setTaskTypeText() {
-        switch (taskType){
+        switch (taskType) {
             case "01":
                 taskTypeTV.setText("医");
                 break;
@@ -306,7 +325,7 @@ public class DetailActivity extends BaseActivity implements OnItemClickListener,
     }
 
     private void jumpToActivity() {
-        Intent intent=new Intent();
+        Intent intent = new Intent();
         switch (taskType) {
             case "01":
                 intent = new Intent(context, MedicalVisitsActivity.class);
@@ -414,14 +433,14 @@ public class DetailActivity extends BaseActivity implements OnItemClickListener,
     }
 
     public void setTaskTimeText(int dayNum) {
-        if (dayNum > 0) {
-            SpannableString styledText = new SpannableString("已超时" + dayNum + "天");
-            int length = 3 + String.valueOf(dayNum).length();
+        if (dayNum < 0) {
+            SpannableString styledText = new SpannableString("已超时" + (-dayNum) + "天");
+            int length = 3 + String.valueOf(-dayNum).length();
             styledText.setSpan(new TextAppearanceSpan(this, R.style.textTimeoutTab), 3, length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             taskTimeTab.setText(styledText, TextView.BufferType.SPANNABLE);
         } else {
-            int length = String.valueOf(-dayNum).length();
-            SpannableString styledText = new SpannableString(-dayNum + "天后超时");
+            int length = String.valueOf(dayNum + 1).length();
+            SpannableString styledText = new SpannableString((dayNum + 1) + "天后超时");
             styledText.setSpan(new TextAppearanceSpan(this, R.style.textNormalTab), 0, length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             taskTimeTab.setText(styledText, TextView.BufferType.SPANNABLE);
         }
@@ -444,17 +463,20 @@ public class DetailActivity extends BaseActivity implements OnItemClickListener,
     @Override
     protected void onResume() {
         super.onResume();
-//        if (taskType.equals("1")) {
-//            layoutBottom.setVisibility(View.GONE);
-//        } else {
-//            layoutBottom.setVisibility(View.VISIBLE);
-//        }
+
         if (commitFlag.equals("1")) {
             layoutBottom.setVisibility(View.GONE);
             taskTypeImage.setBackground(context.getResources().getDrawable(R.mipmap.detail_finished1));
+            floatingActionButton.setVisibility(View.GONE);
         } else {
+            if (dayNum < 0) {
+                taskTypeImage.setBackground(context.getResources().getDrawable(R.mipmap.detail_timeout1));
+            } else {
+                taskTypeImage.setBackground(context.getResources().getDrawable(R.mipmap.detail_unfinish1));
+
+            }
             layoutBottom.setVisibility(View.VISIBLE);
-            taskTypeImage.setBackground(context.getResources().getDrawable(R.mipmap.detail_unfinish1));
+            floatingActionButton.setVisibility(View.VISIBLE);
         }
 //        setTaskTypeImage();
 

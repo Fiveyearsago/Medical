@@ -18,15 +18,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jy.medical.R;
-import com.jy.medical.activities.FollowEditActivity;
 import com.jy.medical.activities.SupporterActivity;
-import com.jy.medical.adapter.ContactInfoAdapter;
 import com.jy.medical.adapter.PictureAdapter;
+import com.jy.medical.adapter.SelectedSupporterAdapter;
 import com.jy.medical.greendao.entities.BaseInfoData;
-import com.jy.medical.greendao.entities.ContactData;
+import com.jy.medical.greendao.entities.SupporterData;
+import com.jy.medical.greendao.entities.SupporterPerson;
 import com.jy.medical.greendao.entities.TaskPhoto;
 import com.jy.medical.greendao.manager.BaseInfoDataManager;
-import com.jy.medical.greendao.manager.ContactManager;
+import com.jy.medical.greendao.manager.SupporterDataManager;
+import com.jy.medical.greendao.manager.SupporterPersonManager;
 import com.jy.medical.greendao.manager.TaskPhotoManager;
 import com.jy.medical.greendao.util.DaoUtils;
 import com.jy.medical.util.PhotoUtil;
@@ -43,16 +44,18 @@ public class SupporterFragment extends Fragment {
     private static SupporterFragment supporterFragment;
     private TaskPhotoManager taskPhotoManager = DaoUtils.getTaskPhotoInstance();
     private String taskNo;
-    private RecyclerView contactRecycler;
-    private List<ContactData> contactDataList;
-    private ContactInfoAdapter adapter;
-    private ContactManager contactManager = DaoUtils.getContactInstance();
-    private BaseInfoDataManager baseInfoDataManager = DaoUtils.getBaseInfoDataInstance();
-    private TextView textAddress, textTime, textDetail, textRemark, textComplete;
-    private View layoutAddress, layoutTime, layoutContact, layoutDetail, layoutPhoto, layoutRemark, layoutComplete, layoutEmpty;
+    private RecyclerView supporterRecycler;
+    private List<SupporterPerson> supporterDataList;
+    private SelectedSupporterAdapter adapter;
+    private SupporterPersonManager supporterManager = DaoUtils.getSupporterPersonInstance();
+    private SupporterDataManager supporterDataManager = DaoUtils.getSupporterDataInstance();
+    private TextView textPay, textFee, textRemark, textComplete;
+    private View layoutOther,layoutPayInfo,layoutPay, layoutFee, layoutSupporter, layoutPhoto, layoutRemark, layoutComplete, layoutEmpty;
 
-    private int count = 0;
-    private ImageView baseEdit;
+    private int countPhoto = 0;
+    private int countPay = 0;
+    private int countSupporter = 0;
+    private int countOther = 0;
 
     public static SupporterFragment newInstance(Context context) {
         mContext = context;
@@ -75,51 +78,54 @@ public class SupporterFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_supporter, container, false);
-        layoutAddress = view.findViewById(R.id.layout_address);
-        layoutTime = view.findViewById(R.id.layout_time);
-        layoutContact = view.findViewById(R.id.layout_contact);
-        layoutDetail = view.findViewById(R.id.layout_detail);
+        View view = inflater.inflate(R.layout.fragment_supporter1, container, false);
+        layoutPayInfo = view.findViewById(R.id.layout_pay_info);
+        layoutOther = view.findViewById(R.id.other_data_layout);
+        layoutPay = view.findViewById(R.id.layout_pay);
+        layoutFee = view.findViewById(R.id.layout_fee);
+        layoutSupporter = view.findViewById(R.id.layout_supporter);
         layoutPhoto = view.findViewById(R.id.layout_photo);
         layoutRemark = view.findViewById(R.id.layout_remark);
         layoutComplete = view.findViewById(R.id.layout_complete);
         layoutEmpty = view.findViewById(R.id.layout_empty);
-        textAddress = (TextView) view.findViewById(R.id.accident_address);
-        textTime = (TextView) view.findViewById(R.id.accident_time);
-        textDetail = (TextView) view.findViewById(R.id.detail_info);
+        textPay = (TextView) view.findViewById(R.id.supporter_pay);
+        textFee = (TextView) view.findViewById(R.id.supporter_fee);
         textRemark = (TextView) view.findViewById(R.id.remark);
         textComplete = (TextView) view.findViewById(R.id.complete_status);
-        baseEdit= (ImageView) view.findViewById(R.id.base_edit);
-        baseEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), SupporterActivity.class);
-                intent.putExtra("taskNo", taskNo);
-                ((AppCompatActivity)mContext).startActivityForResult(intent,0x09);
-            }
-        });
         pictureRecyclerView = (RecyclerView) view.findViewById(R.id.picture_recyclerView);
         pictureRecyclerView.setHasFixedSize(true);
         pictureRecyclerView.setLayoutManager(new GridLayoutManager(mContext, 4));
         pictureList = new ArrayList<>();
         list = new ArrayList<>();
-        contactRecycler = (RecyclerView) view.findViewById(R.id.contact_recycler);
-        contactRecycler.setHasFixedSize(true);
-        contactRecycler.setLayoutManager(new LinearLayoutManager(mContext));
-        contactManager = DaoUtils.getContactInstance();
-        contactDataList = new ArrayList<>();
+        supporterRecycler = (RecyclerView) view.findViewById(R.id.supporter_recyclerView);
+        supporterRecycler.setHasFixedSize(true);
+        supporterRecycler.setLayoutManager(new LinearLayoutManager(mContext));
+        supporterDataList = new ArrayList<>();
         return view;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        count = 0;
+        countPhoto = 0;
+        countPay = 0;
+        countSupporter = 0;
+        countOther = 0;
         initOtherData();
         setPhotoData();
-        setContactData();
+        setSupporterPerson();
 
-        if (count == 7) {
+        if (countPay==2){
+            layoutPayInfo.setVisibility(View.GONE);
+        }else {
+            layoutPayInfo.setVisibility(View.VISIBLE);
+        }
+        if (countOther==2){
+            layoutOther.setVisibility(View.GONE);
+        }else {
+            layoutOther.setVisibility(View.VISIBLE);
+        }
+        if (countPhoto+countPay+countSupporter+countOther == 6) {
             layoutEmpty.setVisibility(View.VISIBLE);
         } else {
             layoutEmpty.setVisibility(View.GONE);
@@ -127,71 +133,59 @@ public class SupporterFragment extends Fragment {
     }
 
     private void initOtherData() {
-        BaseInfoData baseInfoData = baseInfoDataManager.getData(taskNo);
-        if (baseInfoData == null) {
-            layoutAddress.setVisibility(View.GONE);
-            layoutTime.setVisibility(View.GONE);
-            layoutDetail.setVisibility(View.GONE);
+        SupporterData supporterData = supporterDataManager.getData(taskNo);
+        if (supporterData == null) {
+            layoutPay.setVisibility(View.GONE);
+            layoutFee.setVisibility(View.GONE);
             layoutRemark.setVisibility(View.GONE);
             layoutComplete.setVisibility(View.GONE);
-            count = 5;
+            countOther = 2;
+            countPay=2;
             return;
         }
-        textAddress.setText(baseInfoData.getAddress());
-        textTime.setText(baseInfoData.getTime());
-        textDetail.setText(baseInfoData.getDetailInfo());
-        textRemark.setText(baseInfoData.getRemark());
-        if (baseInfoData.getCompleteStatus().equals("0"))
+        textPay.setText(supporterData.getPayCoefficient());
+        textFee.setText(supporterData.getMaintenanceFee());
+        textRemark.setText(supporterData.getRemark());
+        if (supporterData.getCompleteStatus().equals("0"))
             textComplete.setText("已完成");
-        else if (baseInfoData.getCompleteStatus().equals("1"))
+        else if (supporterData.getCompleteStatus().equals("1"))
             textComplete.setText("无法完成");
 
-        if (baseInfoData.getAddress().equals("")) {
-            layoutAddress.setVisibility(View.GONE);
-            count++;
+        if (supporterData.getPayCoefficient().equals("")) {
+            layoutPay.setVisibility(View.GONE);
+            countPay++;
         } else {
-            layoutAddress.setVisibility(View.VISIBLE);
+            layoutPay.setVisibility(View.VISIBLE);
         }
-        if (baseInfoData.getTime().equals("")) {
-            layoutTime.setVisibility(View.GONE);
-            count++;
+        if (supporterData.getMaintenanceFee().equals("")) {
+            layoutFee.setVisibility(View.GONE);
+            countPay++;
         } else {
-            layoutTime.setVisibility(View.VISIBLE);
+            layoutFee.setVisibility(View.VISIBLE);
         }
-        if (baseInfoData.getDetailInfo().equals("")) {
-            layoutDetail.setVisibility(View.GONE);
-            count++;
-        } else {
-            layoutDetail.setVisibility(View.VISIBLE);
-        }
-        if (baseInfoData.getRemark().equals("")) {
+        if (supporterData.getRemark().equals("")) {
             layoutRemark.setVisibility(View.GONE);
-            count++;
+            countOther++;
         } else {
             layoutRemark.setVisibility(View.VISIBLE);
         }
-        if (baseInfoData.getCompleteStatus().equals("")) {
+        if (supporterData.getCompleteStatus().equals("")) {
             layoutComplete.setVisibility(View.GONE);
-            count++;
+            countOther++;
         } else {
             layoutComplete.setVisibility(View.VISIBLE);
         }
-        if (baseInfoData.getCommitFlag().equals("1")){
-            baseEdit.setVisibility(View.GONE);
-        }else {
-            baseEdit.setVisibility(View.VISIBLE);
-        }
     }
 
-    private void setContactData() {
-        contactDataList = contactManager.selectAllContact(taskNo);
-        adapter = new ContactInfoAdapter(mContext, contactDataList);
-        contactRecycler.setAdapter(adapter);
-        if (contactDataList.size() == 0) {
-            layoutContact.setVisibility(View.GONE);
-            count++;
+    private void setSupporterPerson() {
+        supporterDataList = supporterManager.selectAllContact(taskNo);
+        adapter = new SelectedSupporterAdapter(mContext, supporterDataList);
+        supporterRecycler.setAdapter(adapter);
+        if (supporterDataList.size() == 0) {
+            layoutSupporter.setVisibility(View.GONE);
+            countSupporter++;
         }else {
-            layoutContact.setVisibility(View.VISIBLE);
+            layoutSupporter.setVisibility(View.VISIBLE);
         }
     }
 
@@ -201,7 +195,9 @@ public class SupporterFragment extends Fragment {
         taskPhotoManager = DaoUtils.getTaskPhotoInstance();
         pictureList = taskPhotoManager.selectAllPhoto(taskNo);
         for (int i = 0; i < pictureList.size(); i++) {
-            Bitmap bmp = PhotoUtil.convertToBitmap(pictureList.get(i).getPhotoPath(), 75, 75);
+//            Bitmap bmp = PhotoUtil.convertToBitmap(pictureList.get(i).getPhotoPath(), 75, 75);
+            Bitmap bmp = PhotoUtil.getNativeImage(pictureList.get(i).getPhotoPath());
+
             list.add(bmp);
         }
         pictureAdapter = new PictureAdapter(mContext, list, taskNo, false,false);
@@ -209,7 +205,7 @@ public class SupporterFragment extends Fragment {
         pictureRecyclerView.setAdapter(pictureAdapter);
         if (pictureList.size() == 0) {
             layoutPhoto.setVisibility(View.GONE);
-            count++;
+            countPhoto++;
         }else {
             layoutPhoto.setVisibility(View.VISIBLE);
         }

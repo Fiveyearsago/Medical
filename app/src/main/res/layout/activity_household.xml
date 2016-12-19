@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_follow_edit"
+    android:id="@+id/activity_household_edit"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/pageBackground"
-    tools:context="com.jy.medical.activities.FollowEditActivity">
+    tools:context="com.jy.medical.activities.HouseHoldsActivity">
 
     <LinearLayout
         android:id="@+id/head_layout"
@@ -21,8 +21,6 @@
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:background="@color/white"
         android:gravity="center_vertical"
         android:orientation="vertical">
@@ -35,7 +33,7 @@
             android:paddingRight="@dimen/primary_margin">
 
             <Button
-                android:id="@+id/follow_edit_commit"
+                android:id="@+id/household_commit"
                 android:layout_width="0dp"
                 android:layout_height="39dp"
                 android:layout_weight="1"
@@ -45,7 +43,7 @@
                 android:textSize="@dimen/primary_text_size" />
 
             <Button
-                android:id="@+id/follow_edit_save"
+                android:id="@+id/household_save"
                 android:layout_width="0dp"
                 android:layout_height="39dp"
                 android:layout_marginLeft="@dimen/primary_text_size"
@@ -63,8 +61,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/head_layout"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_marginBottom="10dp"
+        android:layout_above="@+id/bottom_layout">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -101,8 +99,9 @@
                         android:layout_marginRight="5dp"
                         android:layout_weight="1"
                         android:gravity="center_vertical|right"
-                        android:text="必选"
-                        android:textColor="@color/hintColor"
+                        android:hint="必选"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/hintColor"
                         android:textSize="@dimen/primary_text_size" />
 
                     <ImageView
@@ -160,6 +159,48 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/lineColor" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="户籍地居住"
+                        android:textColor="@color/navigateColor"
+                        android:textSize="@dimen/primary_text_size" />
+
+                    <TextView
+                        android:id="@+id/household_live"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical|right"
+                        android:hint="必选"
+                        android:text=""
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/hintColor"
+                        android:textSize="@dimen/primary_text_size" />
+
+                    <ImageView
+                        android:layout_width="10dp"
+                        android:layout_height="16dp"
+                        android:background="@mipmap/more"
+                        android:scaleType="fitXY" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/primary_text_size"
+                android:paddingRight="@dimen/primary_text_size">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -242,8 +283,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="44dp"
-                    android:gravity="center_vertical"
-                   >
+                    android:gravity="center_vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -254,15 +294,17 @@
                         android:textSize="@dimen/primary_text_size" />
 
 
-                    <com.jy.medical.widget.CleanableEditText
+                    <com.jy.medical.widget.ClearEditText
                         android:id="@+id/children_num"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="match_parent"
-                        android:gravity="center_vertical|right"
+                        android:layout_weight="1"
+                        android:layout_marginRight="@dimen/primary_margin"
                         android:background="@null"
+                        android:inputType="numberSigned"
                         android:drawablePadding="10dp"
                         android:drawableRight="@mipmap/clear"
+                        android:gravity="center_vertical|right"
                         android:hint="必填"
                         android:textColor="@color/black"
                         android:textColorHint="@color/hintColor"
@@ -288,68 +330,30 @@
                         android:textSize="@dimen/primary_text_size" />
 
 
-                    <com.jy.medical.widget.CleanableEditText
+                    <com.jy.medical.widget.ClearEditText
                         android:id="@+id/brothers"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="match_parent"
-                        android:gravity="center_vertical|right"
+                        android:layout_weight="1"
                         android:background="@null"
                         android:drawablePadding="10dp"
+                        android:inputType="numberSigned"
+                        android:layout_marginRight="@dimen/primary_margin"
                         android:drawableRight="@mipmap/clear"
+                        android:gravity="center_vertical|right"
                         android:hint="必填"
                         android:textColor="@color/black"
                         android:textColorHint="@color/hintColor"
                         android:textSize="@dimen/primary_text_size" />
                 </LinearLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/lineColor" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="44dp"
-                    android:gravity="center_vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="户籍地居住"
-                        android:textColor="@color/navigateColor"
-                        android:textSize="@dimen/primary_text_size" />
-
-                    <TextView
-                        android:id="@+id/household_live"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical|right"
-                        android:layout_marginRight="5dp"
-                        android:hint="必选"
-                        android:text=""
-                        android:textColor="@color/black"
-                        android:textColorHint="@color/hintColor"
-                        android:textSize="@dimen/primary_text_size" />
-
-                    <ImageView
-                        android:layout_width="10dp"
-                        android:layout_height="16dp"
-                        android:background="@mipmap/more"
-                        android:scaleType="fitXY" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/lineColor" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:background="@color/white"
                 android:orientation="vertical"
                 android:paddingLeft="@dimen/primary_text_size"
@@ -378,17 +382,15 @@
                         android:scaleType="fitXY" />
                 </RelativeLayout>
 
-                <com.jy.medical.widget.CleanableEditText
+                <com.jy.medical.widget.ClearEditText
                     android:id="@+id/live_address"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="5dp"
+                    android:layout_height="65dp"
                     android:background="@null"
                     android:drawableRight="@mipmap/clear"
-                    android:ellipsize="end"
                     android:gravity="top"
                     android:hint="必填"
+                    android:maxLines="3"
                     android:textColor="@color/black"
                     android:textColorHint="@color/hintColor"
                     android:textSize="@dimen/primary_text_size" />
@@ -396,7 +398,6 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_marginTop="10dp"
                     android:background="@color/lineColor" />
 
                 <LinearLayout
@@ -414,10 +415,10 @@
                     <TextView
                         android:id="@+id/start_time"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="match_parent"
-                        android:gravity="center_vertical|right"
                         android:layout_marginRight="5dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical|right"
                         android:hint="必选"
                         android:text=""
                         android:textColor="@color/black"
@@ -453,11 +454,11 @@
                     <TextView
                         android:id="@+id/end_time"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="match_parent"
-                        android:gravity="center_vertical|right"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="5dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical|right"
                         android:hint="必选"
                         android:text=""
                         android:textColor="@color/black"
@@ -488,25 +489,33 @@
                         android:textSize="@dimen/primary_text_size" />
 
 
-                    <com.jy.medical.widget.CleanableEditText
+                    <com.jy.medical.widget.ClearEditText
                         android:id="@+id/live_years"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="match_parent"
-                        android:gravity="center_vertical|right"
+                        android:layout_weight="1"
                         android:background="@null"
                         android:drawablePadding="10dp"
+                        android:inputType="numberSigned"
+                        android:layout_marginRight="@dimen/primary_margin"
                         android:drawableRight="@mipmap/clear"
+                        android:gravity="center_vertical|right"
                         android:hint="必填"
                         android:textColor="@color/black"
                         android:textColorHint="@color/hintColor"
                         android:textSize="@dimen/primary_text_size" />
                 </LinearLayout>
+            </LinearLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/lineColor" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/primary_text_size"
+                android:paddingRight="@dimen/primary_text_size">
+
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -533,15 +542,20 @@
 
                 </RelativeLayout>
 
-                <android.support.v7.widget.RecyclerView
+                <com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView
                     android:id="@+id/contact_recycler"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
+            </LinearLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/lineColor" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/primary_text_size"
+                android:paddingRight="@dimen/primary_text_size">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -570,6 +584,47 @@
                     android:id="@+id/picture_recyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/primary_text_size"
+                android:paddingRight="@dimen/primary_text_size">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="完成情况"
+                        android:textColor="@color/navigateColor"
+                        android:textSize="@dimen/primary_text_size" />
+
+                    <TextView
+                        android:id="@+id/complete_status"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical|right"
+                        android:hint="必选"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/hintColor"
+                        android:textSize="@dimen/primary_text_size" />
+
+                    <ImageView
+                        android:layout_width="10dp"
+                        android:layout_height="16dp"
+                        android:background="@mipmap/more"
+                        android:scaleType="fitXY" />
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
@@ -589,54 +644,18 @@
                         android:textSize="@dimen/primary_text_size" />
                 </RelativeLayout>
 
-                <com.jy.medical.widget.CleanableEditText
+                <com.jy.medical.widget.ClearEditText
                     android:id="@+id/remark_edit"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="5dp"
+                    android:layout_height="102dp"
                     android:background="@null"
                     android:drawableRight="@mipmap/clear"
                     android:gravity="top"
+                    android:hint="必填"
+                    android:maxLines="5"
                     android:textColor="@color/black"
                     android:textColorHint="@color/hintColor"
                     android:textSize="@dimen/primary_text_size" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@color/lineColor" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="44dp"
-                    android:gravity="center_vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="完成情况"
-                        android:textColor="@color/navigateColor"
-                        android:textSize="@dimen/primary_text_size" />
-
-                    <TextView
-                        android:id="@+id/complete_status"
-                        android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical|right"
-                        android:layout_marginRight="5dp"
-                        android:text="必选"
-                        android:textColor="@color/hintColor"
-                        android:textSize="@dimen/primary_text_size" />
-
-                    <ImageView
-                        android:layout_width="10dp"
-                        android:layout_height="16dp"
-                        android:background="@mipmap/more"
-                        android:scaleType="fitXY" />
-                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
 

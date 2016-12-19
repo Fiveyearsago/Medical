@@ -284,6 +284,7 @@ public class EarningActivity extends BaseActivity {
     private void selectIndustry() {
         //选择行业
         Intent intent = new Intent(context, SelectCategoryActivity.class);
+        intent.putExtra("kindCode","D110");
         this.startActivityForResult(intent, 0x12);
     }
 

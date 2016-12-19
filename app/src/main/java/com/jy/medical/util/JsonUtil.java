@@ -3,6 +3,7 @@ package com.jy.medical.util;
 import com.jy.medical.greendao.entities.CityData;
 import com.jy.medical.greendao.entities.HospitalData;
 import com.jy.medical.greendao.entities.HumanParts;
+import com.jy.medical.greendao.entities.LawData;
 import com.jy.medical.greendao.entities.MedicalDepartment;
 import com.jy.medical.greendao.manager.CityDataManager;
 import com.jy.medical.greendao.manager.HospitalDataManager;
@@ -56,6 +57,20 @@ public class JsonUtil {
             e.printStackTrace();
         }
 
+    }
+    public static List<LawData> changeToList(String result) {
+        List<LawData> list = new ArrayList<>();
+        try {
+            JSONObject jsonObject=new JSONObject(result);
+            JSONArray jsonArray = jsonObject.getJSONArray("lawsList");
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject object = jsonArray.getJSONObject(i);
+                list.add(new LawData(object.get("lawId").toString(), object.get("lawShortName").toString(),object.optString("lawOrder").toString(), object.get("lawFullName").toString(), object.get("lawFullContent").toString(), object.get("createUserId").toString(), object.get("createDate").toString()));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 
     //保存下载医院信息

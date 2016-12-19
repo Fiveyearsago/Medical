@@ -123,7 +123,7 @@ public class SelectDiagnoseActivity extends BaseActivity {
         });
     }
 
-    private void requestData(int page,boolean flag) {
+    private void requestData(int page, final boolean flag) {
         QtSearchDisabilityDTO qtSearchVehicleDTO = new QtSearchDisabilityDTO();
         qtSearchVehicleDTO.setKindCode(kindCode);
         qtSearchVehicleDTO.setSearchCode("");
@@ -138,7 +138,7 @@ public class SelectDiagnoseActivity extends BaseActivity {
                 Gson responseGson = new Gson();
                 Response response = responseGson.fromJson(result, Response.class);
                 if (response != null && "1".equals(response.getResponseCode())) {
-                    if (false){
+                    if (flag){
                         list.clear();
                     }
                     String data = response.getData();

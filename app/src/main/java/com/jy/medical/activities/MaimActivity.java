@@ -20,12 +20,11 @@ import android.widget.Toast;
 import com.jy.medical.MedicalApplication;
 import com.jy.medical.R;
 import com.jy.medical.adapter.PictureAdapter;
+import com.jy.medical.adapter.SelectedMaimGradeAdapter;
 import com.jy.medical.greendao.entities.MaimData;
-import com.jy.medical.greendao.entities.ContactData;
 import com.jy.medical.greendao.entities.MaimGradeData;
 import com.jy.medical.greendao.entities.TaskPhoto;
 import com.jy.medical.greendao.manager.MaimDataManager;
-import com.jy.medical.greendao.manager.ContactManager;
 import com.jy.medical.greendao.manager.MaimGradeDataManager;
 import com.jy.medical.greendao.manager.TaskManager;
 import com.jy.medical.greendao.manager.TaskPhotoManager;
@@ -151,7 +150,9 @@ public class MaimActivity extends BaseActivity {
         taskPhotoManager = DaoUtils.getTaskPhotoInstance();
         pictureList = taskPhotoManager.selectAllPhoto(taskNo);
         for (int i = 0; i < pictureList.size(); i++) {
-            Bitmap bmp = PhotoUtil.convertToBitmap(pictureList.get(i).getPhotoPath(), 75, 75);
+//            Bitmap bmp = PhotoUtil.convertToBitmap(pictureList.get(i).getPhotoPath(), 75, 75);
+            Bitmap bmp = PhotoUtil.getNativeImage(pictureList.get(i).getPhotoPath());
+
             list.add(bmp);
         }
         Resources res = getResources();

@@ -17,34 +17,10 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
+                android:clickable="true"
                 android:layout_height="200dp">
 
-                <LinearLayout
-                    android:id="@+id/view_all_platform"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:clickable="true"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical"
-                    android:padding="15dp">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="175"
-                        android:textColor="@color/white"
-                        android:textSize="17dp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="全部任务"
-                        android:textColor="@color/white"
-                        android:textSize="12dp"
-                        android:textStyle="bold" />
-                </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/view_doing_platform"
@@ -93,6 +69,7 @@
                     android:orientation="vertical">
 
                     <LinearLayout
+                        android:id="@+id/view_timeout_platform"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
                         android:background="@drawable/bg_circle_timeout"
@@ -118,6 +95,7 @@
                     </LinearLayout>
 
                     <LinearLayout
+                        android:id="@+id/view_complete_platform"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
                         android:layout_marginTop="30dp"
@@ -143,6 +121,33 @@
                             android:textSize="12dp"
                             android:textStyle="bold" />
                     </LinearLayout>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/view_all_platform"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:clickable="true"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical"
+                    android:padding="15dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="175"
+                        android:textColor="@color/white"
+                        android:textSize="17dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="全部任务"
+                        android:textColor="@color/white"
+                        android:textSize="12dp"
+                        android:textStyle="bold" />
                 </LinearLayout>
             </RelativeLayout>
 

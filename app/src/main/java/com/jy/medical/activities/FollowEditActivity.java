@@ -161,7 +161,9 @@ public class FollowEditActivity extends BaseActivity {
         taskPhotoManager = DaoUtils.getTaskPhotoInstance();
         pictureList = taskPhotoManager.selectAllPhoto(taskNo);
         for (int i = 0; i < pictureList.size(); i++) {
-            Bitmap bmp = PhotoUtil.convertToBitmap(pictureList.get(i).getPhotoPath(), 75, 75);
+//            Bitmap bmp = PhotoUtil.convertToBitmap(pictureList.get(i).getPhotoPath(), 75, 75);
+            Bitmap bmp = PhotoUtil.getNativeImage(pictureList.get(i).getPhotoPath());
+
             list.add(bmp);
         }
         Resources res = getResources();
@@ -184,7 +186,7 @@ public class FollowEditActivity extends BaseActivity {
                 ToastUtil.showToast(context, "已保存所有信息");
                 finish();
                 break;
-            case R.id.follow_edit_save:
+            case R.id.btn_save:
                 saveData();
                 ToastUtil.showToast(context, "已保存所有信息");
                 finish();
@@ -199,7 +201,7 @@ public class FollowEditActivity extends BaseActivity {
                 //选择事故时间
                 MultiSelectUtil.initTimePicker(context, textAccidentTime, textAccidentTime.getText().toString(), "选择处理时间");
                 break;
-            case R.id.follow_edit_commit:
+            case R.id.btn_commit:
                 saveData();
                 CommitUtil.commitBaseInfo(context, taskNo, new CommitUtil.CommitCallBack() {
                     @Override

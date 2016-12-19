@@ -8,14 +8,18 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.jy.medical.greendao.entities.HouseholdData;
 import com.jy.medical.greendao.gen.DaoMaster;
 import com.jy.medical.greendao.gen.DeathDataDao;
 import com.jy.medical.greendao.gen.DelayDataDao;
 import com.jy.medical.greendao.gen.EarningDataDao;
 import com.jy.medical.greendao.gen.HandleDataDao;
+import com.jy.medical.greendao.gen.HouseholdDataDao;
+import com.jy.medical.greendao.gen.LawDataDao;
 import com.jy.medical.greendao.gen.MaimDataDao;
 import com.jy.medical.greendao.gen.MaimGradeDataDao;
 import com.jy.medical.greendao.gen.SupporterDataDao;
+import com.jy.medical.greendao.gen.SupporterPersonDao;
 import com.jy.medical.greendao.gen.TaskBeanDataDao;
 
 /**
@@ -65,15 +69,15 @@ public class THDevOpenHelper extends DaoMaster.OpenHelper {
             case 11:
                 MigrationHelper.migrate(db, TaskBeanDataDao.class);
                 break;
-//            case 17:
-//                MigrationHelper.migrate(db, HumanPartsDao.class, CategoryDataDao.class);
-//                break;
-//            case 18:
-//                MigrationHelper.migrate(db, SelectedDiagnoseDao.class);
-//                break;
-//            case 19:
-//                MigrationHelper.migrate(db, NursingDataDao.class);
-//                break;
+            case 12:
+                MigrationHelper.migrate(db, SupporterPersonDao.class);
+                break;
+            case 13:
+                MigrationHelper.migrate(db, HouseholdDataDao.class);
+                break;
+            case 14:
+                MigrationHelper.migrate(db, LawDataDao.class);
+                break;
 //            case 20:
 //                MigrationHelper.migrate(db, NursingDataDao.class);
 //                break;

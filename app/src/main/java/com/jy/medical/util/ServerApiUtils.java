@@ -5,15 +5,19 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.jy.ah.bus.data.Request;
 import com.jy.ah.bus.data.Response;
+import com.jy.medical.controller.JsonToBean;
 import com.jy.medical.greendao.entities.HospitalData;
 import com.jy.medical.greendao.entities.MaimGradeData;
 import com.jy.medical.greendao.entities.MedicalDepartment;
+import com.jy.mobile.dto.ClaimDTO;
 import com.jy.mobile.dto.DictKEYValueDTO;
 import com.jy.mobile.dto.DisabilityDescrDTO;
 import com.jy.mobile.dto.HosptialDTO;
+import com.jy.mobile.request.QtRecieveTaskDTO;
 import com.jy.mobile.request.QtSearchDisabilityDTO;
 import com.jy.mobile.request.QtSearchHosptialDTO;
 import com.jy.mobile.response.SpListDTO;
+import com.jy.mobile.response.SpRecieveTaskDTO;
 
 import org.xutils.common.Callback;
 
@@ -32,6 +36,44 @@ public class ServerApiUtils {
     public interface MCallBack{
         void getDataSuccess(List<MaimGradeData> maimGradeDataList,int pageTotal);
         void getDataFailed();
+    }
+    public static void requestTaskData() {
+        QtRecieveTaskDTO qtRecieveTaskDTO = new QtRecieveTaskDTO();
+//        qtRecieveTaskDTO.setUserId("000111");
+        qtRecieveTaskDTO.setUserId("0131002498");
+        Gson gson = new Gson();
+        String data = gson.toJson(qtRecieveTaskDTO);
+        ServerApiUtils.sendToServer(data, "002001", PublicString.URL_IFC, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Log.i("result", result);
+                Gson responseGson = new Gson();
+                Response response = responseGson.fromJson(result, Response.class);
+                if (response != null && "1".equals(response.getResponseCode())) {
+                    String data = response.getData();
+                    Log.i("ResponseCode", response.getResponseCode());
+                    SpRecieveTaskDTO spRecieveTaskDTO = responseGson.fromJson(data, SpRecieveTaskDTO.class);
+                    Log.i("msUserDTO", spRecieveTaskDTO.toString());
+                    List<ClaimDTO> claimDTOList = spRecieveTaskDTO.getClaimList();
+                    JsonToBean.ClaimDTOToBean(claimDTOList);
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
     }
     public static void requestMaimGradeData(final String taskNo, int page, String gradeCode, String searchCode, final MCallBack mCallBack) {
         QtSearchDisabilityDTO qtSearchVehicleDTO = new QtSearchDisabilityDTO();

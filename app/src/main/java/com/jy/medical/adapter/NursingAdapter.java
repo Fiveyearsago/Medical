@@ -82,6 +82,7 @@ public class NursingAdapter extends BaseHeadFootAdapter {
             public void onClick(View v) {
                 //选择联系人信息
                 Intent intent = new Intent(context,SelectCategoryActivity.class);
+                intent.putExtra("kindCode","D117");
                 ((AppCompatActivity) context).startActivityForResult(intent, position);
             }
         });

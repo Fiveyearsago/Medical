@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -28,9 +29,12 @@ import com.jy.medical.adapter.PictureAdapter;
 import com.jy.medical.greendao.entities.BaseInfoData;
 import com.jy.medical.greendao.entities.ContactData;
 import com.jy.medical.greendao.entities.EarningData;
+import com.jy.medical.greendao.entities.HouseholdData;
+import com.jy.medical.greendao.entities.SupporterData;
 import com.jy.medical.greendao.entities.TaskPhoto;
 import com.jy.medical.greendao.manager.ContactManager;
 import com.jy.medical.greendao.manager.EarningDataManager;
+import com.jy.medical.greendao.manager.HouseholdDataManager;
 import com.jy.medical.greendao.manager.TaskManager;
 import com.jy.medical.greendao.manager.TaskPhotoManager;
 import com.jy.medical.greendao.util.DaoUtils;
@@ -73,18 +77,14 @@ public class HouseHoldsActivity extends BaseActivity {
     private List<LocalImageHelper.LocalFile> pictures = new ArrayList<>();//图片路径数组
     DisplayImageOptions options;
 
-    private TextView householdCityTextView,householdTypeTextView;
-    private TextView jobStatus, industryText, completeStatus, entryTime, agreementText, socialText, incomeForm, leaveTime;
-    private ImageButton companyLocation;
-    private ClearEditText companyAddress, monthlyIncome, companyName;
-    private ClearEditText  remarkEdit;
+    private TextView householdCityTV, householdTypeTV, householdLiveTV, fatherLiveTV, matherLiveTV, startTimeTV, endTimeTV, completeStatusTV;
+    private ImageButton liveLocation;
+    private ClearEditText childrenNumEdit, brothersNumEdit, liveAddressEdit, liveYearsEdit, remarkEdit;
     private Button btnCommit;
     private Button btnSave;
-    private View layout1, layout;
-    private EarningDataManager earningDataManager = DaoUtils.getEarningDataInstance();
-    //    private BaseInfoData baseInfoData;
+    private HouseholdDataManager householdDataManager = DaoUtils.getHouseholdDataInstance();
     private Context context;
-    private String industryKey = "";
+    private String householdCityKey = "", householdCityValue = "", householdTypeKey = "", householdTypeValue = "";
 
     @Override
     public void initData() {
@@ -92,7 +92,7 @@ public class HouseHoldsActivity extends BaseActivity {
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_earning;
+        return R.layout.activity_household;
     }
 
     @Override
@@ -106,38 +106,37 @@ public class HouseHoldsActivity extends BaseActivity {
         context = this;
         MedicalApplication.getInstance().addActivity(this);
         setTitleState(findViewById(R.id.title_head), true, "编辑", true, "保存");
-        layout1 = findViewById(R.id.layout1);
-        layout = findViewById(R.id.layout);
-        jobStatus = (TextView) findViewById(R.id.job_status);
-        completeStatus = (TextView) findViewById(R.id.complete_status);
-        industryText = (TextView) findViewById(R.id.industry);
-        companyName = (ClearEditText) findViewById(R.id.company_name);
-        entryTime = (TextView) findViewById(R.id.entry_time);
-        agreementText = (TextView) findViewById(R.id.agreement);
-        socialText = (TextView) findViewById(R.id.social);
-        incomeForm = (TextView) findViewById(R.id.income_form);
-        leaveTime = (TextView) findViewById(R.id.leave_time);
 
-        companyLocation = (ImageButton) findViewById(R.id.company_location);
-        companyAddress = (ClearEditText) findViewById(R.id.company_address);
-        monthlyIncome = (ClearEditText) findViewById(R.id.monthly_income);
-//        remarkEdit = (ClearEditText) findViewById(R.id.remark_edit);
+        householdCityTV = (TextView) findViewById(R.id.household_city);
+        householdTypeTV = (TextView) findViewById(R.id.household_type);
+        householdLiveTV = (TextView) findViewById(R.id.household_live);
+        fatherLiveTV = (TextView) findViewById(R.id.father_live);
+        matherLiveTV = (TextView) findViewById(R.id.mother_live);
+        startTimeTV = (TextView) findViewById(R.id.start_time);
+        endTimeTV = (TextView) findViewById(R.id.end_time);
+        completeStatusTV = (TextView) findViewById(R.id.complete_status);
+
+        liveLocation = (ImageButton) findViewById(R.id.live_location);
+        childrenNumEdit = (ClearEditText) findViewById(R.id.children_num);
+        brothersNumEdit = (ClearEditText) findViewById(R.id.brothers);
+        liveAddressEdit = (ClearEditText) findViewById(R.id.live_address);
+        liveYearsEdit = (ClearEditText) findViewById(R.id.live_years);
         remarkEdit = (ClearEditText) findViewById(R.id.remark_edit);
 
-        btnCommit = (Button) findViewById(R.id.earning_commit);
-        btnSave = (Button) findViewById(R.id.earning_save);
+        btnCommit = (Button) findViewById(R.id.household_commit);
+        btnSave = (Button) findViewById(R.id.household_save);
         btnCommit.setOnClickListener(this);
         btnSave.setOnClickListener(this);
 
-        jobStatus.setOnClickListener(this);
-        completeStatus.setOnClickListener(this);
-        industryText.setOnClickListener(this);
-        entryTime.setOnClickListener(this);
-        agreementText.setOnClickListener(this);
-        socialText.setOnClickListener(this);
-        incomeForm.setOnClickListener(this);
-        leaveTime.setOnClickListener(this);
-        companyLocation.setOnClickListener(this);
+        householdCityTV.setOnClickListener(this);
+        householdTypeTV.setOnClickListener(this);
+        householdLiveTV.setOnClickListener(this);
+        fatherLiveTV.setOnClickListener(this);
+        matherLiveTV.setOnClickListener(this);
+        startTimeTV.setOnClickListener(this);
+        endTimeTV.setOnClickListener(this);
+        completeStatusTV.setOnClickListener(this);
+        liveLocation.setOnClickListener(this);
         findViewById(R.id.add_contact).setOnClickListener(this);
 
         pictureRecyclerView = (RecyclerView) findViewById(R.id.picture_recyclerView);
@@ -148,8 +147,6 @@ public class HouseHoldsActivity extends BaseActivity {
         list = new ArrayList<>();
 
         pictureRecyclerView.setLayoutManager(layoutManager);
-//        setPhotoData();
-
         contactRecycler = (SwipeMenuRecyclerView) findViewById(R.id.contact_recycler);
         contactRecycler.setHasFixedSize(true);
         contactRecycler.setLayoutManager(layoutManager1);
@@ -202,7 +199,7 @@ public class HouseHoldsActivity extends BaseActivity {
                 ToastUtil.showToast(context, "已保存所有信息");
                 finish();
                 break;
-            case R.id.earning_save:
+            case R.id.household_save:
                 saveData();
                 ToastUtil.showToast(context, "已保存所有信息");
                 finish();
@@ -213,15 +210,15 @@ public class HouseHoldsActivity extends BaseActivity {
                 bundle.putString("taskNo", taskNo);
                 startActivity(AddContactsActivity.class, bundle);
                 break;
-            case R.id.entry_time:
+            case R.id.start_time:
                 //选择入职时间
-                MultiSelectUtil.initTimePicker(context, entryTime, entryTime.getText().toString(), "选择入职时间");
+                MultiSelectUtil.initTimePicker(context, startTimeTV, startTimeTV.getText().toString(), "选择开始时间");
                 break;
-            case R.id.leave_time:
+            case R.id.end_time:
                 //选择离职时间
-                MultiSelectUtil.initTimePicker(context, leaveTime, leaveTime.getText().toString(), "选择离职时间");
+                MultiSelectUtil.initTimePicker(context, endTimeTV, endTimeTV.getText().toString(), "选择结束时间");
                 break;
-            case R.id.earning_commit:
+            case R.id.household_commit:
 //                CommitUtil.checkEarningInfo(context, taskNo);
                 saveData();
                 if (!CommitUtil.checkEarningInfo(context, taskNo))
@@ -237,103 +234,81 @@ public class HouseHoldsActivity extends BaseActivity {
                 }).setCancelable(true).setOnDismissListener(null);
                 mAlertView.show();
                 break;
-            case R.id.company_location:
+            case R.id.live_location:
                 startActivity(SelectAddressActivity.class);
                 break;
-            case R.id.industry:
-                //选择行业
-                selectIndustry();
-                break;
-            case R.id.job_status:
-                //选择在职情况
-                MultiSelectUtil.selectStatusWithCallBack(context, jobStatus, new String[]{"在职", "离职"}, "选择在职情况", new MultiSelectUtil.VCallBack() {
-                    @Override
-                    public void setLayoutVisible() {
-                        if (jobStatus.getText().equals("离职")) {
-                            layout1.setVisibility(View.VISIBLE);
-                            layout.setVisibility(View.GONE);
-                        } else {
-                            layout.setVisibility(View.VISIBLE);
-                            layout1.setVisibility(View.GONE);
-                        }
-                    }
-                });
+            case R.id.household_city:
+                //选择城市
+                Intent intent1 = new Intent(context, SelectAreaActivity.class);
+                startActivityForResult(intent1, 0x11);
 
                 break;
             case R.id.complete_status:
                 //选择完成情况
-                MultiSelectUtil.selectStatus(context, completeStatus, new String[]{"已完成", "无法完成"}, "选择完成情况");
+                MultiSelectUtil.selectStatus(context, completeStatusTV, new String[]{"已完成", "无法完成"}, "选择完成情况");
                 break;
-            case R.id.agreement:
-                //选择劳务合同
-                MultiSelectUtil.selectStatus(context, agreementText, new String[]{"已签订", "未签订"}, "选择劳务合同");
+            case R.id.household_type:
+                //选择户口性质
+                Intent intent = new Intent(context, SelectCategoryActivity.class);
+                intent.putExtra("kindCode", "D109");
+                startActivityForResult(intent, 0x10);
                 break;
-            case R.id.social:
-                //选择社保
-                MultiSelectUtil.selectStatus(context, socialText, new String[]{"已交", "未交"}, "选择社保");
+            case R.id.household_live:
+                //选择户籍地居住
+                MultiSelectUtil.selectStatus(context, householdLiveTV, new String[]{"是", "否"}, "选择户籍地居住");
                 break;
-            case R.id.income_form:
-                //选择收入发放形式
-                MultiSelectUtil.selectStatus(context, incomeForm, new String[]{"现金", "转账"}, "选择收入发放形式");
+            case R.id.father_live:
+                MultiSelectUtil.selectStatus(context, fatherLiveTV, new String[]{"是", "否"}, "是否健在");
+                break;
+            case R.id.mother_live:
+                MultiSelectUtil.selectStatus(context, matherLiveTV, new String[]{"是", "否"}, "是否健在");
                 break;
             default:
                 break;
         }
     }
 
-    private void selectIndustry() {
-        //选择行业
-        Intent intent = new Intent(context, SelectCategoryActivity.class);
-        this.startActivityForResult(intent, 0x12);
-    }
-
 
     private void saveData() {
-        String jobStatusValue = "", jobStatusKey = "", remark = "", completeStatusKey = "", completeStatusValue = "",
-                industryKey1 = industryKey, industryValue = "", companyNameValue = "", companyAddressValue = "", entryTimeValue = "", leaveTimeValue = "",
-                agreementKey = "", agreementValue = "", socialKey = "", socialValue = "", incomeFormKey = "", incomeFormValue = "", monthlyIncomeValue = "", commitFlagValue = "";
-        jobStatusValue = jobStatus.getText().toString();
-        if (jobStatusValue.equals("在职")) {
-            jobStatusKey = "0";
-        } else if (jobStatusValue.equals("离职")) {
-            jobStatusKey = "1";
+        String householdLiveKey = "", householdLiveValue = "", fatherLiveKey = "", fatherLiveValue = "", completeStatusKey = "", completeStatusValue = "",
+                motherLiveKey = "", motherLiveValue = "", childrenNum = "", brotherNum = "", address = "", years = "", remark = "", startTimeValue = "", endTimeValue = "";
+
+
+        householdLiveValue = householdLiveTV.getText().toString();
+        if (householdLiveValue.equals("是")) {
+            householdLiveKey = "0";
+        } else if (householdLiveValue.equals("否")) {
+            householdLiveKey = "1";
         }
+        fatherLiveValue = fatherLiveTV.getText().toString();
+        if (fatherLiveValue.equals("是")) {
+            fatherLiveKey = "0";
+        } else if (fatherLiveValue.equals("否")) {
+            fatherLiveKey = "1";
+        }
+        motherLiveValue = fatherLiveTV.getText().toString();
+        if (motherLiveValue.equals("是")) {
+            motherLiveKey = "0";
+        } else if (motherLiveValue.equals("否")) {
+            motherLiveKey = "1";
+        }
+        childrenNum = childrenNumEdit.getText().toString();
+        brotherNum = brothersNumEdit.getText().toString();
+        address = liveAddressEdit.getText().toString();
+        startTimeValue = startTimeTV.getText().toString();
+        endTimeValue = endTimeTV.getText().toString();
+        years = liveYearsEdit.getText().toString();
         remark = remarkEdit.getText().toString();
-        completeStatusValue = completeStatus.getText().toString();
+        completeStatusValue = completeStatusTV.getText().toString();
         if (completeStatusValue.equals("已完成")) {
             completeStatusKey = "0";
         } else if (completeStatusValue.equals("无法完成")) {
             completeStatusKey = "1";
         }
-        industryValue = industryText.getText().toString();
-        companyNameValue = companyName.getText().toString();
-        companyAddressValue = companyAddress.getText().toString();
-        entryTimeValue = entryTime.getText().toString();
-        leaveTimeValue = leaveTime.getText().toString();
-        agreementValue = agreementText.getText().toString();
-        if (agreementValue.equals("已签订")) {
-            agreementKey = "0";
-        } else if (agreementValue.equals("未签订")) {
-            agreementKey = "1";
-        }
-        socialValue = socialText.getText().toString();
-        if (socialValue.equals("已交")) {
-            socialKey = "0";
-        } else if (socialValue.equals("未交")) {
-            socialKey = "1";
-        }
-        incomeFormValue = incomeForm.getText().toString();
-
-        if (incomeFormValue.equals("现金")) {
-            incomeFormKey = "0";
-        } else if (incomeFormValue.equals("转账")) {
-            incomeFormKey = "1";
-        }
-        monthlyIncomeValue = monthlyIncome.getText().toString();
-        EarningData earningData = new EarningData(taskNo, jobStatusKey, jobStatusValue, remark, completeStatusKey, completeStatusValue, industryKey1, industryValue, companyNameValue, companyAddressValue, entryTimeValue, leaveTimeValue, agreementKey, agreementValue, socialKey, socialValue, incomeFormKey, incomeFormValue, monthlyIncomeValue, "");
-        earningDataManager.insertSingleData(earningData);
-        TaskManager taskManager=DaoUtils.getTaskInstance();
-        taskManager.updateIsDongingFlag(taskNo,"1");
+        HouseholdData householdData = new HouseholdData(remark, taskNo, householdCityKey, householdCityValue, householdTypeKey, householdTypeValue, householdLiveKey, householdLiveValue, fatherLiveKey, fatherLiveValue, motherLiveKey, motherLiveValue, childrenNum, brotherNum, address, startTimeValue, endTimeValue, years, completeStatusKey, completeStatusValue);
+        householdDataManager.insertSingleData(householdData);
+        TaskManager taskManager = DaoUtils.getTaskInstance();
+        taskManager.updateIsDongingFlag(taskNo, "1");
     }
 
     @Override
@@ -350,30 +325,31 @@ public class HouseHoldsActivity extends BaseActivity {
     }
 
     private void initOtherData() {
-        EarningData earningData = earningDataManager.getData(taskNo);
-        if (earningData == null)
+        HouseholdData householdData = householdDataManager.getData(taskNo);
+        if (householdData == null)
             return;
-        if (!earningData.getJobStatusValue().equals(""))
-            jobStatus.setText(earningData.getJobStatusValue());
-
-        if (jobStatus.getText().equals("离职")) {
-            layout1.setVisibility(View.VISIBLE);
-            layout.setVisibility(View.GONE);
-        } else {
-            layout.setVisibility(View.VISIBLE);
-            layout1.setVisibility(View.GONE);
-        }
-        industryText.setText(earningData.getIndustryValue());
-        completeStatus.setText(earningData.getCompleteStatusValue());
-        entryTime.setText(earningData.getEntryTime());
-        agreementText.setText(earningData.getAgreementValue());
-        socialText.setText(earningData.getSocialValue());
-        incomeForm.setText(earningData.getIncomeFormValue());
-        leaveTime.setText(earningData.getLeaveTime());
-        companyAddress.setText(earningData.getCompanyAddress());
-         monthlyIncome.setText(earningData.getMonthlyIncome());
-         companyName.setText(earningData.getCompanyName());
-         remarkEdit.setText(earningData.getRemark());
+        householdCityKey = householdData.getHouseholdCityKey();
+        householdCityValue = householdData.getHouseholdCityValue();
+        householdCityTV.setText(householdCityValue);
+        householdTypeKey = householdData.getHouseholdTypeKey();
+        householdTypeValue = householdData.getHouseholdTypeValue();
+        householdTypeTV.setText(householdTypeValue);
+        if (!householdData.getHouseholdLiveKey().equals(""))
+            householdLiveTV.setText(householdData.getHouseholdLiveValue());
+        if (!householdData.getFatherLiveKey().equals(""))
+            fatherLiveTV.setText(householdData.getFatherLiveValue());
+        if (!householdData.getMotherLiveKey().equals(""))
+            matherLiveTV.setText(householdData.getMotherLiveValue());
+        childrenNumEdit.setText(householdData.getChildrenNum());
+        brothersNumEdit.setText(householdData.getBrotherNum());
+        liveAddressEdit.setText(householdData.getAddress());
+        childrenNumEdit.setText(householdData.getChildrenNum());
+        startTimeTV.setText(householdData.getStartTime());
+        endTimeTV.setText(householdData.getEndTime());
+        liveYearsEdit.setText(householdData.getYears());
+        if (!householdData.getCompleteKey().equals(""))
+            completeStatusTV.setText(householdData.getCompleteValue());
+        remarkEdit.setText(householdData.getRemark());
 
     }
 
@@ -425,9 +401,15 @@ public class HouseHoldsActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
-                case 0x12:
-                    industryText.setText(data.getStringExtra("value"));
-                    industryKey = data.getStringExtra("value");
+                case 0x10:
+                    householdTypeTV.setText(data.getStringExtra("value"));
+                    householdTypeKey = data.getStringExtra("key");
+                    householdTypeValue = data.getStringExtra("value");
+                    break;
+                case 0x11:
+                    householdCityTV.setText(data.getStringExtra("cityName"));
+                    householdCityKey = data.getStringExtra("cityKey");
+                    householdCityValue = data.getStringExtra("cityName");
                     break;
                 case ImageUtils.REQUEST_CODE_GETIMAGE_BYCAMERA:
                     String cameraPath = LocalImageHelper.getInstance().getCameraImgPath();
@@ -452,16 +434,6 @@ public class HouseHoldsActivity extends BaseActivity {
                         for (int i = 0; i < files.size(); i++) {
                             String photoPath = ImageUtils.getAbsoluteImagePath(this, Uri.parse(files.get(i).getOriginalUri()));
                             newDatas.add(new TaskPhoto(taskNo, photoPath));
-//                            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(75, 75);
-////                        params.rightMargin = padding;
-//                            FilterImageView imageView = new FilterImageView(this);
-//                            imageView.setLayoutParams(params);
-//                            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-//                            ImageLoader.getInstance().displayImage(files.get(i).getThumbnailUri(), new ImageViewAware(imageView), options,
-//                                    null, null, files.get(i).getOrientation());
-//                            imageView.setOnClickListener(this);
-//                            pictures.add(files.get(i));
-//                            LocalImageHelper.getInstance().setCurrentSize(pictures.size());
                         }
                         taskPhotoManager.insertData(newDatas);
 //                    setPhotoData();

@@ -19,6 +19,7 @@ import com.jy.medical.greendao.manager.DiagnoseManager;
 import com.jy.medical.greendao.manager.EarningDataManager;
 import com.jy.medical.greendao.manager.HandleDataManager;
 import com.jy.medical.greendao.manager.HospitalDataManager;
+import com.jy.medical.greendao.manager.HouseholdDataManager;
 import com.jy.medical.greendao.manager.HumanPartsManager;
 import com.jy.medical.greendao.manager.MaimDataManager;
 import com.jy.medical.greendao.manager.MaimGradeDataManager;
@@ -30,6 +31,7 @@ import com.jy.medical.greendao.manager.SelectedDepartmentManager;
 import com.jy.medical.greendao.manager.SelectedDiagnoseManager;
 import com.jy.medical.greendao.manager.SelectedHospitalManager;
 import com.jy.medical.greendao.manager.SupporterDataManager;
+import com.jy.medical.greendao.manager.SupporterPersonManager;
 import com.jy.medical.greendao.manager.TaskManager;
 import com.jy.medical.greendao.manager.TaskPhotoManager;
 
@@ -61,6 +63,8 @@ public class DaoUtils {
     private static SupporterDataManager supporterDataManager;
     private static MaimDataManager maimDataManager;
     private static MaimGradeDataManager maimGradeDataManager;
+    private static SupporterPersonManager supporterPersonManager;
+    private static HouseholdDataManager householdDataManager;
     public static Context context;
 
     public static void init(Context context) {
@@ -71,6 +75,17 @@ public class DaoUtils {
     /**
      * 单列模式获取Manager对象
      */
+    public static HouseholdDataManager getHouseholdDataInstance() {
+        if (householdDataManager == null) {
+            householdDataManager = new HouseholdDataManager(context);
+        }
+        return householdDataManager;
+    } public static SupporterPersonManager getSupporterPersonInstance() {
+        if (supporterPersonManager == null) {
+            supporterPersonManager = new SupporterPersonManager(context);
+        }
+        return supporterPersonManager;
+    }
     public static MaimGradeDataManager getMaimGradeDataInstance() {
         if (maimGradeDataManager == null) {
             maimGradeDataManager = new MaimGradeDataManager(context);

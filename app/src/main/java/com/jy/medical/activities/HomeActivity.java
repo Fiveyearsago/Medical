@@ -27,6 +27,7 @@ import com.jy.medical.R;
 import com.jy.medical.adapter.HomePagerAdapter;
 import com.jy.medical.fragment.HomeFragment;
 import com.jy.medical.fragment.HomePlatformFragment;
+import com.jy.medical.util.ServerApiUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,6 +64,7 @@ public class HomeActivity extends BaseActivity {
     @Override
     public void initView() {
         setHomeStatusBarTint();
+        ServerApiUtils.requestTaskData();
         navView = findViewById(R.id.title_head_tab);
         setSegmentState(navView);
         View bottomView = findViewById(R.id.navView);

@@ -23,7 +23,7 @@
             android:background="@color/colorPrimary" />
 
         <TextView
-            android:id="@+id/item_nursing_title"
+            android:id="@+id/item_supporter_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -67,7 +67,7 @@
             android:textSize="@dimen/primary_text_size" />
 
 
-        <com.jy.medical.widget.CleanableEditText
+        <com.jy.medical.widget.ClearEditText
             android:id="@+id/item_supporter_name"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -107,9 +107,9 @@
         <TextView
             android:id="@+id/item_born_date"
             android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_marginRight="5dp"
             android:layout_height="match_parent"
+            android:layout_marginRight="5dp"
+            android:layout_weight="1"
             android:gravity="center_vertical|right"
             android:hint="必选"
             android:text=""
@@ -147,10 +147,10 @@
         <TextView
             android:id="@+id/item_households_nature"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="match_parent"
-            android:gravity="center_vertical|right"
             android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical|right"
             android:hint="必选"
             android:text=""
             android:textColor="@color/black"
@@ -191,10 +191,10 @@
         <TextView
             android:id="@+id/item_relation"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="match_parent"
-            android:gravity="center_vertical|right"
             android:layout_marginRight="5dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical|right"
             android:hint="必选"
             android:text=""
             android:textColor="@color/black"
@@ -231,7 +231,7 @@
             android:textSize="@dimen/primary_text_size" />
 
 
-        <com.jy.medical.widget.CleanableEditText
+        <com.jy.medical.widget.ClearEditText
             android:id="@+id/item_age"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -242,6 +242,7 @@
             android:drawableRight="@mipmap/clear"
             android:gravity="center_vertical|right"
             android:hint="必填"
+            android:inputType="numberSigned"
             android:textColor="@color/black"
             android:textColorHint="@color/hintColor"
             android:textSize="@dimen/primary_text_size" />
@@ -268,7 +269,7 @@
             android:textSize="@dimen/primary_text_size" />
 
 
-        <com.jy.medical.widget.CleanableEditText
+        <com.jy.medical.widget.ClearEditText
             android:id="@+id/item_years"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -279,6 +280,7 @@
             android:drawableRight="@mipmap/clear"
             android:gravity="center_vertical|right"
             android:hint="必填"
+            android:inputType="numberSigned"
             android:textColor="@color/black"
             android:textColorHint="@color/hintColor"
             android:textSize="@dimen/primary_text_size" />
@@ -305,8 +307,8 @@
             android:textSize="@dimen/primary_text_size" />
 
 
-        <com.jy.medical.widget.CleanableEditText
-            android:id="@+id/item_nursing_fee"
+        <com.jy.medical.widget.ClearEditText
+            android:id="@+id/item_num"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginRight="15dp"
@@ -316,6 +318,7 @@
             android:drawableRight="@mipmap/clear"
             android:gravity="center_vertical|right"
             android:hint="必填"
+            android:inputType="numberSigned"
             android:textColor="@color/black"
             android:textColorHint="@color/hintColor"
             android:textSize="@dimen/primary_text_size" />
@@ -362,12 +365,12 @@
         <com.jy.medical.widget.ClearEditText
             android:id="@+id/item_address"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="10dp"
-            android:background="@color/white"
+            android:layout_height="65dp"
+            android:background="@null"
             android:drawableRight="@mipmap/clear"
             android:gravity="top"
             android:hint="必填"
+            android:maxLines="3"
             android:textColor="@color/black"
             android:textColorHint="@color/hintColor"
             android:textSize="@dimen/primary_text_size" />

@@ -129,7 +129,9 @@ public class DeathActivity extends BaseActivity implements View.OnFocusChangeLis
         taskPhotoManager = DaoUtils.getTaskPhotoInstance();
         pictureList = taskPhotoManager.selectAllPhoto(taskNo);
         for (int i = 0; i < pictureList.size(); i++) {
-            Bitmap bmp = PhotoUtil.convertToBitmap(pictureList.get(i).getPhotoPath(), 75, 75);
+//            Bitmap bmp = PhotoUtil.convertToBitmap(pictureList.get(i).getPhotoPath(), 75, 75);
+            Bitmap bmp = PhotoUtil.getNativeImage(pictureList.get(i).getPhotoPath());
+
             list.add(bmp);
         }
         Resources res = getResources();
@@ -165,7 +167,7 @@ public class DeathActivity extends BaseActivity implements View.OnFocusChangeLis
                 break;
             case R.id.death_time:
                 //选择死亡日期
-                MultiSelectUtil.initTimePicker(context, deathTimeTextView, deathTimeTextView.getText().toString(), "选择死亡日期");
+                MultiSelectUtil.initTimePickerNoSeconds(context, deathTimeTextView, deathTimeTextView.getText().toString(), "选择死亡日期");
                 break;
             case R.id.btn_commit:
                 saveData();
@@ -283,6 +285,7 @@ public class DeathActivity extends BaseActivity implements View.OnFocusChangeLis
                         List<LocalImageHelper.LocalFile> files = LocalImageHelper.getInstance().getCheckedItems();
                         List<TaskPhoto> newDatas = new ArrayList<>();
                         for (int i = 0; i < files.size(); i++) {
+
                             String photoPath = ImageUtils.getAbsoluteImagePath(this, Uri.parse(files.get(i).getOriginalUri()));
                             newDatas.add(new TaskPhoto(taskNo, photoPath));
 

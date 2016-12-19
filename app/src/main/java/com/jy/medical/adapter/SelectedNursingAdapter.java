@@ -43,8 +43,9 @@ public class SelectedNursingAdapter extends SwipeMenuAdapter<SelectedNursingAdap
     public void onBindViewHolder(SelectedNursingViewHolder holder, int position) {
         holder.setOnItemClickListener(mOnItemClickListener);
         holder.nursingName.setText(selectedNursings.get(position).getName());
-        holder.nursingId.setText(selectedNursings.get(position).getIdValue());
-        holder.nursingFee.setText(selectedNursings.get(position).getFee());
+        holder.nursingId.setText("("+selectedNursings.get(position).getIdValue()+")");
+        holder.nursingFee.setText("￥"+selectedNursings.get(position).getFee());
+        holder.nursingDays.setText(selectedNursings.get(position).getDays());
     }
 
 
@@ -58,6 +59,7 @@ public class SelectedNursingAdapter extends SwipeMenuAdapter<SelectedNursingAdap
 
         public TextView nursingName;
         public TextView nursingId;
+        public TextView nursingDays;
         public TextView nursingFee;
         OnItemClickListener mOnItemClickListener;
         public SelectedNursingViewHolder(View itemView) {
@@ -65,6 +67,7 @@ public class SelectedNursingAdapter extends SwipeMenuAdapter<SelectedNursingAdap
             itemView.setOnClickListener(this);
             nursingName = (TextView) itemView.findViewById(R.id.nursing_name);
             nursingId = (TextView) itemView.findViewById(R.id.nursing_id);
+            nursingDays = (TextView) itemView.findViewById(R.id.nursing_days);
             nursingFee = (TextView) itemView.findViewById(R.id.nursing_fee);
         }
         public void setOnItemClickListener(OnItemClickListener onItemClickListener) {

@@ -26,10 +26,11 @@ public class CategoryAdapter extends BaseHeadFootAdapter {
     private Context context;
     private List<CategoryData> list;
     private NotifyCallBack notifyCallBack;
-
-    public CategoryAdapter(Context context, List<CategoryData> list) {
+    private String requestKind;
+    public CategoryAdapter(Context context, List<CategoryData> list,String requestKind) {
         this.context = context;
         this.list = list;
+        this.requestKind = requestKind;
     }
 
 
@@ -71,6 +72,7 @@ public class CategoryAdapter extends BaseHeadFootAdapter {
                 Intent intent=new Intent();
                 intent.putExtra("key",list.get(position).getKey());
                 intent.putExtra("value",list.get(position).getValue());
+                intent.putExtra("requestKind",requestKind);
                 ((AppCompatActivity)context).setResult(Activity.RESULT_OK,intent);
                 ((AppCompatActivity) context).finish();
             }
