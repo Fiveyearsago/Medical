@@ -314,8 +314,11 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         // TODO Auto-generated method stub
-        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
+        if (ev.getAction() == MotionEvent.ACTION_UP) {
             View view = getCurrentFocus();
+//            if (view != null && (view instanceof EditText)) {
+//                return super.dispatchTouchEvent(ev);
+//            }
             if (isHideInput(view, ev)) {
                 HideSoftInput(view.getWindowToken());
             }

@@ -4,6 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.AbsoluteSizeSpan;
+import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +15,7 @@ import android.view.ViewGroup;
 import com.jy.medical.R;
 import com.jy.medical.activities.LawDetailActivity;
 import com.jy.medical.adapter.viewholder.ToolViewHolder;
+import com.jy.medical.greendao.entities.LawData;
 import com.jy.medical.greendao.entities.ToolData;
 
 import java.util.List;
@@ -22,14 +27,16 @@ import java.util.List;
 public class ToolAdapter extends BaseHeadFootAdapter {
 
     private Context context;
-    private List<ToolData>list;
+    private List<LawData>list;
 
-    public ToolAdapter(Context context, List<ToolData> list) {
+    public ToolAdapter(Context context, List<LawData> list) {
         this.context = context;
         this.list = list;
     }
 
-
+    public void setData(List<LawData>list){
+        this.list = list;
+    }
     @Override
     protected void onBindHeaderView(View headerView) {
         headerView.setOnClickListener(new View.OnClickListener() {
@@ -73,14 +80,14 @@ public class ToolAdapter extends BaseHeadFootAdapter {
             }
         });
 
-        viewHolder.toolTab.setText(list.get(position).getToolTab());
-        if (list.get(position).getToolTab().length()==2){
-            viewHolder.toolText.setText("         "+list.get(position).getToolText());
+        viewHolder.toolTab.setText("北京");
+        if ("北京".length()==2){
+            viewHolder.toolText.setText("        "+list.get(position).getLawFullName());
         }else {
-            viewHolder.toolText.setText("            "+list.get(position).getToolText());
+            viewHolder.toolText.setText("           "+list.get(position).getLawFullName());
         }
-        viewHolder.toolKind.setText(list.get(position).getToolKind());
-        viewHolder.toolTime.setText(list.get(position).getToolTime());
+        viewHolder.toolKind.setText("临床鉴定");
+        viewHolder.toolTime.setText(list.get(position).getCreateDate());
     }
 
     @Override

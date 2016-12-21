@@ -12,10 +12,12 @@ import android.widget.Toast;
 
 import com.jy.medical.MedicalApplication;
 import com.jy.medical.R;
+import com.jy.medical.util.ToastUtil;
 
 public class MineActivity extends BaseActivity {
     private RadioButton radioPlatform, radioMine, radioTool;
     private boolean mIsExit;
+    private View clearData, updateVersion;
 
     @Override
     public void initData() {
@@ -39,6 +41,9 @@ public class MineActivity extends BaseActivity {
         findViewById(R.id.layout_mine_suggest).setOnClickListener(this);
         findViewById(R.id.layout_mine_head).setOnClickListener(this);
         findViewById(R.id.layout_collect).setOnClickListener(this);
+        findViewById(R.id.clear_data).setOnClickListener(this);
+        findViewById(R.id.update_version).setOnClickListener(this);
+
         View navView = findViewById(R.id.navView);
         radioPlatform = (RadioButton) navView.findViewById(R.id.radio_btn_platform);
         radioMine = (RadioButton) navView.findViewById(R.id.radio_btn_mine);
@@ -70,10 +75,17 @@ public class MineActivity extends BaseActivity {
             case R.id.layout_collect:
                 startActivity(CollectActivity.class);
                 break;
+            case R.id.clear_data:
+                ToastUtil.showToast(MineActivity.this,"已清理缓存");
+                break;
+            case R.id.update_version:
+                ToastUtil.showToast(MineActivity.this,"已是最新版本");
+                break;
             default:
                 break;
         }
     }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {

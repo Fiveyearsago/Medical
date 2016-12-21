@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.jy.medical.R;
+import com.jy.medical.util.ToastUtil;
 
 import org.json.JSONObject;
 
@@ -53,7 +54,8 @@ public class ChangePhoneActivity extends BaseActivity {
                 if (result == SMSSDK.RESULT_COMPLETE) {
                     //验证码验证成功
                     if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {
-                        Toast.makeText(ChangePhoneActivity.this, "验证成功", Toast.LENGTH_LONG).show();
+                        ToastUtil.showToast(ChangePhoneActivity.this, "验证成功");
+//                        Toast.makeText(ChangePhoneActivity.this, "验证成功", Toast.LENGTH_LONG).show();
                         if (true)//其他合法性的检测
                         {
 //                            SMSSDK.submitVerificationCode("86", "15239475273", "2562");//对验证码进行验证->回调函数
@@ -62,8 +64,9 @@ public class ChangePhoneActivity extends BaseActivity {
                     }
                     //已发送验证码
                     else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
-                        Toast.makeText(getApplicationContext(), "验证码已经发送",
-                                Toast.LENGTH_SHORT).show();
+                        ToastUtil.showToast(ChangePhoneActivity.this, "验证码已经发送");
+//                        Toast.makeText(getApplicationContext(), "验证码已经发送",
+//                                Toast.LENGTH_SHORT).show();
                     } else {
                         ((Throwable) data).printStackTrace();
                     }
@@ -76,7 +79,8 @@ public class ChangePhoneActivity extends BaseActivity {
                         String des = object.optString("detail");//错误描述
                         int status = object.optInt("status");//错误代码
                         if (status > 0 && !TextUtils.isEmpty(des)) {
-                            Toast.makeText(getApplicationContext(), des, Toast.LENGTH_SHORT).show();
+                            ToastUtil.showToast(ChangePhoneActivity.this, des);
+//                            Toast.makeText(getApplicationContext(), des, Toast.LENGTH_SHORT).show();
                             return;
                         }
                     } catch (Exception e) {

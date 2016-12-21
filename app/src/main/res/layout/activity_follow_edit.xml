@@ -21,8 +21,6 @@
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:background="@color/white"
         android:gravity="center_vertical"
         android:orientation="vertical">
@@ -61,9 +59,9 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/head_layout">
+        android:layout_above="@+id/bottom_layout"
+        android:layout_below="@+id/head_layout"
+        android:paddingBottom="@dimen/primary_margin">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -110,6 +108,7 @@
                     android:ellipsize="end"
                     android:gravity="top"
                     android:maxLines="3"
+                    android:lineSpacingExtra="3dp"
                     android:hint="必填"
                     android:textColor="@color/black"
                     android:textColorHint="@color/hintColor"
@@ -117,7 +116,7 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="0.5dp"
                     android:background="@color/lineColor" />
 
                 <LinearLayout
@@ -155,7 +154,7 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="0.5dp"
                     android:background="@color/lineColor" />
 
                 <RelativeLayout
@@ -180,13 +179,14 @@
                     android:gravity="top"
                     android:hint="必填"
                     android:maxLines="5"
+                    android:lineSpacingExtra="3dp"
                     android:textColor="@color/black"
                     android:textColorHint="@color/hintColor"
                     android:textSize="@dimen/primary_text_size" />
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="0.5dp"
                     android:background="@color/lineColor" />
 
                 <RelativeLayout
@@ -311,7 +311,7 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="0.5dp"
                     android:background="@color/lineColor" />
 
                 <RelativeLayout
@@ -336,6 +336,7 @@
                     android:gravity="top"
                     android:hint="必填"
                     android:maxLines="5"
+                    android:lineSpacingExtra="3dp"
                     android:textColor="@color/black"
                     android:textColorHint="@color/hintColor"
                     android:textSize="@dimen/primary_text_size" />

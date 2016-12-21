@@ -197,7 +197,7 @@
         <item name="android:button">@null</item>
         <item name="android:background">@drawable/platform_radio_selector</item>
         <item name="android:textColor">@drawable/platfrom_text_color_selector</item>
-        <item name="android:textSize">15dp</item>
+        <item name="android:textSize">13dp</item>
     </style>
     <style name="PopupCheckStyle">
         <item name="android:layout_width">0dp</item>

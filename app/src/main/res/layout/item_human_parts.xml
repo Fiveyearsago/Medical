@@ -19,7 +19,7 @@
             android:paddingLeft="@dimen/primary_margin"
             android:paddingRight="@dimen/primary_margin"
             android:text="头部"
-            android:textColor="@color/navigateColor"
+            android:textColor="@color/black"
             android:textSize="@dimen/primary_text_size" />
 
         <ImageView
@@ -35,7 +35,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="0.5dp"
         android:background="@color/lineColor"
         android:layout_marginLeft="@dimen/primary_margin"
         android:layout_marginRight="@dimen/primary_margin" />

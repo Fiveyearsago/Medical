@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
+    android:focusable="true"
     android:orientation="vertical">
 
     <com.jy.medical.widget.CleanableEditText
@@ -15,6 +16,7 @@
         android:drawableLeft="@drawable/login_account_drawable_selector"
         android:drawablePadding="7dp"
         android:drawableRight="@mipmap/clear"
+        android:focusable="true"
         android:hint="工号/手机号"
         android:inputType="textVisiblePassword"
         android:paddingLeft="7dp"
@@ -31,11 +33,11 @@
         android:background="@drawable/edittext_bg_selector"
         android:drawableLeft="@drawable/login_psw_drawable_selector"
         android:drawablePadding="7dp"
-        android:hint="请输入密码"
         android:drawableRight="@mipmap/clear"
-        android:paddingRight="10dp"
+        android:hint="请输入密码"
         android:inputType="textPassword"
         android:paddingLeft="7dp"
+        android:paddingRight="10dp"
         android:textColor="@color/black"
         android:textColorHint="@color/hintColor"
         android:textSize="15dp" />
@@ -54,5 +56,6 @@
         android:layout_height="49dp"
         android:background="@drawable/bg_button_none"
         android:text="登录"
-        android:textColor="@drawable/btn_press_selector" />
+        android:textColor="@drawable/btn_press_selector"
+        android:textSize="17dp" />
 </LinearLayout>

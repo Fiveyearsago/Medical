@@ -94,10 +94,7 @@ public class SelectDiagnoseActivity extends BaseActivity {
                     public void run() {
                         page = 1;
                         //刷新数据源
-                        requestData(page,false);
-//                        mAdapter.notifyDataSetChanged();
-                        ptrClassicFrameLayout.refreshComplete();
-                        ptrClassicFrameLayout.setLoadMoreEnable(true);
+                        requestData(page,true);
                     }
                 }, 1500);
             }
@@ -113,10 +110,9 @@ public class SelectDiagnoseActivity extends BaseActivity {
                         //加载下页数据
                         //TODO
                         ++page;
-                        requestData(page,true);
-//                        mAdapter.notifyDataSetChanged();
-                        ptrClassicFrameLayout.loadMoreComplete(true);
-                        Toast.makeText(SelectDiagnoseActivity.this, "加载完成", Toast.LENGTH_SHORT).show();
+                        requestData(page,false);
+
+//                        Toast.makeText(SelectDiagnoseActivity.this, "加载完成", Toast.LENGTH_SHORT).show();
                     }
                 }, 1000);
             }
@@ -140,6 +136,9 @@ public class SelectDiagnoseActivity extends BaseActivity {
                 if (response != null && "1".equals(response.getResponseCode())) {
                     if (flag){
                         list.clear();
+                        ptrClassicFrameLayout.refreshComplete();
+                    }else {
+                        ptrClassicFrameLayout.loadMoreComplete(true);
                     }
                     String data = response.getData();
                     SpListDTO spListDTO = responseGson.fromJson(data, SpListDTO.class);
@@ -179,6 +178,13 @@ public class SelectDiagnoseActivity extends BaseActivity {
 
     @Override
     public void widgetClick(View v) {
-
+        switch (v.getId()) {
+            case R.id.page_third_head_image:
+                finish();
+                break;
+            case R.id.page_third_head_collect:
+                //搜索诊断
+                break;
+        }
     }
 }

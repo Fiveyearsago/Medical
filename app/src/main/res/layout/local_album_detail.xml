@@ -31,6 +31,7 @@
             android:layout_marginRight="@dimen/padding_15"
             android:ellipsize="middle"
             android:maxLength="12"
+            android:lineSpacingExtra="3dp"
             android:textColor="@color/white"
             android:textSize="@dimen/textsize_17" />
 

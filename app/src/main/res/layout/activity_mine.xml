@@ -122,9 +122,11 @@
             android:orientation="vertical">
 
             <RelativeLayout
+                android:id="@+id/clear_data"
                 android:layout_width="match_parent"
                 android:layout_height="44dp"
-                android:background="@drawable/item_click_bg_selector">
+                android:background="@drawable/item_click_bg_selector"
+                android:clickable="true">
 
                 <ImageView
                     android:id="@+id/clearImage"
@@ -175,9 +177,11 @@
                 android:background="@color/lineColor" />
 
             <RelativeLayout
+                android:id="@+id/update_version"
                 android:layout_width="match_parent"
                 android:layout_height="44dp"
-                android:background="@drawable/item_click_bg_selector">
+                android:background="@drawable/item_click_bg_selector"
+                android:clickable="true">
 
                 <ImageView
                     android:id="@+id/updateImage"

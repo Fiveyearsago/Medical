@@ -20,7 +20,7 @@
 
         <com.jy.medical.widget.CleanableEditText
             android:id="@+id/page_head_text"
-            android:layout_width="150dp"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:editable="false"
             android:layout_centerInParent="true"
@@ -45,6 +45,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/primary_margin"
+            android:drawablePadding="5dp"
             android:clickable="true"
             android:maxWidth="85dp"
             android:ellipsize="end"

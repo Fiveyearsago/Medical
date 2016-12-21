@@ -76,19 +76,24 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.PersonNameActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible" />
         <activity
             android:name=".activities.ChangePhoneActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible" />
         <activity
             android:name=".activities.EditPswActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible" />
         <activity
             android:name=".activities.PswCommitActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible" />
         <activity
             android:name=".activities.FeedBackActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible" />
         <activity
             android:name=".activities.PlatformActivity"
             android:launchMode="singleTask"
@@ -129,7 +134,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.NewPswActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible" />
         <activity
             android:name=".activities.AllPlatformActivity"
             android:screenOrientation="portrait" />
@@ -157,7 +163,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.SearchPlatformActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible" />
         <activity
             android:name=".activities.LocalAlbumActivity"
             android:screenOrientation="portrait" />
@@ -170,8 +177,12 @@
         <activity
             android:name=".activities.MedicalVisitsActivity"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".activities.SearchHospitalActivity" />
-        <activity android:name=".activities.SelectDepartmentsActivity" />
+        <activity
+            android:name=".activities.SearchHospitalActivity"
+            android:windowSoftInputMode="stateVisible" />
+        <activity
+            android:name=".activities.SelectDepartmentsActivity"
+            android:windowSoftInputMode="stateVisible" />
         <activity
             android:name=".activities.AddNursingActivity"
             android:screenOrientation="portrait"
@@ -242,7 +253,8 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:theme="@style/noAnimationTheme" />
-        <activity android:name=".activities.DemoActivity"></activity>
+        <activity android:name=".activities.DemoActivity" />
+        <activity android:name=".activities.MaimHeadActivity"></activity>
     </application>
 
 </manifest>

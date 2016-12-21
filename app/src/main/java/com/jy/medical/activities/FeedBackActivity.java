@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.jy.medical.R;
+import com.jy.medical.util.ToastUtil;
 
 public class FeedBackActivity extends BaseActivity {
 
@@ -33,6 +34,10 @@ public class FeedBackActivity extends BaseActivity {
     public void widgetClick(View v) {
         switch (v.getId()){
             case R.id.page_head_image:
+                finish();
+                break;
+            case R.id.page_head_button:
+                ToastUtil.showToast(FeedBackActivity.this,"已成功提交");
                 finish();
                 break;
             default:

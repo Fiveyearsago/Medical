@@ -76,7 +76,7 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="0.5dp"
                     android:background="@color/lineColor" />
 
                 <LinearLayout
@@ -111,7 +111,7 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="0.5dp"
                     android:background="@color/lineColor" />
 
                 <LinearLayout
@@ -146,7 +146,7 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="0.5dp"
                     android:background="@color/lineColor" />
 
                 <RelativeLayout
@@ -176,9 +176,10 @@
                     android:id="@+id/picture_recyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
+
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="0.5dp"
                     android:background="@color/lineColor" />
 
                 <LinearLayout
@@ -215,9 +216,10 @@
                         android:background="@mipmap/more"
                         android:scaleType="fitXY" />
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="0.5dp"
                     android:background="@color/lineColor" />
 
                 <RelativeLayout
@@ -237,11 +239,11 @@
                     android:id="@+id/remark_edit"
                     android:layout_width="match_parent"
                     android:layout_height="102dp"
-                    android:layout_marginTop="10dp"
                     android:background="@null"
                     android:drawableRight="@mipmap/clear"
                     android:gravity="top"
                     android:hint="必填"
+                    android:lineSpacingExtra="3dp"
                     android:maxLines="5"
                     android:textColor="@color/black"
                     android:textColorHint="@color/hintColor"
@@ -254,357 +256,373 @@
                 android:id="@+id/layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="@color/white"
-                android:orientation="vertical"
-                android:paddingLeft="@dimen/primary_text_size"
-                android:paddingRight="@dimen/primary_text_size">
+                android:background="@color/pageBackground"
+                android:orientation="vertical">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="44dp"
-                    android:gravity="center_vertical">
-
-                    <TextView
-                        android:id="@+id/industry_tag"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="行业"
-                        android:textColor="@color/navigateColor"
-                        android:textSize="@dimen/primary_text_size" />
-
-                    <TextView
-                        android:id="@+id/industry"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="5dp"
-                        android:layout_weight="1"
-                        android:gravity="right|center_vertical"
-                        android:hint="必选"
-                        android:textColor="@color/black"
-                        android:textColorHint="@color/hintColor"
-                        android:textSize="@dimen/primary_text_size" />
-
-                    <ImageView
-                        android:id="@+id/industry_image"
-                        android:layout_width="10dp"
-                        android:layout_height="16dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:background="@mipmap/more"
-                        android:scaleType="fitXY" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/lineColor" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="32dp"
-                    android:gravity="bottom">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="单位名称"
-                        android:textColor="@color/navigateColor"
-                        android:textSize="@dimen/primary_text_size" />
-
-                </LinearLayout>
-
-                <com.jy.medical.widget.ClearEditText
-                    android:id="@+id/company_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="44dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginRight="15dp"
-                    android:background="@null"
-                    android:drawablePadding="10dp"
-                    android:drawableRight="@mipmap/clear"
-                    android:gravity="top"
-                    android:hint="必填"
-                    android:maxLines="2"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/hintColor"
-                    android:textSize="@dimen/primary_text_size" />
-
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/lineColor" />
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="32dp"
-                    android:gravity="bottom">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="单位地址"
-                        android:textColor="@color/navigateColor"
-                        android:textSize="@dimen/primary_text_size" />
-
-                    <ImageButton
-                        android:id="@+id/company_location"
-                        android:layout_width="16dp"
-                        android:layout_height="21dp"
-                        android:layout_alignParentRight="true"
-                        android:background="@drawable/btn_location_selector"
-                        android:scaleType="fitXY" />
-                </RelativeLayout>
-
-                <com.jy.medical.widget.ClearEditText
-                    android:id="@+id/company_address"
-                    android:layout_width="match_parent"
-                    android:layout_marginTop="5dp"
-                    android:layout_height="65dp"
-                    android:background="@null"
-                    android:drawableRight="@mipmap/clear"
-                    android:gravity="top"
-                    android:hint="必填"
-                    android:maxLines="3"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/hintColor"
-                    android:textSize="@dimen/primary_text_size" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/lineColor" />
-
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="44dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-
-                        android:text="联系人"
-                        android:textColor="@color/navigateColor"
-                        android:textSize="@dimen/primary_text_size" />
-
-                    <ImageView
-                        android:id="@+id/add_contact"
-                        android:layout_width="34dp"
-                        android:layout_height="34dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:cropToPadding="true"
-                        android:padding="10dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/add_contact_selector" />
-
-                </RelativeLayout>
-
-                <com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView
-                    android:id="@+id/contact_recycler"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+                    android:layout_marginTop="10dp"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/primary_text_size"
+                    android:paddingRight="@dimen/primary_text_size">
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/lineColor" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="44dp"
+                        android:gravity="center_vertical">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="44dp"
-                    android:gravity="center_vertical">
+                        <TextView
+                            android:id="@+id/industry_tag"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="行业"
+                            android:textColor="@color/navigateColor"
+                            android:textSize="@dimen/primary_text_size" />
 
-                    <TextView
-                        android:id="@+id/entry_time_tag"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="入职时间"
-                        android:textColor="@color/navigateColor"
-                        android:textSize="@dimen/primary_text_size" />
+                        <TextView
+                            android:id="@+id/industry"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="5dp"
+                            android:layout_weight="1"
+                            android:gravity="right|center_vertical"
+                            android:hint="必选"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/hintColor"
+                            android:textSize="@dimen/primary_text_size" />
 
-                    <TextView
-                        android:id="@+id/entry_time"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="5dp"
-                        android:layout_weight="1"
-                        android:gravity="right|center_vertical"
-                        android:hint="必选"
-                        android:textColor="@color/black"
-                        android:textColorHint="@color/hintColor"
-                        android:textSize="@dimen/primary_text_size" />
+                        <ImageView
+                            android:id="@+id/industry_image"
+                            android:layout_width="10dp"
+                            android:layout_height="16dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:background="@mipmap/more"
+                            android:scaleType="fitXY" />
+                    </LinearLayout>
 
-                    <ImageView
-                        android:id="@+id/entry_time_image"
-                        android:layout_width="10dp"
-                        android:layout_height="16dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:background="@mipmap/more"
-                        android:scaleType="fitXY" />
-                </LinearLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/lineColor" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/lineColor" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="32dp"
+                        android:gravity="bottom">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="44dp"
-                    android:gravity="center_vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="单位名称"
+                            android:textColor="@color/navigateColor"
+                            android:textSize="@dimen/primary_text_size" />
 
-                    <TextView
-                        android:id="@+id/agreement_tag"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="劳务合同"
-                        android:textColor="@color/navigateColor"
-                        android:textSize="@dimen/primary_text_size" />
-
-                    <TextView
-                        android:id="@+id/agreement"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="5dp"
-                        android:layout_weight="1"
-                        android:gravity="right|center_vertical"
-                        android:hint="必选"
-                        android:text=""
-                        android:textColor="@color/black"
-                        android:textColorHint="@color/hintColor"
-                        android:textSize="@dimen/primary_text_size" />
-
-                    <ImageView
-                        android:id="@+id/agreement_image"
-                        android:layout_width="10dp"
-                        android:layout_height="16dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:background="@mipmap/more"
-                        android:scaleType="fitXY" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/lineColor" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="44dp"
-                    android:gravity="center_vertical">
-
-                    <TextView
-                        android:id="@+id/social_tag"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="社保"
-                        android:textColor="@color/navigateColor"
-                        android:textSize="@dimen/primary_text_size" />
-
-                    <TextView
-                        android:id="@+id/social"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="5dp"
-                        android:layout_weight="1"
-                        android:gravity="right|center_vertical"
-                        android:hint="必选"
-                        android:text=""
-                        android:textColor="@color/black"
-                        android:textColorHint="@color/hintColor"
-                        android:textSize="@dimen/primary_text_size" />
-
-                    <ImageView
-                        android:id="@+id/social_image"
-                        android:layout_width="10dp"
-                        android:layout_height="16dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:background="@mipmap/more"
-                        android:scaleType="fitXY" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/lineColor" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="44dp"
-                    android:gravity="center_vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="收入发放形式"
-                        android:textColor="@color/navigateColor"
-                        android:textSize="@dimen/primary_text_size" />
-
-                    <TextView
-                        android:id="@+id/income_form"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="5dp"
-                        android:layout_weight="1"
-                        android:gravity="right|center_vertical"
-                        android:hint="必选"
-                        android:text=""
-                        android:textColor="@color/black"
-                        android:textColorHint="@color/hintColor"
-                        android:textSize="@dimen/primary_text_size" />
-
-                    <ImageView
-                        android:layout_width="10dp"
-                        android:layout_height="16dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:background="@mipmap/more"
-                        android:scaleType="fitXY" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/lineColor" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="44dp"
-                    android:gravity="center_vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="月收入"
-                        android:textColor="@color/navigateColor"
-                        android:textSize="@dimen/primary_text_size" />
-
+                    </LinearLayout>
 
                     <com.jy.medical.widget.ClearEditText
-                        android:id="@+id/monthly_income"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="@dimen/primary_margin"
-                        android:layout_weight="1"
+                        android:id="@+id/company_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="44dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginTop="5dp"
                         android:background="@null"
                         android:drawablePadding="10dp"
                         android:drawableRight="@mipmap/clear"
-                        android:gravity="right|center_vertical"
+                        android:gravity="top"
                         android:hint="必填"
-                        android:inputType="numberDecimal"
+                        android:lineSpacingExtra="3dp"
+                        android:maxLines="2"
                         android:textColor="@color/black"
                         android:textColorHint="@color/hintColor"
                         android:textSize="@dimen/primary_text_size" />
+
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/lineColor" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="32dp"
+                        android:gravity="bottom">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="单位地址"
+                            android:textColor="@color/navigateColor"
+                            android:textSize="@dimen/primary_text_size" />
+
+                        <ImageButton
+                            android:id="@+id/company_location"
+                            android:layout_width="16dp"
+                            android:layout_height="21dp"
+                            android:layout_alignParentRight="true"
+                            android:background="@drawable/btn_location_selector"
+                            android:scaleType="fitXY" />
+                    </RelativeLayout>
+
+                    <com.jy.medical.widget.ClearEditText
+                        android:id="@+id/company_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="65dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@null"
+                        android:drawableRight="@mipmap/clear"
+                        android:gravity="top"
+                        android:hint="必填"
+                        android:lineSpacingExtra="3dp"
+                        android:maxLines="3"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/hintColor"
+                        android:textSize="@dimen/primary_text_size" />
+
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/lineColor" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="44dp"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:id="@+id/entry_time_tag"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="入职时间"
+                            android:textColor="@color/navigateColor"
+                            android:textSize="@dimen/primary_text_size" />
+
+                        <TextView
+                            android:id="@+id/entry_time"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="5dp"
+                            android:layout_weight="1"
+                            android:gravity="right|center_vertical"
+                            android:hint="必选"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/hintColor"
+                            android:textSize="@dimen/primary_text_size" />
+
+                        <ImageView
+                            android:id="@+id/entry_time_image"
+                            android:layout_width="10dp"
+                            android:layout_height="16dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:background="@mipmap/more"
+                            android:scaleType="fitXY" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/lineColor" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="44dp"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:id="@+id/agreement_tag"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="劳务合同"
+                            android:textColor="@color/navigateColor"
+                            android:textSize="@dimen/primary_text_size" />
+
+                        <TextView
+                            android:id="@+id/agreement"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="5dp"
+                            android:layout_weight="1"
+                            android:gravity="right|center_vertical"
+                            android:hint="必选"
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/hintColor"
+                            android:textSize="@dimen/primary_text_size" />
+
+                        <ImageView
+                            android:id="@+id/agreement_image"
+                            android:layout_width="10dp"
+                            android:layout_height="16dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:background="@mipmap/more"
+                            android:scaleType="fitXY" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/lineColor" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="44dp"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:id="@+id/social_tag"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="社保"
+                            android:textColor="@color/navigateColor"
+                            android:textSize="@dimen/primary_text_size" />
+
+                        <TextView
+                            android:id="@+id/social"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="5dp"
+                            android:layout_weight="1"
+                            android:gravity="right|center_vertical"
+                            android:hint="必选"
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/hintColor"
+                            android:textSize="@dimen/primary_text_size" />
+
+                        <ImageView
+                            android:id="@+id/social_image"
+                            android:layout_width="10dp"
+                            android:layout_height="16dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:background="@mipmap/more"
+                            android:scaleType="fitXY" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/lineColor" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="44dp"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="收入发放形式"
+                            android:textColor="@color/navigateColor"
+                            android:textSize="@dimen/primary_text_size" />
+
+                        <TextView
+                            android:id="@+id/income_form"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="5dp"
+                            android:layout_weight="1"
+                            android:gravity="right|center_vertical"
+                            android:hint="必选"
+                            android:text=""
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/hintColor"
+                            android:textSize="@dimen/primary_text_size" />
+
+                        <ImageView
+                            android:layout_width="10dp"
+                            android:layout_height="16dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:background="@mipmap/more"
+                            android:scaleType="fitXY" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/lineColor" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="44dp"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="月收入"
+                            android:textColor="@color/navigateColor"
+                            android:textSize="@dimen/primary_text_size" />
+
+
+                        <com.jy.medical.widget.ClearEditText
+                            android:id="@+id/monthly_income"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="@dimen/primary_margin"
+                            android:layout_weight="1"
+                            android:background="@null"
+                            android:drawablePadding="10dp"
+                            android:drawableRight="@mipmap/clear"
+                            android:gravity="right|center_vertical"
+                            android:hint="必填"
+                            android:inputType="numberDecimal"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/hintColor"
+                            android:textSize="@dimen/primary_text_size" />
+                    </LinearLayout>
                 </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/primary_text_size"
+                    android:paddingRight="@dimen/primary_text_size">
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="44dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+
+                            android:text="联系人"
+                            android:textColor="@color/navigateColor"
+                            android:textSize="@dimen/primary_text_size" />
+
+                        <ImageView
+                            android:id="@+id/add_contact"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:cropToPadding="true"
+                            android:padding="10dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/add_contact_selector" />
+
+                    </RelativeLayout>
+
+                    <com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView
+                        android:id="@+id/contact_recycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+                </LinearLayout>
+
             </LinearLayout>
 
             <LinearLayout

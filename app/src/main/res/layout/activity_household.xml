@@ -116,7 +116,7 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="0.5dp"
                     android:background="@color/lineColor" />
 
 
@@ -157,7 +157,7 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="0.5dp"
                     android:background="@color/lineColor" />
 
                 <LinearLayout
@@ -239,7 +239,7 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="0.5dp"
                     android:background="@color/lineColor" />
 
                 <LinearLayout
@@ -277,7 +277,7 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="0.5dp"
                     android:background="@color/lineColor" />
 
                 <LinearLayout
@@ -313,7 +313,7 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="0.5dp"
                     android:background="@color/lineColor" />
 
                 <LinearLayout
@@ -391,13 +391,14 @@
                     android:gravity="top"
                     android:hint="必填"
                     android:maxLines="3"
+                    android:lineSpacingExtra="3dp"
                     android:textColor="@color/black"
                     android:textColorHint="@color/hintColor"
                     android:textSize="@dimen/primary_text_size" />
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="0.5dp"
                     android:background="@color/lineColor" />
 
                 <LinearLayout
@@ -435,7 +436,7 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="0.5dp"
                     android:background="@color/lineColor" />
 
                 <LinearLayout
@@ -474,7 +475,7 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="0.5dp"
                     android:background="@color/lineColor" />
 
                 <LinearLayout
@@ -628,7 +629,7 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="0.5dp"
                     android:background="@color/lineColor" />
 
                 <RelativeLayout
@@ -653,6 +654,7 @@
                     android:gravity="top"
                     android:hint="必填"
                     android:maxLines="5"
+                    android:lineSpacingExtra="3dp"
                     android:textColor="@color/black"
                     android:textColorHint="@color/hintColor"
                     android:textSize="@dimen/primary_text_size" />

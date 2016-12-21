@@ -122,7 +122,7 @@ public class ClaimManager extends BaseDao<ClaimBeanData> {
                     String taskType = taskBeanDatas.get(j).getTaskType();
                     String commitFlag = taskBeanDatas.get(j).getCommitFlag();
                     String isDoingFlag = taskBeanDatas.get(j).getIsDoingFlag();
-                    list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag));
+                    list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag,""));
                 }
             }
         }
@@ -155,9 +155,9 @@ public class ClaimManager extends BaseDao<ClaimBeanData> {
                     String isDoingFlag = taskBeanDatas.get(j).getIsDoingFlag();
 
                     if (taskType1.equals("")) {
-                        list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag));
+                        list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag,""));
                     } else if (!taskType1.equals("") && taskType.equals(taskType1))
-                        list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag));
+                        list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag,""));
 
                 }
             }
@@ -191,10 +191,10 @@ public class ClaimManager extends BaseDao<ClaimBeanData> {
                     String isDoingFlag = taskBeanDatas.get(j).getIsDoingFlag();
 
                     Log.i("days", TimeUtil.getGapCount(time) + "");
-                    if (taskType1.equals("") && TimeUtil.getGapCount(time) == days) {
-                        list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag));
-                    } else if (!taskType1.equals("") && taskType.equals(taskType1) && TimeUtil.getGapCount(time) == days)
-                        list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag));
+                    if (taskType1.equals("") && TimeUtil.getGapCount(time) == days&&!commitFlag.equals("1")) {
+                        list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag,""));
+                    } else if (!taskType1.equals("") && taskType.equals(taskType1) && TimeUtil.getGapCount(time) == days&&!commitFlag.equals("1"))
+                        list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag,""));
 
                 }
             }
@@ -232,37 +232,37 @@ public class ClaimManager extends BaseDao<ClaimBeanData> {
                         case 0:
                             //全部任务
                             if (taskType1.equals("")) {
-                                list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag));
+                                list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag,"1"));
 
                             } else if (!taskType1.equals("") && taskType.equals(taskType1)) {
-                                list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag));
+                                list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag,"1"));
                             }
                             break;
                         case 1:
                             //未超时任务
                             if (taskType1.equals("") && TimeUtil.getGapCount(time) >= 0 && !commitFlag.equals("1")) {
-                                list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag));
+                                list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag,""));
 
                             } else if (!taskType1.equals("") && taskType.equals(taskType1) && TimeUtil.getGapCount(time) >= 0 && !commitFlag.equals("1")) {
-                                list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag));
+                                list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag,""));
                             }
                             break;
                         case 2:
                             //已超时任务
                             if (taskType1.equals("") && TimeUtil.getGapCount(time) < 0 && !commitFlag.equals("1")) {
-                                list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag));
+                                list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag,""));
 
                             } else if (!taskType1.equals("") && taskType.equals(taskType1) && TimeUtil.getGapCount(time) < 0 && !commitFlag.equals("1")) {
-                                list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag));
+                                list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag,""));
                             }
                             break;
                         case 3:
                             //已完成任务
                             if (taskType1.equals("") && commitFlag.equals("1")) {
-                                list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag));
+                                list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag,""));
 
                             } else if (!taskType1.equals("") && taskType.equals(taskType1) && commitFlag.equals("1")) {
-                                list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag));
+                                list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag,""));
                             }
                             break;
                     }
@@ -303,46 +303,46 @@ public class ClaimManager extends BaseDao<ClaimBeanData> {
                         case 0:
                             //全部超时任务
                             if (taskType1.equals("")&&TimeUtil.getGapCount(time) < 0&& !commitFlag.equals("1")) {
-                                list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag));
+                                list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag,""));
 
                             } else if (!taskType1.equals("") && taskType.equals(taskType1)&&TimeUtil.getGapCount(time) < 0&& !commitFlag.equals("1")) {
-                                list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag));
+                                list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag,""));
                             }
                             break;
                         case 1:
                             //超时3天
                             if (taskType1.equals("") && TimeUtil.getGapCount(time) > -5&&TimeUtil.getGapCount(time) <= -3 && !commitFlag.equals("1")) {
-                                list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag));
+                                list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag,""));
 
                             } else if (!taskType1.equals("") && taskType.equals(taskType1) && TimeUtil.getGapCount(time) > -5&&TimeUtil.getGapCount(time) <= -3 && !commitFlag.equals("1")) {
-                                list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag));
+                                list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag,""));
                             }
                             break;
                         case 2:
                             //超时5天
                             if (taskType1.equals("") && TimeUtil.getGapCount(time) > -7&&TimeUtil.getGapCount(time) <= -5 && !commitFlag.equals("1")) {
-                                list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag));
+                                list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag,""));
 
                             } else if (!taskType1.equals("") && taskType.equals(taskType1) && TimeUtil.getGapCount(time) > -7&&TimeUtil.getGapCount(time) <= -5 && !commitFlag.equals("1")) {
-                                list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag));
+                                list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag,""));
                             }
                             break;
                         case 3:
                             //超时7天
                             if (taskType1.equals("") && TimeUtil.getGapCount(time) > -30&&TimeUtil.getGapCount(time) <= -5 && !commitFlag.equals("1")) {
-                                list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag));
+                                list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag,""));
 
                             } else if (!taskType1.equals("") && taskType.equals(taskType1) && TimeUtil.getGapCount(time) > -30&&TimeUtil.getGapCount(time) <= -5 && !commitFlag.equals("1")) {
-                                list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag));
+                                list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag,""));
                             }
                             break;
                         case 4:
                             //超时30天
                             if (taskType1.equals("") && TimeUtil.getGapCount(time) <= -30 && !commitFlag.equals("1")) {
-                                list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag));
+                                list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag,""));
 
                             } else if (!taskType1.equals("") && taskType.equals(taskType1) && TimeUtil.getGapCount(time) <= -30&& !commitFlag.equals("1")) {
-                                list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag));
+                                list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag,""));
                             }
                             break;
                     }
@@ -382,46 +382,46 @@ public class ClaimManager extends BaseDao<ClaimBeanData> {
                         case 0:
                             //全部超时任务
                             if (taskType1.equals("")&&TimeUtil.getGapCount(time) >= 0&& !commitFlag.equals("1")) {
-                                list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag));
+                                list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag,""));
 
                             } else if (!taskType1.equals("") && taskType.equals(taskType1)&&TimeUtil.getGapCount(time) >= 0&& !commitFlag.equals("1")) {
-                                list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag));
+                                list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag,""));
                             }
                             break;
                         case 1:
                             //超时3天
                             if (taskType1.equals("") && TimeUtil.getGapCount(time) >=2&&TimeUtil.getGapCount(time) <4 && !commitFlag.equals("1")) {
-                                list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag));
+                                list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag,""));
 
                             } else if (!taskType1.equals("") && taskType.equals(taskType1) && TimeUtil.getGapCount(time) >=2&&TimeUtil.getGapCount(time) <4 && !commitFlag.equals("1")) {
-                                list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag));
+                                list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag,""));
                             }
                             break;
                         case 2:
                             //超时5天
                             if (taskType1.equals("") && TimeUtil.getGapCount(time) >= 4&&TimeUtil.getGapCount(time) < 6 && !commitFlag.equals("1")) {
-                                list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag));
+                                list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag,""));
 
                             } else if (!taskType1.equals("") && taskType.equals(taskType1) && TimeUtil.getGapCount(time) >=4&&TimeUtil.getGapCount(time) <= 6 && !commitFlag.equals("1")) {
-                                list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag));
+                                list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag,""));
                             }
                             break;
                         case 3:
                             //超时7天
                             if (taskType1.equals("") && TimeUtil.getGapCount(time) >=6&&TimeUtil.getGapCount(time) <29 && !commitFlag.equals("1")) {
-                                list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag));
+                                list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag,""));
 
                             } else if (!taskType1.equals("") && taskType.equals(taskType1) && TimeUtil.getGapCount(time) >= 6&&TimeUtil.getGapCount(time) <=29 && !commitFlag.equals("1")) {
-                                list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag));
+                                list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag,""));
                             }
                             break;
                         case 4:
                             //超时30天
                             if (taskType1.equals("") && TimeUtil.getGapCount(time) >=29 && !commitFlag.equals("1")) {
-                                list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag));
+                                list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag,""));
 
                             } else if (!taskType1.equals("") && taskType.equals(taskType1) && TimeUtil.getGapCount(time) >=29&& !commitFlag.equals("1")) {
-                                list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag));
+                                list.add(new PlatformData(claimId, taskNo, taskType, peopleName, time, tag, reportNum, phone, commitFlag, isDoingFlag,""));
                             }
                             break;
                     }

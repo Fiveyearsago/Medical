@@ -14,6 +14,7 @@
 
         <include layout="@layout/page_head" />
         <com.jy.medical.widget.ClearEditText
+            android:layout_marginTop="10dp"
             android:id="@+id/peron_edit_name"
             android:layout_width="match_parent"
             android:layout_height="44dp"

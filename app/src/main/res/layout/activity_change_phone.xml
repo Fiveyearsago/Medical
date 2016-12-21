@@ -45,12 +45,13 @@
             android:drawableRight="@mipmap/clear"
             android:gravity="center_vertical"
             android:hint="请输入新手机号"
+
             android:inputType="numberSigned"
             android:paddingLeft="@dimen/primary_margin"
             android:paddingRight="@dimen/primary_margin"
             android:textColor="@color/black"
             android:textColorHint="@color/hintColor"
-            android:textSize="@dimen/large_text_size" />
+            android:textSize="@dimen/primary_text_size" />
     </LinearLayout>
 
     <LinearLayout
@@ -72,7 +73,7 @@
             android:paddingRight="@dimen/primary_margin"
             android:textColor="@color/black"
             android:textColorHint="@color/hintColor"
-            android:textSize="@dimen/large_text_size" />
+            android:textSize="@dimen/primary_text_size" />
 
         <Button
             android:id="@+id/btn_get_code"

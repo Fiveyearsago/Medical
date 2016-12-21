@@ -71,7 +71,6 @@ public class HomePlatformFragment extends Fragment implements View.OnClickListen
         args.putInt(ARGS_PAGE, page);
         HomePlatformFragment fragment = new HomePlatformFragment();
         fragment.setArguments(args);
-
         return fragment;
     }
 
@@ -82,6 +81,7 @@ public class HomePlatformFragment extends Fragment implements View.OnClickListen
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        mTaskType = getArguments().getString("taskType");
     }
 
     @Override
@@ -215,6 +215,7 @@ public class HomePlatformFragment extends Fragment implements View.OnClickListen
     }
 
     public void setFilterData(String taskType){
+        this.mTaskType=taskType;
         for (int i = 0; i <radioList.size() ; i++) {
             if (radioList.get(i).isChecked()){
                 days=i-3;

@@ -3,71 +3,161 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <FrameLayout
+        android:id="@+id/front_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
 
         <ImageView
             android:id="@+id/imageView8"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@mipmap/body_front_8"
             android:clickable="true"
             android:padding="1dp"
-            android:scaleType="fitXY"
-            android:background="@mipmap/body_front_8" />
+            android:scaleType="fitXY" />
+
         <ImageView
             android:id="@+id/imageView1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@mipmap/body_front_1"
             android:clickable="true"
-            android:scaleType="fitXY"
-            android:background="@mipmap/body_front_1" />
+            android:scaleType="fitXY" />
+
         <ImageView
             android:id="@+id/imageView6"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@mipmap/body_front_6"
             android:clickable="true"
-            android:scaleType="fitXY"
-            android:background="@mipmap/body_front_6" />
+            android:scaleType="fitXY" />
+
         <ImageView
             android:id="@+id/imageView5"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@mipmap/body_front_5"
             android:clickable="true"
-            android:scaleType="fitXY"
-            android:background="@mipmap/body_front_5" />
+            android:scaleType="fitXY" />
 
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@mipmap/body_front_2"
             android:clickable="true"
-            android:scaleType="fitXY"
-            android:background="@mipmap/body_front_2" />
+            android:scaleType="fitXY" />
 
         <ImageView
             android:id="@+id/imageView3"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@mipmap/body_front_3"
             android:clickable="true"
-            android:scaleType="fitXY"
-            android:background="@mipmap/body_front_3" />
+            android:scaleType="fitXY" />
 
         <ImageView
             android:id="@+id/imageView4"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@mipmap/body_front_4"
             android:clickable="true"
-            android:scaleType="fitXY"
-            android:background="@mipmap/body_front_4" />
-
-
+            android:scaleType="fitXY" />
 
 
         <ImageView
             android:id="@+id/imageView7"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@mipmap/body_front_7"
             android:clickable="true"
             android:padding="1dp"
-            android:scaleType="fitXY"
-            android:background="@mipmap/body_front_7" />
+            android:scaleType="fitXY" />
+    </FrameLayout>
+    <FrameLayout
+        android:id="@+id/back_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+        <ImageView
+            android:id="@+id/imageViewBack0"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@mipmap/body_back_bg"
+            android:clickable="true"
+            android:scaleType="fitXY" />
+
+        <ImageView
+            android:id="@+id/imageViewBack1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@mipmap/body_back_normal"
+            android:clickable="true"
+            android:scaleType="fitXY" />
+
+    </FrameLayout>
+    <FrameLayout
+        android:id="@+id/head_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+        <ImageView
+            android:id="@+id/imageViewHead0"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@mipmap/head_bg"
+            android:clickable="true"
+            android:scaleType="fitXY" />
+        <ImageView
+            android:id="@+id/imageViewHead4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@mipmap/head_nouse_normal"
+            android:clickable="true"
+            android:scaleType="fitXY" />
+        <ImageView
+            android:id="@+id/imageViewHead1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@mipmap/head_ear_normal"
+            android:clickable="true"
+            android:scaleType="fitXY" />
+
+
+        <ImageView
+            android:id="@+id/imageViewHead2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@mipmap/head_eye_normal"
+            android:clickable="true"
+            android:scaleType="fitXY" />
+
+        <ImageView
+            android:id="@+id/imageViewHead3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@mipmap/head_mouse_normal"
+            android:clickable="true"
+            android:scaleType="fitXY" />
+
+
+
+    </FrameLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/switch_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:layout_marginBottom="60dp"
+            android:layout_marginRight="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/switch_selector"/>
+    </RelativeLayout>
 
 </FrameLayout>

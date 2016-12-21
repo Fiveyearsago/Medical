@@ -24,6 +24,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
+                android:focusableInTouchMode="true"
                 android:background="@drawable/bg_btn_search"
                 android:drawableLeft="@mipmap/search_pressed"
                 android:drawablePadding="5dp"

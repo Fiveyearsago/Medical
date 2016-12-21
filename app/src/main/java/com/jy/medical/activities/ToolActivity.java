@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,10 +12,20 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.jy.ah.bus.data.Response;
 import com.jy.medical.MedicalApplication;
 import com.jy.medical.R;
+import com.jy.medical.adapter.LawAdapter;
 import com.jy.medical.adapter.ToolAdapter;
+import com.jy.medical.greendao.entities.LawData;
 import com.jy.medical.greendao.entities.ToolData;
+import com.jy.medical.util.JsonUtil;
+import com.jy.medical.util.PublicString;
+import com.jy.medical.util.ServerApiUtils;
+import com.jy.mobile.request.QtLawsDTO;
+
+import org.xutils.common.Callback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +33,7 @@ import java.util.List;
 public class ToolActivity extends BaseActivity {
     private RadioButton radioPlatform, radioMine, radioTool, radioLaw, radioCompensation, radioBudget;
     private RecyclerView toolRecycler;
-    private List<ToolData>list;
+    private List<LawData>list;
     private ToolAdapter adapter;
     private boolean mIsExit;
 
@@ -70,12 +81,10 @@ public class ToolActivity extends BaseActivity {
         toolRecycler.setLayoutManager(layoutManager);
 
         list=new ArrayList<>();
-        for(int i=0;i<20;i++){
-            list.add(new ToolData("北京","以前在ListView当中，我们只要修改后数据用Adapter的notifyDatasetChange一下就可以更新界面然而在RecyclerView中还有一些更高级的用法"+i,"临床鉴定","2016-10-9"));
-        }
         adapter=new ToolAdapter(this,list);
         adapter.addHeaderView(headView);
         toolRecycler.setAdapter(adapter);
+        requestData(1);
     }
 
     @Override
@@ -109,6 +118,45 @@ public class ToolActivity extends BaseActivity {
         radioTool.setChecked(true);
         radioMine.setChecked(false);
         radioPlatform.setChecked(false);
+    }
+    public void requestData(int page){
+        QtLawsDTO qtLawsDTO=new QtLawsDTO();
+        qtLawsDTO.setPageNo(page);
+        qtLawsDTO.setPageSize(10);
+        Gson gson = new Gson();
+        String data = gson.toJson(qtLawsDTO);
+        ServerApiUtils.sendToServer(data, "002002", PublicString.URL_IFC, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Log.i("result", result);
+                Gson responseGson = new Gson();
+                Response response = responseGson.fromJson(result, Response.class);
+                if (response != null && "1".equals(response.getResponseCode())) {
+
+                    String data = response.getData();
+                    Log.i("ResponseCode", response.getResponseCode());
+                    List<LawData> newDataList= JsonUtil.changeToList(data);
+                    list.addAll(newDataList);
+                    adapter.setData(list);
+                    adapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
     }
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {

@@ -46,7 +46,7 @@
                 app:tl_textUnselectColor="@color/minorColor"
                 app:tl_textsize="@dimen/primary_text_size"
                 app:tl_underline_color="@color/minorColor"
-                app:tl_underline_height="1dp" />
+                app:tl_underline_height="0.5dp" />
 
         </RelativeLayout>
     </RelativeLayout>

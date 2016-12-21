@@ -3,11 +3,14 @@
     <color name="colorPrimary">#3282F0</color>
     <color name="colorPrimaryDark">#0F5BC4</color>
     <color name="colorAccent">#3282F0</color>
-
+    <color name="textDoingPressed">#3300FFFF</color>
     <color name="textDoing">#00FFFF</color>
+    <color name="textTimeOutPressed">#33FF3E00</color>
     <color name="textTimeOut">#FF3E00</color>
+    <color name="textFinishedPressed">#33F2F200</color>
     <color name="textFinished">#F2F200</color>
     <color name="white">#FFFFFF</color>
+    <color name="blackPressed">#33000000</color>
     <color name="black">#000000</color>
     <color name="pageBackground">#EEEEEE</color>
     <color name="lineColorGray">#EEEEEE</color>

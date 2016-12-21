@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -39,6 +40,8 @@ public class LoginFragment extends Fragment {
     private int mPage;
     private CleanableEditText editTextAccount,editTextPsw;
     private Button loginBtn;
+
+
     public static LoginFragment newInstance(int page, Context context) {
         mContext=context;
         Bundle args = new Bundle();

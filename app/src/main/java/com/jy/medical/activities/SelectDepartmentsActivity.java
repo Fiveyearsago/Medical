@@ -17,6 +17,7 @@ import com.jy.medical.greendao.entities.SelectedHospital;
 import com.jy.medical.greendao.manager.MedicalDepartmentManager;
 import com.jy.medical.greendao.manager.SelectedHospitalManager;
 import com.jy.medical.greendao.util.DaoUtils;
+import com.jy.medical.util.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,6 +82,10 @@ public class SelectDepartmentsActivity extends BaseActivity implements Departmen
         for (int i = 0; i < checkedList.size(); i++) {
             departmentId+=(checkedList.get(i).getKey()+",");
             departmentName+=(checkedList.get(i).getValue()+",");
+        }
+        if (departmentName.equals("")){
+            ToastUtil.showToast(this,"请选择科室");
+            return;
         }
         departmentName=departmentName.substring(0,departmentName.lastIndexOf(","));
         departmentId=departmentId.substring(0,departmentId.lastIndexOf(","));

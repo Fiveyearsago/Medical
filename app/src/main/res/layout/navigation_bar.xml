@@ -8,7 +8,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="0.5dp"
         android:background="@color/pageBackground" />
 
     <RadioGroup
@@ -21,7 +21,7 @@
             android:id="@+id/radio_btn_platform"
             style="@style/RadioButtonNav"
             android:drawableTop="@drawable/platform_selector"
-            android:text="跟踪平台" />
+            android:text="任务平台" />
 
         <RadioButton
             android:id="@+id/radio_btn_tool"

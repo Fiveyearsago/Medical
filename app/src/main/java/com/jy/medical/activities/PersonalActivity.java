@@ -3,8 +3,10 @@ package com.jy.medical.activities;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.jy.medical.R;
+import com.jy.medical.util.MultiSelectUtil;
 import com.jy.medical.widget.pickerview.TimePickerDialog;
 import com.jy.medical.widget.pickerview.data.Type;
 import com.jy.medical.widget.pickerview.listener.OnDateSetListener;
@@ -16,6 +18,7 @@ import java.util.Date;
 public class PersonalActivity extends BaseActivity {
     private TimePickerDialog mDialogYearMonthDay;
     private Button logOut;
+    private TextView textBorn;
 
     @Override
     public void initData() {
@@ -40,6 +43,7 @@ public class PersonalActivity extends BaseActivity {
         findViewById(R.id.layout_person_psw).setOnClickListener(this);
         findViewById(R.id.layout_person_born).setOnClickListener(this);
         findViewById(R.id.log_out).setOnClickListener(this);
+        textBorn= (TextView) findViewById(R.id.text_born);
     }
 
     @Override
@@ -57,7 +61,7 @@ public class PersonalActivity extends BaseActivity {
                 startActivity(PersonNameActivity.class);
                 break;
             case R.id.layout_person_born:
-                initTimePicker();
+                MultiSelectUtil.initTimePicker(this,textBorn,textBorn.getText().toString(),"选择出生日期");
                 break;
             case R.id.layout_person_phone:
                 startActivity(ChangePhoneActivity.class);

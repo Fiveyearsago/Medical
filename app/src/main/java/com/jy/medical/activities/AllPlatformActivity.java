@@ -29,11 +29,12 @@ public class AllPlatformActivity extends BaseActivity{
     private ViewPager viewPager;
     private PlatformFragmentPagerAdapter adapter;
     private List<PlatformFragment> platformFragmentList = new ArrayList<>();
-    private  PlatformFragment fragmentAll;
-    private  PlatformFragment fragmentDoing;
-    private  PlatformFragment fragmentTimeout;
-    private  PlatformFragment fragmentFinished;
+    private static PlatformFragment fragmentAll;
+    private static  PlatformFragment fragmentDoing;
+    private static PlatformFragment fragmentTimeout;
+    private static PlatformFragment fragmentFinished;
     private String taskType = "";
+    private TextView titleTV;
     private ClaimManager claimManager = DaoUtils.getClaimInstance();
     private PopupWindow popupWindow;
     private TextView checkBox1, checkBox2, checkBox3, checkBox4, checkBox5, checkBox6, checkBox7, checkBox8, checkBox9, checkBox10;
@@ -63,6 +64,7 @@ public class AllPlatformActivity extends BaseActivity{
     public void initView() {
         setStatusBarTint();
         navView = findViewById(R.id.title_head_third);
+        titleTV= (TextView) navView.findViewById(R.id.page_third_head_text);
         setAllPlatformNavState(navView, "全部任务");
         initPopupWindow();
         slidingTabLayout = (SlidingTabLayout) findViewById(R.id.tabLayout_allPlatform);
@@ -108,8 +110,43 @@ public class AllPlatformActivity extends BaseActivity{
 
             }
         });
+        setTitleText();
 
+    }
 
+    private void setTitleText() {
+        switch (taskType){
+            case "":
+                titleTV.setText("全部任务");
+                break;
+            case "01":
+                titleTV.setText("医疗探视");
+                break;
+            case "02":
+                titleTV.setText("收入情况");
+                break;
+            case "03":
+                titleTV.setText("误工信息");
+                break;
+            case "04":
+                titleTV.setText("户籍居住");
+                break;
+            case "05":
+                titleTV.setText("被扶养人");
+                break;
+            case "06":
+                titleTV.setText("死亡信息");
+                break;
+            case "08":
+                titleTV.setText("伤残鉴定");
+                break;
+            case "09":
+                titleTV.setText("伤者信息");
+                break;
+            case "10":
+                titleTV.setText("事故现场");
+                break;
+        }
     }
 
 
@@ -249,6 +286,7 @@ public class AllPlatformActivity extends BaseActivity{
 
     public void filterData(String taskType) {
         this.taskType=taskType;
+        setTitleText();
         if (popupWindow.isShowing())
             popupWindow.dismiss();
         int position = viewPager.getCurrentItem();

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/imageView0"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@mipmap/head_bg"
+            android:clickable="true"
+            android:scaleType="fitXY" />
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@mipmap/head_ear_normal"
+            android:clickable="true"
+            android:scaleType="fitXY" />
+
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@mipmap/head_eye_normal"
+            android:clickable="true"
+            android:scaleType="fitXY" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@mipmap/head_mouse_normal"
+            android:clickable="true"
+            android:scaleType="fitXY" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@mipmap/head_nouse_normal"
+            android:clickable="true"
+            android:scaleType="fitXY" />
+
+    </FrameLayout>
+
+</FrameLayout>

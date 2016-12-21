@@ -13,7 +13,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="0.5dp"
             android:background="@color/lineColor" />
 
         <RelativeLayout
@@ -26,7 +26,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
-                android:lineSpacingExtra="4dp"
+                android:lineSpacingExtra="3dp"
                 android:maxLines="2"
                 android:text="最近微信朋友圈流传着这样一则消息：据美国侨报日前报道，纽约市卫生局的工作人员近日来到华埠，向社区居民宣传健康常识，首先特别提到华裔民众爱吃的螃蟹。工作人员基南说，华人吃蟹认为最精华的蟹黄、蟹膏，实际上是化学物质集中之处。包括消化腺、排泄腺和肝胰腺在内，都可能包含大量化学物质，例如多氯联苯、二噁英和镉。"
                 android:textSize="@dimen/primary_text_size" />

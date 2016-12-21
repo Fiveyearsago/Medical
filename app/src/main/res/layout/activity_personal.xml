@@ -10,7 +10,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <include layout="@layout/page_head" />
 
@@ -111,10 +114,11 @@
                 android:layout_marginRight="@dimen/primary_margin"
                 android:background="@color/lineColor" />
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="44dp"
                 android:background="@color/white"
+                android:gravity="center_vertical"
                 android:id="@+id/layout_person_born">
 
                 <TextView
@@ -128,11 +132,12 @@
                     android:textSize="@dimen/primary_text_size" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
+                    android:id="@+id/text_born"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="right|center_vertical"
                     android:layout_marginRight="@dimen/minor_margin"
-                    android:layout_toLeftOf="@+id/personBornDateMore"
                     android:text="1991-08-23"
                     android:textColor="@color/minorColor"
                     android:textSize="@dimen/minor_text_size" />
@@ -147,7 +152,7 @@
                     android:background="@mipmap/more"
                     android:scaleType="fitXY" />
 
-            </RelativeLayout>
+            </LinearLayout>
 
             <View
                 android:layout_width="wrap_content"
@@ -376,6 +381,7 @@
                 android:layout_marginTop="30dp"
                 android:id="@+id/log_out"
                 android:text="退出登录"
+                android:textSize="17dp"
                 android:layout_marginBottom="30dp"
                 />
         </LinearLayout>

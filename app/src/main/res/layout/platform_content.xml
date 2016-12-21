@@ -22,7 +22,7 @@
             <RadioButton
                 android:id="@+id/radio1"
                 style="@style/PlatformRadioStyle"
-                android:layout_marginLeft="8dp"
+                android:layout_marginLeft="15dp"
                 android:text="全部" />
 
             <RadioButton
@@ -45,7 +45,7 @@
                 style="@style/PlatformRadioStyle"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:layout_marginRight="8dp"
+                android:layout_marginRight="15dp"
                 android:text="30天后超时" />
         </RadioGroup>
     </LinearLayout>
