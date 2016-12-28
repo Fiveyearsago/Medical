@@ -160,7 +160,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".activities.CollectActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".activities.SearchPlatformActivity"
             android:screenOrientation="portrait"
@@ -179,6 +180,9 @@
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activities.SearchHospitalActivity"
+            android:windowSoftInputMode="stateVisible" />
+        <activity
+            android:name=".activities.SearchAddressActivity"
             android:windowSoftInputMode="stateVisible" />
         <activity
             android:name=".activities.SelectDepartmentsActivity"

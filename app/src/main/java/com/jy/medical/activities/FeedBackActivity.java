@@ -6,6 +6,7 @@ import android.view.View;
 
 import com.jy.medical.R;
 import com.jy.medical.util.ToastUtil;
+import com.jy.medical.widget.SwipeBackLayout;
 
 public class FeedBackActivity extends BaseActivity {
 
@@ -27,6 +28,7 @@ public class FeedBackActivity extends BaseActivity {
     @Override
     public void initView() {
         setStatusBarTint();
+        setDragEdge(SwipeBackLayout.DragEdge.LEFT);
         setTitleState(findViewById(R.id.title_head), true, "意见反馈", true, "提交");
     }
 

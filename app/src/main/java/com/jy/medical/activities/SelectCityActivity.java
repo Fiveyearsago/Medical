@@ -15,6 +15,7 @@ import com.jy.medical.R;
 import com.jy.medical.adapter.SortAdapter;
 import com.jy.medical.util.GetLocation;
 import com.jy.medical.util.SPUtils;
+import com.jy.medical.widget.SwipeBackLayout;
 import com.jy.medical.widget.selectcityview.CharacterParser;
 import com.jy.medical.widget.selectcityview.CitySortModel;
 import com.jy.medical.widget.selectcityview.PinyinComparator;
@@ -62,6 +63,7 @@ public class SelectCityActivity extends BaseActivity implements GetLocation.Loca
     @Override
     public void initView() {
         setStatusBarTint();
+        setDragEdge(SwipeBackLayout.DragEdge.LEFT);
         setTitleState(findViewById(R.id.title_head), true, "地区选择", false, "");
         initSelectView();
     }

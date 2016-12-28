@@ -1,8 +1,7 @@
 package com.jy.medical.activities;
 
-import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -42,7 +41,7 @@ import org.xutils.common.Callback;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchHospitalActivity extends BaseActivity implements TextView.OnEditorActionListener, Callback.CommonCallback<String> {
+public class SearchAddressActivity extends BaseActivity implements TextView.OnEditorActionListener, Callback.CommonCallback<String> {
     private SearchAdapter searchAdapter;
     private RecyclerView recordRecyclerView;
     private List<SearchData> searchDataList;
@@ -51,13 +50,13 @@ public class SearchHospitalActivity extends BaseActivity implements TextView.OnE
     private ImageButton deleteRecordImage;
     private PtrClassicFrameLayout ptrClassicFrameLayout;
     private RecyclerView mRecyclerView;
-    private List<HospitalData>hospitalDatas;
+    private List<HospitalData> hospitalDatas;
     private HospitalAdapter hospitalAdapter;
     private RecyclerAdapterWithHF mAdapter;
     Handler handler = new Handler();
     private int page = 0;
     private String taskNo;
-    private String flag="";
+    private String flag = "";
 
     @Override
     public void initData() {
@@ -72,8 +71,8 @@ public class SearchHospitalActivity extends BaseActivity implements TextView.OnE
     @Override
     public void initParams(Bundle parms) {
 
-        taskNo=parms.getString("taskNo");
-        flag=parms.getString("flag");
+        taskNo = parms.getString("taskNo");
+        flag = parms.getString("flag");
     }
 
     @Override
@@ -81,9 +80,9 @@ public class SearchHospitalActivity extends BaseActivity implements TextView.OnE
         setStatusBarTint();
         setDragEdge(SwipeBackLayout.DragEdge.LEFT);
         setSearchTitle(findViewById(R.id.title_head), "取消");
-        ptrClassicFrameLayout= (PtrClassicFrameLayout) findViewById(R.id.hospital_recyclerView_frame);
-        mRecyclerView= (RecyclerView) findViewById(R.id.hospital_recyclerView);
-        hospitalDatas=new ArrayList<>();
+        ptrClassicFrameLayout = (PtrClassicFrameLayout) findViewById(R.id.hospital_recyclerView_frame);
+        mRecyclerView = (RecyclerView) findViewById(R.id.hospital_recyclerView);
+        hospitalDatas = new ArrayList<>();
         initRecyclerView();
         cleanableEditText = (CleanableEditText) findViewById(R.id.page_head_search_editText);
         recordView = findViewById(R.id.record_layout);
@@ -99,7 +98,7 @@ public class SearchHospitalActivity extends BaseActivity implements TextView.OnE
     }
 
     private void initRecyclerView() {
-        hospitalAdapter= new HospitalAdapter(this,hospitalDatas,taskNo,flag);
+        hospitalAdapter = new HospitalAdapter(this, hospitalDatas, taskNo, flag);
         mAdapter = new RecyclerAdapterWithHF(hospitalAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mAdapter);
@@ -141,7 +140,7 @@ public class SearchHospitalActivity extends BaseActivity implements TextView.OnE
                         mAdapter.notifyDataSetChanged();
                         ptrClassicFrameLayout.loadMoreComplete(true);
                         page++;
-                        Toast.makeText(SearchHospitalActivity.this, "load more complete", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SearchAddressActivity.this, "load more complete", Toast.LENGTH_SHORT).show();
                     }
                 }, 1000);
             }
@@ -153,9 +152,9 @@ public class SearchHospitalActivity extends BaseActivity implements TextView.OnE
         searchDataList = searchDataManager.getData("1");
         searchAdapter = new SearchAdapter(this, searchDataList);
         recordRecyclerView.setAdapter(searchAdapter);
-        if (searchDataList.size()== 0) {
+        if (searchDataList.size() == 0) {
             recordView.setVisibility(View.GONE);
-        }else {
+        } else {
             recordView.setVisibility(View.VISIBLE);
         }
     }
@@ -190,7 +189,7 @@ public class SearchHospitalActivity extends BaseActivity implements TextView.OnE
             String text = cleanableEditText.getText().toString().trim();
             if (!text.equals("")) {
                 //执行搜索操作
-                RequestServerImpl.getHospitalData("F4896B94148240FC9EFCDB9B5E2A17EB",text,1,20,"1",this);
+                RequestServerImpl.getHospitalData("F4896B94148240FC9EFCDB9B5E2A17EB", text, 1, 20, "1", this);
                 insertRecordData(text);
                 InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
                 imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
@@ -215,10 +214,10 @@ public class SearchHospitalActivity extends BaseActivity implements TextView.OnE
             JsonUtil.saveHospitalData(hosptialList, dictList);
         }
         recordView.setVisibility(View.GONE);
-        HospitalDataManager hospitalDataManager=DaoUtils.getHospitalInstance();
+        HospitalDataManager hospitalDataManager = DaoUtils.getHospitalInstance();
         hospitalDatas.clear();
-        hospitalDatas=hospitalDataManager.getData();
-        hospitalAdapter = new HospitalAdapter(this, hospitalDatas,taskNo,flag);
+        hospitalDatas = hospitalDataManager.getData();
+        hospitalAdapter = new HospitalAdapter(this, hospitalDatas, taskNo, flag);
         mAdapter = new RecyclerAdapterWithHF(hospitalAdapter);
         mRecyclerView.setAdapter(mAdapter);
     }

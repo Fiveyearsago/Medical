@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.jy.medical.R;
+import com.jy.medical.widget.SwipeBackLayout;
 
 public class FindPswActivity extends BaseActivity {
 
@@ -26,6 +27,7 @@ public class FindPswActivity extends BaseActivity {
     @Override
     public void initView() {
         setStatusBarTint();
+        setDragEdge(SwipeBackLayout.DragEdge.LEFT);
         setTitleState(findViewById(R.id.title_head), true, "忘记密码", true, "下一步");
     }
 

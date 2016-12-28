@@ -31,6 +31,7 @@ import com.jy.medical.util.PublicString;
 import com.jy.medical.util.SPUtils;
 import com.jy.medical.util.ServerApiUtils;
 import com.jy.medical.util.ToastUtil;
+import com.jy.medical.widget.SwipeBackLayout;
 import com.jy.mobile.dto.DictKEYValueDTO;
 import com.jy.mobile.dto.HosptialDTO;
 import com.jy.mobile.request.QTSearchCityOrCateInjureDTO;
@@ -74,6 +75,7 @@ public class SelectHospitalActivity extends BaseActivity {
     public void initView() {
 
         setStatusBarTint();
+        setDragEdge(SwipeBackLayout.DragEdge.LEFT);
         MedicalApplication.getInstance().addActivity(this);
         setLocationSearchState(findViewById(R.id.title_head));
         cityText= (TextView) findViewById(R.id.page_head_button);

@@ -15,6 +15,7 @@ import com.jy.medical.greendao.entities.NursingData;
 import com.jy.medical.greendao.manager.NursingDataManager;
 import com.jy.medical.greendao.util.DaoUtils;
 import com.jy.medical.widget.CleanableEditText;
+import com.jy.medical.widget.SwipeBackLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +45,7 @@ public class AddNursingActivity extends BaseActivity {
     @Override
     public void initView() {
         setStatusBarTint();
+        setDragEdge(SwipeBackLayout.DragEdge.LEFT);
         setTitleState(findViewById(R.id.title_head), true, "添加护理人", true, "保存");
         nursingDataList = new ArrayList<>();
         findViewById(R.id.add_nursing_layout).setOnClickListener(this);

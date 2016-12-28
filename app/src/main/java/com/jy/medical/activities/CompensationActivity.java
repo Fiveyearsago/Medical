@@ -11,6 +11,7 @@ import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.jy.medical.R;
 import com.jy.medical.adapter.CompensationFragmentPagerAdapter;
 import com.jy.medical.adapter.LawFragmentPagerAdapter;
+import com.jy.medical.widget.SwipeBackLayout;
 
 /**
  * 参考代码:http://blog.csdn.net/analyzesystem/article/details/51426473
@@ -40,6 +41,7 @@ public class CompensationActivity extends BaseActivity {
     @Override
     public void initView() {
         setStatusBarTint();
+        setDragEdge(SwipeBackLayout.DragEdge.LEFT);
         setNavState(findViewById(R.id.title_head_second), "赔偿标准");
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         adapter = new CompensationFragmentPagerAdapter(getSupportFragmentManager(),

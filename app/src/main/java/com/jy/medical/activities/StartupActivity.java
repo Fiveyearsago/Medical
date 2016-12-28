@@ -19,6 +19,7 @@ public class StartupActivity extends BaseActivity {
             @Override
             public void run() {
                 startActivity(LoginActivity.class);
+                StartupActivity.this.finish();
             }
         };
         handler.postDelayed(runnable,500);

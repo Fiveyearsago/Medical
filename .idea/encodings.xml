@@ -2,6 +2,7 @@
 <project version="4">
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/jy/medical/util/GetLocation.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/jy/medical/widget/FlexibleScrollView.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/jy/medical/widget/MultiLineRadioGroup.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/jy/medical/widget/MyRadioGroup.java" charset="GBK" />
     <file url="file://$PROJECT_DIR$/app/src/main/java/com/jy/medical/widget/pickerview/ControllerImpl.java" charset="GBK" />

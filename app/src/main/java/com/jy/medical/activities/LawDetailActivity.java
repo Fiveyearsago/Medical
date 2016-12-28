@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.jy.medical.R;
+import com.jy.medical.widget.SwipeBackLayout;
 
 /**
  * 法律法规详情页
@@ -30,6 +31,7 @@ public class LawDetailActivity extends BaseActivity {
     @Override
     public void initView() {
         setStatusBarTint();
+        setDragEdge(SwipeBackLayout.DragEdge.LEFT);
         setThirdNavState(findViewById(R.id.title_head_third),"详情",R.drawable.nav_image_selector,R.drawable.collect_image_selector);
     }
 

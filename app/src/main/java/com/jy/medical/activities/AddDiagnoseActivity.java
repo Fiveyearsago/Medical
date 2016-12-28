@@ -25,6 +25,7 @@ import com.jy.medical.util.JsonUtil;
 import com.jy.medical.util.PublicString;
 import com.jy.medical.util.ServerApiUtils;
 import com.jy.medical.widget.CustomViewpager;
+import com.jy.medical.widget.SwipeBackLayout;
 import com.jy.mobile.dto.ClaimDTO;
 import com.jy.mobile.dto.DictKEYValueDTO;
 import com.jy.mobile.request.QTSearchCityOrCateInjureDTO;
@@ -62,6 +63,7 @@ public class AddDiagnoseActivity extends BaseActivity {
     @Override
     public void initView() {
         setStatusBarTint();
+//        setDragEdge(SwipeBackLayout.DragEdge.LEFT);
         MedicalApplication.getInstance().addActivity(this);
         View headView=findViewById(R.id.title_head_tab);
         headView.findViewById(R.id.page_head_tab_image).setOnClickListener(this);

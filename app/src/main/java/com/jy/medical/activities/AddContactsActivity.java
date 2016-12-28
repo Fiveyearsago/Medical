@@ -16,6 +16,7 @@ import com.jy.medical.adapter.ContactAdapter;
 import com.jy.medical.greendao.entities.ContactData;
 import com.jy.medical.greendao.manager.ContactManager;
 import com.jy.medical.greendao.util.DaoUtils;
+import com.jy.medical.widget.SwipeBackLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +49,7 @@ public class AddContactsActivity extends BaseActivity {
     @Override
     public void initView() {
         setStatusBarTint();
+        setDragEdge(SwipeBackLayout.DragEdge.LEFT);
         setTitleState(findViewById(R.id.title_head), true, "添加联系人", true, "保存");
         findViewById(R.id.add_contact_layout).setOnClickListener(this);
         findViewById(R.id.add_contact_button).setOnClickListener(this);

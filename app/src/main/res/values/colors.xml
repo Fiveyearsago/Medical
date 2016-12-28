@@ -35,6 +35,7 @@
     <color name="timepicker_line">#3282F0</color>
     <color name="search_head_bg">#22FFFFFF</color>
     <color name="task_circle_bg">#9DC5F9</color>
+    <color name="black_p50">#7f000000</color>
 
     <color name="common_title_bg">#aa111213</color>
     <color name="primary_title_text_color">#ffeeeeee</color>

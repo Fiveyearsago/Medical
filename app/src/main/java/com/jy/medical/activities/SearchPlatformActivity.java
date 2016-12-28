@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.jy.medical.R;
+import com.jy.medical.widget.SwipeBackLayout;
 
 public class SearchPlatformActivity extends BaseActivity {
 
@@ -26,6 +27,7 @@ public class SearchPlatformActivity extends BaseActivity {
     @Override
     public void initView() {
         setStatusBarTint();
+        setDragEdge(SwipeBackLayout.DragEdge.LEFT);
         setSearchTitle(findViewById(R.id.title_head),"取消");
 
     }

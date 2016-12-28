@@ -11,6 +11,7 @@ import com.jy.medical.MedicalApplication;
 import com.jy.medical.R;
 import com.jy.medical.adapter.MaimPagerAdapter;
 import com.jy.medical.adapter.PlatformFragmentPagerAdapter;
+import com.jy.medical.widget.SwipeBackLayout;
 
 public class MaimGradeActivity extends BaseActivity {
     private SlidingTabLayout slidingTabLayout;
@@ -36,6 +37,7 @@ public class MaimGradeActivity extends BaseActivity {
     @Override
     public void initView() {
         setStatusBarTint();
+        setDragEdge(SwipeBackLayout.DragEdge.LEFT);
         MedicalApplication.getInstance().addActivity(this);
         Log.i("onCreate","true");
         setLocationNavState(findViewById(R.id.title_head),  true,"确定");

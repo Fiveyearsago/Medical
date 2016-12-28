@@ -1,6 +1,9 @@
 package com.jy.medical.adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,13 +23,18 @@ public class AddressAdapter extends BaseHeadFootAdapter {
 
     private Context context;
     private List<AddressData> list;
+    private ACallBack callBack;
 
-    public AddressAdapter(Context context, List<AddressData> list) {
+    public AddressAdapter(Context context, List<AddressData> list, ACallBack callBack) {
         this.context = context;
         this.list = list;
+        this.callBack = callBack;
     }
 
 
+    public void setData(List<AddressData> list) {
+        this.list = list;
+    }
     @Override
     protected void onBindHeaderView(View headerView) {
         headerView.setOnClickListener(new View.OnClickListener() {
@@ -53,6 +61,7 @@ public class AddressAdapter extends BaseHeadFootAdapter {
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                callBack.changeSearch(position);
             }
         });
 
@@ -64,5 +73,9 @@ public class AddressAdapter extends BaseHeadFootAdapter {
     public AddressViewHolder onCreateHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_address, null);
         return new AddressViewHolder(view);
+    }
+
+    public interface ACallBack {
+        void changeSearch(int index);
     }
 }

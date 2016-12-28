@@ -140,11 +140,13 @@ public class SlideBottomPanel extends FrameLayout {
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         return isDragging;
+//        return false;
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         return true;
+//        return false;
     }
 
     @Override
@@ -171,7 +173,7 @@ public class SlideBottomPanel extends FrameLayout {
                 releaseVelocityTracker();
                 break;
         }
-        Log.d("dispatchTouchEvent", "" + (isConsume || super.dispatchTouchEvent(ev)));
+//        Log.d("dispatchTouchEvent", "" + (isConsume || super.dispatchTouchEvent(ev)));
         return isConsume || super.dispatchTouchEvent(ev);
     }
 
@@ -187,9 +189,11 @@ public class SlideBottomPanel extends FrameLayout {
     }
 
     private void handleActionUp(MotionEvent event) {
+//        isPanelOnTouch=false;
         if (!isPanelOnTouch) {
             return;
         }
+
         long pressDuration = System.currentTimeMillis() - mPressStartTime;
         computeVelocity();
         if (!isPanelShowing && ((event.getY() - firstDownY) < 0 && (Math.abs(event.getY() - firstDownY) > mMoveDistanceToTrigger))

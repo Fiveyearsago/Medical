@@ -3,8 +3,10 @@ package com.jy.medical.activities;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
@@ -20,17 +22,19 @@ import com.jy.medical.adapter.PlatformFragmentPagerAdapter;
 import com.jy.medical.fragment.PlatformFragment;
 import com.jy.medical.greendao.manager.ClaimManager;
 import com.jy.medical.greendao.util.DaoUtils;
+import com.jy.medical.widget.SwipeBackLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AllPlatformActivity extends BaseActivity{
+
+public class AllPlatformActivity extends BaseActivity {
     private SlidingTabLayout slidingTabLayout;
     private ViewPager viewPager;
     private PlatformFragmentPagerAdapter adapter;
     private List<PlatformFragment> platformFragmentList = new ArrayList<>();
     private static PlatformFragment fragmentAll;
-    private static  PlatformFragment fragmentDoing;
+    private static PlatformFragment fragmentDoing;
     private static PlatformFragment fragmentTimeout;
     private static PlatformFragment fragmentFinished;
     private String taskType = "";
@@ -39,7 +43,7 @@ public class AllPlatformActivity extends BaseActivity{
     private PopupWindow popupWindow;
     private TextView checkBox1, checkBox2, checkBox3, checkBox4, checkBox5, checkBox6, checkBox7, checkBox8, checkBox9, checkBox10;
     private View navView;
-    private int mPosition=-1;
+    private int mPosition = -1;
 
     @Override
     public void initData() {
@@ -54,17 +58,18 @@ public class AllPlatformActivity extends BaseActivity{
     @Override
     public void initParams(Bundle parms) {
         taskType = parms.getString("taskType");
-        if (parms.getInt("position")!=-1){
-            mPosition=parms.getInt("position");
+        if (parms.getInt("position") != -1) {
+            mPosition = parms.getInt("position");
         }
         initFragment();
     }
 
     @Override
     public void initView() {
+        setDragEdge(SwipeBackLayout.DragEdge.LEFT);
         setStatusBarTint();
         navView = findViewById(R.id.title_head_third);
-        titleTV= (TextView) navView.findViewById(R.id.page_third_head_text);
+        titleTV = (TextView) navView.findViewById(R.id.page_third_head_text);
         setAllPlatformNavState(navView, "全部任务");
         initPopupWindow();
         slidingTabLayout = (SlidingTabLayout) findViewById(R.id.tabLayout_allPlatform);
@@ -77,11 +82,12 @@ public class AllPlatformActivity extends BaseActivity{
         viewPager.setOffscreenPageLimit(4);
         viewPager.setAdapter(adapter);
         slidingTabLayout.setViewPager(viewPager, titles);
-        if (mPosition!=-1){
+        if (mPosition != -1) {
 //            initFragment();
             slidingTabLayout.setCurrentTab(mPosition);
-            mPosition=-1;
+            mPosition = -1;
         }
+
         slidingTabLayout.setOnTabSelectListener(new OnTabSelectListener() {
             @Override
             public void onTabSelect(int position) {
@@ -110,12 +116,27 @@ public class AllPlatformActivity extends BaseActivity{
 
             }
         });
+        viewPager.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        Log.i("ACTION_DOWN", "ViewPager");
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        Log.i("ACTION_MOVE", "ViewPager");
+                        viewPager.onInterceptTouchEvent(event);
+                        break;
+                }
+                return false;
+            }
+        });
         setTitleText();
 
     }
 
     private void setTitleText() {
-        switch (taskType){
+        switch (taskType) {
             case "":
                 titleTV.setText("全部任务");
                 break;
@@ -283,22 +304,27 @@ public class AllPlatformActivity extends BaseActivity{
     }
 
 
-
     public void filterData(String taskType) {
-        this.taskType=taskType;
+        this.taskType = taskType;
         setTitleText();
         if (popupWindow.isShowing())
             popupWindow.dismiss();
         int position = viewPager.getCurrentItem();
-        platformFragmentList.get(position).setFilterData(taskType,position);
+        platformFragmentList.get(position).setFilterData(taskType, position);
     }
+
     public void filterData(int position) {
         viewPager.setCurrentItem(position);
     }
 
     public void setWindowBackground(float alpha) {
-        WindowManager.LayoutParams lp = getWindow().getAttributes();
-        lp.alpha = alpha;
-        getWindow().setAttributes(lp);
+//        WindowManager.LayoutParams lp = this.getWindow().getAttributes();
+//        lp.alpha = alpha;
+//        this.getWindow().setAttributes(lp);
+        this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        if (alpha > 0.5) {
+            this.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+            this.getWindow().setBackgroundDrawableResource(R.color.blackPressed);
+        }
     }
 }

@@ -5,34 +5,26 @@
     android:id="@+id/activity_follow_detail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/pageBackground"
+    android:orientation="vertical"
     tools:context="com.jy.medical.activities.DetailActivity">
 
-    <LinearLayout
-        android:id="@+id/head_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <include layout="@layout/page_head" />
-    </LinearLayout>
-
+    <include layout="@layout/page_head" />
 
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_above="@+id/bottom_layout"
-        android:layout_below="@+id/head_layout">
+        android:layout_weight="1">
+
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/floating_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"
-            android:clickable="true"
             android:layout_marginBottom="21dp"
             android:layout_marginRight="20dp"
+            android:clickable="true"
             android:src="@mipmap/floating_editor"
             app:backgroundTint="@color/colorPrimary"
             app:borderWidth="0dp"
@@ -42,17 +34,18 @@
             app:rippleColor="#1062D1" />
 
 
-        <ScrollView
+        <com.jy.medical.widget.CustomerScrollView
             android:id="@+id/scrollView"
-            android:background="@color/pageBackground"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="10dp">
+            android:layout_marginBottom="10dp"
+            android:background="@color/pageBackground">
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
                 <LinearLayout
                     android:id="@+id/contact_layout"
                     android:layout_width="match_parent"
@@ -138,6 +131,7 @@
                         </LinearLayout>
                     </RelativeLayout>
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -166,8 +160,9 @@
                     android:layout_marginTop="10dp" />
 
             </LinearLayout>
-        </ScrollView>
+        </com.jy.medical.widget.CustomerScrollView>
     </FrameLayout>
+
     <RelativeLayout
         android:id="@+id/bottom_layout"
         android:layout_width="match_parent"

@@ -11,6 +11,7 @@ import com.jy.medical.R;
 import com.jy.medical.greendao.entities.SelectedDiagnose;
 import com.jy.medical.greendao.manager.SelectedDiagnoseManager;
 import com.jy.medical.greendao.util.DaoUtils;
+import com.jy.medical.widget.SwipeBackLayout;
 
 public class SelectTreatActivity extends BaseActivity {
     private String taskNo;
@@ -42,6 +43,7 @@ public class SelectTreatActivity extends BaseActivity {
     @Override
     public void initView() {
         setStatusBarTint();
+        setDragEdge(SwipeBackLayout.DragEdge.LEFT);
         setTitleState(findViewById(R.id.title_head), true, "选择治疗方式", false, "");
         treatConservative= (TextView) findViewById(R.id.treat_conservative);
         treatOperation= (TextView) findViewById(R.id.treat_operation);

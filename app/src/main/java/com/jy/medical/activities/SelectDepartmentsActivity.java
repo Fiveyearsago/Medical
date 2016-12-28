@@ -18,6 +18,7 @@ import com.jy.medical.greendao.manager.MedicalDepartmentManager;
 import com.jy.medical.greendao.manager.SelectedHospitalManager;
 import com.jy.medical.greendao.util.DaoUtils;
 import com.jy.medical.util.ToastUtil;
+import com.jy.medical.widget.SwipeBackLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +53,7 @@ public class SelectDepartmentsActivity extends BaseActivity implements Departmen
     @Override
     public void initView() {
         setStatusBarTint();
+        setDragEdge(SwipeBackLayout.DragEdge.LEFT);
         MedicalApplication.getInstance().addActivity(this);
         setTitleState(findViewById(R.id.title_head), true, "选择科室", true, "确定");
         countText= (TextView) findViewById(R.id.page_head_button);

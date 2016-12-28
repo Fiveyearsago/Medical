@@ -58,6 +58,7 @@ import com.jy.medical.greendao.util.DaoUtils;
 import com.jy.medical.util.CommitUtil;
 import com.jy.medical.util.TimeUtil;
 import com.jy.medical.widget.CustomViewpager;
+import com.jy.medical.widget.SwipeBackLayout;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -120,6 +121,7 @@ public class DetailActivity extends BaseActivity implements OnItemClickListener,
 
     @Override
     public void initView() {
+
         setStatusBarTint();
         setTitleState(findViewById(R.id.title_head), true, "跟踪详情", false, "");
         findViewById(R.id.task_commit_btn).setOnClickListener(this);

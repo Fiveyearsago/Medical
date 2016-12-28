@@ -17,6 +17,7 @@ import com.jy.medical.greendao.entities.TaskPhoto;
 import com.jy.medical.greendao.manager.TaskPhotoManager;
 import com.jy.medical.greendao.util.DaoUtils;
 import com.jy.medical.util.PhotoUtil;
+import com.jy.medical.widget.SwipeBackLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,6 +59,7 @@ public class PhotoPreActivity extends BaseActivity {
     @Override
     public void initView() {
         setStatusBarTint();
+        setDragEdge(SwipeBackLayout.DragEdge.LEFT);
         MedicalApplication.getInstance().addActivity(this);
         View view = findViewById(R.id.title_head);
         setTitleState(view, true, "", true, "删除");

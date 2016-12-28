@@ -438,7 +438,6 @@
                     </LinearLayout>
 
 
-
                 </LinearLayout>
 
             </LinearLayout>
@@ -574,6 +573,7 @@
                     android:orientation="vertical"
                     android:paddingLeft="15dp"
                     android:paddingRight="15dp">
+
                     <LinearLayout
                         android:id="@+id/layout_contact_tab"
                         android:layout_width="match_parent"

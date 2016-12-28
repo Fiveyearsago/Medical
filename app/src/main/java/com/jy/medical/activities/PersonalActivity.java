@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.jy.medical.R;
 import com.jy.medical.util.MultiSelectUtil;
+import com.jy.medical.widget.SwipeBackLayout;
 import com.jy.medical.widget.pickerview.TimePickerDialog;
 import com.jy.medical.widget.pickerview.data.Type;
 import com.jy.medical.widget.pickerview.listener.OnDateSetListener;
@@ -37,6 +38,7 @@ public class PersonalActivity extends BaseActivity {
     @Override
     public void initView() {
         setStatusBarTint();
+        setDragEdge(SwipeBackLayout.DragEdge.LEFT);
         setTitleState(findViewById(R.id.title_head), true, "个人资料", false, "");
         findViewById(R.id.layout_person_name).setOnClickListener(this);
         findViewById(R.id.layout_person_phone).setOnClickListener(this);

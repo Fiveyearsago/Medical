@@ -220,7 +220,8 @@ public class FollowEditActivity extends BaseActivity {
 
                 break;
             case R.id.follow_edit_location:
-                startActivity(SelectAddressActivity.class);
+                Intent intent = new Intent(this, SelectAddressActivity.class);
+                startActivityForResult(intent, 0x13);
                 break;
             case R.id.complete_status:
                 //选择完成情况
@@ -281,6 +282,11 @@ public class FollowEditActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
+                case 0x13:
+                    if (data.getStringExtra("address") != null) {
+                        addressEdit.setText(data.getStringExtra("address"));
+                    }
+                    break;
                 case ImageUtils.REQUEST_CODE_GETIMAGE_BYCAMERA:
                     String cameraPath = LocalImageHelper.getInstance().getCameraImgPath();
                     if (StringUtils.isEmpty(cameraPath)) {

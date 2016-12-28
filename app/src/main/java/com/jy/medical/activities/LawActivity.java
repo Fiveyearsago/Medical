@@ -11,6 +11,7 @@ import com.flyco.tablayout.SlidingTabLayout;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.jy.medical.R;
 import com.jy.medical.adapter.LawFragmentPagerAdapter;
+import com.jy.medical.widget.SwipeBackLayout;
 
 public class LawActivity extends BaseActivity {
     private SlidingTabLayout slidingTabLayout;
@@ -37,6 +38,7 @@ public class LawActivity extends BaseActivity {
     @Override
     public void initView() {
         setStatusBarTint();
+        setDragEdge(SwipeBackLayout.DragEdge.LEFT);
         setNavState(findViewById(R.id.title_head_second),"法律法规");
         cityTV= (TextView) findViewById(R.id.page_head_button);
         slidingTabLayout= (SlidingTabLayout) findViewById(R.id.tabLayout_law);

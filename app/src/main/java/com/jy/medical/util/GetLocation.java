@@ -30,10 +30,10 @@ public class GetLocation {
 						province=bdLocation.getProvince();
 						city=bdLocation.getCity();
 						locationCallBack.getLocationSuccess(bdLocation,address,province,city);
-//						mLocationClient.stop();
+						mLocationClient.stop();
 					}else{
 						locationCallBack.getLocationFailed();
-//						mLocationClient.stop();
+						mLocationClient.stop();
 					}
 
 				}
@@ -53,6 +53,7 @@ public class GetLocation {
 		option.setScanSpan(span);// 可选，默认0，即仅定位一次，设置发起定位请求的间隔需要大于等于1000ms才是有效的
 		option.setIsNeedAddress(true);// 可选，设置是否需要地址信息，默认不需要
 		option.setOpenGps(true);// 可选，默认false,设置是否使用gps
+		option.setIsNeedLocationPoiList(true);
 		option.setLocationNotify(true);// 可选，默认false，设置是否当gps有效时按照1S1次频率输出GPS结果
 		option.setIsNeedLocationDescribe(true);// 可选，默认false，设置是否需要位置语义化结果，可以在BDLocation.getLocationDescribe里得到，结果类似于“在北京天安门附近”
 		option.setIsNeedLocationPoiList(false);// 可选，默认false，设置是否需要POI结果，可以在BDLocation.getPoiList里得到

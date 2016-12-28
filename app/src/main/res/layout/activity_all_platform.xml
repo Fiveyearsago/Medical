@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_all_platform"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/pageBackground"
-    tools:context="com.jy.medical.activities.AllPlatformActivity">
+    tools:context="com.jy.medical.activities.AllPlatformActivity"
+    android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
 
         <include layout="@layout/page_hade_all_platform" />
 
@@ -34,6 +31,5 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-    </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>

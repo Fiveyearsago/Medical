@@ -38,6 +38,7 @@ import com.jy.medical.util.StringUtils;
 import com.jy.medical.util.ToastUtil;
 import com.jy.medical.widget.ClearEditText;
 import com.jy.medical.widget.FilterImageView;
+import com.jy.medical.widget.SwipeBackLayout;
 import com.jy.medical.widget.pickerview.TimePickerDialog;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -85,6 +86,7 @@ public class DeathActivity extends BaseActivity implements View.OnFocusChangeLis
     public void initView() {
         context = this;
         setStatusBarTint();
+//        setDragEdge(SwipeBackLayout.DragEdge.LEFT);
         MedicalApplication.getInstance().addActivity(this);
         setTitleState(findViewById(R.id.title_head), true, "编辑", true, "保存");
         completeStatusTextView = (TextView) findViewById(R.id.complete_status);

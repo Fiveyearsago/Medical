@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.baidu.mapapi.SDKInitializer;
@@ -27,18 +28,23 @@ import com.jy.medical.MedicalApplication;
 import com.jy.medical.R;
 import com.jy.medical.widget.CleanableEditText;
 import com.jy.medical.widget.ClearEditText;
+import com.jy.medical.widget.SwipeBackLayout;
 import com.pgyersdk.crash.PgyCrashManager;
 import com.pgyersdk.update.PgyUpdateManager;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
-import java.util.zip.Inflater;
 
 import cn.smssdk.SMSSDK;
 
-public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener {
+public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener, SwipeBackLayout.SwipeBackListener {
     protected final String TAG = this.getClass().getSimpleName();
     //应用是否销毁标志
     protected boolean isDestroy;
+
+    private SwipeBackLayout swipeBackLayout;
+    private ImageView ivShadow;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +56,9 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         isDestroy = false;
         int layoutId = getLayoutId();
         if (layoutId != 0) {
-            setContentView(layoutId);
+            super.setContentView(getContainer());
+            View view = LayoutInflater.from(this).inflate(layoutId, null);
+            swipeBackLayout.addView(view);
         }
         Log.d(TAG, "BaseActivity-->onCreate()");
         Bundle bundle = getIntent().getExtras();
@@ -61,6 +69,30 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         initData();
     }
 
+    private View getContainer() {
+        RelativeLayout container = new RelativeLayout(this);
+        swipeBackLayout = new SwipeBackLayout(this);
+        swipeBackLayout.setOnSwipeBackListener(this);
+        ivShadow = new ImageView(this);
+        ivShadow.setBackgroundColor(getResources().getColor(R.color.black_p50));
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
+        container.addView(ivShadow, params);
+        container.addView(swipeBackLayout);
+        return container;
+    }
+
+    public void setDragEdge(SwipeBackLayout.DragEdge dragEdge) {
+        swipeBackLayout.setDragEdge(dragEdge);
+    }
+
+    public SwipeBackLayout getSwipeBackLayout() {
+        return swipeBackLayout;
+    }
+
+    @Override
+    public void onViewPositionChanged(float fractionAnchor, float fractionScreen) {
+        ivShadow.setAlpha(1 - fractionScreen);
+    }
 
     /**
      * 布局文件ID
@@ -126,6 +158,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     public void exit() {
         MedicalApplication.getInstance().exit();
     }
+
     public void setAllPlatformNavState(View navView, String textTitle) {
         ImageView navImage = (ImageView) navView.findViewById(R.id.page_third_head_image);
         ImageView searchImage = (ImageView) navView.findViewById(R.id.page_third_head_collect);
@@ -136,6 +169,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         filterImage.setOnClickListener(this);
         searchImage.setOnClickListener(this);
     }
+
     public void setThirdNavState(View navView, String textTitle, int leftDrawable, int rightDrawable) {
         ImageView navImage = (ImageView) navView.findViewById(R.id.page_third_head_image);
         ImageView collectImage = (ImageView) navView.findViewById(R.id.page_third_head_collect);
@@ -267,6 +301,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
     }
 
+
     public void setEditTextSelection(EditText editText) {
         if (editText != null) {
             editText.setSelection(editText.getText().length());
@@ -314,17 +349,26 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         // TODO Auto-generated method stub
-        if (ev.getAction() == MotionEvent.ACTION_UP) {
-            View view = getCurrentFocus();
-//            if (view != null && (view instanceof EditText)) {
-//                return super.dispatchTouchEvent(ev);
-//            }
-            if (isHideInput(view, ev)) {
-                HideSoftInput(view.getWindowToken());
-            }
+        switch (ev.getAction()) {
+            case MotionEvent.ACTION_UP:
+                View view = getCurrentFocus();
+                if (isHideInput(view, ev)) {
+                    HideSoftInput(view.getWindowToken());
+                } else {
+                    return super.dispatchTouchEvent(ev);
+                }
+                break;
+//            case MotionEvent.ACTION_MOVE:
+//                super.dispatchTouchEvent(ev);
+//                Log.i("ACTION_MOVE","ACTION_MOVE");
+//                break;
         }
+//        if (ev.getAction() == MotionEvent.ACTION_UP) {
+//
+//        }
         return super.dispatchTouchEvent(ev);
     }
+
 
     // 判定是否需要隐藏
     private boolean isHideInput(View v, MotionEvent ev) {

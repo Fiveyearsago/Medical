@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.jy.medical.R;
+import com.jy.medical.widget.SwipeBackLayout;
 
 public class EditPswActivity extends BaseActivity {
 
@@ -27,6 +28,7 @@ public class EditPswActivity extends BaseActivity {
     @Override
     public void initView() {
         setStatusBarTint();
+        setDragEdge(SwipeBackLayout.DragEdge.LEFT);
         setTitleState(findViewById(R.id.title_head), true, "修改密码", true, "下一步");
         findViewById(R.id.person_psw_next).setOnClickListener(this);
     }

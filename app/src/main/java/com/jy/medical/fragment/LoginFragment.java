@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -76,6 +77,7 @@ public class LoginFragment extends Fragment {
 //                requestServer();
 //                startActivity(new Intent(mContext, PlatformActivity.class));
                 startActivity(new Intent(mContext, HomeActivity.class));
+                ((AppCompatActivity) mContext).finish();
 //                startActivity(new Intent(mContext, AddDiagnoseActivity.class));
 //                startActivity(new Intent(mContext, DemoActivity.class));
 //                startActivity(new Intent(mContext, SelectHospitalActivity.class));

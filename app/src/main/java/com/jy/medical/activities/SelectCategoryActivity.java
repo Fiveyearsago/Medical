@@ -11,6 +11,7 @@ import com.jy.medical.adapter.CategoryAdapter;
 import com.jy.medical.greendao.entities.CategoryData;
 import com.jy.medical.greendao.manager.CategoryDataManager;
 import com.jy.medical.greendao.util.DaoUtils;
+import com.jy.medical.widget.SwipeBackLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +44,7 @@ public class SelectCategoryActivity extends BaseActivity {
     @Override
     public void initView() {
         setStatusBarTint();
+        setDragEdge(SwipeBackLayout.DragEdge.LEFT);
         setTitleState(findViewById(R.id.title_head), true, "选择行业", false, "");
         recyclerView= (RecyclerView) findViewById(R.id.category_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

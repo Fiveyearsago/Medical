@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.jy.medical.R;
 import com.jy.medical.util.ToastUtil;
+import com.jy.medical.widget.SwipeBackLayout;
 
 import org.json.JSONObject;
 
@@ -110,6 +111,7 @@ public class ChangePhoneActivity extends BaseActivity {
     @Override
     public void initView() {
         setStatusBarTint();
+        setDragEdge(SwipeBackLayout.DragEdge.LEFT);
         setTitleState(findViewById(R.id.title_head), true, "更改手机号", true, "确定");
         btnShow = (Button) findViewById(R.id.btn_get_code);
         findViewById(R.id.person_phone_sure).setOnClickListener(this);

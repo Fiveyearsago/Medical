@@ -24,6 +24,7 @@ import com.jy.medical.greendao.util.DaoUtils;
 import com.jy.medical.util.JsonUtil;
 import com.jy.medical.util.PublicString;
 import com.jy.medical.util.ServerApiUtils;
+import com.jy.medical.widget.SwipeBackLayout;
 import com.jy.mobile.dto.ClaimDTO;
 import com.jy.mobile.dto.RegionOrCateInjureDTO;
 import com.jy.mobile.request.QTSearchCityOrCateInjureDTO;
@@ -68,6 +69,7 @@ public class SelectAreaActivity extends BaseActivity implements ProvinceAdapter.
     @Override
     public void initView() {
         setStatusBarTint();
+        setDragEdge(SwipeBackLayout.DragEdge.LEFT);
         MedicalApplication.getInstance().addActivity(this);
         setTitleState(findViewById(R.id.title_head), true, "选择区域", false, "");
         getCityData();

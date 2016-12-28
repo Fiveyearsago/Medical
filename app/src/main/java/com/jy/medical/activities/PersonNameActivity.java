@@ -7,6 +7,7 @@ import android.widget.EditText;
 import com.jy.medical.R;
 import com.jy.medical.widget.CleanableEditText;
 import com.jy.medical.widget.ClearEditText;
+import com.jy.medical.widget.SwipeBackLayout;
 
 public class PersonNameActivity extends BaseActivity {
 
@@ -29,6 +30,7 @@ public class PersonNameActivity extends BaseActivity {
     @Override
     public void initView() {
         setStatusBarTint();
+        setDragEdge(SwipeBackLayout.DragEdge.LEFT);
         setTitleState(findViewById(R.id.title_head), true, "姓名", true, "确定");
         setCleanableEditTextSelection((ClearEditText) findViewById(R.id.peron_edit_name));
         editTextName= (ClearEditText) findViewById(R.id.peron_edit_name);

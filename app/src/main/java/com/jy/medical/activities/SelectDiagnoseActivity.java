@@ -22,6 +22,7 @@ import com.jy.medical.adapter.DiagnoseAdapter;
 import com.jy.medical.greendao.entities.Diagnose;
 import com.jy.medical.util.PublicString;
 import com.jy.medical.util.ServerApiUtils;
+import com.jy.medical.widget.SwipeBackLayout;
 import com.jy.mobile.dto.MtMedicalInjureItemDTO;
 import com.jy.mobile.request.QtSearchDisabilityDTO;
 import com.jy.mobile.response.SpListDTO;
@@ -65,6 +66,7 @@ public class SelectDiagnoseActivity extends BaseActivity {
     public void initView() {
         MedicalApplication.getInstance().addActivity(this);
         setStatusBarTint();
+        setDragEdge(SwipeBackLayout.DragEdge.LEFT);
         setThirdNavState(findViewById(R.id.title_head_third),"头部",R.drawable.nav_image_selector,R.drawable.serach_selector);
         textTitle= (TextView) findViewById(R.id.page_third_head_text);
         ptrClassicFrameLayout= (PtrClassicFrameLayout) findViewById(R.id.diagnose_recyclerView_frame);

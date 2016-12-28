@@ -27,6 +27,7 @@ import com.jy.medical.util.ExtraKey;
 import com.jy.medical.util.ImageUtils;
 import com.jy.medical.util.LocalImageHelper;
 import com.jy.medical.util.StringUtils;
+import com.jy.medical.widget.SwipeBackLayout;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageSize;
@@ -58,7 +59,29 @@ public class LocalAlbumActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.local_album);
+//        setContentView(R.layout.local_album);
+
+    }
+
+    @Override
+    public void initData() {
+
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.local_album;
+    }
+
+    @Override
+    public void initParams(Bundle parms) {
+
+    }
+
+    @Override
+    public void initView() {
+        setStatusBarTint();
+        setDragEdge(SwipeBackLayout.DragEdge.LEFT);
         MedicalApplication.getInstance().addActivity(this);
         listView = (ListView) findViewById(R.id.local_album_list);
         camera = findViewById(R.id.loacal_album_camera);
@@ -103,26 +126,6 @@ public class LocalAlbumActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
-    }
-
-    @Override
-    public void initData() {
-
-    }
-
-    @Override
-    public int getLayoutId() {
-        return 0;
-    }
-
-    @Override
-    public void initParams(Bundle parms) {
-
-    }
-
-    @Override
-    public void initView() {
-
     }
 
     @Override

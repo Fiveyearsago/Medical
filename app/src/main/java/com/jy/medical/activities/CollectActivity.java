@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.jy.medical.R;
+import com.jy.medical.widget.SwipeBackLayout;
 
 public class CollectActivity extends BaseActivity {
 
@@ -26,6 +27,7 @@ public class CollectActivity extends BaseActivity {
     @Override
     public void initView() {
         setStatusBarTint();
+        setDragEdge(SwipeBackLayout.DragEdge.LEFT);
         setTitleState(findViewById(R.id.title_head), true, "收藏", false, "");
 
     }
@@ -33,7 +35,7 @@ public class CollectActivity extends BaseActivity {
     @Override
     public void widgetClick(View v) {
         switch (v.getId()) {
-            case R.id.page_third_head_image:
+            case R.id.page_head_image:
                 finish();
                 break;
         }

@@ -19,6 +19,7 @@ import com.jy.medical.greendao.manager.SupporterPersonManager;
 import com.jy.medical.greendao.util.DaoUtils;
 import com.jy.medical.widget.CleanableEditText;
 import com.jy.medical.widget.ClearEditText;
+import com.jy.medical.widget.SwipeBackLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +50,7 @@ public class AddSupportActivity extends BaseActivity {
     @Override
     public void initView() {
         setStatusBarTint();
+        setDragEdge(SwipeBackLayout.DragEdge.LEFT);
         setTitleState(findViewById(R.id.title_head), true, "添加被扶养人", true, "保存");
         supporterPersonList = new ArrayList<>();
         findViewById(R.id.add_supporter_layout).setOnClickListener(this);

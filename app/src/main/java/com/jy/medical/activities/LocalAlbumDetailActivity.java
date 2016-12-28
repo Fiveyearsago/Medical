@@ -27,6 +27,7 @@ import com.jy.medical.util.ExtraKey;
 import com.jy.medical.util.LocalImageHelper;
 import com.jy.medical.widget.AlbumViewPager;
 import com.jy.medical.widget.MatrixImageView;
+import com.jy.medical.widget.SwipeBackLayout;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageSize;
@@ -63,7 +64,24 @@ public class LocalAlbumDetailActivity extends BaseActivity implements MatrixImag
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.local_album_detail);
+//        setContentView(R.layout.local_album_detail);
+
+    }
+
+    @Override
+    public void initData() {
+
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.local_album_detail;
+    }
+
+    @Override
+    public void initParams(Bundle parms) {
+        setStatusBarTint();
+//        setDragEdge(SwipeBackLayout.DragEdge.LEFT);
         if(!LocalImageHelper.getInstance().isInited()){
             finish();
             return;
@@ -122,21 +140,6 @@ public class LocalAlbumDetailActivity extends BaseActivity implements MatrixImag
         }).start();
         checkedItems=helper.getCheckedItems();
         LocalImageHelper.getInstance().setResultOk(false);
-    }
-
-    @Override
-    public void initData() {
-
-    }
-
-    @Override
-    public int getLayoutId() {
-        return 0;
-    }
-
-    @Override
-    public void initParams(Bundle parms) {
-
     }
 
     @Override
