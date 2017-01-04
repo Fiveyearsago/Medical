@@ -26,6 +26,7 @@
         android:id="@+id/supporter_bottom"
         android:layout_width="match_parent"
         android:layout_height="55dp"
+        android:visibility="gone"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"

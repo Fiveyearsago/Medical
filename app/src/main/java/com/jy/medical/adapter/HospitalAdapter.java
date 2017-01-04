@@ -11,10 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.jy.medical.MedicalApplication;
 import com.jy.medical.R;
 import com.jy.medical.activities.AddContactsActivity;
 import com.jy.medical.activities.LocalAlbumActivity;
 import com.jy.medical.activities.SelectDepartmentsActivity;
+import com.jy.medical.activities.SelectHospitalActivity;
 import com.jy.medical.adapter.viewholder.HospitalViewHolder;
 import com.jy.medical.adapter.viewholder.SearchViewHolder;
 import com.jy.medical.greendao.entities.HospitalData;
@@ -78,9 +80,6 @@ public class HospitalAdapter extends BaseHeadFootAdapter {
         viewHolder.text.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Toast.makeText(context,"click",Toast.LENGTH_SHORT).show();
-//                Bundle bundle=new Bundle();
-//                bundle.putString("taskNo",taskNo);
                 if (flag.equals("1")) {
                     Intent intent = new Intent(context, SelectDepartmentsActivity.class);
                     intent.putExtra("taskNo", taskNo);
@@ -94,8 +93,10 @@ public class HospitalAdapter extends BaseHeadFootAdapter {
                     intent.putExtra("hospitalId", list.get(position).getHospitalId());
                     intent.putExtra("hospitalName", list.get(position).getHospitalName());
                     maimDataManager.updateDepartment(taskNo, list.get(position).getHospitalId(), list.get(position).getHospitalName());
-                    ((AppCompatActivity) context).setResult(Activity.RESULT_OK, intent);
+//                    ((AppCompatActivity) context).setResult(Activity.RESULT_OK, intent);
                     ((AppCompatActivity) context).finish();
+                    MedicalApplication.getInstance().finishActivity(SelectHospitalActivity.class);
+
                 }
             }
         });

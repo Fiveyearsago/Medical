@@ -1,6 +1,7 @@
 package com.jy.medical.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -253,7 +254,6 @@ public class AllPlatformActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
     }
 
     public void initPopupWindow() {
@@ -321,10 +321,17 @@ public class AllPlatformActivity extends BaseActivity {
 //        WindowManager.LayoutParams lp = this.getWindow().getAttributes();
 //        lp.alpha = alpha;
 //        this.getWindow().setAttributes(lp);
-        this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-        if (alpha > 0.5) {
-            this.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-            this.getWindow().setBackgroundDrawableResource(R.color.blackPressed);
+//        this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+//        if (alpha > 0.5) {
+//            this.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+//            this.getWindow().setBackgroundDrawableResource(R.color.blackPressed);
+//        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            filterData(taskType);
         }
     }
 }

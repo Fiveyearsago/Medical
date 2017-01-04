@@ -208,7 +208,10 @@ public class HandleActivity extends BaseActivity {
                 CommitUtil.commitHandleInfo(context, taskNo, new CommitUtil.CommitCallBack() {
                     @Override
                     public void commitSuccess() {
-
+                        Intent intent = new Intent();
+                        intent.putExtra("commitFlag", "1");
+                        setResult(RESULT_OK, intent);
+                        finish();
                     }
 
                     @Override

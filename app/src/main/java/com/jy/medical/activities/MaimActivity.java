@@ -76,6 +76,7 @@ public class MaimActivity extends BaseActivity {
     private Button btnSave;
     private MaimDataManager maimDataManager = DaoUtils.getMaimDataInstance();
     private Context context;
+    private String approvalDepartmentKey;
 
     @Override
     public void initData() {
@@ -195,7 +196,7 @@ public class MaimActivity extends BaseActivity {
                 break;
             case R.id.btn_commit:
                 saveData();
-                CommitUtil.commitBaseInfo(context, taskNo, new CommitUtil.CommitCallBack() {
+                CommitUtil.commitMaimInfo(context, taskNo, new CommitUtil.CommitCallBack() {
                     @Override
                     public void commitSuccess() {
                         Intent intent = new Intent();
@@ -221,7 +222,6 @@ public class MaimActivity extends BaseActivity {
     }
 
     private void saveData() {
-        String approvalDepartmentKey = approvalDepartmentTV.getText().toString();
         String approvalDepartmentValue = approvalDepartmentTV.getText().toString();
         String approvalPerson = approvalPersonEdit.getText().toString();
         String payCoefficient = payCoefficientEdit.getText().toString();
@@ -243,6 +243,8 @@ public class MaimActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
 //        setContactData();
+        if (maimDataManager.getData(taskNo) != null)
+            approvalDepartmentTV.setText(maimDataManager.getData(taskNo).getApprovalDepartmentValue());
         setMaimGradeData();
         setPhotoData();
 
@@ -277,7 +279,9 @@ public class MaimActivity extends BaseActivity {
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case 0x11:
+
                     approvalDepartmentTV.setText(data.getStringExtra("hospitalName"));
+                    approvalDepartmentKey = data.getStringExtra("hospitalId");
                     break;
                 case ImageUtils.REQUEST_CODE_GETIMAGE_BYCAMERA:
                     String cameraPath = LocalImageHelper.getInstance().getCameraImgPath();

@@ -2,11 +2,9 @@ package com.jy.medical.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -17,7 +15,6 @@ import android.widget.Toast;
 import android.widget.ZoomControls;
 
 import com.baidu.location.BDLocation;
-import com.baidu.location.Poi;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.MapStatus;
 import com.baidu.mapapi.map.MapStatusUpdate;
@@ -35,27 +32,22 @@ import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeOption;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 import com.baidu.mapapi.search.poi.OnGetPoiSearchResultListener;
-import com.baidu.mapapi.search.poi.PoiAddrInfo;
 import com.baidu.mapapi.search.poi.PoiDetailResult;
-import com.baidu.mapapi.search.poi.PoiDetailSearchOption;
 import com.baidu.mapapi.search.poi.PoiIndoorResult;
-import com.baidu.mapapi.search.poi.PoiNearbySearchOption;
 import com.baidu.mapapi.search.poi.PoiResult;
 import com.baidu.mapapi.search.poi.PoiSearch;
 import com.jy.medical.R;
-import com.jy.medical.adapter.AddressAdapter;
-import com.jy.medical.adapter.viewholder.AddressAdapter1;
+import com.jy.medical.adapter.AddressAdapter1;
 import com.jy.medical.greendao.entities.AddressData;
 import com.jy.medical.util.GetLocation;
 import com.jy.medical.util.MyOrientationListener;
 import com.jy.medical.util.SPUtils;
 import com.jy.medical.widget.SlideBottomPanel;
-import com.jy.medical.widget.SwipeBackLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SelectAddressActivity extends BaseActivity implements GetLocation.LocationCallBack, OnGetGeoCoderResultListener, AddressAdapter1.ACallBack {
+public class SelectAddressActivity extends BaseActivity implements GetLocation.LocationCallBack, OnGetGeoCoderResultListener, AddressAdapter1.ACallBack, SlideBottomPanel.CCallBack {
     private MapView mMapView;
     private RecyclerView recyclerView;
     private List<AddressData> list;
@@ -70,9 +62,10 @@ public class SelectAddressActivity extends BaseActivity implements GetLocation.L
     private BDLocation bdLocation;
     private GeoCoder mSearch;
     private PoiSearch mPoiSearch;
-    private TextView cityText;
+    private TextView cityText, btnSure;
 
     private TextView textTitle, textAddress, textLocation;
+    private ImageView myLocationImage;
 
 
     @Override
@@ -94,7 +87,11 @@ public class SelectAddressActivity extends BaseActivity implements GetLocation.L
         setStatusBarTint();
 //        setDragEdge(SwipeBackLayout.DragEdge.LEFT);
         setLocationSearchState(findViewById(R.id.title_head));
+        myLocationImage = (ImageView) findViewById(R.id.my_location_image);
+        myLocationImage.setOnClickListener(this);
         cityText = (TextView) findViewById(R.id.page_head_button);
+        btnSure = (TextView) findViewById(R.id.btn_sure);
+        btnSure.setOnClickListener(this);
         cityText.setText(SPUtils.get(this, "cityName", "北京市").toString());
         mMapView = (MapView) findViewById(R.id.mapView);
         textTitle = (TextView) findViewById(R.id.text_title);
@@ -121,10 +118,11 @@ public class SelectAddressActivity extends BaseActivity implements GetLocation.L
         listView.setAdapter(adapter);
         slideBottomPanel = (SlideBottomPanel) findViewById(R.id.sbv);
         checkBox = (CheckBox) findViewById(R.id.checkbox_address);
+        checkBox.setChecked(false);
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
+                if (!isChecked) {
                     if (slideBottomPanel.isPanelShowing()) {
                         slideBottomPanel.hide();
                     }
@@ -135,7 +133,7 @@ public class SelectAddressActivity extends BaseActivity implements GetLocation.L
                 }
             }
         });
-        checkBox.setChecked(false);
+
         mBaiduMap = mMapView.getMap();
         // 开启定位图层
         mPoiSearch = PoiSearch.newInstance();
@@ -202,23 +200,24 @@ public class SelectAddressActivity extends BaseActivity implements GetLocation.L
             case R.id.page_head_image:
                 finish();
                 break;
+            case R.id.my_location_image:
+                GetLocation.getLoc(this, this);
+                break;
             case R.id.page_head_button:
                 Intent intent = new Intent(this, SelectAreaActivity.class);
                 startActivityForResult(intent, 0x11);
                 break;
-//            case R.id.page_head_button:
-//                //确定
-//                if (list.size() > 0) {
-//                    Intent intent = new Intent();
-//                    intent.putExtra("address", textAddress.getText().toString());
-//                    setResult(RESULT_OK, intent);
-//                    this.finish();
-//                }
+            case R.id.btn_sure:
+                //确定
+                Intent intent1 = new Intent();
+                intent1.putExtra("address", textAddress.getText().toString());
+                setResult(RESULT_OK, intent1);
+                this.finish();
+                break;
             case R.id.page_head_text:
-//                Bundle bundle=new Bundle();
-//                bundle.putString("taskNo",taskNo);
-//                bundle.putString("flag",flag);
-//                startActivity(SearchHospitalActivity.class,bundle);
+                Intent intent2 = new Intent(this, SearchAddressActivity2.class);
+                intent2.putExtra("cityName", cityText.getText().toString());
+                startActivityForResult(intent2, 0x14);
                 break;
             default:
                 break;
@@ -261,6 +260,7 @@ public class SelectAddressActivity extends BaseActivity implements GetLocation.L
             return;
         }
         bdLocation = location;
+        cityText.setText(location.getCity());
         LatLng ll = new LatLng(location.getLatitude(),
                 location.getLongitude());
         MapStatus.Builder builder = new MapStatus.Builder();
@@ -352,6 +352,7 @@ public class SelectAddressActivity extends BaseActivity implements GetLocation.L
     public void changeSearch(int index) {
         if (slideBottomPanel.isPanelShowing()) {
             slideBottomPanel.hide();
+            checkBox.setChecked(false);
         }
         LatLng ll = new LatLng(list.get(index).getLatitude(),
                 list.get(index).getLongitude());
@@ -366,9 +367,27 @@ public class SelectAddressActivity extends BaseActivity implements GetLocation.L
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
                 case 0x11:
-                    cityText.setText(data.getStringExtra("cityName"));
+                    String cityName = data.getStringExtra("cityName");
+                    cityText.setText(cityName);
+                    mSearch.geocode(new GeoCodeOption().city(cityName).address(cityName));
+                    break;
+                case 0x14:
+                    LatLng ll = new LatLng(data.getDoubleExtra("lat", 0),
+                            data.getDoubleExtra("long", 0));
+                    MapStatus.Builder builder = new MapStatus.Builder();
+                    builder.target(ll).zoom(18.0f);
+                    mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
                     break;
             }
+        }
+    }
+
+    @Override
+    public void changeState(boolean flag) {
+        if (flag) {
+            checkBox.setChecked(true);
+        } else {
+            checkBox.setChecked(false);
         }
     }
 }

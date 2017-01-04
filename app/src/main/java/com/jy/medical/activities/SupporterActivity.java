@@ -177,7 +177,7 @@ public class SupporterActivity extends BaseActivity {
                 break;
             case R.id.supporter_commit:
                 saveData();
-                CommitUtil.commitBaseInfo(context, taskNo, new CommitUtil.CommitCallBack() {
+                CommitUtil.commitSupporterInfo(context, taskNo, new CommitUtil.CommitCallBack() {
                     @Override
                     public void commitSuccess() {
                         Intent intent=new Intent();
@@ -191,7 +191,6 @@ public class SupporterActivity extends BaseActivity {
 
                     }
                 });
-
                 break;
             case R.id.complete_status:
                 //选择完成情况

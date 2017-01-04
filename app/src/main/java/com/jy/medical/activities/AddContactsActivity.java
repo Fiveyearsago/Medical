@@ -94,7 +94,6 @@ public class AddContactsActivity extends BaseActivity {
     }
 
     private boolean checkContact() {
-
         //检查联系人填写
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).getName().equals("") || list.get(i).getPhoneNum().equals("")) {
@@ -106,7 +105,7 @@ public class AddContactsActivity extends BaseActivity {
     }
 
     public void addItem() {
-        adapter.addItem();
+        adapter.addItem(taskNo);
     }
 
     @Override

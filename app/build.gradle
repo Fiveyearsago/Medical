@@ -40,7 +40,7 @@ android {
         }
     }
     greendao {
-        schemaVersion 14
+        schemaVersion 15
         daoPackage 'com.jy.medical.greendao.gen'
         targetGenDir 'src/main/java'
     }
@@ -85,5 +85,6 @@ dependencies {
     compile 'com.github.lecho:hellocharts-android:v1.5.8'
     //    compile 'org.quanqi:mpandroidchart:3.0.1'
     compile 'com.android.support:percent:24.0.0'
-//    compile 'me.imid.swipebacklayout.lib:library:1.0.0'
+    //    compile 'me.imid.swipebacklayout.lib:library:1.0.0'
+    compile files('libs/AMap_Search_V3.6.1_20161206.jar')
 }

@@ -78,4 +78,17 @@ public class TimeUtil {
         String str = sdf.format(startDate);
         return str;
     }
+
+    public static String getTimeWithSecondsString(String time) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+        Date startDate = null;
+        try {
+            startDate = format.parse(time);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        String str = sdf.format(startDate);
+        return str;
+    }
 }

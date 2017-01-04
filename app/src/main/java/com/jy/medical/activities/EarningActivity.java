@@ -222,23 +222,25 @@ public class EarningActivity extends BaseActivity {
                 MultiSelectUtil.initTimePicker(context, leaveTime, leaveTime.getText().toString(), "选择离职时间");
                 break;
             case R.id.earning_commit:
-//                CommitUtil.checkEarningInfo(context, taskNo);
                 saveData();
-                if (!CommitUtil.checkEarningInfo(context, taskNo))
-                    break;
-                AlertView mAlertView = new AlertView("提示", "提交后不能进行修改，是否提交？", "否", new String[]{"是"}, null, this, AlertView.Style.Alert, new com.bigkoo.alertview.OnItemClickListener() {
+                CommitUtil.commitEarningInfo(context, taskNo, new CommitUtil.CommitCallBack() {
                     @Override
-                    public void onItemClick(Object o, int position1) {
-                        if (position1 == 0) {
-                            //提交信息
-//                            commitData();
-                        }
+                    public void commitSuccess() {
+                        Intent intent = new Intent();
+                        intent.putExtra("commitFlag", "1");
+                        setResult(RESULT_OK, intent);
+                        finish();
                     }
-                }).setCancelable(true).setOnDismissListener(null);
-                mAlertView.show();
+
+                    @Override
+                    public void commitFailed() {
+
+                    }
+                });
                 break;
             case R.id.company_location:
-                startActivity(SelectAddressActivity.class);
+                Intent intent = new Intent(this, SelectAddressActivity.class);
+                startActivityForResult(intent, 0x13);
                 break;
             case R.id.industry:
                 //选择行业
@@ -285,6 +287,7 @@ public class EarningActivity extends BaseActivity {
         //选择行业
         Intent intent = new Intent(context, SelectCategoryActivity.class);
         intent.putExtra("kindCode","D110");
+        intent.putExtra("title", "选择行业");
         this.startActivityForResult(intent, 0x12);
     }
 
@@ -426,6 +429,12 @@ public class EarningActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
+                case 0x13:
+                    if (data.getStringExtra("address") != null) {
+                        companyAddress.setText(data.getStringExtra("address"));
+                        companyAddress.setSelection(data.getStringExtra("address").length());
+                    }
+                    break;
                 case 0x12:
                     industryText.setText(data.getStringExtra("value"));
                     industryKey = data.getStringExtra("value");

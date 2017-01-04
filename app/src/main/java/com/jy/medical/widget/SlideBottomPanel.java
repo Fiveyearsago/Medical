@@ -145,7 +145,8 @@ public class SlideBottomPanel extends FrameLayout {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        return true;
+//        return true;
+        return super.onTouchEvent(event);
 //        return false;
     }
 
@@ -163,17 +164,24 @@ public class SlideBottomPanel extends FrameLayout {
         boolean isConsume = false;
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                isConsume = handleActionDown(ev);
+//                isConsume = handleActionDown(ev);
                 break;
             case MotionEvent.ACTION_MOVE:
                 handleActionMove(ev);
                 break;
             case MotionEvent.ACTION_UP:
-                handleActionUp(ev);
-                releaseVelocityTracker();
+//                handleActionUp(ev);
+//                releaseVelocityTracker();
+//                isConsume = handleActionDown(ev);
+                isConsume = handleActionDown(ev);
+//                super.dispatchTouchEvent(ev);
                 break;
         }
-//        Log.d("dispatchTouchEvent", "" + (isConsume || super.dispatchTouchEvent(ev)));
+        Log.d("dispatchTouchEvent", "" + (isConsume || super.dispatchTouchEvent(ev)));
+//        if (isConsume){
+//            return super.dispatchTouchEvent(ev);
+//        }else
+//        return false ;
         return isConsume || super.dispatchTouchEvent(ev);
     }
 
@@ -189,10 +197,11 @@ public class SlideBottomPanel extends FrameLayout {
     }
 
     private void handleActionUp(MotionEvent event) {
+
 //        isPanelOnTouch=false;
-        if (!isPanelOnTouch) {
-            return;
-        }
+//        if (!isPanelOnTouch) {
+//            return;
+//        }
 
         long pressDuration = System.currentTimeMillis() - mPressStartTime;
         computeVelocity();
@@ -225,6 +234,7 @@ public class SlideBottomPanel extends FrameLayout {
     }
 
     private void handleActionMove(MotionEvent event) {
+        isPanelOnTouch = false;
         if (!isPanelOnTouch) {
             return;
         }
@@ -278,15 +288,23 @@ public class SlideBottomPanel extends FrameLayout {
         mPressStartTime = System.currentTimeMillis();
         firstDownX = event.getX();
         firstDownY = downY = event.getY();
-        if (!isPanelShowing && downY > mMeasureHeight - mTitleHeightNoDisplay) {
+//        if (!isPanelShowing && downY > mMeasureHeight - mTitleHeightNoDisplay) {
+//            isPanelOnTouch = true;
+//            isConsume = true;
+//        } else if (!isPanelShowing && downY <= mMeasureHeight - mTitleHeightNoDisplay) {
+//            isPanelOnTouch = false;
+//        } else if (isPanelShowing && downY > mMeasureHeight - mPanelHeight) {
+//            isPanelOnTouch = true;
+//        } else if (isPanelShowing && downY < mMeasureHeight - mPanelHeight) {
+//            hidePanel();
+//            isPanelOnTouch = false;
+//        }
+        if (downY > mMeasureHeight - mTitleHeightNoDisplay) {
             isPanelOnTouch = true;
-            isConsume = true;
-        } else if (!isPanelShowing && downY <= mMeasureHeight - mTitleHeightNoDisplay) {
-            isPanelOnTouch = false;
-        } else if (isPanelShowing && downY > mMeasureHeight - mPanelHeight) {
-            isPanelOnTouch = true;
-        } else if (isPanelShowing && downY < mMeasureHeight - mPanelHeight) {
-            hidePanel();
+//            isConsume = true;
+        } else if (downY <= mMeasureHeight - mTitleHeightNoDisplay) {
+//            if (isPanelShowing())
+//                hidePanel();
             isPanelOnTouch = false;
         }
         return isConsume;
@@ -343,6 +361,7 @@ public class SlideBottomPanel extends FrameLayout {
         if (isPanelShowing || isAnimating) {
             return;
         }
+
         if (mIsFade || mDarkFrameLayout != null) {
             mDarkFrameLayout.fade(true);
 //            mDarkFrameLayout.c(false);
@@ -587,5 +606,9 @@ public class SlideBottomPanel extends FrameLayout {
 
     public boolean isPanelShowing() {
         return isPanelShowing;
+    }
+
+    public interface CCallBack {
+        void changeState(boolean flag);
     }
 }

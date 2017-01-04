@@ -22,6 +22,7 @@ public class SelectCategoryActivity extends BaseActivity {
     private CategoryAdapter categoryAdapter;
     private String kindCode="";
     private String requestKind="";
+    private String title = "";
 
     @Override
     public void initData() {
@@ -38,6 +39,7 @@ public class SelectCategoryActivity extends BaseActivity {
         if (parms!=null){
             kindCode=parms.getString("kindCode");
             requestKind=parms.getString("requestKind")==null?"":parms.getString("requestKind");
+            title = parms.getString("title") == null ? "" : parms.getString("title");
         }
     }
 
@@ -45,7 +47,7 @@ public class SelectCategoryActivity extends BaseActivity {
     public void initView() {
         setStatusBarTint();
         setDragEdge(SwipeBackLayout.DragEdge.LEFT);
-        setTitleState(findViewById(R.id.title_head), true, "选择行业", false, "");
+        setTitleState(findViewById(R.id.title_head), true, title, false, "");
         recyclerView= (RecyclerView) findViewById(R.id.category_recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         categoryDataList=new ArrayList<>();

@@ -7,34 +7,25 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bigkoo.alertview.AlertView;
-import com.google.gson.Gson;
-import com.jy.ah.bus.data.Response;
 import com.jy.medical.MedicalApplication;
 import com.jy.medical.R;
-import com.jy.medical.adapter.ContactEditAdapter;
+import com.jy.medical.adapter.InquireEditAdapter;
 import com.jy.medical.adapter.PictureAdapter;
-import com.jy.medical.greendao.entities.BaseInfoData;
-import com.jy.medical.greendao.entities.ContactData;
-import com.jy.medical.greendao.entities.EarningData;
 import com.jy.medical.greendao.entities.HouseholdData;
-import com.jy.medical.greendao.entities.SupporterData;
+import com.jy.medical.greendao.entities.Inquire;
 import com.jy.medical.greendao.entities.TaskPhoto;
-import com.jy.medical.greendao.manager.ContactManager;
-import com.jy.medical.greendao.manager.EarningDataManager;
 import com.jy.medical.greendao.manager.HouseholdDataManager;
+import com.jy.medical.greendao.manager.InquireManager;
 import com.jy.medical.greendao.manager.TaskManager;
 import com.jy.medical.greendao.manager.TaskPhotoManager;
 import com.jy.medical.greendao.util.DaoUtils;
@@ -43,20 +34,15 @@ import com.jy.medical.util.ImageUtils;
 import com.jy.medical.util.LocalImageHelper;
 import com.jy.medical.util.MultiSelectUtil;
 import com.jy.medical.util.PhotoUtil;
-import com.jy.medical.util.PublicString;
-import com.jy.medical.util.ServerApiUtils;
 import com.jy.medical.util.StringUtils;
 import com.jy.medical.util.SwipeMenuUtil;
 import com.jy.medical.util.ToastUtil;
 import com.jy.medical.widget.ClearEditText;
-import com.jy.mobile.request.QTInspectAccidentInfoDTO;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 import com.yanzhenjie.recyclerview.swipe.Closeable;
 import com.yanzhenjie.recyclerview.swipe.OnSwipeMenuItemClickListener;
 import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
-
-import org.xutils.common.Callback;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -69,9 +55,9 @@ public class HouseHoldsActivity extends BaseActivity {
     private List<TaskPhoto> pictureList;
     private List<Bitmap> list;
     private SwipeMenuRecyclerView contactRecycler;
-    private List<ContactData> contactDataList;
-    private ContactEditAdapter adapter;
-    private ContactManager contactManager = DaoUtils.getContactInstance();
+    private List<Inquire> contactDataList;
+    private InquireEditAdapter adapter;
+    private InquireManager contactManager = DaoUtils.getInquireManagerInstance();
     private TaskPhotoManager taskPhotoManager = DaoUtils.getTaskPhotoInstance();
     private String taskNo;
     private List<LocalImageHelper.LocalFile> pictures = new ArrayList<>();//图片路径数组
@@ -155,7 +141,7 @@ public class HouseHoldsActivity extends BaseActivity {
         contactRecycler.setSwipeMenuItemClickListener(menuItemClickListener);
         contactDataList = new ArrayList<>();
         contactDataList = contactManager.selectAllContact(taskNo);
-        adapter = new ContactEditAdapter(this, contactDataList);
+        adapter = new InquireEditAdapter(this, contactDataList);
         contactRecycler.setAdapter(adapter);
 
         options = new DisplayImageOptions.Builder()
@@ -205,10 +191,10 @@ public class HouseHoldsActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.add_contact:
-                //添加联系人
+                //添加被询问人
                 Bundle bundle = new Bundle();
                 bundle.putString("taskNo", taskNo);
-                startActivity(AddContactsActivity.class, bundle);
+                startActivity(AddInquireActivity.class, bundle);
                 break;
             case R.id.start_time:
                 //选择入职时间
@@ -219,23 +205,25 @@ public class HouseHoldsActivity extends BaseActivity {
                 MultiSelectUtil.initTimePicker(context, endTimeTV, endTimeTV.getText().toString(), "选择结束时间");
                 break;
             case R.id.household_commit:
-//                CommitUtil.checkEarningInfo(context, taskNo);
                 saveData();
-                if (!CommitUtil.checkEarningInfo(context, taskNo))
-                    break;
-                AlertView mAlertView = new AlertView("提示", "提交后不能进行修改，是否提交？", "否", new String[]{"是"}, null, this, AlertView.Style.Alert, new com.bigkoo.alertview.OnItemClickListener() {
+                CommitUtil.commitHouseHoldsInfo(context, taskNo, new CommitUtil.CommitCallBack() {
                     @Override
-                    public void onItemClick(Object o, int position1) {
-                        if (position1 == 0) {
-                            //提交信息
-//                            commitData();
-                        }
+                    public void commitSuccess() {
+                        Intent intent = new Intent();
+                        intent.putExtra("commitFlag", "1");
+                        setResult(RESULT_OK, intent);
+                        finish();
                     }
-                }).setCancelable(true).setOnDismissListener(null);
-                mAlertView.show();
+
+                    @Override
+                    public void commitFailed() {
+
+                    }
+                });
                 break;
             case R.id.live_location:
-                startActivity(SelectAddressActivity.class);
+                Intent intentAddress = new Intent(this, SelectAddressActivity.class);
+                startActivityForResult(intentAddress, 0x13);
                 break;
             case R.id.household_city:
                 //选择城市
@@ -251,6 +239,7 @@ public class HouseHoldsActivity extends BaseActivity {
                 //选择户口性质
                 Intent intent = new Intent(context, SelectCategoryActivity.class);
                 intent.putExtra("kindCode", "D109");
+                intent.putExtra("title", "户口性质");
                 startActivityForResult(intent, 0x10);
                 break;
             case R.id.household_live:
@@ -320,7 +309,7 @@ public class HouseHoldsActivity extends BaseActivity {
 
     private void initContact() {
         contactDataList = contactManager.selectAllContact(taskNo);
-        adapter = new ContactEditAdapter(this, contactDataList);
+        adapter = new InquireEditAdapter(this, contactDataList);
         contactRecycler.setAdapter(adapter);
     }
 
@@ -353,54 +342,16 @@ public class HouseHoldsActivity extends BaseActivity {
 
     }
 
-    public void commitData() {
-        saveData();
-        final BaseInfoData baseInfoData = null;
-        QTInspectAccidentInfoDTO qtInspectAccidentInfoDTO = new QTInspectAccidentInfoDTO();
-        qtInspectAccidentInfoDTO.setTaskNo(taskNo);
-        qtInspectAccidentInfoDTO.setAddress(baseInfoData.getAddress());
-        qtInspectAccidentInfoDTO.setContactPerson("宋冉");
-        qtInspectAccidentInfoDTO.setContactTel("18612235095");
-        qtInspectAccidentInfoDTO.setRemark(baseInfoData.getRemark());
-        qtInspectAccidentInfoDTO.setAccidentDate(baseInfoData.getTime());
-        qtInspectAccidentInfoDTO.setUserCode("0131002498");
-        Gson gson = new Gson();
-        String data = gson.toJson(qtInspectAccidentInfoDTO);
-        ServerApiUtils.sendToServer(data, "002005", PublicString.URL_IFC, new Callback.CommonCallback<String>() {
-            @Override
-            public void onSuccess(String result) {
-                Log.i("result", result);
-                Gson responseGson = new Gson();
-                Response response = responseGson.fromJson(result, Response.class);
-                if (response != null && "1".equals(response.getResponseCode())) {
-                    String data = response.getData();
-                    Log.i("ResponseCode", response.getResponseCode());
-                    baseInfoData.setCommitFlag("1");
-//                    baseInfoDataManager.insertSingleData(baseInfoData);
-                }
-            }
-
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-
-            }
-
-            @Override
-            public void onCancelled(CancelledException cex) {
-
-            }
-
-            @Override
-            public void onFinished() {
-
-            }
-        });
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
+                case 0x13:
+                    if (data.getStringExtra("address") != null) {
+                        liveAddressEdit.setText(data.getStringExtra("address"));
+                        liveAddressEdit.setSelection(data.getStringExtra("address").length());
+                    }
+                    break;
                 case 0x10:
                     householdTypeTV.setText(data.getStringExtra("value"));
                     householdTypeKey = data.getStringExtra("key");

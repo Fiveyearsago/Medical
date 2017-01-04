@@ -21,6 +21,13 @@ public class ContactData {
         this.phoneNum = phoneNum;
     }
 
+    public ContactData(String title, String name, String phoneNum, String taskNo) {
+        this.title = title;
+        this.name = name;
+        this.phoneNum = phoneNum;
+        this.taskNo = taskNo;
+    }
+
     @Generated(hash = 341878437)
     public ContactData(Long id, String title, String name, String phoneNum,
             String taskNo) {

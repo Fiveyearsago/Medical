@@ -173,7 +173,7 @@ public class DeathActivity extends BaseActivity implements View.OnFocusChangeLis
                 break;
             case R.id.btn_commit:
                 saveData();
-                CommitUtil.commitBaseInfo(context, taskNo, new CommitUtil.CommitCallBack() {
+                CommitUtil.commitDeathInfo(context, taskNo, new CommitUtil.CommitCallBack() {
                     @Override
                     public void commitSuccess() {
                         Intent intent = new Intent();
@@ -187,10 +187,10 @@ public class DeathActivity extends BaseActivity implements View.OnFocusChangeLis
 
                     }
                 });
-
                 break;
             case R.id.death_location:
-                startActivity(SelectAddressActivity.class);
+                Intent intent = new Intent(this, SelectAddressActivity.class);
+                startActivityForResult(intent, 0x13);
                 break;
             case R.id.death_reason:
                 //选择死亡原因
@@ -266,6 +266,12 @@ public class DeathActivity extends BaseActivity implements View.OnFocusChangeLis
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
+                case 0x13:
+                    if (data.getStringExtra("address") != null) {
+                        addressEdit.setText(data.getStringExtra("address"));
+                        addressEdit.setSelection(data.getStringExtra("address").length());
+                    }
+                    break;
                 case ImageUtils.REQUEST_CODE_GETIMAGE_BYCAMERA:
                     String cameraPath = LocalImageHelper.getInstance().getCameraImgPath();
                     if (StringUtils.isEmpty(cameraPath)) {

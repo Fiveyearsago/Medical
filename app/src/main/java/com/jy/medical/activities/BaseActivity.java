@@ -264,10 +264,12 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
                     WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             mWindow.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION,
                     WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+
             SystemBarTintManager mSystemBarTintManager = new SystemBarTintManager(this);
             mSystemBarTintManager.setStatusBarTintEnabled(true);
-//            mSystemBarTintManager.setNavigationBarTintEnabled(true);//虚拟键
+            mSystemBarTintManager.setNavigationBarTintEnabled(true);//虚拟键
             mSystemBarTintManager.setTintColor(Color.parseColor("#0F5BC4"));
+            mSystemBarTintManager.setNavigationBarTintColor(Color.BLACK);
 //            mSystemBarTintManager.setStatusBarTintDrawable(getResources().getDrawable(R.mipmap.hpme_status_bg));
             ViewGroup rootView = (ViewGroup) ((ViewGroup) this.findViewById(android.R.id.content)).getChildAt(0);
             rootView.setFitsSystemWindows(true);
@@ -296,7 +298,9 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
                     | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(Color.TRANSPARENT);
-            window.setNavigationBarColor(Color.TRANSPARENT);
+//            window.setNavigationBarColor(Color.TRANSPARENT);
+//            window.setStatusBarColor(Color.parseColor("#0F5BC4"));
+            window.setNavigationBarColor(Color.BLACK);
         }
 
     }

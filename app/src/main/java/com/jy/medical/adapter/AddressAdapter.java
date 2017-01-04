@@ -64,7 +64,12 @@ public class AddressAdapter extends BaseHeadFootAdapter {
                 callBack.changeSearch(position);
             }
         });
-
+//        viewHolder.clickView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                callBack.changeSearch(position);
+//            }
+//        });
         viewHolder.title.setText(list.get(position).getTitle());
         viewHolder.text.setText(list.get(position).getText());
     }

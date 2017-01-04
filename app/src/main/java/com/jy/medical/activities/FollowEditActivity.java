@@ -285,6 +285,7 @@ public class FollowEditActivity extends BaseActivity {
                 case 0x13:
                     if (data.getStringExtra("address") != null) {
                         addressEdit.setText(data.getStringExtra("address"));
+                        addressEdit.setSelection(data.getStringExtra("address").length());
                     }
                     break;
                 case ImageUtils.REQUEST_CODE_GETIMAGE_BYCAMERA:

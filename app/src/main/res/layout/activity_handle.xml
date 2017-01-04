@@ -284,7 +284,7 @@
                     android:background="@null"
                     android:drawableRight="@mipmap/clear"
                     android:gravity="top"
-                    android:hint="必填"
+                    android:hint="非必填"
                     android:maxLines="5"
                     android:lineSpacingExtra="3dp"
                     android:textColor="@color/black"

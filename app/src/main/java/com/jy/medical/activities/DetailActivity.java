@@ -57,6 +57,7 @@ import com.jy.medical.greendao.manager.TaskManager;
 import com.jy.medical.greendao.util.DaoUtils;
 import com.jy.medical.util.CommitUtil;
 import com.jy.medical.util.TimeUtil;
+import com.jy.medical.util.ToastUtil;
 import com.jy.medical.widget.CustomViewpager;
 import com.jy.medical.widget.SwipeBackLayout;
 
@@ -367,9 +368,7 @@ public class DetailActivity extends BaseActivity implements OnItemClickListener,
                 CommitUtil.commitMedical(this, taskNo, new CommitUtil.CommitCallBack() {
                     @Override
                     public void commitSuccess() {
-                        Toast toast = Toast.makeText(context, "已成功提交", Toast.LENGTH_SHORT);
-                        toast.setGravity(Gravity.CENTER, 0, 0);
-                        toast.show();
+                        ToastUtil.showToast(context, "已成功提交");
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
@@ -381,37 +380,16 @@ public class DetailActivity extends BaseActivity implements OnItemClickListener,
 
                     @Override
                     public void commitFailed() {
-                        Toast.makeText(context, "提交失败", Toast.LENGTH_SHORT).show();
+                        ToastUtil.showToast(context, "提交失败");
                     }
                 });
                 break;
             case "02":
                 //收入情况
-                break;
-            case "03":
-                //误工情况
-                break;
-            case "04":
-                //户籍信息
-                break;
-            case "05":
-                //被扶养人信息
-                break;
-            case "06":
-                //死亡信息
-                break;
-            case "07":
-                break;
-            case "08":
-                //伤残信息
-                break;
-            case "09":
-                CommitUtil.commitBaseInfo(this, taskNo, new CommitUtil.CommitCallBack() {
+                CommitUtil.commitEarningInfo(this, taskNo, new CommitUtil.CommitCallBack() {
                     @Override
                     public void commitSuccess() {
-                        Toast toast = Toast.makeText(context, "已成功提交", Toast.LENGTH_SHORT);
-                        toast.setGravity(Gravity.CENTER, 0, 0);
-                        toast.show();
+                        ToastUtil.showToast(context, "已成功提交");
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
@@ -423,12 +401,175 @@ public class DetailActivity extends BaseActivity implements OnItemClickListener,
 
                     @Override
                     public void commitFailed() {
-                        Toast.makeText(context, "提交失败", Toast.LENGTH_SHORT).show();
+                        ToastUtil.showToast(context, "提交失败");
+                    }
+                });
+                break;
+            case "03":
+                //误工情况
+                CommitUtil.commitDelayInfo(this, taskNo, new CommitUtil.CommitCallBack() {
+                    @Override
+                    public void commitSuccess() {
+                        ToastUtil.showToast(context, "已成功提交");
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                setResult(RESULT_OK);
+                                finish();
+                            }
+                        }, 1000);
+                    }
+
+                    @Override
+                    public void commitFailed() {
+                        ToastUtil.showToast(context, "提交失败");
+                    }
+                });
+                break;
+            case "04":
+                //户籍信息
+                CommitUtil.commitHouseHoldsInfo(this, taskNo, new CommitUtil.CommitCallBack() {
+                    @Override
+                    public void commitSuccess() {
+                        ToastUtil.showToast(context, "已成功提交");
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                setResult(RESULT_OK);
+                                finish();
+                            }
+                        }, 1000);
+                    }
+
+                    @Override
+                    public void commitFailed() {
+                        ToastUtil.showToast(context, "提交失败");
+                    }
+                });
+                break;
+            case "05":
+                //被扶养人信息
+                CommitUtil.commitSupporterInfo(this, taskNo, new CommitUtil.CommitCallBack() {
+                    @Override
+                    public void commitSuccess() {
+                        ToastUtil.showToast(context, "已成功提交");
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                setResult(RESULT_OK);
+                                finish();
+                            }
+                        }, 1000);
+                    }
+
+                    @Override
+                    public void commitFailed() {
+                        ToastUtil.showToast(context, "提交失败");
+                    }
+                });
+                break;
+            case "06":
+                //死亡信息
+                CommitUtil.commitDeathInfo(this, taskNo, new CommitUtil.CommitCallBack() {
+                    @Override
+                    public void commitSuccess() {
+                        ToastUtil.showToast(context, "已成功提交");
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                setResult(RESULT_OK);
+                                finish();
+                            }
+                        }, 1000);
+                    }
+
+                    @Override
+                    public void commitFailed() {
+                        ToastUtil.showToast(context, "提交失败");
+                    }
+                });
+                break;
+            case "07":
+                CommitUtil.commitDelayInfo(this, taskNo, new CommitUtil.CommitCallBack() {
+                    @Override
+                    public void commitSuccess() {
+                        ToastUtil.showToast(context, "已成功提交");
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                setResult(RESULT_OK);
+                                finish();
+                            }
+                        }, 1000);
+                    }
+
+                    @Override
+                    public void commitFailed() {
+                        ToastUtil.showToast(context, "提交失败");
+                    }
+                });
+                break;
+            case "08":
+                //伤残信息
+                CommitUtil.commitMaimInfo(this, taskNo, new CommitUtil.CommitCallBack() {
+                    @Override
+                    public void commitSuccess() {
+                        ToastUtil.showToast(context, "已成功提交");
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                setResult(RESULT_OK);
+                                finish();
+                            }
+                        }, 1000);
+                    }
+
+                    @Override
+                    public void commitFailed() {
+                        ToastUtil.showToast(context, "提交失败");
+                    }
+                });
+                break;
+            case "09":
+                CommitUtil.commitBaseInfo(this, taskNo, new CommitUtil.CommitCallBack() {
+                    @Override
+                    public void commitSuccess() {
+                        ToastUtil.showToast(context, "已成功提交");
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                setResult(RESULT_OK);
+                                finish();
+                            }
+                        }, 1000);
+                    }
+
+                    @Override
+                    public void commitFailed() {
+                        ToastUtil.showToast(context, "提交失败");
                     }
                 });
                 break;
             case "10":
                 //事故处理信息
+                CommitUtil.commitHandleInfo(this, taskNo, new CommitUtil.CommitCallBack() {
+                    @Override
+                    public void commitSuccess() {
+                        ToastUtil.showToast(context, "已成功提交");
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                setResult(RESULT_OK);
+                                finish();
+                            }
+                        }, 1000);
+                    }
+
+                    @Override
+                    public void commitFailed() {
+                        ToastUtil.showToast(context, "提交失败");
+                    }
+                });
                 break;
 
         }

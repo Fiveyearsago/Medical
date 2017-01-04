@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,13 +46,14 @@ public class ContactAdapter extends BaseHeadFootAdapter {
     }
 
 
+
     @Override
     protected int getItemNum() {
         return list.size();
     }
 
-    public void addItem(){
-        ContactData contactData=new ContactData("联系人"+(list.size()+1),"","");
+    public void addItem(String taskNo) {
+        ContactData contactData = new ContactData("联系人" + (list.size() + 1), "", "", taskNo);
         list.add(list.size(),contactData);
         notifyItemInserted(list.size());
     }
@@ -67,6 +70,38 @@ public class ContactAdapter extends BaseHeadFootAdapter {
         viewHolder.title.setText(contactData.getTitle());
         viewHolder.name.setText(contactData.getName());
         viewHolder.phone.setText(contactData.getPhoneNum());
+        viewHolder.name.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                list.get(position).setName(s + "");
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        viewHolder.phone.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                list.get(position).setPhoneNum(s + "");
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
         viewHolder.name.clearFocus();
         viewHolder.phone.clearFocus();
 

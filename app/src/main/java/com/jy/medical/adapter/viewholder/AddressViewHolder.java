@@ -14,10 +14,12 @@ public class AddressViewHolder extends RecyclerView.ViewHolder {
 
     public TextView title;
     public TextView text;
+    public View clickView;
     public AddressViewHolder(View itemView) {
         super(itemView);
 //        itemView.setBackground();
         title = (TextView) itemView.findViewById(R.id.item_address_title);
         text = (TextView) itemView.findViewById(R.id.item_address_text);
+        clickView = itemView.findViewById(R.id.click_view);
     }
 }

@@ -1,5 +1,6 @@
 package com.jy.medical.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,52 +12,45 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.chanven.lib.cptr.PtrClassicFrameLayout;
-import com.chanven.lib.cptr.PtrDefaultHandler;
-import com.chanven.lib.cptr.PtrFrameLayout;
-import com.chanven.lib.cptr.loadmore.OnLoadMoreListener;
-import com.chanven.lib.cptr.recyclerview.RecyclerAdapterWithHF;
-import com.google.gson.Gson;
-import com.jy.ah.bus.data.Response;
+import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.search.geocode.GeoCodeResult;
+import com.baidu.mapapi.search.geocode.GeoCoder;
+import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
+import com.baidu.mapapi.search.geocode.ReverseGeoCodeOption;
+import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
+import com.baidu.mapapi.search.sug.OnGetSuggestionResultListener;
+import com.baidu.mapapi.search.sug.SuggestionResult;
+import com.baidu.mapapi.search.sug.SuggestionSearch;
+import com.baidu.mapapi.search.sug.SuggestionSearchOption;
 import com.jy.medical.R;
-import com.jy.medical.adapter.HospitalAdapter;
+import com.jy.medical.adapter.AddressAdapter;
 import com.jy.medical.adapter.SearchAdapter;
-import com.jy.medical.dao.RequestServerImpl;
-import com.jy.medical.greendao.entities.HospitalData;
+import com.jy.medical.greendao.entities.AddressData;
 import com.jy.medical.greendao.entities.SearchData;
-import com.jy.medical.greendao.manager.HospitalDataManager;
 import com.jy.medical.greendao.manager.SearchDataManager;
 import com.jy.medical.greendao.util.DaoUtils;
-import com.jy.medical.util.JsonUtil;
-import com.jy.medical.widget.CleanableEditText;
+import com.jy.medical.widget.ClearEditText;
 import com.jy.medical.widget.SwipeBackLayout;
-import com.jy.mobile.dto.DictKEYValueDTO;
-import com.jy.mobile.dto.HosptialDTO;
-import com.jy.mobile.response.SpListDTO;
-
-import org.xutils.common.Callback;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchAddressActivity extends BaseActivity implements TextView.OnEditorActionListener, Callback.CommonCallback<String> {
+public class SearchAddressActivity extends BaseActivity implements TextView.OnEditorActionListener, AddressAdapter.ACallBack, OnGetGeoCoderResultListener, SearchAdapter.SCallBack {
     private SearchAdapter searchAdapter;
     private RecyclerView recordRecyclerView;
     private List<SearchData> searchDataList;
     private View recordView;
-    private CleanableEditText cleanableEditText;
+    private ClearEditText cleanableEditText;
     private ImageButton deleteRecordImage;
-    private PtrClassicFrameLayout ptrClassicFrameLayout;
     private RecyclerView mRecyclerView;
-    private List<HospitalData> hospitalDatas;
-    private HospitalAdapter hospitalAdapter;
-    private RecyclerAdapterWithHF mAdapter;
+    private List<AddressData> list;
+    private AddressAdapter adapter;
     Handler handler = new Handler();
-    private int page = 0;
-    private String taskNo;
-    private String flag = "";
+    private SuggestionSearch mSuggestionSearch = SuggestionSearch.newInstance();
+    private GeoCoder mSearch;
+    private String cityName;
+    private int index = 0;
 
     @Override
     public void initData() {
@@ -65,14 +59,12 @@ public class SearchAddressActivity extends BaseActivity implements TextView.OnEd
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_search_hospital;
+        return R.layout.activity_search_address;
     }
 
     @Override
     public void initParams(Bundle parms) {
-
-        taskNo = parms.getString("taskNo");
-        flag = parms.getString("flag");
+        cityName = parms.getString("cityName");
     }
 
     @Override
@@ -80,11 +72,13 @@ public class SearchAddressActivity extends BaseActivity implements TextView.OnEd
         setStatusBarTint();
         setDragEdge(SwipeBackLayout.DragEdge.LEFT);
         setSearchTitle(findViewById(R.id.title_head), "取消");
-        ptrClassicFrameLayout = (PtrClassicFrameLayout) findViewById(R.id.hospital_recyclerView_frame);
+        mSuggestionSearch.setOnGetSuggestionResultListener(listener);
+        mSearch = GeoCoder.newInstance();
+        mSearch.setOnGetGeoCodeResultListener(this);
         mRecyclerView = (RecyclerView) findViewById(R.id.hospital_recyclerView);
-        hospitalDatas = new ArrayList<>();
+        list = new ArrayList<>();
         initRecyclerView();
-        cleanableEditText = (CleanableEditText) findViewById(R.id.page_head_search_editText);
+        cleanableEditText = (ClearEditText) findViewById(R.id.page_head_search_editText);
         recordView = findViewById(R.id.record_layout);
         deleteRecordImage = (ImageButton) findViewById(R.id.delete_record_image);
         deleteRecordImage.setOnClickListener(this);
@@ -98,59 +92,15 @@ public class SearchAddressActivity extends BaseActivity implements TextView.OnEd
     }
 
     private void initRecyclerView() {
-        hospitalAdapter = new HospitalAdapter(this, hospitalDatas, taskNo, flag);
-        mAdapter = new RecyclerAdapterWithHF(hospitalAdapter);
+        adapter = new AddressAdapter(this, list, this);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.setAdapter(mAdapter);
-        ptrClassicFrameLayout.postDelayed(new Runnable() {
-
-            @Override
-            public void run() {
-//                ptrClassicFrameLayout.autoRefresh(true);
-            }
-        }, 150);
-        ptrClassicFrameLayout.setPtrHandler(new PtrDefaultHandler() {
-
-            @Override
-            public void onRefreshBegin(PtrFrameLayout frame) {
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        page = 0;
-                        //刷新数据源
-                        //hospitalDatas.clear();
-                        mAdapter.notifyDataSetChanged();
-//                        ptrClassicFrameLayout.refreshComplete();
-                        ptrClassicFrameLayout.setLoadMoreEnable(true);
-                        ptrClassicFrameLayout.setPullToRefresh(true);
-                    }
-                }, 1500);
-            }
-        });
-        ptrClassicFrameLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
-
-            @Override
-            public void loadMore() {
-                handler.postDelayed(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        //加载下页数据
-                        //TODO
-                        mAdapter.notifyDataSetChanged();
-                        ptrClassicFrameLayout.loadMoreComplete(true);
-                        page++;
-                        Toast.makeText(SearchAddressActivity.this, "load more complete", Toast.LENGTH_SHORT).show();
-                    }
-                }, 1000);
-            }
-        });
+        mRecyclerView.setAdapter(adapter);
     }
 
     public void initRecordData() {
         SearchDataManager searchDataManager = DaoUtils.getSearchDataInstance();
-        searchDataList = searchDataManager.getData("1");
-        searchAdapter = new SearchAdapter(this, searchDataList);
+        searchDataList = searchDataManager.getData("2");
+        searchAdapter = new SearchAdapter(this, searchDataList, this);
         recordRecyclerView.setAdapter(searchAdapter);
         if (searchDataList.size() == 0) {
             recordView.setVisibility(View.GONE);
@@ -161,7 +111,7 @@ public class SearchAddressActivity extends BaseActivity implements TextView.OnEd
 
     public void insertRecordData(String text) {
         SearchDataManager searchDataManager = DaoUtils.getSearchDataInstance();
-        searchDataManager.insertSingleData(new SearchData("1", text));
+        searchDataManager.insertSingleData(new SearchData("2", text));
     }
 
     @Override
@@ -179,7 +129,7 @@ public class SearchAddressActivity extends BaseActivity implements TextView.OnEd
 
     private void deleteRecordData() {
         SearchDataManager searchDataManager = DaoUtils.getSearchDataInstance();
-        searchDataManager.deleteData("1");
+        searchDataManager.deleteData("2");
         initRecordData();
     }
 
@@ -189,7 +139,9 @@ public class SearchAddressActivity extends BaseActivity implements TextView.OnEd
             String text = cleanableEditText.getText().toString().trim();
             if (!text.equals("")) {
                 //执行搜索操作
-                RequestServerImpl.getHospitalData("F4896B94148240FC9EFCDB9B5E2A17EB", text, 1, 20, "1", this);
+                mSuggestionSearch.requestSuggestion((new SuggestionSearchOption())
+                        .keyword(cleanableEditText.getText().toString())
+                        .city(cityName));
                 insertRecordData(text);
                 InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
                 imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
@@ -199,42 +151,79 @@ public class SearchAddressActivity extends BaseActivity implements TextView.OnEd
         return false;
     }
 
-    @Override
-    public void onSuccess(String result) {
-        //请求数据成功
-        Log.i("result", result);
-        Gson responseGson = new Gson();
-        Response response = responseGson.fromJson(result, Response.class);
-        if (response != null && "1".equals(response.getResponseCode())) {
-            String data = response.getData();
-            Log.i("ResponseCode", response.getResponseCode());
-            SpListDTO spListDTO = responseGson.fromJson(data, SpListDTO.class);
-            List<HosptialDTO> hosptialList = spListDTO.getHosptialList();
-            List<DictKEYValueDTO> dictList = spListDTO.getDictList();
-            JsonUtil.saveHospitalData(hosptialList, dictList);
+
+    OnGetSuggestionResultListener listener = new OnGetSuggestionResultListener() {
+        public void onGetSuggestionResult(SuggestionResult res) {
+            if (res == null || res.getAllSuggestions() == null) {
+                return;
+                //未找到相关结果
+            }
+            //获取在线建议检索结果
+            recordView.setVisibility(View.GONE);
+            List<SuggestionResult.SuggestionInfo> suggestionInfoList = res.getAllSuggestions();
+            list.clear();
+            for (int i = 0; i < suggestionInfoList.size(); i++) {
+                SuggestionResult.SuggestionInfo s = suggestionInfoList.get(i);
+                if (s.pt != null)
+                    list.add(new AddressData(s.key, "", s.pt.latitude, s.pt.longitude));
+            }
+            mSearch.reverseGeoCode(new ReverseGeoCodeOption()
+                    .location(new LatLng(list.get(0).getLatitude(), list.get(0).getLongitude())));
+            index = 0;
+
         }
+    };
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mSuggestionSearch.destroy();
+    }
+
+    @Override
+    public void changeSearch(int index) {
+        Intent intent = new Intent();
+        intent.putExtra("lat", list.get(index).getLatitude());
+        intent.putExtra("long", list.get(index).getLongitude());
+        setResult(RESULT_OK, intent);
+        finish();
+    }
+
+    @Override
+    public void onGetGeoCodeResult(GeoCodeResult geoCodeResult) {
+        Log.i("address1", geoCodeResult.getAddress());
+
+
+    }
+
+    @Override
+    public void onGetReverseGeoCodeResult(ReverseGeoCodeResult reverseGeoCodeResult) {
+        LatLng l = new LatLng(reverseGeoCodeResult.getLocation().latitude, reverseGeoCodeResult.getLocation().longitude);
+        Log.i("address", reverseGeoCodeResult.getAddress());
+        if (index < list.size())
+            list.get(index).setText(reverseGeoCodeResult.getAddress());
+        else return;
+        if (index == list.size() - 1) {
+            adapter.setData(list);
+            adapter.notifyDataSetChanged();
+            return;
+        } else {
+            index++;
+            mSearch.reverseGeoCode(new ReverseGeoCodeOption()
+                    .location(new LatLng(list.get(index).getLatitude(), list.get(index).getLongitude())));
+        }
+    }
+
+    @Override
+    public void search(int sIndex) {
+        cleanableEditText.setText(searchDataList.get(sIndex).getSearchText());
+        cleanableEditText.setSelection(cleanableEditText.getText().length());
         recordView.setVisibility(View.GONE);
-        HospitalDataManager hospitalDataManager = DaoUtils.getHospitalInstance();
-        hospitalDatas.clear();
-        hospitalDatas = hospitalDataManager.getData();
-        hospitalAdapter = new HospitalAdapter(this, hospitalDatas, taskNo, flag);
-        mAdapter = new RecyclerAdapterWithHF(hospitalAdapter);
-        mRecyclerView.setAdapter(mAdapter);
-    }
-
-    @Override
-    public void onError(Throwable ex, boolean isOnCallback) {
+        mSuggestionSearch.requestSuggestion((new SuggestionSearchOption())
+                .keyword(cleanableEditText.getText().toString())
+                .city(cityName));
+        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
 
     }
-
-    @Override
-    public void onCancelled(CancelledException cex) {
-
-    }
-
-    @Override
-    public void onFinished() {
-
-    }
-
 }

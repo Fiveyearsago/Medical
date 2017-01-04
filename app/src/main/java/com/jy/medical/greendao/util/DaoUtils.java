@@ -21,6 +21,7 @@ import com.jy.medical.greendao.manager.HandleDataManager;
 import com.jy.medical.greendao.manager.HospitalDataManager;
 import com.jy.medical.greendao.manager.HouseholdDataManager;
 import com.jy.medical.greendao.manager.HumanPartsManager;
+import com.jy.medical.greendao.manager.InquireManager;
 import com.jy.medical.greendao.manager.MaimDataManager;
 import com.jy.medical.greendao.manager.MaimGradeDataManager;
 import com.jy.medical.greendao.manager.MedicalDepartmentManager;
@@ -65,6 +66,7 @@ public class DaoUtils {
     private static MaimGradeDataManager maimGradeDataManager;
     private static SupporterPersonManager supporterPersonManager;
     private static HouseholdDataManager householdDataManager;
+    private static InquireManager inquireManager;
     public static Context context;
 
     public static void init(Context context) {
@@ -75,17 +77,26 @@ public class DaoUtils {
     /**
      * 单列模式获取Manager对象
      */
+    public static InquireManager getInquireManagerInstance() {
+        if (inquireManager == null) {
+            inquireManager = new InquireManager(context);
+        }
+        return inquireManager;
+    }
     public static HouseholdDataManager getHouseholdDataInstance() {
         if (householdDataManager == null) {
             householdDataManager = new HouseholdDataManager(context);
         }
         return householdDataManager;
-    } public static SupporterPersonManager getSupporterPersonInstance() {
+    }
+
+    public static SupporterPersonManager getSupporterPersonInstance() {
         if (supporterPersonManager == null) {
             supporterPersonManager = new SupporterPersonManager(context);
         }
         return supporterPersonManager;
     }
+
     public static MaimGradeDataManager getMaimGradeDataInstance() {
         if (maimGradeDataManager == null) {
             maimGradeDataManager = new MaimGradeDataManager(context);

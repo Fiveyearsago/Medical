@@ -266,18 +266,22 @@ public class MedicalVisitsActivity extends BaseActivity {
                 break;
             case R.id.visit_edit_commit:
                 //保存编辑信息
-
-                AlertView mAlertView = new AlertView("提示", "提交后不能进行修改，是否提交？", "否", new String[]{"是"}, null, this, AlertView.Style.Alert, new com.bigkoo.alertview.OnItemClickListener() {
+                saveData();
+                CommitUtil.commitMedical(mContext, taskNo, new CommitUtil.CommitCallBack() {
                     @Override
-                    public void onItemClick(Object o, int position1) {
-                        if (position1==0){
-                            //提交信息
-                            commitMedicalData();
-
-                        }
+                    public void commitSuccess() {
+                        Intent intent = new Intent();
+                        intent.putExtra("commitFlag", "1");
+                        setResult(RESULT_OK, intent);
+                        finish();
                     }
-                }).setCancelable(true).setOnDismissListener(null);
-                mAlertView.show();
+
+                    @Override
+                    public void commitFailed() {
+
+                    }
+                });
+
                 break;
             case R.id.visit_edit_save:
                 //保存编辑信息

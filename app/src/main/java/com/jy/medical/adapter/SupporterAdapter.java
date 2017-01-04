@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.jy.medical.R;
+import com.jy.medical.activities.SelectAddressActivity;
 import com.jy.medical.activities.SelectCategoryActivity;
 import com.jy.medical.adapter.viewholder.NursingViewHolder;
 import com.jy.medical.adapter.viewholder.SupporterViewHolder;
@@ -100,6 +101,7 @@ public class SupporterAdapter extends BaseHeadFootAdapter {
                 Intent intent = new Intent(context,SelectCategoryActivity.class);
                 intent.putExtra("kindCode","D116");
                 intent.putExtra("requestKind","01");
+                intent.putExtra("title", "与受害人关系");
                 ((AppCompatActivity) context).startActivityForResult(intent, position);
             }
         });
@@ -110,7 +112,15 @@ public class SupporterAdapter extends BaseHeadFootAdapter {
                 Intent intent = new Intent(context,SelectCategoryActivity.class);
                 intent.putExtra("kindCode","D109");
                 intent.putExtra("requestKind","02");
+                intent.putExtra("title", "户口性质");
                 ((AppCompatActivity) context).startActivityForResult(intent, position);
+            }
+        });
+        viewHolder.location.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, SelectAddressActivity.class);
+                ((AppCompatActivity) context).startActivityForResult(intent, 0x13);
             }
         });
     }

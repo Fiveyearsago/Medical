@@ -101,6 +101,10 @@ public class MaimDataManager extends BaseDao<MaimData> {
             maimData.setApprovalDepartmentKey(departmentId);
             maimData.setApprovalDepartmentValue(departmentValue);
             maimDataDao.update(maimData);
+        } else {
+            maimData = new MaimData(taskNo, departmentId, departmentValue, "", "", "", "", "",
+                    "");
+            maimDataDao.insert(maimData);
         }
     }
 }

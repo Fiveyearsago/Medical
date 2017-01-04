@@ -75,7 +75,7 @@
                 android:textColor="@color/minorColor"
                 android:textSize="@dimen/primary_text_size" />
 
-            <com.jy.medical.widget.CleanableEditText
+            <com.jy.medical.widget.ClearEditText
                 android:id="@+id/item_edit_name"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -106,7 +106,7 @@
                 android:textColor="@color/minorColor"
                 android:textSize="@dimen/primary_text_size" />
 
-            <com.jy.medical.widget.CleanableEditText
+            <com.jy.medical.widget.ClearEditText
                 android:id="@+id/item_edit_phone"
                 android:layout_width="0dp"
                 android:paddingRight="10dp"

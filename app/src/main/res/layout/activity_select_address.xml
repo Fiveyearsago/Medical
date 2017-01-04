@@ -5,114 +5,164 @@
     android:id="@+id/activity_select_address"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical"
     tools:context="com.jy.medical.activities.SelectAddressActivity">
 
     <include layout="@layout/page_head_location_search" />
 
-    <RelativeLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.jy.medical.widget.SlideBottomPanel
-            android:id="@+id/sbv"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignParentBottom="true"
-            app:sbp_background_layout="@layout/background_layout"
-            app:sbp_hide_panel_title="false"
-            app:sbp_panel_height="380dp"
-            app:sbp_title_height_no_display="55dp">
+            android:orientation="vertical">
 
-
-            <FrameLayout
+            <com.baidu.mapapi.map.MapView
+                android:id="@+id/mapView"
                 android:layout_width="match_parent"
-                android:layout_height="380dp"
-                android:orientation="vertical">
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:focusable="true" />
 
-                <ListView
-                    android:id="@+id/address_recyclerView"
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@mipmap/pin" />
+
+            <ImageView
+                android:id="@+id/my_location_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="90dp"
+                android:layout_marginLeft="10dp"
+                android:clickable="true"
+                android:src="@drawable/mylocation_selector" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
+
+            <com.jy.medical.widget.SlideBottomPanel
+                android:id="@+id/sbv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentBottom="true"
+                app:sbp_background_layout="@layout/background_layout1"
+                app:sbp_hide_panel_title="false"
+                app:sbp_panel_height="380dp"
+                app:sbp_title_height_no_display="55dp">
+
+
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/bg_recylerview_address" />
+                    android:layout_height="380dp"
+                    android:orientation="vertical">
 
-                <!--<android.support.v7.widget.RecyclerView-->
-                <!--android:id="@+id/address_recyclerView"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:background="@drawable/bg_recylerview_address" />-->
-
-                <!-- 标题，如果需要完整显示标题，设置 sbp_title_height_no_display="标题的高度" -->
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="55dp"
-                    android:background="@drawable/bg_location_edittext"
-                    android:gravity="center_vertical">
-
-                    <ImageView
-                        android:id="@+id/location_now_image"
-                        android:layout_width="16dp"
-                        android:layout_height="21dp"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="10dp"
-                        android:background="@mipmap/location_now"
-                        android:scaleType="fitXY" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
+                    <ListView
+                        android:id="@+id/address_recyclerView"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="10dp"
-                        android:layout_toRightOf="@+id/location_now_image"
-                        android:orientation="vertical">
+                        android:background="@drawable/bg_recylerview_address" />
 
-                        <TextView
-                            android:id="@+id/text_title"
+                    <!--<android.support.v7.widget.RecyclerView-->
+                    <!--android:id="@+id/address_recyclerView"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:background="@drawable/bg_recylerview_address" />-->
+
+                    <!-- 标题，如果需要完整显示标题，设置 sbp_title_height_no_display="标题的高度" -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+                        android:background="@drawable/bg_location_edittext"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:id="@+id/location_now_image"
+                            android:layout_width="16dp"
+                            android:layout_height="21dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="10dp"
+                            android:background="@mipmap/location_now"
+                            android:scaleType="fitXY" />
+
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="定位"
-                            android:visibility="gone"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/primary_text_size" />
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="10dp"
+                            android:layout_toRightOf="@+id/location_now_image"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/text_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="定位"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/primary_text_size"
+                                android:visibility="gone" />
+
+                            <TextView
+                                android:id="@+id/text_address"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:text="定位"
+                                android:textColor="@color/minorColor"
+                                android:textSize="@dimen/third_text_size"
+                                android:visibility="gone" />
+
+                            <TextView
+                                android:id="@+id/text_location"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:gravity="center_vertical"
+                                android:text="定位中..."
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/primary_text_size" />
+                        </LinearLayout>
 
                         <TextView
-                            android:id="@+id/text_address"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:text="定位"
-                            android:visibility="gone"
-                            android:textColor="@color/minorColor"
-                            android:textSize="@dimen/third_text_size" />
+                            android:id="@+id/btn_sure"
+                            android:layout_toLeftOf="@+id/checkbox_address"
+                            android:layout_width="50dp"
+                            android:layout_height="30dp"
+                            android:text="确定"
+                            android:clickable="true"
+                            android:gravity="center"
+                            android:textColor="@drawable/btn_press_selector"
+                            android:layout_centerVertical="true"
+                            android:textSize="@dimen/primary_text_size"
+                            android:background="@drawable/btn_blue_selector" />
 
-                        <TextView
-                            android:id="@+id/text_location"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical"
-                            android:text="定位中..."
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/primary_text_size" />
-                    </LinearLayout>
+                        <CheckBox
+                            android:id="@+id/checkbox_address"
+                            android:layout_width="37dp"
+                            android:layout_height="22dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="5dp"
+                            android:background="@drawable/bg_radio_address"
+                            android:button="@null"
+                            android:scaleType="fitXY" />
 
+                    </RelativeLayout>
 
-                    <CheckBox
-                        android:id="@+id/checkbox_address"
-                        android:layout_width="37dp"
-                        android:layout_height="22dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="5dp"
-                        android:focusable="true"
-                        android:background="@drawable/bg_radio_address"
-                        android:button="@null"
-                        android:scaleType="fitXY" />
+                </FrameLayout>
 
-                </RelativeLayout>
+            </com.jy.medical.widget.SlideBottomPanel>
 
-            </FrameLayout>
-
-        </com.jy.medical.widget.SlideBottomPanel>
-
-    </RelativeLayout>
+        </RelativeLayout>
+    </FrameLayout>
 </LinearLayout>

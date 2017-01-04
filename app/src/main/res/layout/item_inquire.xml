@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="10dp"
+    android:background="@color/pageBackground"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="89dp"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/item_name_layout"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginRight="88dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/primary_margin">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="姓名:"
+                android:textColor="@color/minorColor"
+                android:textSize="@dimen/primary_text_size" />
+
+            <com.jy.medical.widget.ClearEditText
+                android:id="@+id/item_edit_name"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:drawableRight="@mipmap/clear"
+                android:gravity="center_vertical"
+                android:paddingRight="10dp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/primary_text_size" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/item_phone_layout"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_below="@+id/item_name_layout"
+            android:layout_marginRight="88dp"
+            android:paddingLeft="@dimen/primary_margin">
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="电话:"
+                android:textColor="@color/minorColor"
+                android:textSize="@dimen/primary_text_size" />
+
+            <com.jy.medical.widget.ClearEditText
+                android:id="@+id/item_edit_phone"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:drawableRight="@mipmap/clear"
+                android:gravity="center_vertical"
+                android:inputType="numberSigned"
+                android:paddingRight="10dp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/primary_text_size" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@+id/item_name_layout"
+            android:layout_toLeftOf="@+id/item_contact_layout"
+            android:background="@color/lineColor" />
+
+        <RelativeLayout
+            android:id="@+id/item_contact_layout"
+            android:layout_width="88dp"
+            android:layout_height="88dp"
+            android:layout_alignParentRight="true"
+            android:clickable="true">
+
+            <View
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:background="@color/lineColor" />
+
+            <ImageButton
+                android:id="@+id/item_add_image"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/contact_selector"
+                android:scaleType="fitXY" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/lineColor" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/lineColor" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:layout_marginBottom="10dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/primary_margin"
+        android:paddingRight="@dimen/primary_margin">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="身份:"
+            android:textColor="@color/minorColor"
+            android:textSize="@dimen/primary_text_size" />
+
+        <TextView
+            android:id="@+id/item_people_id"
+            android:layout_width="0dp"
+            android:clickable="true"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawablePadding="5dp"
+            android:drawableRight="@mipmap/more"
+            android:gravity="right"
+            android:hint="必选"
+            android:textColorHint="@color/minorColor" />
+    </LinearLayout>
+
+</LinearLayout>
