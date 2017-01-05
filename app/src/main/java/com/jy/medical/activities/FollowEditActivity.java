@@ -46,6 +46,7 @@ import com.jy.medical.util.PhotoUtil;
 import com.jy.medical.util.PublicString;
 import com.jy.medical.util.ServerApiUtils;
 import com.jy.medical.util.StringUtils;
+import com.jy.medical.util.SwipeMenuUtil;
 import com.jy.medical.util.ToastUtil;
 import com.jy.medical.widget.ClearEditText;
 import com.jy.medical.widget.FilterImageView;
@@ -61,6 +62,9 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 import com.nostra13.universalimageloader.core.imageaware.ImageViewAware;
+import com.yanzhenjie.recyclerview.swipe.Closeable;
+import com.yanzhenjie.recyclerview.swipe.OnSwipeMenuItemClickListener;
+import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 
 import org.xutils.common.Callback;
 
@@ -77,7 +81,7 @@ public class FollowEditActivity extends BaseActivity {
     private List<TaskPhoto> pictureList;
     private List<Bitmap> list;
     private TextView textAccidentTime;
-    private RecyclerView contactRecycler;
+    private SwipeMenuRecyclerView contactRecycler;
     private List<ContactData> contactDataList;
     private ContactEditAdapter adapter;
     private ContactManager contactManager;
@@ -135,9 +139,11 @@ public class FollowEditActivity extends BaseActivity {
         list = new ArrayList<>();
 
         pictureRecyclerView.setLayoutManager(layoutManager);
-        contactRecycler = (RecyclerView) findViewById(R.id.contact_recycler);
+        contactRecycler = (SwipeMenuRecyclerView) findViewById(R.id.contact_recycler);
         contactRecycler.setHasFixedSize(true);
         contactRecycler.setLayoutManager(layoutManager1);
+        contactRecycler.setSwipeMenuCreator(SwipeMenuUtil.getSwipeMenuEditAndDelete44(this));
+        contactRecycler.setSwipeMenuItemClickListener(menuItemClickListener);
         contactManager = DaoUtils.getContactInstance();
         contactDataList = new ArrayList<>();
         contactDataList = contactManager.selectAllContact(taskNo);
@@ -340,4 +346,30 @@ public class FollowEditActivity extends BaseActivity {
             }
         }
     }
+
+    /**
+     * 菜单点击监听。
+     */
+    private OnSwipeMenuItemClickListener menuItemClickListener = new OnSwipeMenuItemClickListener() {
+        @Override
+        public void onItemClick(Closeable closeable, int adapterPosition, int menuPosition, int direction) {
+            closeable.smoothCloseMenu();// 关闭被点击的菜单。
+
+            if (direction == SwipeMenuRecyclerView.RIGHT_DIRECTION) {
+                if (menuPosition == 0) {
+                    //编辑联系人
+                    Bundle bundle = new Bundle();
+                    bundle.putString("taskNo", taskNo);
+                    bundle.putString("name", contactDataList.get(adapterPosition).getName());
+                    bundle.putString("phone", contactDataList.get(adapterPosition).getPhoneNum());
+                    bundle.putLong("Id", contactDataList.get(adapterPosition).getId());
+                    startActivity(AddContactsActivity.class, bundle);
+                } else if (menuPosition == 1) {
+                    contactManager.deleteSingleData(contactDataList.get(adapterPosition));
+                    contactDataList.remove(adapterPosition);
+                    adapter.notifyDataSetChanged();
+                }
+            }
+        }
+    };
 }

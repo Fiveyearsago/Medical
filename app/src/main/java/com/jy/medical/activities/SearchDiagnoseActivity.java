@@ -1,8 +1,7 @@
 package com.jy.medical.activities;
 
-import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,31 +11,30 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.chanven.lib.cptr.PtrClassicFrameLayout;
-import com.chanven.lib.cptr.PtrDefaultHandler;
-import com.chanven.lib.cptr.PtrFrameLayout;
-import com.chanven.lib.cptr.loadmore.OnLoadMoreListener;
 import com.chanven.lib.cptr.recyclerview.RecyclerAdapterWithHF;
 import com.google.gson.Gson;
 import com.jy.ah.bus.data.Response;
 import com.jy.medical.MedicalApplication;
 import com.jy.medical.R;
+import com.jy.medical.adapter.DiagnoseAdapter;
 import com.jy.medical.adapter.HospitalAdapter;
 import com.jy.medical.adapter.SearchAdapter;
 import com.jy.medical.dao.RequestServerImpl;
+import com.jy.medical.greendao.entities.Diagnose;
 import com.jy.medical.greendao.entities.HospitalData;
 import com.jy.medical.greendao.entities.SearchData;
+import com.jy.medical.greendao.manager.DiagnoseManager;
 import com.jy.medical.greendao.manager.HospitalDataManager;
 import com.jy.medical.greendao.manager.SearchDataManager;
 import com.jy.medical.greendao.util.DaoUtils;
 import com.jy.medical.util.JsonUtil;
-import com.jy.medical.widget.CleanableEditText;
 import com.jy.medical.widget.ClearEditText;
 import com.jy.medical.widget.SwipeBackLayout;
 import com.jy.mobile.dto.DictKEYValueDTO;
 import com.jy.mobile.dto.HosptialDTO;
+import com.jy.mobile.dto.MtMedicalInjureItemDTO;
 import com.jy.mobile.response.SpListDTO;
 
 import org.xutils.common.Callback;
@@ -44,22 +42,21 @@ import org.xutils.common.Callback;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchHospitalActivity extends BaseActivity implements TextView.OnEditorActionListener, Callback.CommonCallback<String>, SearchAdapter.SCallBack {
+public class SearchDiagnoseActivity extends BaseActivity implements TextView.OnEditorActionListener, Callback.CommonCallback<String>, SearchAdapter.SCallBack {
     private SearchAdapter searchAdapter;
     private RecyclerView recordRecyclerView;
     private List<SearchData> searchDataList;
     private View recordView;
     private ClearEditText cleanableEditText;
     private ImageButton deleteRecordImage;
-    private PtrClassicFrameLayout ptrClassicFrameLayout;
     private RecyclerView mRecyclerView;
-    private List<HospitalData>hospitalDatas;
-    private HospitalAdapter hospitalAdapter;
-    private RecyclerAdapterWithHF mAdapter;
+    private DiagnoseAdapter diagnoseAdapter;
+    private List<Diagnose> list;
     Handler handler = new Handler();
     private int page = 0;
     private String taskNo;
-    private String flag="";
+    private String flag = "";
+    private String kindCode = "";
 
     @Override
     public void initData() {
@@ -68,14 +65,15 @@ public class SearchHospitalActivity extends BaseActivity implements TextView.OnE
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_search_hospital;
+        return R.layout.activity_search_diagnose;
     }
 
     @Override
     public void initParams(Bundle parms) {
 
-        taskNo=parms.getString("taskNo");
-        flag=parms.getString("flag");
+        taskNo = parms.getString("taskNo");
+//        flag=parms.getString("flag");
+        kindCode = parms.getString("kindCode");
     }
 
     @Override
@@ -84,9 +82,8 @@ public class SearchHospitalActivity extends BaseActivity implements TextView.OnE
         setDragEdge(SwipeBackLayout.DragEdge.LEFT);
         MedicalApplication.getInstance().addActivity(this);
         setSearchTitle(findViewById(R.id.title_head), "取消");
-        ptrClassicFrameLayout= (PtrClassicFrameLayout) findViewById(R.id.hospital_recyclerView_frame);
-        mRecyclerView= (RecyclerView) findViewById(R.id.hospital_recyclerView);
-        hospitalDatas=new ArrayList<>();
+        mRecyclerView = (RecyclerView) findViewById(R.id.hospital_recyclerView);
+        list = new ArrayList<>();
         initRecyclerView();
         cleanableEditText = (ClearEditText) findViewById(R.id.page_head_search_editText);
         recordView = findViewById(R.id.record_layout);
@@ -102,70 +99,26 @@ public class SearchHospitalActivity extends BaseActivity implements TextView.OnE
     }
 
     private void initRecyclerView() {
-        hospitalAdapter= new HospitalAdapter(this,hospitalDatas,taskNo,flag);
-        mAdapter = new RecyclerAdapterWithHF(hospitalAdapter);
+        diagnoseAdapter = new DiagnoseAdapter(this, list, taskNo);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.setAdapter(mAdapter);
-//        ptrClassicFrameLayout.postDelayed(new Runnable() {
-//
-//            @Override
-//            public void run() {
-////                ptrClassicFrameLayout.autoRefresh(true);
-//            }
-//        }, 150);
-//        ptrClassicFrameLayout.setPtrHandler(new PtrDefaultHandler() {
-//
-//            @Override
-//            public void onRefreshBegin(PtrFrameLayout frame) {
-//                handler.postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        page = 0;
-//                        //刷新数据源
-//                        //hospitalDatas.clear();
-//                        mAdapter.notifyDataSetChanged();
-////                        ptrClassicFrameLayout.refreshComplete();
-//                        ptrClassicFrameLayout.setLoadMoreEnable(true);
-//                        ptrClassicFrameLayout.setPullToRefresh(true);
-//                    }
-//                }, 1500);
-//            }
-//        });
-//        ptrClassicFrameLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
-//
-//            @Override
-//            public void loadMore() {
-//                handler.postDelayed(new Runnable() {
-//
-//                    @Override
-//                    public void run() {
-//                        //加载下页数据
-//                        //TODO
-//                        mAdapter.notifyDataSetChanged();
-//                        ptrClassicFrameLayout.loadMoreComplete(true);
-//                        page++;
-//                        Toast.makeText(SearchHospitalActivity.this, "load more complete", Toast.LENGTH_SHORT).show();
-//                    }
-//                }, 1000);
-//            }
-//        });
+        mRecyclerView.setAdapter(diagnoseAdapter);
     }
 
     public void initRecordData() {
         SearchDataManager searchDataManager = DaoUtils.getSearchDataInstance();
-        searchDataList = searchDataManager.getData("1");
+        searchDataList = searchDataManager.getData("3");
         searchAdapter = new SearchAdapter(this, searchDataList, this);
         recordRecyclerView.setAdapter(searchAdapter);
-        if (searchDataList.size()== 0) {
+        if (searchDataList.size() == 0) {
             recordView.setVisibility(View.GONE);
-        }else {
+        } else {
             recordView.setVisibility(View.VISIBLE);
         }
     }
 
     public void insertRecordData(String text) {
         SearchDataManager searchDataManager = DaoUtils.getSearchDataInstance();
-        searchDataManager.insertSingleData(new SearchData("1", text));
+        searchDataManager.insertSingleData(new SearchData("3", text));
     }
 
     @Override
@@ -183,7 +136,7 @@ public class SearchHospitalActivity extends BaseActivity implements TextView.OnE
 
     private void deleteRecordData() {
         SearchDataManager searchDataManager = DaoUtils.getSearchDataInstance();
-        searchDataManager.deleteData("1");
+        searchDataManager.deleteData("3");
         initRecordData();
     }
 
@@ -197,36 +150,38 @@ public class SearchHospitalActivity extends BaseActivity implements TextView.OnE
     }
 
     public void searchData() {
+        list.clear();
         String text = cleanableEditText.getText().toString().trim();
         if (!text.equals("")) {
             //执行搜索操作
-            RequestServerImpl.getHospitalData("F4896B94148240FC9EFCDB9B5E2A17EB", text, 1, 20, "1", this);
+            RequestServerImpl.getDiagnoseData(kindCode, text, 1, 20, this);
             insertRecordData(text);
             InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
             imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
         }
     }
+
     @Override
     public void onSuccess(String result) {
         //请求数据成功
         Log.i("result", result);
         Gson responseGson = new Gson();
         Response response = responseGson.fromJson(result, Response.class);
-        if (response != null && "1".equals(response.getResponseCode())) {
-            String data = response.getData();
-            Log.i("ResponseCode", response.getResponseCode());
-            SpListDTO spListDTO = responseGson.fromJson(data, SpListDTO.class);
-            List<HosptialDTO> hosptialList = spListDTO.getHosptialList();
-            List<DictKEYValueDTO> dictList = spListDTO.getDictList();
-            JsonUtil.saveHospitalData(hosptialList, dictList);
+        String data = response.getData();
+        SpListDTO spListDTO = responseGson.fromJson(data, SpListDTO.class);
+        List<MtMedicalInjureItemDTO> injureItemList = spListDTO.getInjureItemList();
+        List<Diagnose> diagnoseList = new ArrayList<Diagnose>();
+        diagnoseList.clear();
+        for (int i = 0; i < injureItemList.size(); i++) {
+            MtMedicalInjureItemDTO mtMedicalInjureItemDTO = injureItemList.get(i);
+            Diagnose diagnose = new Diagnose(mtMedicalInjureItemDTO.getId(), mtMedicalInjureItemDTO.getItemCode(), mtMedicalInjureItemDTO.getItemCnName());
+            diagnoseList.add(diagnose);
         }
+        list.addAll(diagnoseList);
+        diagnoseAdapter.notifyDataSetChanged();
         recordView.setVisibility(View.GONE);
-        HospitalDataManager hospitalDataManager=DaoUtils.getHospitalInstance();
-        hospitalDatas.clear();
-        hospitalDatas=hospitalDataManager.getData();
-        hospitalAdapter = new HospitalAdapter(this, hospitalDatas,taskNo,flag);
-        mAdapter = new RecyclerAdapterWithHF(hospitalAdapter);
-        mRecyclerView.setAdapter(mAdapter);
+//        diagnoseAdapter = new DiagnoseAdapter(this, list,taskNo);
+//        mRecyclerView.setAdapter(diagnoseAdapter);
     }
 
     @Override

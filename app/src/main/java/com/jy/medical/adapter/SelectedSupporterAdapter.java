@@ -44,7 +44,7 @@ public class SelectedSupporterAdapter extends SwipeMenuAdapter<SelectedSupporter
         holder.setOnItemClickListener(mOnItemClickListener);
         holder.supporterName.setText(selectedNursings.get(position).getName());
         holder.supporterId.setText("("+selectedNursings.get(position).getRelationValue()+")");
-        holder.supporterHousehold.setText("￥"+selectedNursings.get(position).getHouseKindValue());
+        holder.supporterHousehold.setText(selectedNursings.get(position).getHouseKindValue());
         holder.supporterYears.setText(selectedNursings.get(position).getYears());
     }
 

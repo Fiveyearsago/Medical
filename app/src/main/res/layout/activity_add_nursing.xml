@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_add_nursing"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="match_parent"
     android:background="@color/pageBackground"
     tools:context="com.jy.medical.activities.AddNursingActivity">
@@ -14,43 +15,164 @@
         <include layout="@layout/page_head" />
     </LinearLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/nursing_recycler"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/nursing_bottom"
-        android:layout_below="@+id/nursing_head"
-        android:layout_marginTop="10dp" />
+        android:paddingTop="10dp"
+        android:background="@color/pageBackground"
+        android:orientation="vertical">
 
-    <RelativeLayout
-        android:id="@+id/nursing_bottom"
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:background="@color/white">
 
         <RelativeLayout
-            android:id="@+id/add_nursing_layout"
             android:layout_width="match_parent"
-            android:layout_height="39dp"
-            android:layout_centerInParent="true"
-            android:layout_marginLeft="@dimen/primary_margin"
-            android:layout_marginRight="@dimen/primary_margin"
-            android:background="@drawable/btn_blue_selector">
+            android:layout_height="44dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/primary_margin"
+            android:paddingRight="@dimen/primary_margin">
 
-            <Button
-                android:id="@+id/add_nursing_button"
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:background="@null"
-                android:drawableLeft="@drawable/add_contact_white_selector"
-                android:drawablePadding="1dp"
-                android:text="添加护理人"
-                android:textColor="@drawable/btn_press_selector"
+                android:layout_centerVertical="true"
+                android:text="护理人身份"
+                android:textColor="@color/navigateColor"
                 android:textSize="@dimen/primary_text_size" />
+
+            <TextView
+                android:id="@+id/nursing_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="5dp"
+                android:layout_toLeftOf="@+id/accident_time_image"
+                android:hint="必选"
+                android:text=""
+                android:textColor="@color/black"
+                android:textColorHint="@color/hintColor"
+                android:textSize="@dimen/primary_text_size" />
+
+            <ImageView
+                android:id="@+id/accident_time_image"
+                android:layout_width="10dp"
+                android:layout_height="16dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@mipmap/more"
+                android:scaleType="fitXY" />
         </RelativeLayout>
-    </RelativeLayout>
-</RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/lineColor" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/primary_margin"
+            android:paddingRight="@dimen/primary_margin">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="护理人姓名"
+                android:textColor="@color/navigateColor"
+                android:textSize="@dimen/primary_text_size" />
+
+
+            <com.jy.medical.widget.CleanableEditText
+                android:id="@+id/nursing_name"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:drawablePadding="10dp"
+                android:drawableRight="@mipmap/clear"
+                android:gravity="center_vertical|right"
+                android:hint="必填"
+                android:layout_marginRight="15dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/hintColor"
+                android:textSize="@dimen/primary_text_size" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/lineColor" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/primary_margin"
+            android:paddingRight="@dimen/primary_margin">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="护理天数"
+                android:textColor="@color/navigateColor"
+                android:textSize="@dimen/primary_text_size" />
+
+
+            <com.jy.medical.widget.CleanableEditText
+                android:id="@+id/nursing_days"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:drawablePadding="10dp"
+                android:inputType="numberSigned"
+                android:drawableRight="@mipmap/clear"
+                android:gravity="center_vertical|right"
+                android:hint="必填"
+                android:layout_marginRight="15dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/hintColor"
+                android:textSize="@dimen/primary_text_size" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/lineColor" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/primary_margin"
+            android:paddingRight="@dimen/primary_margin">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="护理费"
+                android:textColor="@color/navigateColor"
+                android:textSize="@dimen/primary_text_size" />
+
+
+            <com.jy.medical.widget.CleanableEditText
+                android:id="@+id/nursing_fee"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:drawablePadding="10dp"
+                android:inputType="numberDecimal"
+                android:drawableRight="@mipmap/clear"
+                android:gravity="center_vertical|right"
+                android:layout_marginRight="15dp"
+                android:hint="必填"
+                android:textColor="@color/black"
+                android:textColorHint="@color/hintColor"
+                android:textSize="@dimen/primary_text_size" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

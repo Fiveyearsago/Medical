@@ -136,7 +136,7 @@ public class HandleActivity extends BaseActivity {
         contactRecycler = (SwipeMenuRecyclerView) findViewById(R.id.contact_recycler);
         contactRecycler.setHasFixedSize(true);
         contactRecycler.setLayoutManager(layoutManager1);
-        contactRecycler.setSwipeMenuCreator(SwipeMenuUtil.getSwipeMenuEdit44(this));
+        contactRecycler.setSwipeMenuCreator(SwipeMenuUtil.getSwipeMenuEditAndDelete44(this));
         contactRecycler.setSwipeMenuItemClickListener(menuItemClickListener);
         contactManager = DaoUtils.getContactInstance();
         contactDataList = new ArrayList<>();
@@ -346,10 +346,19 @@ public class HandleActivity extends BaseActivity {
             closeable.smoothCloseMenu();// 关闭被点击的菜单。
 
             if (direction == SwipeMenuRecyclerView.RIGHT_DIRECTION) {
-                contactManager.deleteSingleData(contactDataList.get(adapterPosition));
-                contactDataList.remove(adapterPosition);
-                adapter.notifyDataSetChanged();
-            } else if (direction == SwipeMenuRecyclerView.LEFT_DIRECTION) {
+                if (menuPosition == 0) {
+                    //编辑联系人
+                    Bundle bundle = new Bundle();
+                    bundle.putString("taskNo", taskNo);
+                    bundle.putString("name", contactDataList.get(adapterPosition).getName());
+                    bundle.putString("phone", contactDataList.get(adapterPosition).getPhoneNum());
+                    bundle.putLong("Id", contactDataList.get(adapterPosition).getId());
+                    startActivity(AddContactsActivity.class, bundle);
+                } else if (menuPosition == 1) {
+                    contactManager.deleteSingleData(contactDataList.get(adapterPosition));
+                    contactDataList.remove(adapterPosition);
+                    adapter.notifyDataSetChanged();
+                }
             }
         }
     };

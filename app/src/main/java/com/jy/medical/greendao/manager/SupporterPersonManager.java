@@ -36,10 +36,10 @@ public class SupporterPersonManager extends BaseDao<SupporterPerson> {
         return daoSession.getSupporterPersonDao().load(id);
     }
 
-    private boolean isExist(SupporterPerson supporterPerson) {
+    public boolean isExist(SupporterPerson supporterPerson) {
         SupporterPersonDao supporterPersonDao = daoSession.getSupporterPersonDao();
         QueryBuilder<SupporterPerson> qb = supporterPersonDao.queryBuilder();
-        qb.where(qb.and(SupporterPersonDao.Properties.TaskNo.eq(supporterPerson.getTaskNo()),SupporterPersonDao.Properties.Name.eq(supporterPerson.getName()),SupporterPersonDao.Properties.Name.eq(supporterPerson.getName())));
+        qb.where(qb.and(SupporterPersonDao.Properties.TaskNo.eq(supporterPerson.getTaskNo()), SupporterPersonDao.Properties.Name.eq(supporterPerson.getName())));
         qb.list();
         return qb.list().size() > 0 ? true : false;
     }
@@ -51,12 +51,25 @@ public class SupporterPersonManager extends BaseDao<SupporterPerson> {
         return qb.list();
 
     }
+
+    public void updateData(SupporterPerson supporterPerson) {
+        SupporterPersonDao supporterPersonDao = daoSession.getSupporterPersonDao();
+        supporterPersonDao.update(supporterPerson);
+    }
     public void insertData(@NotNull List<SupporterPerson> supporterPersonList) {
         SupporterPersonDao supporterPersonDao = daoSession.getSupporterPersonDao();
         for (int i = 0; i < supporterPersonList.size(); i++) {
             if (!isExist(supporterPersonList.get(i))){
                 supporterPersonDao.insert(supporterPersonList.get(i));
             }
+        }
+
+    }
+
+    public void insertSingleData(SupporterPerson supporterPerson) {
+        SupporterPersonDao supporterPersonDao = daoSession.getSupporterPersonDao();
+        if (!isExist(supporterPerson)) {
+            supporterPersonDao.insert(supporterPerson);
         }
 
     }

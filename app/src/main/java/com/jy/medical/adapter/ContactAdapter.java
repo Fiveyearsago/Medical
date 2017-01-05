@@ -53,8 +53,8 @@ public class ContactAdapter extends BaseHeadFootAdapter {
     }
 
     public void addItem(String taskNo) {
-        ContactData contactData = new ContactData("联系人" + (list.size() + 1), "", "", taskNo);
-        list.add(list.size(),contactData);
+//        ContactData contactData = new ContactData("联系人" + (list.size() + 1), "", "", taskNo);
+//        list.add(list.size(),contactData);
         notifyItemInserted(list.size());
     }
 
@@ -67,7 +67,7 @@ public class ContactAdapter extends BaseHeadFootAdapter {
             public void onClick(View view) {
             }
         });
-        viewHolder.title.setText(contactData.getTitle());
+//        viewHolder.title.setText(contactData.getTitle());
         viewHolder.name.setText(contactData.getName());
         viewHolder.phone.setText(contactData.getPhoneNum());
         viewHolder.name.addTextChangedListener(new TextWatcher() {

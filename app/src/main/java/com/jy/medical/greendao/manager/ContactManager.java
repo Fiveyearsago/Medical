@@ -12,11 +12,14 @@ import com.jy.medical.greendao.entities.ContactData;
 import com.jy.medical.greendao.gen.BaseDao;
 import com.jy.medical.greendao.gen.ClaimBeanDataDao;
 import com.jy.medical.greendao.gen.ContactDataDao;
+import com.jy.medical.util.ToastUtil;
 
 import org.greenrobot.greendao.annotation.NotNull;
 import org.greenrobot.greendao.query.QueryBuilder;
 
 import java.util.List;
+
+import static com.jy.medical.greendao.util.DaoUtils.context;
 
 
 /**
@@ -39,30 +42,44 @@ public class ContactManager extends BaseDao<ContactData> {
         return daoSession.getContactDataDao().load(id);
     }
 
-    private boolean isExist(ContactData contactData) {
+    public boolean isExist(ContactData contactData) {
         ContactDataDao contactDataDao = daoSession.getContactDataDao();
         QueryBuilder<ContactData> qb = contactDataDao.queryBuilder();
-        qb.where(qb.and(ContactDataDao.Properties.TaskNo.eq(contactData.getTaskNo()),ContactDataDao.Properties.Name.eq(contactData.getName()),ContactDataDao.Properties.PhoneNum.eq(contactData.getPhoneNum())));
+        qb.where(qb.and(ContactDataDao.Properties.TaskNo.eq(contactData.getTaskNo()), ContactDataDao.Properties.Name.eq(contactData.getName()), ContactDataDao.Properties.PhoneNum.eq(contactData.getPhoneNum())));
         qb.list();
         return qb.list().size() > 0 ? true : false;
     }
 
-    public List<ContactData> selectAllContact(String taskNo){
-        ContactDataDao contactDataDao=daoSession.getContactDataDao();
+    public List<ContactData> selectAllContact(String taskNo) {
+        ContactDataDao contactDataDao = daoSession.getContactDataDao();
         QueryBuilder<ContactData> qb = contactDataDao.queryBuilder();
         qb.where(ContactDataDao.Properties.TaskNo.eq(taskNo));
         return qb.list();
 
     }
+
     public void insertData(@NotNull List<ContactData> contactDataList) {
         ContactDataDao contactDataDao = daoSession.getContactDataDao();
         for (int i = 0; i < contactDataList.size(); i++) {
-            if (!isExist(contactDataList.get(i))){
+            if (!isExist(contactDataList.get(i))) {
                 contactDataDao.insert(contactDataList.get(i));
             }
         }
 
     }
+
+    public void insertSingleData(@NotNull ContactData contactData) {
+        ContactDataDao contactDataDao = daoSession.getContactDataDao();
+        if (!isExist(contactData)) {
+            contactDataDao.insert(contactData);
+        }
+    }
+
+    public void updateData(@NotNull ContactData contactData) {
+        ContactDataDao contactDataDao = daoSession.getContactDataDao();
+        contactDataDao.update(contactData);
+    }
+
 
     /**
      * 获取某个对象的主键ID
@@ -101,7 +118,7 @@ public class ContactManager extends BaseDao<ContactData> {
 
     /***********************************
      * 在次添加一些ContactData特有的数据库操作语句
-     * ************************************/
+     ************************************/
     public void deleteSingleData(ContactData contactData) {
         ContactDataDao contactDataDao = daoSession.getContactDataDao();
         if (isExist(contactData)) {

@@ -61,16 +61,18 @@ public class SelectTreatActivity extends BaseActivity {
                 //保存选择治疗方式
                 selectedDiagnoseManager=DaoUtils.getSelectedDiagnoseInstance();
                 selectedDiagnoseManager.insertSingleData(new SelectedDiagnose(taskNo,diagnoseId,diagnoseCode,diagnoseName,"0","保守治疗"));
+                finish();
+                MedicalApplication.getInstance().finishActivity(SearchDiagnoseActivity.class);
                 MedicalApplication.getInstance().finishActivity(SelectDiagnoseActivity.class);
                 MedicalApplication.getInstance().finishActivity(AddDiagnoseActivity.class);
-                finish();
                 break;
             case R.id.treat_operation:
                 selectedDiagnoseManager=DaoUtils.getSelectedDiagnoseInstance();
                 selectedDiagnoseManager.insertSingleData(new SelectedDiagnose(taskNo,diagnoseId,diagnoseCode,diagnoseName,"1","手术治疗"));
+                finish();
+                MedicalApplication.getInstance().finishActivity(SearchDiagnoseActivity.class);
                 MedicalApplication.getInstance().finishActivity(SelectDiagnoseActivity.class);
                 MedicalApplication.getInstance().finishActivity(AddDiagnoseActivity.class);
-                finish();
                 break;
             default:
                 break;

@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.jy.medical.greendao.entities.HouseholdData;
+import com.jy.medical.greendao.gen.ContactDataDao;
 import com.jy.medical.greendao.gen.DaoMaster;
 import com.jy.medical.greendao.gen.DeathDataDao;
 import com.jy.medical.greendao.gen.DelayDataDao;
@@ -82,9 +83,9 @@ public class THDevOpenHelper extends DaoMaster.OpenHelper {
             case 15:
                 MigrationHelper.migrate(db, InquireDao.class);
                 break;
-//            case 21:
-//                MigrationHelper.migrate(db, MedicalVisitDao.class);
-//                break;
+            case 16:
+                MigrationHelper.migrate(db, ContactDataDao.class);
+                break;
 //            case 22:
 //                MigrationHelper.migrate(db, SelectedHospitalDao.class);
 //                break;

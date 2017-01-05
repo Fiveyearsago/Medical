@@ -9,6 +9,7 @@ import com.jy.medical.util.PublicString;
 import com.jy.medical.util.ServerApiUtils;
 import com.jy.mobile.dto.DictKEYValueDTO;
 import com.jy.mobile.dto.HosptialDTO;
+import com.jy.mobile.request.QtSearchDisabilityDTO;
 import com.jy.mobile.request.QtSearchHosptialDTO;
 import com.jy.mobile.response.SpListDTO;
 
@@ -31,5 +32,16 @@ public class RequestServerImpl {
         Gson gson = new Gson();
         String data = gson.toJson(qtSearchHosptialDTO);
         ServerApiUtils.sendToServer(data, "002016", PublicString.URL_IFC, callBack);
+    }
+
+    public static void getDiagnoseData(String kindCode, String searchCode, int pageNo, int pageSize, Callback.CommonCallback<String> callBack) {
+        QtSearchDisabilityDTO qtSearchVehicleDTO = new QtSearchDisabilityDTO();
+        qtSearchVehicleDTO.setKindCode(kindCode);
+        qtSearchVehicleDTO.setSearchCode(searchCode);
+        qtSearchVehicleDTO.setPageNo(pageNo);
+        qtSearchVehicleDTO.setPageSize(20);
+        Gson gson = new Gson();
+        String data = gson.toJson(qtSearchVehicleDTO);
+        ServerApiUtils.sendToServer(data, "002022", PublicString.URL_IFC, callBack);
     }
 }

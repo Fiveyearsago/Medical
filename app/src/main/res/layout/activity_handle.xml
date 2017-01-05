@@ -22,6 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/bottom_layout"
         android:layout_below="@+id/head_layout"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="15dp">
 
         <LinearLayout
@@ -33,7 +34,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:background="@color/white"
                 android:orientation="vertical"
                 android:paddingLeft="@dimen/primary_text_size"

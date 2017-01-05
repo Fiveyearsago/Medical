@@ -154,7 +154,7 @@ public class DelayActivity extends BaseActivity {
         contactRecycler.setHasFixedSize(true);
         contactRecycler.setLayoutManager(layoutManager1);
         contactRecycler.setItemAnimator(new DefaultItemAnimator());
-        contactRecycler.setSwipeMenuCreator(SwipeMenuUtil.getSwipeMenuEdit44(this));
+        contactRecycler.setSwipeMenuCreator(SwipeMenuUtil.getSwipeMenuEditAndDelete44(this));
         contactRecycler.setSwipeMenuItemClickListener(menuItemClickListener);
         contactDataList = new ArrayList<>();
         contactDataList = contactManager.selectAllContact(taskNo);
@@ -287,7 +287,7 @@ public class DelayActivity extends BaseActivity {
     private void selectIndustry() {
         //选择行业
         Intent intent = new Intent(context, SelectCategoryActivity.class);
-        intent.putExtra("kindCode","D117");
+        intent.putExtra("kindCode", "D110");
         intent.putExtra("title", "选择行业");
         this.startActivityForResult(intent, 0x12);
     }
@@ -509,10 +509,19 @@ public class DelayActivity extends BaseActivity {
             closeable.smoothCloseMenu();// 关闭被点击的菜单。
 
             if (direction == SwipeMenuRecyclerView.RIGHT_DIRECTION) {
-                contactManager.deleteSingleData(contactDataList.get(adapterPosition));
-                contactDataList.remove(adapterPosition);
-                adapter.notifyDataSetChanged();
-            } else if (direction == SwipeMenuRecyclerView.LEFT_DIRECTION) {
+                if (menuPosition == 0) {
+                    //编辑联系人
+                    Bundle bundle = new Bundle();
+                    bundle.putString("taskNo", taskNo);
+                    bundle.putString("name", contactDataList.get(adapterPosition).getName());
+                    bundle.putString("phone", contactDataList.get(adapterPosition).getPhoneNum());
+                    bundle.putLong("Id", contactDataList.get(adapterPosition).getId());
+                    startActivity(AddContactsActivity.class, bundle);
+                } else if (menuPosition == 1) {
+                    contactManager.deleteSingleData(contactDataList.get(adapterPosition));
+                    contactDataList.remove(adapterPosition);
+                    adapter.notifyDataSetChanged();
+                }
             }
         }
     };

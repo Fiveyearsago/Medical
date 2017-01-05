@@ -265,41 +265,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
                     android:background="@color/lineColor" />
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="44dp"
-                    android:gravity="center_vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="备注信息"
-                        android:textColor="@color/navigateColor"
-                        android:textSize="@dimen/primary_text_size" />
-                </RelativeLayout>
-
-                <com.jy.medical.widget.ClearEditText
-                    android:id="@+id/nursing_remark"
-                    android:layout_width="match_parent"
-                    android:layout_height="102dp"
-                    android:paddingBottom="10dp"
-                    android:background="@null"
-                    android:drawableRight="@mipmap/clear"
-                    android:gravity="top"
-                    android:hint="非必填"
-                    android:maxLines="5"
-                    android:lineSpacingExtra="3dp"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/hintColor"
-                    android:textSize="@dimen/primary_text_size" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@color/lineColor" />
-
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="44dp"
@@ -337,6 +302,41 @@
                         android:background="@mipmap/more"
                         android:scaleType="fitXY" />
                 </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/lineColor" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="备注信息"
+                        android:textColor="@color/navigateColor"
+                        android:textSize="@dimen/primary_text_size" />
+                </RelativeLayout>
+
+                <com.jy.medical.widget.ClearEditText
+                    android:id="@+id/nursing_remark"
+                    android:layout_width="match_parent"
+                    android:layout_height="102dp"
+                    android:paddingBottom="10dp"
+                    android:background="@null"
+                    android:drawableRight="@mipmap/clear"
+                    android:gravity="top"
+                    android:hint="非必填"
+                    android:maxLines="5"
+                    android:lineSpacingExtra="3dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/hintColor"
+                    android:textSize="@dimen/primary_text_size" />
+
+
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

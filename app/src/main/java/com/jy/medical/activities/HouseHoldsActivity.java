@@ -137,7 +137,7 @@ public class HouseHoldsActivity extends BaseActivity {
         contactRecycler.setHasFixedSize(true);
         contactRecycler.setLayoutManager(layoutManager1);
         contactRecycler.setItemAnimator(new DefaultItemAnimator());
-        contactRecycler.setSwipeMenuCreator(SwipeMenuUtil.getSwipeMenuEdit44(this));
+        contactRecycler.setSwipeMenuCreator(SwipeMenuUtil.getSwipeMenuEditAndDelete44(this));
         contactRecycler.setSwipeMenuItemClickListener(menuItemClickListener);
         contactDataList = new ArrayList<>();
         contactDataList = contactManager.selectAllContact(taskNo);
@@ -414,10 +414,21 @@ public class HouseHoldsActivity extends BaseActivity {
             closeable.smoothCloseMenu();// 关闭被点击的菜单。
 
             if (direction == SwipeMenuRecyclerView.RIGHT_DIRECTION) {
-                contactManager.deleteSingleData(contactDataList.get(adapterPosition));
-                contactDataList.remove(adapterPosition);
-                adapter.notifyDataSetChanged();
-            } else if (direction == SwipeMenuRecyclerView.LEFT_DIRECTION) {
+                if (menuPosition == 0) {
+                    //编辑联系人
+                    Bundle bundle = new Bundle();
+                    bundle.putString("taskNo", taskNo);
+                    bundle.putString("name", contactDataList.get(adapterPosition).getName());
+                    bundle.putString("phone", contactDataList.get(adapterPosition).getPhoneNum());
+                    bundle.putString("peopleId", contactDataList.get(adapterPosition).getPeopleIdentity());
+                    bundle.putString("peopleIdValue", contactDataList.get(adapterPosition).getPeopleIdentityValue());
+                    bundle.putLong("Id", contactDataList.get(adapterPosition).getId());
+                    startActivity(AddInquireActivity.class, bundle);
+                } else if (menuPosition == 1) {
+                    contactManager.deleteSingleData(contactDataList.get(adapterPosition));
+                    contactDataList.remove(adapterPosition);
+                    adapter.notifyDataSetChanged();
+                }
             }
         }
     };

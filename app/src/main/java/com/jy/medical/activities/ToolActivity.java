@@ -1,5 +1,6 @@
 package com.jy.medical.activities;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
@@ -36,6 +37,7 @@ public class ToolActivity extends BaseActivity {
     private List<LawData>list;
     private ToolAdapter adapter;
     private boolean mIsExit;
+    private ProgressDialog progressDialog;
 
     @Override
     public void initData() {
@@ -120,6 +122,11 @@ public class ToolActivity extends BaseActivity {
         radioPlatform.setChecked(false);
     }
     public void requestData(int page){
+        progressDialog = new ProgressDialog(this, R.style.Custom_Progress);
+        progressDialog.setMessage("正在加载中...");
+        progressDialog.setCanceledOnTouchOutside(false);
+//        progressDialog.setTitle("提示");
+        progressDialog.show();
         QtLawsDTO qtLawsDTO=new QtLawsDTO();
         qtLawsDTO.setPageNo(page);
         qtLawsDTO.setPageSize(10);
@@ -132,7 +139,9 @@ public class ToolActivity extends BaseActivity {
                 Gson responseGson = new Gson();
                 Response response = responseGson.fromJson(result, Response.class);
                 if (response != null && "1".equals(response.getResponseCode())) {
-
+//                    if (progressDialog.isShowing()){
+//                        progressDialog.dismiss();
+//                    }
                     String data = response.getData();
                     Log.i("ResponseCode", response.getResponseCode());
                     List<LawData> newDataList= JsonUtil.changeToList(data);

@@ -9,6 +9,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="44dp"
+        android:visibility="gone"
         android:background="@color/white"
         android:gravity="center_vertical"
         android:orientation="horizontal"
@@ -149,10 +150,10 @@
                 android:scaleType="fitXY" />
         </RelativeLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/lineColor" />
+        <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0.5dp"-->
+        <!--android:background="@color/lineColor" />-->
     </RelativeLayout>
 
 </LinearLayout>

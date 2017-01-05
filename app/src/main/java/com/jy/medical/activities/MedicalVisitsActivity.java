@@ -336,85 +336,6 @@ public class MedicalVisitsActivity extends BaseActivity {
 
     }
 
-    private void commitData() {
-//        CommitUtil.commitMedical(this,taskNo);
-        saveData();
-
-        medicalVisit=medicalVisitManager.getDataList(taskNo).get(0);
-        QTInspectHospitalInfoDTO qtInspectHospitalInfoDTO=new QTInspectHospitalInfoDTO();
-        qtInspectHospitalInfoDTO.setTaskNo(taskNo);
-        qtInspectHospitalInfoDTO.setFeePass(Double.parseDouble(medicalVisit.getMedicalFee()));
-        qtInspectHospitalInfoDTO.setFinishFlag(medicalVisit.getCompleteStatus());
-        qtInspectHospitalInfoDTO.setRemark(medicalVisit.getRemark());
-        qtInspectHospitalInfoDTO.setUserCode("0131002498");
-        HosptialDTO hosptialDTO=new HosptialDTO();
-        selectedHospitals = selectedHospitalManager.getDataList(taskNo);
-        selectedDiagnoseList = selectedDiagnoseManager.getDataList(taskNo);
-        nursingDataList = nursingDataManager.getDataList(taskNo);
-        SelectedHospital selectedHospital=selectedHospitals.get(0);
-        hosptialDTO.setHospitalProperty(selectedHospital.getHospitalName());
-        hosptialDTO.setHospitalDepartment(selectedHospital.getDepartmentId());
-        hosptialDTO.setHospitalId(selectedHospital.getHospitalId());
-        qtInspectHospitalInfoDTO.setHospital(hosptialDTO);
-        List<DisabilityDescrDTO> dList=new ArrayList<>();
-        for (int i = 0; i < selectedDiagnoseList.size(); i++) {
-            SelectedDiagnose selectDiagnose=selectedDiagnoseList.get(i);
-            DisabilityDescrDTO d=new DisabilityDescrDTO();
-            d.setId(selectDiagnose.getDiagnoseId());
-            d.setDisabilityCode(selectDiagnose.getDiagnoseCode());
-            d.setDisabilityDescr(selectDiagnose.getDiagnoseName());
-            d.setOperation(selectDiagnose.getTreatmentMode());
-            dList.add(d);
-        }
-        qtInspectHospitalInfoDTO.setDisabList(dList);
-
-        List<NursePersonDTO> nList=new ArrayList<>();
-        for (int i = 0; i < nursingDataList.size(); i++) {
-            NursePersonDTO n=new NursePersonDTO();
-            NursingData nursingData=nursingDataList.get(i);
-            n.setNurseDayCount(Integer.parseInt(nursingData.getDays()));
-            n.setNurseName(nursingData.getName());
-            n.setNurseIndustryName(nursingData.getIdValue());
-            n.setNurseIndustryCode(nursingData.getIdKey());
-            n.setNurseDailyReceipts(Double.parseDouble(nursingData.getFee()));
-            nList.add(n);
-
-        }
-        qtInspectHospitalInfoDTO.setNurseList(nList);
-        Gson gson = new Gson();
-        String data = gson.toJson(qtInspectHospitalInfoDTO);
-        ServerApiUtils.sendToServer(data, "002007", PublicString.URL_IFC, new Callback.CommonCallback<String>() {
-            @Override
-            public void onSuccess(String result) {
-                Log.i("result", result);
-                Gson responseGson = new Gson();
-                Response response = responseGson.fromJson(result, Response.class);
-                if (response != null && "1".equals(response.getResponseCode())) {
-                    String data = response.getData();
-                    Log.i("ResponseCode", response.getResponseCode());
-                    //标记已提交
-                    medicalVisit.setCommitFlag("1");
-                    medicalVisitManager.insertSingleData(medicalVisit);
-                    finish();
-                }
-            }
-
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-
-            }
-
-            @Override
-            public void onCancelled(CancelledException cex) {
-
-            }
-
-            @Override
-            public void onFinished() {
-
-            }
-        });
-    }
 
     private void saveData() {
         String nursingFee = nursingFeeEdit.getText().toString();
@@ -437,9 +358,6 @@ public class MedicalVisitsActivity extends BaseActivity {
                 selectedHospitalManager.deleteSingleData(selectedHospitals.get(adapterPosition));
                 selectedHospitals.remove(adapterPosition);
                 selectedHospitalAdapter.notifyDataSetChanged();
-                Toast.makeText(mContext, "list第" + adapterPosition + "; 右侧菜单第" + menuPosition, Toast.LENGTH_SHORT).show();
-            } else if (direction == SwipeMenuRecyclerView.LEFT_DIRECTION) {
-                Toast.makeText(mContext, "list第" + adapterPosition + "; 左侧菜单第" + menuPosition, Toast.LENGTH_SHORT).show();
             }
         }
     };
@@ -452,9 +370,6 @@ public class MedicalVisitsActivity extends BaseActivity {
                 selectedDiagnoseManager.deleteSingleData(selectedDiagnoseList.get(adapterPosition));
                 selectedDiagnoseList.remove(adapterPosition);
                 selectedDiagnoseAdapter.notifyDataSetChanged();
-                Toast.makeText(mContext, "list第" + adapterPosition + "; 右侧菜单第" + menuPosition, Toast.LENGTH_SHORT).show();
-            } else if (direction == SwipeMenuRecyclerView.LEFT_DIRECTION) {
-                Toast.makeText(mContext, "list第" + adapterPosition + "; 左侧菜单第" + menuPosition, Toast.LENGTH_SHORT).show();
             }
         }
     };
@@ -464,15 +379,22 @@ public class MedicalVisitsActivity extends BaseActivity {
             closeable.smoothCloseMenu();// 关闭被点击的菜单。
             if (direction == SwipeMenuRecyclerView.RIGHT_DIRECTION) {
                 if (menuPosition == 0) {
-
+                    //编辑
+                    Bundle bundle = new Bundle();
+                    bundle.putString("taskNo", taskNo);
+                    bundle.putString("nameString", nursingDataList.get(adapterPosition).getName());
+                    bundle.putString("daysString", nursingDataList.get(adapterPosition).getDays());
+                    bundle.putString("feeString", nursingDataList.get(adapterPosition).getFee());
+                    bundle.putString("idKey", nursingDataList.get(adapterPosition).getIdKey());
+                    bundle.putString("idValue", nursingDataList.get(adapterPosition).getIdValue());
+                    bundle.putString("idTypeCode", nursingDataList.get(adapterPosition).getIdTypeCode());
+                    bundle.putLong("Id", nursingDataList.get(adapterPosition).getId());
+                    startActivity(AddNursingActivity.class, bundle);
                 } else {
                     nursingDataManager.deleteSingleData(nursingDataList.get(adapterPosition));
                     nursingDataList.remove(adapterPosition);
                     selectedNursingAdapter.notifyDataSetChanged();
                 }
-                Toast.makeText(mContext, "list第" + adapterPosition + "; 右侧菜单第" + menuPosition, Toast.LENGTH_SHORT).show();
-            } else if (direction == SwipeMenuRecyclerView.LEFT_DIRECTION) {
-                Toast.makeText(mContext, "list第" + adapterPosition + "; 左侧菜单第" + menuPosition, Toast.LENGTH_SHORT).show();
             }
         }
     };

@@ -37,6 +37,7 @@ import com.jy.medical.util.LocalImageHelper;
 import com.jy.medical.util.MultiSelectUtil;
 import com.jy.medical.util.PhotoUtil;
 import com.jy.medical.util.StringUtils;
+import com.jy.medical.util.SwipeMenuUtil;
 import com.jy.medical.util.ToastUtil;
 import com.jy.medical.widget.ClearEditText;
 import com.jy.medical.widget.FilterImageView;
@@ -44,6 +45,9 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 import com.nostra13.universalimageloader.core.imageaware.ImageViewAware;
+import com.yanzhenjie.recyclerview.swipe.Closeable;
+import com.yanzhenjie.recyclerview.swipe.OnSwipeMenuItemClickListener;
+import com.yanzhenjie.recyclerview.swipe.SwipeMenuRecyclerView;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -62,7 +66,7 @@ public class SupporterActivity extends BaseActivity {
     private SupporterDataManager supporterDataManager = DaoUtils.getSupporterDataInstance();
     private Context context;
 
-    private RecyclerView supporterRecycler;
+    private SwipeMenuRecyclerView supporterRecycler;
     private List<SupporterPerson> supporterPersonList;
     private SelectedSupporterAdapter adapter;
     private SupporterPersonManager supporterPersonManager=DaoUtils.getSupporterPersonInstance();
@@ -114,9 +118,11 @@ public class SupporterActivity extends BaseActivity {
         list = new ArrayList<>();
 
         pictureRecyclerView.setLayoutManager(layoutManager);
-        supporterRecycler = (RecyclerView) findViewById(R.id.supporter_recycler);
+        supporterRecycler = (SwipeMenuRecyclerView) findViewById(R.id.supporter_recycler);
         supporterRecycler.setHasFixedSize(true);
         supporterRecycler.setLayoutManager(layoutManager1);
+        supporterRecycler.setSwipeMenuCreator(SwipeMenuUtil.getSwipeMenuDelete(this));
+        supporterRecycler.setSwipeMenuItemClickListener(menuItemClickListener);
         supporterPersonList = new ArrayList<>();
         supporterPersonList = supporterPersonManager.selectAllContact(taskNo);
         adapter = new SelectedSupporterAdapter(this, supporterPersonList);
@@ -301,4 +307,25 @@ public class SupporterActivity extends BaseActivity {
             }
         }
     }
+
+    private OnSwipeMenuItemClickListener menuItemClickListener = new OnSwipeMenuItemClickListener() {
+        @Override
+        public void onItemClick(Closeable closeable, int adapterPosition, int menuPosition, int direction) {
+            closeable.smoothCloseMenu();// 关闭被点击的菜单。
+
+            if (direction == SwipeMenuRecyclerView.RIGHT_DIRECTION) {
+                if (menuPosition == 0) {
+                    //编辑联系人
+                    Bundle bundle = new Bundle();
+                    bundle.putString("taskNo", taskNo);
+                    bundle.putParcelable("supporterPerson", supporterPersonList.get(adapterPosition));
+                    startActivity(AddSupportActivity.class, bundle);
+                } else if (menuPosition == 1) {
+                    supporterPersonManager.deleteSingleData(supporterPersonList.get(adapterPosition));
+                    supporterPersonList.remove(adapterPosition);
+                    adapter.notifyDataSetChanged();
+                }
+            }
+        }
+    };
 }

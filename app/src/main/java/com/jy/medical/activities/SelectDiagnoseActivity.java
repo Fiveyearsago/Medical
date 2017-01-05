@@ -1,5 +1,6 @@
 package com.jy.medical.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,6 +21,7 @@ import com.jy.medical.MedicalApplication;
 import com.jy.medical.R;
 import com.jy.medical.adapter.DiagnoseAdapter;
 import com.jy.medical.greendao.entities.Diagnose;
+import com.jy.medical.greendao.entities.Inquire;
 import com.jy.medical.util.PublicString;
 import com.jy.medical.util.ServerApiUtils;
 import com.jy.medical.widget.SwipeBackLayout;
@@ -153,8 +155,6 @@ public class SelectDiagnoseActivity extends BaseActivity {
                         diagnoseList.add(diagnose);
                     }
                     list.addAll(diagnoseList);
-//                    diagnoseAdapter.setData(list);
-//                    diagnoseAdapter.notifyDataSetChanged();
                     mAdapter.notifyDataSetChanged();
                     Log.i("list",list.size()+"");
                     bindData();
@@ -186,6 +186,10 @@ public class SelectDiagnoseActivity extends BaseActivity {
                 break;
             case R.id.page_third_head_collect:
                 //搜索诊断
+                Intent intent = new Intent(this, SearchDiagnoseActivity.class);
+                intent.putExtra("kindCode", kindCode);
+                intent.putExtra("taskNo", taskNo);
+                startActivity(intent);
                 break;
         }
     }

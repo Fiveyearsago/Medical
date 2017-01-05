@@ -1,12 +1,9 @@
 package com.jy.medical.activities;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.jy.medical.MedicalApplication;
@@ -94,8 +91,9 @@ public class SelectDepartmentsActivity extends BaseActivity implements Departmen
         SelectedHospital selectedHospital=new SelectedHospital(taskNo,hospitalId,hospitalName,departmentId,departmentName);
         SelectedHospitalManager selectedHospitalManager=DaoUtils.getSelectedHospitaInstance();
         selectedHospitalManager.insertSingleData(selectedHospital);
-        MedicalApplication.getInstance().finishActivity(SelectHospitalActivity.class);
         finish();
+        MedicalApplication.getInstance().finishActivity(SearchHospitalActivity.class);
+        MedicalApplication.getInstance().finishActivity(SelectHospitalActivity.class);
     }
 
     public  void initRecyclerData(){

@@ -1,5 +1,6 @@
 package com.jy.medical.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -67,7 +68,8 @@ public class AddDiagnoseActivity extends BaseActivity {
         MedicalApplication.getInstance().addActivity(this);
         View headView=findViewById(R.id.title_head_tab);
         headView.findViewById(R.id.page_head_tab_image).setOnClickListener(this);
-        headView.findViewById(R.id.page_head_tab_search).setOnClickListener(this);
+//        headView.findViewById(R.id.page_head_tab_search).setOnClickListener(this);
+        headView.findViewById(R.id.page_head_tab_search).setVisibility(View.GONE);
         segmentTabLayout = (SegmentTabLayout) headView.findViewById(R.id.segmentTabLayout);
         viewPager = (CustomViewpager) findViewById(R.id.viewPager);
         List<Fragment> fragmentList=new ArrayList<>();
@@ -126,6 +128,10 @@ public class AddDiagnoseActivity extends BaseActivity {
                 break;
             case R.id.page_head_tab_search:
                 //搜索诊断
+                Intent intent = new Intent(this, SearchDiagnoseActivity.class);
+                intent.putExtra("kindCode", "");
+                intent.putExtra("taskNo", taskNo);
+                startActivity(intent);
                 break;
         }
     }

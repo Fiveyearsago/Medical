@@ -36,7 +36,7 @@ public class InquireManager extends BaseDao<Inquire> {
         return daoSession.getInquireDao().load(id);
     }
 
-    private boolean isExist(Inquire inquire) {
+    public boolean isExist(Inquire inquire) {
         InquireDao inquireDao = daoSession.getInquireDao();
         QueryBuilder<Inquire> qb = inquireDao.queryBuilder();
         qb.where(qb.and(InquireDao.Properties.TaskNo.eq(inquire.getTaskNo()), InquireDao.Properties.Name.eq(inquire.getName()), InquireDao.Properties.PhoneNum.eq(inquire.getPhoneNum())));
@@ -58,6 +58,19 @@ public class InquireManager extends BaseDao<Inquire> {
             if (!isExist(inquireList.get(i))) {
                 inquireDao.insert(inquireList.get(i));
             }
+        }
+
+    }
+
+    public void updateData(Inquire inquire) {
+        InquireDao inquireDao = daoSession.getInquireDao();
+        inquireDao.update(inquire);
+    }
+
+    public void insertSingleData(Inquire inquire) {
+        InquireDao inquireDao = daoSession.getInquireDao();
+        if (!isExist(inquire)) {
+            inquireDao.insert(inquire);
         }
 
     }
