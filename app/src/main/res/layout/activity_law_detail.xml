@@ -8,7 +8,7 @@
     android:orientation="vertical"
     tools:context="com.jy.medical.activities.LawDetailActivity">
     <include
-        layout="@layout/page_hade_third"
+        layout="@layout/page_head_check"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

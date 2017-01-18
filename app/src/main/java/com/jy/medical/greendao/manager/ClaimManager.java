@@ -20,6 +20,7 @@ import org.greenrobot.greendao.annotation.NotNull;
 import org.greenrobot.greendao.query.QueryBuilder;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -126,7 +127,7 @@ public class ClaimManager extends BaseDao<ClaimBeanData> {
                 }
             }
         }
-
+        //Collections.sort(list);
         return list;
     }
 
@@ -199,7 +200,7 @@ public class ClaimManager extends BaseDao<ClaimBeanData> {
                 }
             }
         }
-
+        //Collections.sort(list);
         return list;
     }
 
@@ -270,7 +271,7 @@ public class ClaimManager extends BaseDao<ClaimBeanData> {
                 }
             }
         }
-
+        //Collections.sort(list);
         return list;
     }
 
@@ -350,7 +351,7 @@ public class ClaimManager extends BaseDao<ClaimBeanData> {
                 }
             }
         }
-
+        //Collections.sort(list);
         return list;
     }
     public List<PlatformData> selectTaskTypeData1(String taskType1, int taskFlag) {
@@ -429,7 +430,7 @@ public class ClaimManager extends BaseDao<ClaimBeanData> {
                 }
             }
         }
-
+        //Collections.sort(list);
         return list;
     }
 

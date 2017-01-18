@@ -72,11 +72,8 @@ public class ToolAdapter extends BaseHeadFootAdapter {
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                view.setBackgroundColor(Color.parseColor("#F5F5F5"));
-                viewHolder.toolText.setTextColor(Color.parseColor("#999999"));
-//                Toast.makeText(context,"big text "+position+"was clicked",Toast.LENGTH_SHORT).show();
-//                view.setBackgroundColor(Color.parseColor("#FFFFFF"));
                 context.startActivity(new Intent(context, LawDetailActivity.class));
+                viewHolder.toolText.setTextColor(Color.parseColor("#999999"));
             }
         });
 

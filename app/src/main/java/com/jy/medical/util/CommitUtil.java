@@ -98,6 +98,10 @@ public class CommitUtil {
             ToastUtil.showToast(context, "请填写赔偿系数");
             return;
         }
+        if (Double.parseDouble(supporterData.getPayCoefficient()) >= 100) {
+            ToastUtil.showToast(context, "赔偿系数不能大于或等于100");
+            return;
+        }
         if (supporterData.getMaintenanceFee().equals("")) {
             ToastUtil.showToast(context, "请填写抚养费金额");
             return;
@@ -288,6 +292,10 @@ public class CommitUtil {
         }
         if (maimData.getPayCoefficient().equals("")) {
             ToastUtil.showToast(context, "请填写赔偿系数");
+            return;
+        }
+        if (Double.parseDouble(maimData.getPayCoefficient()) >= 100) {
+            ToastUtil.showToast(context, "赔偿系数不能大于或等于100");
             return;
         }
         if (maimData.getDescribe().equals("")) {

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -142,7 +143,8 @@ public class SelectHospitalActivity extends BaseActivity {
     public void widgetClick(View v) {
         switch (v.getId()) {
             case R.id.page_head_image:
-                finish();
+                MedicalApplication.getInstance().finishActivity(this);
+//                finish();
                 break;
             case R.id.page_head_button:
                 Intent intent=new Intent(this,SelectAreaActivity.class);
@@ -166,7 +168,8 @@ public class SelectHospitalActivity extends BaseActivity {
             public void getDataSuccess(List<HospitalData> hospitals,int pageTotal) {
                 if (0==hospitals.size()||pageTotal==hospitalDatas.size()){
                     ptrClassicFrameLayout.loadMoreComplete(true);
-                    Toast.makeText(SelectHospitalActivity.this, "无更多数据", Toast.LENGTH_SHORT).show();
+                    ptrClassicFrameLayout.setNoMoreData();
+//                    Toast.makeText(SelectHospitalActivity.this, "无更多数据", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 hospitalDatas.addAll(hospitals);
@@ -204,4 +207,12 @@ public class SelectHospitalActivity extends BaseActivity {
         }
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            MedicalApplication.getInstance().finishActivity(this);
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 }

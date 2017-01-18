@@ -105,6 +105,7 @@ public class ClearEditText extends EditText implements View.OnFocusChangeListene
         this.hasFocus = hasFocus;
         if (hasFocus) {
             setClearIconVisible(getText().length() > 0);
+            setSelection(getText().length());
         } else {
             setClearIconVisible(false);
         }

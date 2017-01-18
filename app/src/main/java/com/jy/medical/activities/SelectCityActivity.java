@@ -33,10 +33,11 @@ public class SelectCityActivity extends BaseActivity implements GetLocation.Loca
     private CharacterParser characterParser;
     private List<CitySortModel> SourceDateList;
     private TextView tv_catagory, tv_city_name;
+    private String currentCity;
 
     @Override
     public void initData() {
-        GetLocation.getLoc(this, this);
+
     }
 
     @Override
@@ -46,7 +47,7 @@ public class SelectCityActivity extends BaseActivity implements GetLocation.Loca
 
     @Override
     public void initParams(Bundle parms) {
-
+        currentCity = parms.getString("currentCity");
     }
 
     @Override
@@ -66,6 +67,9 @@ public class SelectCityActivity extends BaseActivity implements GetLocation.Loca
         setDragEdge(SwipeBackLayout.DragEdge.LEFT);
         setTitleState(findViewById(R.id.title_head), true, "地区选择", false, "");
         initSelectView();
+        if (currentCity.equals("")) {
+            GetLocation.getLoc(this, this);
+        }
     }
 
     private void initSelectView() {
@@ -119,7 +123,7 @@ public class SelectCityActivity extends BaseActivity implements GetLocation.Loca
         tv_catagory = (TextView) headView.findViewById(R.id.tv_catagory);
         tv_city_name = (TextView) headView.findViewById(R.id.tv_city_name);
         tv_catagory.setText("当前位置");
-        tv_city_name.setText("北京市");
+        tv_city_name.setText(currentCity);
 //        Drawable drawable= getResources().getDrawable(R.mipmap.city_sure);
 //        drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
 //        tv_city_name.setCompoundDrawablesWithIntrinsicBounds(null, null,drawable , null);

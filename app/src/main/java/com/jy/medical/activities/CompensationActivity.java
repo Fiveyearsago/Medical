@@ -1,10 +1,12 @@
 package com.jy.medical.activities;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import com.flyco.tablayout.SegmentTabLayout;
 import com.flyco.tablayout.listener.OnTabSelectListener;
@@ -21,6 +23,7 @@ public class CompensationActivity extends BaseActivity {
     private ViewPager viewPager;
     private CompensationFragmentPagerAdapter adapter;
     private SegmentTabLayout segmentTabLayout;
+    private TextView cityTV;
 
 
     @Override
@@ -43,6 +46,7 @@ public class CompensationActivity extends BaseActivity {
         setStatusBarTint();
         setDragEdge(SwipeBackLayout.DragEdge.LEFT);
         setNavState(findViewById(R.id.title_head_second), "赔偿标准");
+        cityTV = (TextView) findViewById(R.id.page_head_button);
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         adapter = new CompensationFragmentPagerAdapter(getSupportFragmentManager(),
                 this);
@@ -86,10 +90,23 @@ public class CompensationActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.nav_layout:
-                startActivity(SelectCityActivity.class);
+                Intent intent = new Intent(this, SelectCityActivity.class);
+                intent.putExtra("currentCity", cityTV.getText());
+                startActivityForResult(intent, 0x10);
                 break;
             default:
                 break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case 0x10:
+                    cityTV.setText(data.getStringExtra("province"));
+                    break;
+            }
         }
     }
 }

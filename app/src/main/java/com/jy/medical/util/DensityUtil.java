@@ -1,6 +1,8 @@
 package com.jy.medical.util;
 
 import android.content.Context;
+import android.util.DisplayMetrics;
+import android.view.WindowManager;
 
 /**
  * Description

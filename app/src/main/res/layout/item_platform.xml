@@ -124,7 +124,7 @@
                     android:layout_toRightOf="@+id/item_platform_time_image"
                     android:text="2016-10-14 11:10"
                     android:textColor="@color/minorColor"
-                    android:textSize="@dimen/primary_text_size" />
+                    android:textSize="@dimen/text_size_14" />
 
                 <TextView
                     android:id="@+id/item_platform_report_num"
@@ -133,7 +133,7 @@
                     android:layout_alignParentRight="true"
                     android:text="报案号:C201610141120"
                     android:textColor="@color/minorColor"
-                    android:textSize="@dimen/primary_text_size" />
+                    android:textSize="@dimen/text_size_14" />
             </RelativeLayout>
         </LinearLayout>
     </RelativeLayout>

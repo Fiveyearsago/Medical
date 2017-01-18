@@ -17,6 +17,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,6 +60,7 @@ import com.jy.medical.util.CommitUtil;
 import com.jy.medical.util.TimeUtil;
 import com.jy.medical.util.ToastUtil;
 import com.jy.medical.widget.CustomViewpager;
+import com.jy.medical.widget.CustomerScrollView;
 import com.jy.medical.widget.SwipeBackLayout;
 
 import java.text.ParseException;
@@ -95,6 +97,7 @@ public class DetailActivity extends BaseActivity implements OnItemClickListener,
     private FloatingActionButton floatingActionButton;
     private String taskNo;
     private TextView taskTypeTV;
+    private CustomerScrollView scrollView;
 
     @Override
     public void initData() {
@@ -126,6 +129,7 @@ public class DetailActivity extends BaseActivity implements OnItemClickListener,
         setStatusBarTint();
         setTitleState(findViewById(R.id.title_head), true, "跟踪详情", false, "");
         findViewById(R.id.task_commit_btn).setOnClickListener(this);
+        scrollView = (CustomerScrollView) findViewById(R.id.scrollView);
         taskTypeImage = (ImageView) findViewById(R.id.task_state_image);
         taskTypeTV = (TextView) findViewById(R.id.task_type);
         setTaskTypeText();
@@ -303,6 +307,7 @@ public class DetailActivity extends BaseActivity implements OnItemClickListener,
                 taskTypeTV.setText("处");
                 break;
         }
+//        scrollView.fullScroll(ScrollView.FOCUS_UP);
     }
 
     @Override

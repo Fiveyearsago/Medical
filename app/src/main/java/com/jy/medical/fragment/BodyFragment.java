@@ -60,6 +60,24 @@ public class BodyFragment extends Fragment {
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        bitmapList.clear();
+        bitmapList = null;
+        bitmapPreList.clear();
+        bitmapPreList = null;
+        bitmapBackList.clear();
+        bitmapBackList = null;
+        bitmapBackPreList.clear();
+        bitmapBackPreList = null;
+        bitmapHeadList.clear();
+        bitmapHeadList = null;
+        bitmapHeadPreList.clear();
+        bitmapHeadPreList = null;
+        System.gc();
+    }
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         taskNo = getArguments().getString("taskNo");

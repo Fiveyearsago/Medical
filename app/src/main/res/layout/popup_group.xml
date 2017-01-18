@@ -23,7 +23,7 @@
             android:id="@+id/popup_check2"
             style="@style/PopupCheckStyle"
             android:drawableTop="@drawable/popup_base_selector"
-            android:text="伤者基本信息" />
+            android:text="基本信息" />
 
 
         <TextView

@@ -17,6 +17,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bigkoo.alertview.AlertView;
+import com.bigkoo.alertview.OnItemClickListener;
 import com.jy.medical.MedicalApplication;
 import com.jy.medical.R;
 import com.jy.medical.adapter.InquireEditAdapter;
@@ -410,7 +412,7 @@ public class HouseHoldsActivity extends BaseActivity {
      */
     private OnSwipeMenuItemClickListener menuItemClickListener = new OnSwipeMenuItemClickListener() {
         @Override
-        public void onItemClick(Closeable closeable, int adapterPosition, int menuPosition, int direction) {
+        public void onItemClick(Closeable closeable, final int adapterPosition, int menuPosition, int direction) {
             closeable.smoothCloseMenu();// 关闭被点击的菜单。
 
             if (direction == SwipeMenuRecyclerView.RIGHT_DIRECTION) {
@@ -425,9 +427,17 @@ public class HouseHoldsActivity extends BaseActivity {
                     bundle.putLong("Id", contactDataList.get(adapterPosition).getId());
                     startActivity(AddInquireActivity.class, bundle);
                 } else if (menuPosition == 1) {
-                    contactManager.deleteSingleData(contactDataList.get(adapterPosition));
-                    contactDataList.remove(adapterPosition);
-                    adapter.notifyDataSetChanged();
+                    AlertView mAlertView = new AlertView("提示", "是否删除该被询问人？", "取消", new String[]{"确定"}, null, context, AlertView.Style.Alert, new OnItemClickListener() {
+                        @Override
+                        public void onItemClick(Object o, int position1) {
+                            if (position1 == 0) {
+                                contactManager.deleteSingleData(contactDataList.get(adapterPosition));
+                                contactDataList.remove(adapterPosition);
+                                adapter.notifyDataSetChanged();
+                            }
+                        }
+                    }).setCancelable(true).setOnDismissListener(null);
+                    mAlertView.show();
                 }
             }
         }

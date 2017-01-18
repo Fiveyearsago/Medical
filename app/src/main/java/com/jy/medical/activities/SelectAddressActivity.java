@@ -2,71 +2,63 @@ package com.jy.medical.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.ZoomControls;
 
-import com.baidu.location.BDLocation;
-import com.baidu.mapapi.map.BaiduMap;
-import com.baidu.mapapi.map.MapStatus;
-import com.baidu.mapapi.map.MapStatusUpdate;
-import com.baidu.mapapi.map.MapStatusUpdateFactory;
-import com.baidu.mapapi.map.MapView;
-import com.baidu.mapapi.map.MyLocationConfiguration;
-import com.baidu.mapapi.map.MyLocationData;
-import com.baidu.mapapi.model.LatLng;
-import com.baidu.mapapi.search.core.PoiInfo;
-import com.baidu.mapapi.search.core.SearchResult;
-import com.baidu.mapapi.search.geocode.GeoCodeOption;
-import com.baidu.mapapi.search.geocode.GeoCodeResult;
-import com.baidu.mapapi.search.geocode.GeoCoder;
-import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
-import com.baidu.mapapi.search.geocode.ReverseGeoCodeOption;
-import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
-import com.baidu.mapapi.search.poi.OnGetPoiSearchResultListener;
-import com.baidu.mapapi.search.poi.PoiDetailResult;
-import com.baidu.mapapi.search.poi.PoiIndoorResult;
-import com.baidu.mapapi.search.poi.PoiResult;
-import com.baidu.mapapi.search.poi.PoiSearch;
+import com.amap.api.location.AMapLocation;
+import com.amap.api.maps.AMap;
+import com.amap.api.maps.CameraUpdateFactory;
+import com.amap.api.maps.MapView;
+import com.amap.api.maps.model.CameraPosition;
+import com.amap.api.maps.model.LatLng;
+import com.amap.api.services.core.LatLonPoint;
+import com.amap.api.services.core.PoiItem;
+import com.amap.api.services.core.SuggestionCity;
+import com.amap.api.services.geocoder.GeocodeResult;
+import com.amap.api.services.geocoder.GeocodeSearch;
+import com.amap.api.services.geocoder.RegeocodeQuery;
+import com.amap.api.services.geocoder.RegeocodeResult;
+import com.amap.api.services.poisearch.PoiResult;
+import com.amap.api.services.poisearch.PoiSearch;
 import com.jy.medical.R;
 import com.jy.medical.adapter.AddressAdapter1;
 import com.jy.medical.greendao.entities.AddressData;
-import com.jy.medical.util.GetLocation;
-import com.jy.medical.util.MyOrientationListener;
+import com.jy.medical.util.LocationUtil;
 import com.jy.medical.util.SPUtils;
+import com.jy.medical.util.ToastUtil;
 import com.jy.medical.widget.SlideBottomPanel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SelectAddressActivity extends BaseActivity implements GetLocation.LocationCallBack, OnGetGeoCoderResultListener, AddressAdapter1.ACallBack, SlideBottomPanel.CCallBack {
+public class SelectAddressActivity extends BaseActivity implements SlideBottomPanel.CCallBack, AddressAdapter1.ACallBack, PoiSearch.OnPoiSearchListener, GeocodeSearch.OnGeocodeSearchListener, LocationUtil.LCallBack {
     private MapView mMapView;
-    private RecyclerView recyclerView;
+    private AMap aMap;
     private List<AddressData> list;
     private AddressAdapter1 adapter;
     private CheckBox checkBox;
-    private RelativeLayout relativeLayout;
     private ListView listView;
     private com.jy.medical.widget.SlideBottomPanel slideBottomPanel;
-    private BaiduMap mBaiduMap;
-    private boolean isFirstLoc = true;
-    private MyOrientationListener myOrientationListener;
-    private BDLocation bdLocation;
-    private GeoCoder mSearch;
-    private PoiSearch mPoiSearch;
+
     private TextView cityText, btnSure;
 
     private TextView textTitle, textAddress, textLocation;
     private ImageView myLocationImage;
+    private PoiSearch.Query query;
+    private PoiSearch poiSearch;
+    private GeocodeSearch geocoderSearch;
 
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mMapView.onCreate(savedInstanceState);
+    }
 
     @Override
     public void initData() {
@@ -82,38 +74,32 @@ public class SelectAddressActivity extends BaseActivity implements GetLocation.L
 
     }
 
+
     @Override
     public void initView() {
         setStatusBarTint();
-//        setDragEdge(SwipeBackLayout.DragEdge.LEFT);
         setLocationSearchState(findViewById(R.id.title_head));
         myLocationImage = (ImageView) findViewById(R.id.my_location_image);
         myLocationImage.setOnClickListener(this);
         cityText = (TextView) findViewById(R.id.page_head_button);
         btnSure = (TextView) findViewById(R.id.btn_sure);
         btnSure.setOnClickListener(this);
-        cityText.setText(SPUtils.get(this, "cityName", "北京市").toString());
+        cityText.setText(SPUtils.get(this, "cityName", "").toString());
         mMapView = (MapView) findViewById(R.id.mapView);
+//        mMapView.onCreate(getIntent().getExtras());
+        aMap = mMapView.getMap();
+        //去LOGO
+        aMap.getUiSettings().setLogoBottomMargin(-50);
+        //去缩放按钮
+        aMap.getUiSettings().setZoomControlsEnabled(false);
+//        aMap.moveCamera(CameraUpdateFactory.zoomTo(18.0f));
+
         textTitle = (TextView) findViewById(R.id.text_title);
         textAddress = (TextView) findViewById(R.id.text_address);
         textLocation = (TextView) findViewById(R.id.text_location);
-        View child = mMapView.getChildAt(1);
-        if (child != null && (child instanceof ImageView || child instanceof ZoomControls)) {
 
-            child.setVisibility(View.INVISIBLE);
-        }
-        //地图上比例尺
-        mMapView.showScaleControl(false);
-        // 隐藏缩放控件
-        mMapView.showZoomControls(false);
-//        recyclerView = (RecyclerView) findViewById(R.id.address_recyclerView);
-//        recyclerView.setHasFixedSize(true);
-//        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-//        recyclerView.setLayoutManager(layoutManager);
-//
         list = new ArrayList<>();
         adapter = new AddressAdapter1(this, list, this);
-//        recyclerView.setAdapter(adapter);
         listView = (ListView) findViewById(R.id.address_recyclerView);
         listView.setAdapter(adapter);
         slideBottomPanel = (SlideBottomPanel) findViewById(R.id.sbv);
@@ -133,66 +119,28 @@ public class SelectAddressActivity extends BaseActivity implements GetLocation.L
                 }
             }
         });
-
-        mBaiduMap = mMapView.getMap();
-        // 开启定位图层
-        mPoiSearch = PoiSearch.newInstance();
-        mPoiSearch.setOnGetPoiSearchResultListener(poiListener);
-
-        mBaiduMap.setMyLocationEnabled(true);
-        mBaiduMap
-                .setMyLocationConfigeration(new MyLocationConfiguration(
-                        MyLocationConfiguration.LocationMode.FOLLOWING, true, null));
-        mBaiduMap.setOnMapStatusChangeListener(new BaiduMap.OnMapStatusChangeListener() {
+        aMap.setOnCameraChangeListener(new AMap.OnCameraChangeListener() {
             @Override
-            public void onMapStatusChangeStart(MapStatus mapStatus) {
+            public void onCameraChange(CameraPosition cameraPosition) {
 
             }
 
             @Override
-            public void onMapStatusChange(MapStatus mapStatus) {
-
-            }
-
-            @Override
-            public void onMapStatusChangeFinish(MapStatus mapStatus) {
-                LatLng ptCenter = mBaiduMap.getMapStatus().target; //获取地图中心点坐标
-                // 反Geo搜索
-                mSearch.reverseGeoCode(new ReverseGeoCodeOption()
-                        .location(ptCenter));
-
+            public void onCameraChangeFinish(CameraPosition cameraPosition) {
+                LatLng latLng = cameraPosition.target;
+                Log.i("latLng", latLng.latitude + "");
+                geocoderSearch = new GeocodeSearch(SelectAddressActivity.this);
+                RegeocodeQuery query1 = new RegeocodeQuery(new LatLonPoint(latLng.latitude,
+                        latLng.longitude), 1000, GeocodeSearch.AMAP);
+                geocoderSearch.setOnGeocodeSearchListener(SelectAddressActivity.this);
+                geocoderSearch.getFromLocationAsyn(query1);
             }
         });
-        // 初始化搜索模块，注册事件监听
-        mSearch = GeoCoder.newInstance();
-        mSearch.setOnGetGeoCodeResultListener(this);
-        GetLocation.getLoc(this, this);
-//        initOritationListener();
+        if (cityText.getText().equals("")) {
+            LocationUtil.getLocation(this, this);
+        }
 
     }
-
-    OnGetPoiSearchResultListener poiListener = new OnGetPoiSearchResultListener() {
-        public void onGetPoiResult(PoiResult result) {
-            //获取POI检索结果
-            List<PoiInfo> poiList = result.getAllPoi();
-            if (poiList == null)
-                return;
-            for (int i = 0; i < poiList.size(); i++) {
-                Log.i("poiListName", poiList.get(i).name);
-                Log.i("poiListAddress", poiList.get(i).address);
-            }
-        }
-
-        public void onGetPoiDetailResult(PoiDetailResult result) {
-            //获取Place详情页检索结果
-            Log.i("result.getAddress()", result.getAddress());
-        }
-
-        @Override
-        public void onGetPoiIndoorResult(PoiIndoorResult poiIndoorResult) {
-            Log.i("poiIndoorResult", poiIndoorResult.getmArrayPoiInfo().get(0).address);
-        }
-    };
 
     @Override
     public void widgetClick(View v) {
@@ -201,7 +149,7 @@ public class SelectAddressActivity extends BaseActivity implements GetLocation.L
                 finish();
                 break;
             case R.id.my_location_image:
-                GetLocation.getLoc(this, this);
+                LocationUtil.getLocation(this, this);
                 break;
             case R.id.page_head_button:
                 Intent intent = new Intent(this, SelectAreaActivity.class);
@@ -226,139 +174,34 @@ public class SelectAddressActivity extends BaseActivity implements GetLocation.L
 
     @Override
     protected void onStart() {
-        // 开启方向传感器
-//        myOrientationListener.start();
         super.onStart();
     }
 
     @Override
     protected void onPause() {
-        mMapView.onPause();
         super.onPause();
+        mMapView.onPause();
     }
 
     @Override
     protected void onResume() {
-        mMapView.onResume();
         super.onResume();
+        mMapView.onResume();
     }
 
     @Override
     protected void onDestroy() {
-        // 关闭定位图层
-        mBaiduMap.setMyLocationEnabled(false);
-        mMapView.onDestroy();
-        mMapView = null;
-        // 关闭方向传感器
-//        myOrientationListener.stop();
         super.onDestroy();
+        mMapView.onDestroy();
     }
 
+    /**
+     * 方法必须重写
+     */
     @Override
-    public void getLocationSuccess(final BDLocation location, String address, String province, String city) {
-        if (location == null || mMapView == null) {
-            return;
-        }
-        bdLocation = location;
-        cityText.setText(location.getCity());
-        LatLng ll = new LatLng(location.getLatitude(),
-                location.getLongitude());
-        MapStatus.Builder builder = new MapStatus.Builder();
-        builder.target(ll).zoom(18.0f);
-        mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
-    }
-
-    @Override
-    public void getLocationFailed() {
-
-    }
-
-    private void initOritationListener() {
-        myOrientationListener = new MyOrientationListener(
-                getApplicationContext());
-        myOrientationListener
-                .setOnOrientationListener(new MyOrientationListener.OnOrientationListener() {
-                    @Override
-                    public void onOrientationChanged(float x) {
-//                        mXDirection = (int) x;
-                        if (bdLocation != null) {
-                            // 构造定位数据
-                            MyLocationData locData = new MyLocationData.Builder()
-                                    .accuracy(100)
-                                    // 此处设置开发者获取到的方向信息，顺时针0-360
-                                    .direction((int) x)
-                                    .latitude(bdLocation.getLatitude())
-                                    .longitude(bdLocation.getLongitude()).build();
-                            // 设置定位数据
-                            Log.i("x", x + "");
-                            mBaiduMap.setMyLocationData(locData);
-                            // 设置自定义图标
-                            mBaiduMap.setMyLocationConfigeration((new MyLocationConfiguration(
-                                    MyLocationConfiguration.LocationMode.FOLLOWING, true, null)));
-                        }
-
-                    }
-                });
-
-    }
-
-    @Override
-    public void onGetGeoCodeResult(GeoCodeResult geoCodeResult) {
-        //设置地图中心点坐标
-        MapStatusUpdate status = MapStatusUpdateFactory.newLatLng(geoCodeResult.getLocation());
-        mBaiduMap.animateMapStatus(status);
-    }
-
-    @Override
-    public void onGetReverseGeoCodeResult(ReverseGeoCodeResult reverseGeoCodeResult) {
-        if (reverseGeoCodeResult == null || reverseGeoCodeResult.error != SearchResult.ERRORNO.NO_ERROR) {
-            Toast.makeText(this, "抱歉，未能找到结果", Toast.LENGTH_SHORT)
-                    .show();
-            return;
-        }
-        ReverseGeoCodeResult.AddressComponent addressCom = reverseGeoCodeResult.getAddressDetail();
-
-        Log.i("addressCom", addressCom.province + addressCom.city + addressCom.district + addressCom.street + addressCom.streetNumber);
-        List<PoiInfo> poiList = reverseGeoCodeResult.getPoiList();
-        list.clear();
-        for (int i = 0; i < poiList.size(); i++) {
-            Log.i("name", poiList.get(i).name);
-            Log.i("address", poiList.get(i).address);
-            list.add(new AddressData(poiList.get(i).name, poiList.get(i).address, poiList.get(i).location.latitude, poiList.get(i).location.longitude));
-        }
-        textTitle.setText(list.get(0).getTitle());
-        if (addressCom.province.equals(addressCom.city))
-            textAddress.setText(addressCom.city + addressCom.district + addressCom.street + addressCom.streetNumber);
-        else
-            textAddress.setText(addressCom.province + addressCom.city + addressCom.district + addressCom.street + addressCom.streetNumber);
-        textTitle.setVisibility(View.VISIBLE);
-        textAddress.setVisibility(View.VISIBLE);
-        textLocation.setVisibility(View.GONE);
-        adapter.setData(list);
-        adapter.notifyDataSetChanged();
-        mBaiduMap.clear();
-        mBaiduMap.setMapStatus(MapStatusUpdateFactory.newLatLng(reverseGeoCodeResult
-                .getLocation()));//改变地图状态？
-        //搜索附近
-
-//        Toast.makeText(this, reverseGeoCodeResult.getAddressDetail().city + "  " +
-//                        reverseGeoCodeResult.getAddressDetail().district + "  " + reverseGeoCodeResult.getAddressDetail().street +
-//                        reverseGeoCodeResult.getAddressDetail().streetNumber,
-//                Toast.LENGTH_LONG).show();
-
-    }
-
-    @Override
-    public void changeSearch(int index) {
-        if (slideBottomPanel.isPanelShowing()) {
-            slideBottomPanel.hide();
-            checkBox.setChecked(false);
-        }
-        LatLng ll = new LatLng(list.get(index).getLatitude(),
-                list.get(index).getLongitude());
-        MapStatus.Builder builder = new MapStatus.Builder();
-        builder.target(ll).zoom(18.0f);
-        mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        mMapView.onSaveInstanceState(outState);
     }
 
     @Override
@@ -369,14 +212,11 @@ public class SelectAddressActivity extends BaseActivity implements GetLocation.L
                 case 0x11:
                     String cityName = data.getStringExtra("cityName");
                     cityText.setText(cityName);
-                    mSearch.geocode(new GeoCodeOption().city(cityName).address(cityName));
                     break;
                 case 0x14:
-                    LatLng ll = new LatLng(data.getDoubleExtra("lat", 0),
-                            data.getDoubleExtra("long", 0));
-                    MapStatus.Builder builder = new MapStatus.Builder();
-                    builder.target(ll).zoom(18.0f);
-                    mBaiduMap.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
+                    aMap.moveCamera(CameraUpdateFactory.changeLatLng(new LatLng(data.getDoubleExtra("lat", 0),
+                            data.getDoubleExtra("long", 0))));
+
                     break;
             }
         }
@@ -389,5 +229,107 @@ public class SelectAddressActivity extends BaseActivity implements GetLocation.L
         } else {
             checkBox.setChecked(false);
         }
+    }
+
+    @Override
+    public void changeSearch(int index) {
+        if (slideBottomPanel.isPanelShowing()) {
+            slideBottomPanel.hide();
+            checkBox.setChecked(false);
+        }
+        aMap.moveCamera(CameraUpdateFactory.changeLatLng(new LatLng(list.get(index).getLatitude(), list.get(index).getLongitude())));
+
+    }
+
+    @Override
+    public void onPoiSearched(PoiResult poiResult, int i) {
+        if (i == 1000) {
+            if (poiResult != null && poiResult.getQuery() != null) {// 搜索poi的结果
+                if (poiResult.getQuery().equals(query)) {// 是否是同一条
+                    // 取得搜索到的poiitems有多少页
+                    List<PoiItem> poiItems = poiResult.getPois();// 取得第一页的poiitem数据，页数从数字0开始
+                    List<SuggestionCity> suggestionCities = poiResult
+                            .getSearchSuggestionCitys();// 当搜索不到poiitem数据时，会返回含有搜索关键字的城市信息
+                    if (poiItems.size() > 0)
+                        list.clear();
+                    for (int j = 0; j < poiItems.size(); j++) {
+                        if (list.size() > 10)
+                            break;
+                        Log.i("poiItemTitle", poiItems.get(j).getTitle());
+                        Log.i("poiItemAddress", poiItems.get(j).getProvinceName() + poiItems.get(j).getCityName() + poiItems.get(j).getSnippet());
+                        if (!poiItems.get(j).getProvinceName().equals(poiItems.get(j).getCityName())) {
+                            if (poiItems.get(j).getSnippet().equals("") || poiItems.get(j).getSnippet() == null)
+                                break;
+                            list.add(new AddressData(poiItems.get(j).getTitle(), poiItems.get(j).getProvinceName() + poiItems.get(j).getCityName() + poiItems.get(j).getSnippet(), poiItems.get(j).getLatLonPoint().getLatitude(), poiItems.get(j).getLatLonPoint().getLongitude()));
+                        } else {
+                            if (poiItems.get(j).getSnippet().equals("") || poiItems.get(j).getSnippet() == null)
+                                break;
+                            list.add(new AddressData(poiItems.get(j).getTitle(), poiItems.get(j).getCityName() + poiItems.get(j).getSnippet(), poiItems.get(j).getLatLonPoint().getLatitude(), poiItems.get(j).getLatLonPoint().getLongitude()));
+                        }
+                    }
+                    textTitle.setText(list.get(0).getTitle());
+//                    textAddress.setText(list.get(0).getText());
+                    textTitle.setVisibility(View.VISIBLE);
+                    textAddress.setVisibility(View.VISIBLE);
+                    textLocation.setVisibility(View.GONE);
+                    btnSure.setVisibility(View.VISIBLE);
+                    adapter.setData(list);
+                    adapter.notifyDataSetChanged();
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onPoiItemSearched(PoiItem poiItem, int i) {
+
+    }
+
+    @Override
+    public void onRegeocodeSearched(RegeocodeResult result, int rCode) {
+        if (rCode == 1000) {
+            if (result != null && result.getRegeocodeAddress() != null
+                    && result.getRegeocodeAddress().getFormatAddress() != null) {
+//                textTitle.setText(result.getRegeocodeAddress().getStreetNumber().getStreet()+result.getRegeocodeAddress().getStreetNumber().getNumber());
+                textAddress.setText(result.getRegeocodeAddress().getFormatAddress());
+//                textTitle.setVisibility(View.VISIBLE);
+//                textAddress.setVisibility(View.VISIBLE);
+//                textLocation.setVisibility(View.GONE);
+//                btnSure.setVisibility(View.VISIBLE);
+
+                Log.i("getFormatAddress", result.getRegeocodeAddress().getFormatAddress());
+                Log.i("getFormatAddress", result.getRegeocodeAddress().getBuilding() + " " + result.getRegeocodeAddress().getBuilding() + "  " + result.getRegeocodeAddress().getDistrict() + "  " + result.getRegeocodeAddress().getStreetNumber().getNumber() + "  " + result.getRegeocodeAddress().getTownship());
+                query = new PoiSearch.Query(result.getRegeocodeAddress().getBuilding() == null ? "" : result.getRegeocodeAddress().getBuilding(), "", "");
+                query.setPageSize(20);// 设置每页最多返回多少条poiitem
+                query.setPageNum(1);//设置查询页码
+                poiSearch = new PoiSearch(SelectAddressActivity.this, query);
+
+                poiSearch.setBound(new PoiSearch.SearchBound(result.getRegeocodeQuery().getPoint()
+                        , 1000));//设置周边搜索的中心点以及半径
+                poiSearch.setOnPoiSearchListener(SelectAddressActivity.this);
+                poiSearch.searchPOIAsyn();
+            } else {
+            }
+        } else {
+        }
+    }
+
+    @Override
+    public void onGeocodeSearched(GeocodeResult geocodeResult, int i) {
+
+        Log.i("geocodeResult", geocodeResult.toString());
+    }
+
+    @Override
+    public void getLocationSuccess(AMapLocation aMapLocation) {
+        cityText.setText(aMapLocation.getCity());
+        aMap.moveCamera(CameraUpdateFactory.zoomTo(18.0f));
+        aMap.moveCamera(CameraUpdateFactory.changeLatLng(new LatLng(aMapLocation.getLatitude(), aMapLocation.getLongitude())));
+
+    }
+
+    @Override
+    public void getLocationFailed() {
+        ToastUtil.showToast(this, "定位失败，请稍后重试");
     }
 }

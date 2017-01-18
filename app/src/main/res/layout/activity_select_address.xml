@@ -20,7 +20,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <com.baidu.mapapi.map.MapView
+            <com.amap.api.maps.MapView
                 android:id="@+id/mapView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -74,11 +74,6 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/bg_recylerview_address" />
 
-                    <!--<android.support.v7.widget.RecyclerView-->
-                    <!--android:id="@+id/address_recyclerView"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:background="@drawable/bg_recylerview_address" />-->
 
                     <!-- 标题，如果需要完整显示标题，设置 sbp_title_height_no_display="标题的高度" -->
                     <RelativeLayout
@@ -138,6 +133,7 @@
                             android:layout_toLeftOf="@+id/checkbox_address"
                             android:layout_width="50dp"
                             android:layout_height="30dp"
+                            android:visibility="gone"
                             android:text="确定"
                             android:clickable="true"
                             android:gravity="center"

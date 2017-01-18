@@ -62,7 +62,15 @@ public class TimeUtil {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        SimpleDateFormat sdf = new SimpleDateFormat("M-d H:m");
+        SimpleDateFormat sdf;
+        if (startDate == null)
+            return "";
+        Date currentDate = new Date(System.currentTimeMillis());
+        if (startDate.getYear() == currentDate.getYear()) {
+            sdf = new SimpleDateFormat("MM-dd H:m");
+        } else {
+            sdf = new SimpleDateFormat("yyyy-MM-dd H:m");
+        }
         String str = sdf.format(startDate);
         return str;
     }

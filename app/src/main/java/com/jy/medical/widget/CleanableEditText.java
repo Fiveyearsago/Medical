@@ -102,6 +102,7 @@ public class CleanableEditText extends EditText {
             if (isHasFocus) {
                 boolean isVisible=getText().toString().length()>=1;
                 setClearDrawableVisible(isVisible);
+//                setSelection(getText().length());
             } else {
                 setClearDrawableVisible(false);
             }

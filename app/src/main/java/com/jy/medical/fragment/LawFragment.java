@@ -165,7 +165,7 @@ public class LawFragment extends Fragment {
                         ptrClassicFrameLayout.refreshComplete();
                     }else {
                         ptrClassicFrameLayout.loadMoreComplete(true);
-
+                        ptrClassicFrameLayout.setNoMoreData();
                     }
                 }
             }

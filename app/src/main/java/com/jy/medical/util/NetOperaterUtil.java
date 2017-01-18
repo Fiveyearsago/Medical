@@ -11,8 +11,6 @@ import org.xutils.x;
  */
 
 public  class NetOperaterUtil {
-    public static  void getResponse1(String url,String json){
-    }
 
 
     public static void getResponse(String url,String json,Callback.CommonCallback<String> callback){

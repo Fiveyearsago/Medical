@@ -57,6 +57,7 @@ public class SearchDiagnoseActivity extends BaseActivity implements TextView.OnE
     private String taskNo;
     private String flag = "";
     private String kindCode = "";
+    private View blankLayout;
 
     @Override
     public void initData() {
@@ -82,6 +83,7 @@ public class SearchDiagnoseActivity extends BaseActivity implements TextView.OnE
         setDragEdge(SwipeBackLayout.DragEdge.LEFT);
         MedicalApplication.getInstance().addActivity(this);
         setSearchTitle(findViewById(R.id.title_head), "取消");
+        blankLayout = findViewById(R.id.blank_layout);
         mRecyclerView = (RecyclerView) findViewById(R.id.hospital_recyclerView);
         list = new ArrayList<>();
         initRecyclerView();
@@ -170,6 +172,12 @@ public class SearchDiagnoseActivity extends BaseActivity implements TextView.OnE
         String data = response.getData();
         SpListDTO spListDTO = responseGson.fromJson(data, SpListDTO.class);
         List<MtMedicalInjureItemDTO> injureItemList = spListDTO.getInjureItemList();
+        if (injureItemList.size() == 0) {
+            mRecyclerView.setVisibility(View.GONE);
+            blankLayout.setVisibility(View.VISIBLE);
+            recordView.setVisibility(View.GONE);
+            return;
+        }
         List<Diagnose> diagnoseList = new ArrayList<Diagnose>();
         diagnoseList.clear();
         for (int i = 0; i < injureItemList.size(); i++) {
@@ -180,6 +188,8 @@ public class SearchDiagnoseActivity extends BaseActivity implements TextView.OnE
         list.addAll(diagnoseList);
         diagnoseAdapter.notifyDataSetChanged();
         recordView.setVisibility(View.GONE);
+        mRecyclerView.setVisibility(View.VISIBLE);
+        blankLayout.setVisibility(View.GONE);
 //        diagnoseAdapter = new DiagnoseAdapter(this, list,taskNo);
 //        mRecyclerView.setAdapter(diagnoseAdapter);
     }

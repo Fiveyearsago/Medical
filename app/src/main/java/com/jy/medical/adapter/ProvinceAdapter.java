@@ -22,6 +22,7 @@ public class ProvinceAdapter extends BaseHeadFootAdapter {
     private Context context;
     private List<CityData>list;
     private LCallBack lCallBack;
+    private int index = 0;
 
     public ProvinceAdapter(Context context, List<CityData> list,LCallBack lCallBack) {
         this.context = context;
@@ -35,6 +36,7 @@ public class ProvinceAdapter extends BaseHeadFootAdapter {
         headerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
             }
         });
     }
@@ -55,26 +57,28 @@ public class ProvinceAdapter extends BaseHeadFootAdapter {
     @Override
     protected void onBindView(RecyclerView.ViewHolder holder, final int position) {
         final ProvinceViewHolder viewHolder= (ProvinceViewHolder) holder;
-//        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                lCallBack.changeCityData(position);
-//            }
-//        });
-
+        viewHolder.setIsRecyclable(false);
         viewHolder.name.setText(list.get(position).getName());
         viewHolder.name.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus)
                 v.performClick();
             }
         });
+        if (index == position) {
+            viewHolder.name.setSelected(true);
+        } else {
+            viewHolder.name.setSelected(false);
+        }
         viewHolder.name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 SPUtils.put(context,"provinceName",list.get(position).getName());
                 SPUtils.put(context,"provinceKey",list.get(position).getAid());
                 lCallBack.changeCityData(position);
+                index = position;
+
             }
         });
     }

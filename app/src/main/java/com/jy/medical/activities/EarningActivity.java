@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bigkoo.alertview.AlertView;
+import com.bigkoo.alertview.OnItemClickListener;
 import com.google.gson.Gson;
 import com.jy.ah.bus.data.Response;
 import com.jy.medical.MedicalApplication;
@@ -497,13 +498,21 @@ public class EarningActivity extends BaseActivity {
      */
     private OnSwipeMenuItemClickListener menuItemClickListener = new OnSwipeMenuItemClickListener() {
         @Override
-        public void onItemClick(Closeable closeable, int adapterPosition, int menuPosition, int direction) {
+        public void onItemClick(Closeable closeable, final int adapterPosition, int menuPosition, int direction) {
             closeable.smoothCloseMenu();// 关闭被点击的菜单。
 
             if (direction == SwipeMenuRecyclerView.RIGHT_DIRECTION) {
-                contactManager.deleteSingleData(contactDataList.get(adapterPosition));
-                contactDataList.remove(adapterPosition);
-                adapter.notifyDataSetChanged();
+                AlertView mAlertView = new AlertView("提示", "是否删除该联系人？", "取消", new String[]{"确定"}, null, context, AlertView.Style.Alert, new OnItemClickListener() {
+                    @Override
+                    public void onItemClick(Object o, int position1) {
+                        if (position1 == 0) {
+                            contactManager.deleteSingleData(contactDataList.get(adapterPosition));
+                            contactDataList.remove(adapterPosition);
+                            adapter.notifyDataSetChanged();
+                        }
+                    }
+                }).setCancelable(true).setOnDismissListener(null);
+                mAlertView.show();
             } else if (direction == SwipeMenuRecyclerView.LEFT_DIRECTION) {
             }
         }

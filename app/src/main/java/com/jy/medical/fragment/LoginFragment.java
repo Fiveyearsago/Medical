@@ -75,12 +75,8 @@ public class LoginFragment extends Fragment {
             @Override
             public void onClick(View view) {
 //                requestServer();
-//                startActivity(new Intent(mContext, PlatformActivity.class));
                 startActivity(new Intent(mContext, HomeActivity.class));
                 ((AppCompatActivity) mContext).finish();
-//                startActivity(new Intent(mContext, AddDiagnoseActivity.class));
-//                startActivity(new Intent(mContext, DemoActivity.class));
-//                startActivity(new Intent(mContext, SelectHospitalActivity.class));
             }
         });
         return accountLayout;

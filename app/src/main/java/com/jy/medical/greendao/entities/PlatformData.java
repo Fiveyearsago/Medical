@@ -1,12 +1,13 @@
 package com.jy.medical.greendao.entities;
 
 import java.io.Serializable;
+import java.util.Comparator;
 
 /**
  * Created by songran on 16/10/14.
  */
 
-public class PlatformData implements Serializable {
+public class PlatformData implements Serializable, Comparable<PlatformData> {
     private String peopleName;
     private String time;
     private String tag;
@@ -119,5 +120,11 @@ public class PlatformData implements Serializable {
 
     public void setTaskNo(String taskNo) {
         this.taskNo = taskNo;
+    }
+
+
+    @Override
+    public int compareTo(PlatformData o) {
+        return this.getTime().compareTo(o.getTime());
     }
 }

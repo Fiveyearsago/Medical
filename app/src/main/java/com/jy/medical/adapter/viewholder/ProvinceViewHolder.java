@@ -8,7 +8,7 @@ import android.widget.TextView;
 import com.jy.medical.R;
 
 /**
- * Created by 19459 on 2016/9/21.
+ * Created by SongRan on 2016/9/21.
  */
 
 public class ProvinceViewHolder extends RecyclerView.ViewHolder {

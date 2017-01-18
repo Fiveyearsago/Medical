@@ -17,6 +17,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -181,6 +182,17 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         collectImage.setOnClickListener(this);
     }
 
+    public void setCheckNavState(View navView, String textTitle, int leftDrawable, int rightDrawable) {
+        ImageView navImage = (ImageView) navView.findViewById(R.id.page_third_head_image);
+        CheckBox collectImage = (CheckBox) navView.findViewById(R.id.page_third_head_collect);
+        TextView textViewTitle = (TextView) navView.findViewById(R.id.page_third_head_text);
+        navImage.setBackground(getResources().getDrawable(leftDrawable));
+        collectImage.setBackground(getResources().getDrawable(rightDrawable));
+        textViewTitle.setText(textTitle);
+        navImage.setOnClickListener(this);
+        collectImage.setOnClickListener(this);
+    }
+
     public void setSegmentState(View navView) {
         ImageView navImage = (ImageView) navView.findViewById(R.id.page_head_home_image);
         ImageView navImage1 = (ImageView) navView.findViewById(R.id.page_head_home_search);
@@ -268,9 +280,9 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
             SystemBarTintManager mSystemBarTintManager = new SystemBarTintManager(this);
             mSystemBarTintManager.setStatusBarTintEnabled(true);
             mSystemBarTintManager.setNavigationBarTintEnabled(true);//虚拟键
-            mSystemBarTintManager.setTintColor(Color.parseColor("#0F5BC4"));
+//            mSystemBarTintManager.setTintColor(Color.parseColor("#0F5BC4"));
             mSystemBarTintManager.setNavigationBarTintColor(Color.BLACK);
-//            mSystemBarTintManager.setStatusBarTintDrawable(getResources().getDrawable(R.mipmap.hpme_status_bg));
+            mSystemBarTintManager.setStatusBarTintColor(getResources().getColor(R.color.colorPrimaryDark));
             ViewGroup rootView = (ViewGroup) ((ViewGroup) this.findViewById(android.R.id.content)).getChildAt(0);
             rootView.setFitsSystemWindows(true);
             rootView.setClipToPadding(true);
@@ -362,14 +374,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
                     return super.dispatchTouchEvent(ev);
                 }
                 break;
-//            case MotionEvent.ACTION_MOVE:
-//                super.dispatchTouchEvent(ev);
-//                Log.i("ACTION_MOVE","ACTION_MOVE");
-//                break;
         }
-//        if (ev.getAction() == MotionEvent.ACTION_UP) {
-//
-//        }
         return super.dispatchTouchEvent(ev);
     }
 

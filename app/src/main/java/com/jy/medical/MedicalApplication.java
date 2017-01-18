@@ -44,6 +44,11 @@ public class MedicalApplication extends Application {
     }
     //添加Activity到容器中
     public void addActivity(AppCompatActivity activity)  {
+        for (AppCompatActivity activity1 : activityList) {
+            if (activity1.getClass().equals(activity)) {
+                return;
+            }
+        }
         activityList.add(activity);
     }
     public void finishActivity(Class<?> cls){
@@ -73,7 +78,7 @@ public class MedicalApplication extends Application {
     public void onCreate() {
         super.onCreate();
 //        PgyCrashManager.register(this);
-        SDKInitializer.initialize(this);
+//        SDKInitializer.initialize(this);
         instance=this;
         x.Ext.init(this);
         x.Ext.setDebug(BuildConfig.DEBUG); // 是否输出debug日志, 开启debug会影响性能.

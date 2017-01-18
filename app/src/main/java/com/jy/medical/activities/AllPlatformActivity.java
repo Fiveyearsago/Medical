@@ -85,6 +85,7 @@ public class AllPlatformActivity extends BaseActivity {
         slidingTabLayout.setViewPager(viewPager, titles);
         if (mPosition != -1) {
 //            initFragment();
+            viewPager.setCurrentItem(mPosition);
             slidingTabLayout.setCurrentTab(mPosition);
             mPosition = -1;
         }
@@ -93,6 +94,7 @@ public class AllPlatformActivity extends BaseActivity {
             @Override
             public void onTabSelect(int position) {
                 viewPager.setCurrentItem(position);
+                filterData(taskType);
             }
 
             @Override
@@ -117,22 +119,23 @@ public class AllPlatformActivity extends BaseActivity {
 
             }
         });
-        viewPager.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        Log.i("ACTION_DOWN", "ViewPager");
-                        break;
-                    case MotionEvent.ACTION_MOVE:
-                        Log.i("ACTION_MOVE", "ViewPager");
-                        viewPager.onInterceptTouchEvent(event);
-                        break;
-                }
-                return false;
-            }
-        });
+//        viewPager.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                switch (event.getAction()) {
+//                    case MotionEvent.ACTION_DOWN:
+//                        Log.i("ACTION_DOWN", "ViewPager");
+//                        break;
+//                    case MotionEvent.ACTION_MOVE:
+//                        Log.i("ACTION_MOVE", "ViewPager");
+//                        viewPager.onInterceptTouchEvent(event);
+//                        break;
+//                }
+//                return false;
+//            }
+//        });
         setTitleText();
+//        filterData(taskType);
 
     }
 
@@ -163,7 +166,7 @@ public class AllPlatformActivity extends BaseActivity {
                 titleTV.setText("伤残鉴定");
                 break;
             case "09":
-                titleTV.setText("伤者信息");
+                titleTV.setText("基本信息");
                 break;
             case "10":
                 titleTV.setText("事故现场");
@@ -186,7 +189,7 @@ public class AllPlatformActivity extends BaseActivity {
             //任务模块
             bundle.putString("taskType", taskType);
             //任务状态（超时，未超时，已完成）
-            bundle.putString("taskFlag", i + "");
+            bundle.putInt("taskFlag", i);
             platformFragmentList.get(i).setArguments(bundle);
         }
     }
@@ -318,14 +321,14 @@ public class AllPlatformActivity extends BaseActivity {
     }
 
     public void setWindowBackground(float alpha) {
-//        WindowManager.LayoutParams lp = this.getWindow().getAttributes();
-//        lp.alpha = alpha;
-//        this.getWindow().setAttributes(lp);
-//        this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-//        if (alpha > 0.5) {
-//            this.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-//            this.getWindow().setBackgroundDrawableResource(R.color.blackPressed);
-//        }
+        WindowManager.LayoutParams lp = this.getWindow().getAttributes();
+        lp.alpha = alpha;
+        this.getWindow().setAttributes(lp);
+        this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        if (alpha > 0.5) {
+            this.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+            this.getWindow().setBackgroundDrawableResource(R.color.blackPressed);
+        }
     }
 
     @Override

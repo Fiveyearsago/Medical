@@ -33,8 +33,10 @@
     <application
         android:name=".MedicalApplication"
         android:allowBackup="true"
+        android:hardwareAccelerated="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <service android:name="com.amap.api.location.APSService"></service>
@@ -146,7 +148,7 @@
         <activity android:name=".activities.FollowDetailActivity" />
         <activity
             android:name=".activities.FollowEditActivity"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan|stateHidden" />
         <activity
             android:name=".activities.AddContactsActivity"
             android:screenOrientation="portrait"
@@ -171,6 +173,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
+            android:name=".activities.BudgetActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
             android:name=".activities.SearchPlatformActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateVisible" />
@@ -184,7 +190,7 @@
         <activity android:name=".activities.SelectAreaActivity" />
         <activity
             android:name=".activities.SelectHospitalActivity"
-            android:launchMode="singleTask"
+            android:launchMode="singleInstance"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".activities.MedicalVisitsActivity"
@@ -198,6 +204,9 @@
             android:windowSoftInputMode="stateVisible" />
         <activity
             android:name=".activities.SearchAddressActivity"
+            android:windowSoftInputMode="stateVisible" />
+        <activity
+            android:name=".activities.SearchMaimActivity"
             android:windowSoftInputMode="stateVisible" />
         <activity
             android:name=".activities.SearchAddressActivity2"

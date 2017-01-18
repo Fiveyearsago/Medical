@@ -1,5 +1,6 @@
 package com.jy.medical.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -11,6 +12,7 @@ import com.jy.medical.MedicalApplication;
 import com.jy.medical.R;
 import com.jy.medical.adapter.MaimPagerAdapter;
 import com.jy.medical.adapter.PlatformFragmentPagerAdapter;
+import com.jy.medical.greendao.entities.Inquire;
 import com.jy.medical.widget.SwipeBackLayout;
 
 public class MaimGradeActivity extends BaseActivity {
@@ -40,7 +42,7 @@ public class MaimGradeActivity extends BaseActivity {
         setDragEdge(SwipeBackLayout.DragEdge.LEFT);
         MedicalApplication.getInstance().addActivity(this);
         Log.i("onCreate","true");
-        setLocationNavState(findViewById(R.id.title_head),  true,"确定");
+        setLocationSearchState(findViewById(R.id.title_head));
         slidingTabLayout = (SlidingTabLayout) findViewById(R.id.tabLayout_maim);
         viewPager = (ViewPager) findViewById(R.id.viewPager_maim);
         String[] titles=new String[]{"一级", "二级", "三级", "四级", "五级","六级", "七级", "八级", "九级", "十级"};
@@ -82,11 +84,13 @@ public class MaimGradeActivity extends BaseActivity {
     @Override
     public void widgetClick(View v) {
         switch (v.getId()) {
-            case R.id.page_third_head_image:
+            case R.id.page_head_image:
                 finish();
                 break;
-            case R.id.page_third_head_collect:
-                startActivity(SearchPlatformActivity.class);
+            case R.id.page_head_text:
+                Intent intent = new Intent(this, SearchMaimActivity.class);
+                intent.putExtra("taskNo", taskNo);
+                startActivity(intent);
                 break;
         }
     }

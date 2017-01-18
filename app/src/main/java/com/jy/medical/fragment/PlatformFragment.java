@@ -106,7 +106,7 @@ public class PlatformFragment extends Fragment {
         adapter = new PlatformAdapter(mContext, list);
         recyclerView.setAdapter(adapter);
         radioList.get(0).setChecked(true);
-        setFilterData(taskType, 0);
+        setFilterData(taskType, taskFlag);
         return rootView;
     }
 
@@ -121,6 +121,7 @@ public class PlatformFragment extends Fragment {
         this.taskFlag = taskFlag;
         switch (taskFlag) {
             case 0:
+                if (radioGroupLayout != null)
                 radioGroupLayout.setVisibility(View.GONE);
                 list = claimManager.selectAllData(taskType, taskFlag);
                 break;
@@ -132,11 +133,13 @@ public class PlatformFragment extends Fragment {
                 break;
             case 2:
                 setRadioGroupText2();
+                if (radioGroupLayout != null)
                 radioGroupLayout.setVisibility(View.VISIBLE);
                 setTaskTypeData(taskType);
 //                radioList.get(0).setChecked(true);
                 break;
             case 3:
+                if (radioGroupLayout != null)
                 radioGroupLayout.setVisibility(View.GONE);
                 list = claimManager.selectAllData(taskType, taskFlag);
                 break;

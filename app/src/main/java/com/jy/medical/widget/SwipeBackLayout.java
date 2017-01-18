@@ -30,6 +30,8 @@ import android.webkit.WebView;
 import android.widget.AbsListView;
 import android.widget.ScrollView;
 
+import org.xutils.common.util.DensityUtil;
+
 /**
  * Swipe or Pull to finish a Activity.
  * <p/>
@@ -238,6 +240,7 @@ public class SwipeBackLayout extends ViewGroup {
                 return verticalDragRange;
             case LEFT:
             case RIGHT:
+                Log.i("DragRange", horizontalDragRange + "");
                 return horizontalDragRange;
             default:
                 return verticalDragRange;
@@ -246,22 +249,28 @@ public class SwipeBackLayout extends ViewGroup {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        boolean handled = false;
-        ensureTarget();
-        if (isEnabled()) {
-            handled = viewDragHelper.shouldInterceptTouchEvent(ev);
+        if (ev.getX() < DensityUtil.getScreenWidth() / 3) {
+            boolean handled = false;
+            ensureTarget();
+            if (isEnabled()) {
+                handled = viewDragHelper.shouldInterceptTouchEvent(ev);
+            } else {
+                viewDragHelper.cancel();
+            }
+            Log.i("onInterceptTouchEvent", (!handled ? super.onInterceptTouchEvent(ev) : handled) + "");
+            return !handled ? super.onInterceptTouchEvent(ev) : handled;
         } else {
-            viewDragHelper.cancel();
+            return false;
         }
-//        return false;
-        return !handled ? super.onInterceptTouchEvent(ev) : handled;
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         viewDragHelper.processTouchEvent(event);
+        Log.i("onTouchEvent", "true");
         return true;
     }
+
 
     @Override
     public void computeScroll() {
@@ -279,14 +288,6 @@ public class SwipeBackLayout extends ViewGroup {
     }
 
     private boolean canChildScrollRight() {
-//        if (scrollChild instanceof CustomViewpager){
-//            if(((CustomViewpager)scrollChild).getCurrentItem()==0){
-//                return  false;
-//            }
-//            else
-//                return  false;
-//        }
-//        return false;
         return ViewCompat.canScrollHorizontally(scrollChild, -1);
     }
 

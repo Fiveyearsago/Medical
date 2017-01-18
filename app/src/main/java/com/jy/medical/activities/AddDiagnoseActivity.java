@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 
 import com.flyco.tablayout.SegmentTabLayout;
@@ -121,10 +122,16 @@ public class AddDiagnoseActivity extends BaseActivity {
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
     public void widgetClick(View v) {
         switch (v.getId()) {
             case R.id.page_head_tab_image:
-                finish();
+                MedicalApplication.getInstance().finishActivity(this);
+//                finish();
                 break;
             case R.id.page_head_tab_search:
                 //搜索诊断
@@ -212,5 +219,14 @@ public class AddDiagnoseActivity extends BaseActivity {
 
             }
         });
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            MedicalApplication.getInstance().finishActivity(this);
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

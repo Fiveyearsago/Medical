@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -144,8 +145,14 @@ public class SelectDiagnoseActivity extends BaseActivity {
                     }else {
                         ptrClassicFrameLayout.loadMoreComplete(true);
                     }
+
                     String data = response.getData();
                     SpListDTO spListDTO = responseGson.fromJson(data, SpListDTO.class);
+                    int pageTotal = spListDTO.getPageTotal();
+                    if (list.size() == pageTotal) {
+                        ptrClassicFrameLayout.setNoMoreData();
+                        return;
+                    }
                     List<MtMedicalInjureItemDTO> injureItemList= spListDTO.getInjureItemList();
                     List<Diagnose> diagnoseList=new ArrayList<Diagnose>();
                     diagnoseList.clear();
@@ -182,7 +189,8 @@ public class SelectDiagnoseActivity extends BaseActivity {
     public void widgetClick(View v) {
         switch (v.getId()) {
             case R.id.page_third_head_image:
-                finish();
+//                finish();
+                MedicalApplication.getInstance().finishActivity(this);
                 break;
             case R.id.page_third_head_collect:
                 //搜索诊断
@@ -192,5 +200,14 @@ public class SelectDiagnoseActivity extends BaseActivity {
                 startActivity(intent);
                 break;
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            MedicalApplication.getInstance().finishActivity(this);
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

@@ -1,6 +1,8 @@
 package com.jy.medical.activities;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
@@ -10,6 +12,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bigkoo.alertview.AlertView;
+import com.bigkoo.alertview.OnItemClickListener;
 import com.jy.medical.MedicalApplication;
 import com.jy.medical.R;
 import com.jy.medical.adapter.PhotoPreAdapter;
@@ -57,10 +61,21 @@ public class PhotoPreActivity extends BaseActivity {
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        pictureList.clear();
+        list.clear();
+
+        pictureList = null;
+        list = null;
+        System.gc();
+    }
+
+    @Override
     public void initView() {
         setStatusBarTint();
         setDragEdge(SwipeBackLayout.DragEdge.LEFT);
-        MedicalApplication.getInstance().addActivity(this);
+//        MedicalApplication.getInstance().addActivity(this);
         View view = findViewById(R.id.title_head);
         setTitleState(view, true, "", true, "删除");
         deleteText = (TextView) view.findViewById(R.id.page_head_button);
@@ -150,11 +165,21 @@ public class PhotoPreActivity extends BaseActivity {
                 break;
             case R.id.page_head_button:
                 //删除照片
-                deletePhoto();
+                AlertView mAlertView = new AlertView("提示", "是否删除该图片？", "取消", new String[]{"确定"}, null, this, AlertView.Style.Alert, new OnItemClickListener() {
+                    @Override
+                    public void onItemClick(Object o, int position1) {
+                        if (position1 == 0) {
+                            deletePhoto();
+                        }
+                    }
+                }).setCancelable(true).setOnDismissListener(null);
+                mAlertView.show();
+
 
                 break;
         }
     }
+
 
     private void deletePhoto() {
         int currentIndex = viewPager.getCurrentItem();

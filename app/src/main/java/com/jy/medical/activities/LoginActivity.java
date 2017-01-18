@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -43,6 +44,8 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
+        Log.d("TAG", "Max memory is " + maxMemory + "KB");
         setHomeStatusBarTint();
         MedicalApplication.getInstance().addActivity(this);
 //        getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN);

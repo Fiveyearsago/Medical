@@ -1,6 +1,7 @@
 package com.jy.medical.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,7 +59,13 @@ public class SortAdapter extends BaseAdapter implements SectionIndexer {
         }
 
         viewHolder.tvTitle.setText(this.list.get(position).getName());
-
+//        final ViewHolder finalViewHolder = viewHolder;
+//        viewHolder.tvTitle.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                finalViewHolder.tvTitle.setBackgroundColor(Color.parseColor("#DDDDDD"));
+//            }
+//        });
         return view;
 
     }

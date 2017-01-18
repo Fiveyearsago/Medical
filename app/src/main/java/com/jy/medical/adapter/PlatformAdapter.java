@@ -83,6 +83,7 @@ public class PlatformAdapter extends BaseHeadFootAdapter {
         int gapNum = TimeUtil.getGapCount(platformData.getTime());
         Log.i("gapNum", gapNum + "天后超时" + platformData.getTime());
         if (gapNum < 0 && !platformData.getCommitFlag().equals("1")) {
+
             if (platformData.getIsAllFlag().equals("1")) {
                 viewHolder.viewLayout.setVisibility(View.GONE);
                 viewHolder.platformTag.setText("已超时");
@@ -90,15 +91,7 @@ public class PlatformAdapter extends BaseHeadFootAdapter {
                 viewHolder.platformTag.setBackground(context.getResources().getDrawable(R.drawable.platform_timeout));
 
             } else {
-                String string = "超时" + (-gapNum) + "天";
-                Log.i("gapNum", "超时" + gapNum + "天");
-                SpannableStringBuilder style = new SpannableStringBuilder(string);
-                style.setSpan(new ForegroundColorSpan(context.getResources().getColor(R.color.colorTimeout)), 2, 2 + (-gapNum + "").length(), Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
-                AbsoluteSizeSpan absoluteSizeSpan = new AbsoluteSizeSpan(42);
-                style.setSpan(absoluteSizeSpan, 2, 2 + (-gapNum + "").length(), Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
-//            viewHolder.platformTimeOutNum.setText(gapNum + "");
-                viewHolder.platformTimeOutNum.setText(style);
-                viewHolder.viewLayout.setVisibility(View.VISIBLE);
+
                 if (platformData.getIsDoingFlag() != null && platformData.getIsDoingFlag().equals("1")) {
                     viewHolder.platformTag.setText("进行中");
                     viewHolder.platformTag.setTextColor(context.getResources().getColor(R.color.white));
@@ -109,6 +102,15 @@ public class PlatformAdapter extends BaseHeadFootAdapter {
                     viewHolder.platformTag.setBackground(context.getResources().getDrawable(R.drawable.platform_undo));
                 }
             }
+            String string = "超时" + (-gapNum) + "天";
+            Log.i("gapNum", "超时" + gapNum + "天");
+            SpannableStringBuilder style = new SpannableStringBuilder(string);
+            style.setSpan(new ForegroundColorSpan(context.getResources().getColor(R.color.colorTimeout)), 2, 2 + (-gapNum + "").length(), Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
+            AbsoluteSizeSpan absoluteSizeSpan = new AbsoluteSizeSpan(42);
+            style.setSpan(absoluteSizeSpan, 2, 2 + (-gapNum + "").length(), Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
+//            viewHolder.platformTimeOutNum.setText(gapNum + "");
+            viewHolder.platformTimeOutNum.setText(style);
+            viewHolder.viewLayout.setVisibility(View.VISIBLE);
         } else if (gapNum >= 0 && !platformData.getCommitFlag().equals("1")) {
             if (platformData.getIsAllFlag().equals("1")) {
                 viewHolder.viewLayout.setVisibility(View.GONE);
@@ -117,14 +119,7 @@ public class PlatformAdapter extends BaseHeadFootAdapter {
                 viewHolder.platformTag.setBackground(context.getResources().getDrawable(R.drawable.platform_untimeout));
 
             } else {
-                gapNum++;
-                String string = gapNum + "天后超时";
-                SpannableStringBuilder style = new SpannableStringBuilder(string);
-                style.setSpan(new ForegroundColorSpan(context.getResources().getColor(R.color.colorYellow)), 0, (gapNum + "").length(), Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
-                AbsoluteSizeSpan absoluteSizeSpan = new AbsoluteSizeSpan(42);
-                style.setSpan(absoluteSizeSpan, 0, (gapNum + "").length(), Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
-                viewHolder.platformTimeOutNum.setText(style);
-                viewHolder.viewLayout.setVisibility(View.VISIBLE);
+
 
                 if (platformData.getIsDoingFlag() != null && platformData.getIsDoingFlag().equals("1")) {
                     viewHolder.platformTag.setText("进行中");
@@ -136,6 +131,14 @@ public class PlatformAdapter extends BaseHeadFootAdapter {
                     viewHolder.platformTag.setBackground(context.getResources().getDrawable(R.drawable.platform_undo));
                 }
             }
+            gapNum++;
+            String string = gapNum + "天后超时";
+            SpannableStringBuilder style = new SpannableStringBuilder(string);
+            style.setSpan(new ForegroundColorSpan(context.getResources().getColor(R.color.colorYellow)), 0, (gapNum + "").length(), Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
+            AbsoluteSizeSpan absoluteSizeSpan = new AbsoluteSizeSpan(42);
+            style.setSpan(absoluteSizeSpan, 0, (gapNum + "").length(), Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
+            viewHolder.platformTimeOutNum.setText(style);
+            viewHolder.viewLayout.setVisibility(View.VISIBLE);
 
         } else if (platformData.getCommitFlag().equals("1")) {
             viewHolder.platformTag.setText("已完成");

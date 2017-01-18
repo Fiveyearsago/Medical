@@ -1,5 +1,6 @@
 package com.jy.medical.activities;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -21,6 +23,7 @@ import com.jy.medical.adapter.LawAdapter;
 import com.jy.medical.adapter.ToolAdapter;
 import com.jy.medical.greendao.entities.LawData;
 import com.jy.medical.greendao.entities.ToolData;
+import com.jy.medical.util.DialogUtil;
 import com.jy.medical.util.JsonUtil;
 import com.jy.medical.util.PublicString;
 import com.jy.medical.util.ServerApiUtils;
@@ -37,7 +40,6 @@ public class ToolActivity extends BaseActivity {
     private List<LawData>list;
     private ToolAdapter adapter;
     private boolean mIsExit;
-    private ProgressDialog progressDialog;
 
     @Override
     public void initData() {
@@ -106,7 +108,7 @@ public class ToolActivity extends BaseActivity {
                 startActivity(CompensationActivity.class);
                 break;
             case R.id.radio_btn_budget:
-//                startActivity(MineActivity.class);
+                startActivity(BudgetActivity.class);
                 break;
 
             default:
@@ -114,6 +116,16 @@ public class ToolActivity extends BaseActivity {
         }
     }
 
+    public void showDialog() {
+        Dialog dialog = new Dialog(this, R.style.progress_dialog);
+        dialog.setContentView(R.layout.dialog);
+        dialog.setCancelable(true);
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        TextView msg = (TextView) dialog.findViewById(R.id.id_tv_loadingmsg);
+        msg.setText("正在加载中");
+        dialog.show();
+
+    }
     @Override
     protected void onResume() {
         super.onResume();
@@ -122,11 +134,7 @@ public class ToolActivity extends BaseActivity {
         radioPlatform.setChecked(false);
     }
     public void requestData(int page){
-        progressDialog = new ProgressDialog(this, R.style.Custom_Progress);
-        progressDialog.setMessage("正在加载中...");
-        progressDialog.setCanceledOnTouchOutside(false);
-//        progressDialog.setTitle("提示");
-        progressDialog.show();
+        DialogUtil.showDialog(this);
         QtLawsDTO qtLawsDTO=new QtLawsDTO();
         qtLawsDTO.setPageNo(page);
         qtLawsDTO.setPageSize(10);
@@ -139,9 +147,7 @@ public class ToolActivity extends BaseActivity {
                 Gson responseGson = new Gson();
                 Response response = responseGson.fromJson(result, Response.class);
                 if (response != null && "1".equals(response.getResponseCode())) {
-//                    if (progressDialog.isShowing()){
-//                        progressDialog.dismiss();
-//                    }
+                    DialogUtil.dismissDialog();
                     String data = response.getData();
                     Log.i("ResponseCode", response.getResponseCode());
                     List<LawData> newDataList= JsonUtil.changeToList(data);
@@ -153,7 +159,7 @@ public class ToolActivity extends BaseActivity {
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
-
+                DialogUtil.dismissDialog();
             }
 
             @Override

@@ -273,12 +273,12 @@ public class HomeActivity extends BaseActivity {
     }
 
     public void setWindowBackground(float alpha) {
-//        WindowManager.LayoutParams lp = this.getWindow().getAttributes();
-//        lp.alpha = alpha;
-//        this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-//        this.getWindow().setAttributes(lp);
-//        if (alpha > 0.5)
-//            this.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        WindowManager.LayoutParams lp = this.getWindow().getAttributes();
+        lp.alpha = alpha;
+        this.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        this.getWindow().setAttributes(lp);
+        if (alpha > 0.5)
+            this.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
     }
 
 

@@ -1,5 +1,6 @@
 package com.jy.medical.activities;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -77,6 +78,7 @@ public class LawActivity extends BaseActivity {
         viewPager.setCurrentItem(0);
     }
 
+
     @Override
     public void widgetClick(View v) {
         switch (v.getId()) {
@@ -85,6 +87,7 @@ public class LawActivity extends BaseActivity {
                 break;
             case R.id.nav_layout:
                 Intent intent=new Intent(this,SelectCityActivity.class);
+                intent.putExtra("currentCity", cityTV.getText());
                 startActivityForResult(intent,0x10);
                 break;
             default:

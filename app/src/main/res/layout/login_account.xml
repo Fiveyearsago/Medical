@@ -22,6 +22,7 @@
         android:paddingLeft="7dp"
         android:paddingRight="10dp"
         android:textColor="@color/black"
+        android:text="0131002498"
         android:textColorHint="@color/hintColor"
         android:textSize="15dp" />
 
@@ -36,6 +37,7 @@
         android:drawableRight="@mipmap/clear"
         android:hint="请输入密码"
         android:inputType="textPassword"
+        android:text="ta8888"
         android:paddingLeft="7dp"
         android:paddingRight="10dp"
         android:textColor="@color/black"

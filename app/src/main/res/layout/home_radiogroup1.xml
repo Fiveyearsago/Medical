@@ -16,7 +16,7 @@
             android:id="@+id/radioButton1"
             style="@style/HomeRadioStyle"
             android:drawableTop="@mipmap/base_info"
-            android:text="伤者基本信息" />
+            android:text="基本信息" />
 
         <View
             android:layout_width="0.5dp"

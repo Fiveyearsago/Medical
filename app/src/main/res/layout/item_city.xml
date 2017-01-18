@@ -13,6 +13,7 @@
         android:id="@+id/item_city"
         android:layout_width="match_parent"
         android:layout_height="34dp"
+        android:focusable="true"
         android:gravity="center"
         android:text="北京"
         android:background="@drawable/item_click_bg_selector"

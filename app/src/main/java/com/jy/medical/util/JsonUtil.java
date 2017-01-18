@@ -74,7 +74,7 @@ public class JsonUtil {
     }
 
     //保存下载医院信息
-    public static void saveHospitalData(List<HosptialDTO> hosptialList, List<DictKEYValueDTO> dictList) {
+    public static List<HospitalData> saveHospitalData(List<HosptialDTO> hosptialList, List<DictKEYValueDTO> dictList) {
         List<HospitalData> hospitalDatas=new ArrayList<>();
         List<MedicalDepartment> medicalDepartments=new ArrayList<>();
         for (int i = 0; i < hosptialList.size(); i++) {
@@ -89,5 +89,6 @@ public class JsonUtil {
         MedicalDepartmentManager departmentManager=DaoUtils.getDepartmentInstance();
         hospitalManager.insertData(hospitalDatas);
         departmentManager.insertData(medicalDepartments);
+        return hospitalDatas;
     }
 }
