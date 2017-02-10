@@ -134,7 +134,7 @@ public class ServerApiUtils {
         sendToServer(data, "002016", PublicString.URL_IFC, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                Log.i("result", result);
+//                Log.i("result", result);
                 Gson responseGson = new Gson();
                 Response response = responseGson.fromJson(result, Response.class);
                 if (response != null && "1".equals(response.getResponseCode())) {

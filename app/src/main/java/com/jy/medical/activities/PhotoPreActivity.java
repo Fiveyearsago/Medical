@@ -1,20 +1,16 @@
 package com.jy.medical.activities;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bigkoo.alertview.AlertView;
 import com.bigkoo.alertview.OnItemClickListener;
-import com.jy.medical.MedicalApplication;
 import com.jy.medical.R;
 import com.jy.medical.adapter.PhotoPreAdapter;
 import com.jy.medical.greendao.entities.TaskPhoto;
@@ -129,7 +125,11 @@ public class PhotoPreActivity extends BaseActivity {
                 taskPhotoManager = DaoUtils.getTaskPhotoInstance();
                 pictureList = taskPhotoManager.selectAllPhoto(taskNo);
                 for (int i = 0; i < pictureList.size(); i++) {
-                    Bitmap bmp = PhotoUtil.getSDCardImg(pictureList.get(i).getPhotoPath());
+                    Bitmap bmp = PhotoUtil.getNativeImage(pictureList.get(i).getPhotoPath());
+//                    Bitmap bmp = PhotoUtil.convertToBitmap(pictureList.get(i).getPhotoPath(),480,720);
+                    if (bmp == null) {
+                        Log.w("bmp", "bmp==null");
+                    }
                     list.add(bmp);
                 }
                 handler.post(new Runnable() {

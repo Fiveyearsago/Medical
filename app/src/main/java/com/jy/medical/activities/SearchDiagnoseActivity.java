@@ -166,7 +166,7 @@ public class SearchDiagnoseActivity extends BaseActivity implements TextView.OnE
     @Override
     public void onSuccess(String result) {
         //请求数据成功
-        Log.i("result", result);
+//        Log.i("result", result);
         Gson responseGson = new Gson();
         Response response = responseGson.fromJson(result, Response.class);
         String data = response.getData();

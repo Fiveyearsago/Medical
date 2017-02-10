@@ -14,6 +14,10 @@ android {
         versionName "1.0"
         multiDexEnabled false
     }
+    lintOptions {
+        abortOnError false
+    }
+
     splits {
         abi {
             enable true
@@ -110,4 +114,7 @@ dependencies {
     compile files('libs/Android_Map3D_SDK_V4.1.3_20161208.jar')
     compile files('libs/Amap_2DMap_V2.9.3_20161206.jar')
     compile files('libs/AMap_Location_V3.2.0_20161205.jar')
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
 }

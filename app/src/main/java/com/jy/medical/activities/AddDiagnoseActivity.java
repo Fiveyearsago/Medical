@@ -45,6 +45,7 @@ public class AddDiagnoseActivity extends BaseActivity {
     private SegmentTabLayout segmentTabLayout;
     private BaseFragmentPagerAdapter adapter;
     private String taskNo;
+    private List<Fragment> fragmentList;
 
     @Override
     public void initData() {
@@ -73,7 +74,7 @@ public class AddDiagnoseActivity extends BaseActivity {
         headView.findViewById(R.id.page_head_tab_search).setVisibility(View.GONE);
         segmentTabLayout = (SegmentTabLayout) headView.findViewById(R.id.segmentTabLayout);
         viewPager = (CustomViewpager) findViewById(R.id.viewPager);
-        List<Fragment> fragmentList=new ArrayList<>();
+        fragmentList = new ArrayList<>();
         Bundle bundle=new Bundle();
         bundle.putString("taskNo",taskNo);
         BodyFragment bodyFragment= BodyFragment.newInstance();
@@ -124,6 +125,8 @@ public class AddDiagnoseActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        fragmentList.clear();
+        fragmentList = null;
     }
 
     @Override

@@ -41,7 +41,6 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     protected final String TAG = this.getClass().getSimpleName();
     //应用是否销毁标志
     protected boolean isDestroy;
-
     private SwipeBackLayout swipeBackLayout;
     private ImageView ivShadow;
 

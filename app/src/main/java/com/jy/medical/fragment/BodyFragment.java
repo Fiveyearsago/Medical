@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import com.jy.medical.R;
 import com.jy.medical.activities.MaimHeadActivity;
 import com.jy.medical.activities.SelectDiagnoseActivity;
+import com.jy.medical.util.PhotoUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -144,8 +145,20 @@ public class BodyFragment extends Fragment {
                 imageViewList.add(imageView5);
                 imageViewList.add(imageView6);
                 imageViewList.add(imageView7);
-                Bitmap bitmap = ((BitmapDrawable) getContext().getResources().getDrawable(R.mipmap.body_front_1)).getBitmap();
                 bitmapList.clear();
+//                bitmapList.add(PhotoUtil.decodeSampledBitmapFromResource(getResources(),R.mipmap.body_front_1,720,1080));
+//                bitmapList.add(PhotoUtil.decodeSampledBitmapFromResource(getResources(),R.mipmap.body_front_2,720,1080));
+//                bitmapList.add(PhotoUtil.decodeSampledBitmapFromResource(getResources(),R.mipmap.body_front_3,720,1080));
+//                bitmapList.add(PhotoUtil.decodeSampledBitmapFromResource(getResources(),R.mipmap.body_front_4,720,1080));
+//                bitmapList.add(PhotoUtil.decodeSampledBitmapFromResource(getResources(),R.mipmap.body_front_5,720,1080));
+//                bitmapList.add(PhotoUtil.decodeSampledBitmapFromResource(getResources(),R.mipmap.body_front_6,720,1080));
+//                bitmapList.add(PhotoUtil.decodeSampledBitmapFromResource(getResources(),R.mipmap.body_front_7,720,1080));
+//                bitmapList.add(PhotoUtil.readBitMap(getActivity(),R.mipmap.body_front_2));
+//                bitmapList.add(PhotoUtil.readBitMap(getActivity(),R.mipmap.body_front_3));
+//                bitmapList.add(PhotoUtil.readBitMap(getActivity(),R.mipmap.body_front_4));
+//                bitmapList.add(PhotoUtil.readBitMap(getActivity(),R.mipmap.body_front_5));
+//                bitmapList.add(PhotoUtil.readBitMap(getActivity(),R.mipmap.body_front_6));
+//                bitmapList.add(PhotoUtil.readBitMap(getActivity(),R.mipmap.body_front_7));
                 bitmapList.add(((BitmapDrawable) getContext().getResources().getDrawable(R.mipmap.body_front_1)).getBitmap());
                 bitmapList.add(((BitmapDrawable) getContext().getResources().getDrawable(R.mipmap.body_front_2)).getBitmap());
                 bitmapList.add(((BitmapDrawable) getContext().getResources().getDrawable(R.mipmap.body_front_3)).getBitmap());
@@ -153,7 +166,21 @@ public class BodyFragment extends Fragment {
                 bitmapList.add(((BitmapDrawable) getContext().getResources().getDrawable(R.mipmap.body_front_5)).getBitmap());
                 bitmapList.add(((BitmapDrawable) getContext().getResources().getDrawable(R.mipmap.body_front_6)).getBitmap());
                 bitmapList.add(((BitmapDrawable) getContext().getResources().getDrawable(R.mipmap.body_front_7)).getBitmap());
-                bitmapPreList.clear();
+//                bitmapPreList.clear();
+//                bitmapPreList.add(PhotoUtil.decodeSampledBitmapFromResource(getResources(),R.mipmap.body_front_1_pressed,720,1080));
+//                bitmapPreList.add(PhotoUtil.decodeSampledBitmapFromResource(getResources(),R.mipmap.body_front_2_pressed,720,1080));
+//                bitmapPreList.add(PhotoUtil.decodeSampledBitmapFromResource(getResources(),R.mipmap.body_front_3_pressed,720,1080));
+//                bitmapPreList.add(PhotoUtil.decodeSampledBitmapFromResource(getResources(),R.mipmap.body_front_4_pressed,720,1080));
+//                bitmapPreList.add(PhotoUtil.decodeSampledBitmapFromResource(getResources(),R.mipmap.body_front_5_pressed,720,1080));
+//                bitmapPreList.add(PhotoUtil.decodeSampledBitmapFromResource(getResources(),R.mipmap.body_front_6_pressed,720,1080));
+//                bitmapPreList.add(PhotoUtil.decodeSampledBitmapFromResource(getResources(),R.mipmap.body_front_7_pressed,720,1080));
+//                bitmapPreList.add(PhotoUtil.readBitMap(getActivity(),R.mipmap.body_front_1_pressed));
+//                bitmapPreList.add(PhotoUtil.readBitMap(getActivity(),R.mipmap.body_front_2_pressed));
+//                bitmapPreList.add(PhotoUtil.readBitMap(getActivity(),R.mipmap.body_front_3_pressed));
+//                bitmapPreList.add(PhotoUtil.readBitMap(getActivity(),R.mipmap.body_front_4_pressed));
+//                bitmapPreList.add(PhotoUtil.readBitMap(getActivity(),R.mipmap.body_front_5_pressed));
+//                bitmapPreList.add(PhotoUtil.readBitMap(getActivity(),R.mipmap.body_front_6_pressed));
+//                bitmapPreList.add(PhotoUtil.readBitMap(getActivity(),R.mipmap.body_front_7_pressed));
                 bitmapPreList.add(((BitmapDrawable) getContext().getResources().getDrawable(R.mipmap.body_front_1_pressed)).getBitmap());
                 bitmapPreList.add(((BitmapDrawable) getContext().getResources().getDrawable(R.mipmap.body_front_2_pressed)).getBitmap());
                 bitmapPreList.add(((BitmapDrawable) getContext().getResources().getDrawable(R.mipmap.body_front_3_pressed)).getBitmap());
@@ -166,50 +193,8 @@ public class BodyFragment extends Fragment {
                 }
             }
         }.start();
-        new Thread() {
-            @Override
-            public void run() {
-
-                ImageView imageView1 = (ImageView) view.findViewById(R.id.imageViewHead1);
-                ImageView imageView2 = (ImageView) view.findViewById(R.id.imageViewHead2);
-                ImageView imageView3 = (ImageView) view.findViewById(R.id.imageViewHead3);
-                ImageView imageView4 = (ImageView) view.findViewById(R.id.imageViewHead4);
-                imageViewHeadList.clear();
-                imageViewHeadList.add(imageView1);
-                imageViewHeadList.add(imageView2);
-                imageViewHeadList.add(imageView3);
-                imageViewHeadList.add(imageView4);
-                bitmapHeadList.clear();
-                bitmapHeadList.add(((BitmapDrawable) getContext().getResources().getDrawable(R.mipmap.head_ear_normal)).getBitmap());
-                bitmapHeadList.add(((BitmapDrawable) getContext().getResources().getDrawable(R.mipmap.head_eye_normal)).getBitmap());
-                bitmapHeadList.add(((BitmapDrawable) getContext().getResources().getDrawable(R.mipmap.head_mouse_normal)).getBitmap());
-                bitmapHeadList.add(((BitmapDrawable) getContext().getResources().getDrawable(R.mipmap.head_nouse_normal)).getBitmap());
-                bitmapHeadPreList.clear();
-                bitmapHeadPreList.add(((BitmapDrawable) getContext().getResources().getDrawable(R.mipmap.head_ear_pressed)).getBitmap());
-                bitmapHeadPreList.add(((BitmapDrawable) getContext().getResources().getDrawable(R.mipmap.head_eye_pressed)).getBitmap());
-                bitmapHeadPreList.add(((BitmapDrawable) getContext().getResources().getDrawable(R.mipmap.head_mouse_pressed)).getBitmap());
-                bitmapHeadPreList.add(((BitmapDrawable) getContext().getResources().getDrawable(R.mipmap.head_nouse_pressed)).getBitmap());
-                for (int i = 0; i < imageViewHeadList.size(); i++) {
-                    imageViewHeadList.get(i).setOnTouchListener(new MyOnTouchListener1());
-                }
-            }
-        }.start();
-        new Thread() {
-            @Override
-            public void run() {
-
-                ImageView imageView1 = (ImageView) view.findViewById(R.id.imageViewBack1);
-                imageViewBackList.clear();
-                imageViewBackList.add(imageView1);
-                bitmapBackList.clear();
-                bitmapBackList.add(((BitmapDrawable) getContext().getResources().getDrawable(R.mipmap.body_back_normal)).getBitmap());
-                bitmapBackPreList.clear();
-                bitmapBackPreList.add(((BitmapDrawable) getContext().getResources().getDrawable(R.mipmap.body_back_pressed)).getBitmap());
-                for (int i = 0; i < imageViewBackList.size(); i++) {
-                    imageViewBackList.get(i).setOnTouchListener(new MyOnTouchListener2());
-                }
-            }
-        }.start();
+        initHeadPhoto(view);
+        initBackPhoto(view);
         return view;
     }
 
@@ -402,6 +387,75 @@ public class BodyFragment extends Fragment {
 
     }
 
+    public void initHeadPhoto(final View view) {
+        new Thread() {
+            @Override
+            public void run() {
+
+                ImageView imageView1 = (ImageView) view.findViewById(R.id.imageViewHead1);
+                ImageView imageView2 = (ImageView) view.findViewById(R.id.imageViewHead2);
+                ImageView imageView3 = (ImageView) view.findViewById(R.id.imageViewHead3);
+                ImageView imageView4 = (ImageView) view.findViewById(R.id.imageViewHead4);
+                imageViewHeadList.clear();
+                imageViewHeadList.add(imageView1);
+                imageViewHeadList.add(imageView2);
+                imageViewHeadList.add(imageView3);
+                imageViewHeadList.add(imageView4);
+                bitmapHeadList.clear();
+//                bitmapHeadList.add(PhotoUtil.decodeSampledBitmapFromResource(getResources(),R.mipmap.head_ear_normal,720,1080));
+//                bitmapHeadList.add(PhotoUtil.decodeSampledBitmapFromResource(getResources(),R.mipmap.head_eye_normal,720,1080));
+//                bitmapHeadList.add(PhotoUtil.decodeSampledBitmapFromResource(getResources(),R.mipmap.head_mouse_normal,720,1080));
+//                bitmapHeadList.add(PhotoUtil.decodeSampledBitmapFromResource(getResources(),R.mipmap.head_nouse_normal,720,1080));
+//                bitmapHeadList.add(PhotoUtil.readBitMap(getActivity(),R.mipmap.head_ear_normal));
+//                bitmapHeadList.add(PhotoUtil.readBitMap(getActivity(),R.mipmap.head_eye_normal));
+//                bitmapHeadList.add(PhotoUtil.readBitMap(getActivity(),R.mipmap.head_mouse_normal));
+//                bitmapHeadList.add(PhotoUtil.readBitMap(getActivity(),R.mipmap.head_nouse_normal));
+                bitmapHeadList.add(((BitmapDrawable) getContext().getResources().getDrawable(R.mipmap.head_ear_normal)).getBitmap());
+                bitmapHeadList.add(((BitmapDrawable) getContext().getResources().getDrawable(R.mipmap.head_eye_normal)).getBitmap());
+                bitmapHeadList.add(((BitmapDrawable) getContext().getResources().getDrawable(R.mipmap.head_mouse_normal)).getBitmap());
+                bitmapHeadList.add(((BitmapDrawable) getContext().getResources().getDrawable(R.mipmap.head_nouse_normal)).getBitmap());
+                bitmapHeadPreList.clear();
+//                bitmapHeadPreList.add(PhotoUtil.decodeSampledBitmapFromResource(getResources(),R.mipmap.head_ear_pressed,720,1080));
+//                bitmapHeadPreList.add(PhotoUtil.decodeSampledBitmapFromResource(getResources(),R.mipmap.head_eye_pressed,720,1080));
+//                bitmapHeadPreList.add(PhotoUtil.decodeSampledBitmapFromResource(getResources(),R.mipmap.head_mouse_pressed,720,1080));
+//                bitmapHeadPreList.add(PhotoUtil.decodeSampledBitmapFromResource(getResources(),R.mipmap.head_nouse_pressed,720,1080));
+//                bitmapHeadPreList.add(PhotoUtil.readBitMap(getActivity(),R.mipmap.head_ear_pressed));
+//                bitmapHeadPreList.add(PhotoUtil.readBitMap(getActivity(),R.mipmap.head_eye_pressed));
+//                bitmapHeadPreList.add(PhotoUtil.readBitMap(getActivity(),R.mipmap.head_mouse_pressed));
+//                bitmapHeadPreList.add(PhotoUtil.readBitMap(getActivity(),R.mipmap.head_nouse_pressed));
+                bitmapHeadPreList.add(((BitmapDrawable) getContext().getResources().getDrawable(R.mipmap.head_ear_pressed)).getBitmap());
+                bitmapHeadPreList.add(((BitmapDrawable) getContext().getResources().getDrawable(R.mipmap.head_eye_pressed)).getBitmap());
+                bitmapHeadPreList.add(((BitmapDrawable) getContext().getResources().getDrawable(R.mipmap.head_mouse_pressed)).getBitmap());
+                bitmapHeadPreList.add(((BitmapDrawable) getContext().getResources().getDrawable(R.mipmap.head_nouse_pressed)).getBitmap());
+                for (int i = 0; i < imageViewHeadList.size(); i++) {
+                    imageViewHeadList.get(i).setOnTouchListener(new MyOnTouchListener1());
+                }
+            }
+        }.start();
+    }
+
+    public void initBackPhoto(final View view) {
+        new Thread() {
+            @Override
+            public void run() {
+
+                ImageView imageView1 = (ImageView) view.findViewById(R.id.imageViewBack1);
+                imageViewBackList.clear();
+                imageViewBackList.add(imageView1);
+                bitmapBackList.clear();
+                bitmapBackList.add(((BitmapDrawable) getContext().getResources().getDrawable(R.mipmap.body_back_normal)).getBitmap());
+//                bitmapBackList.add(PhotoUtil.readBitMap(getActivity(),R.mipmap.body_back_normal));
+//                bitmapBackList.add(PhotoUtil.decodeSampledBitmapFromResource(getResources(),R.mipmap.body_back_normal,720,1080));
+                bitmapBackPreList.clear();
+                bitmapBackPreList.add(((BitmapDrawable) getContext().getResources().getDrawable(R.mipmap.body_back_pressed)).getBitmap());
+//                bitmapBackPreList.add(PhotoUtil.readBitMap(getActivity(),R.mipmap.body_back_pressed));
+//                bitmapBackPreList.add(PhotoUtil.decodeSampledBitmapFromResource(getResources(),R.mipmap.body_back_pressed,720,1080));
+                for (int i = 0; i < imageViewBackList.size(); i++) {
+                    imageViewBackList.get(i).setOnTouchListener(new MyOnTouchListener2());
+                }
+            }
+        }.start();
+    }
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
